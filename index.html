@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EatMeFirst - Benvenuto</title>
+
+    <!-- CONTROLLORE BROWSER: SE GIÀ REGISTRATO SALTA LA PRESENTAZIONE -->
+    <script>
+        (function() {
+            var userLang = (navigator.language || navigator.userLanguage || 'it').substring(0, 2).toLowerCase();
+            var lingueSupportate = ['it', 'en', 'de', 'fr', 'es'];
+            var linguaDestinazione = lingueSupportate.includes(userLang) ? userLang.toUpperCase() : 'IT';
+
+            if (localStorage.getItem('eatmefirst_consent') === 'accepted') {
+                window.location.href = linguaDestinazione + '/menu.html';
+            } else {
+                window.location.href = linguaDestinazione + '/index.html';
+            }
+        })();
+    </script>
+</head>
+<body>
+    <!-- Pagina di transito invisibile: reindirizza istantaneamente alla cartella della lingua -->
+</body>
+</html>
