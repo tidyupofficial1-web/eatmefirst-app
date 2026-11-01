@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía Fecha de Caducidad | EatMeFirst</title>
+    <meta name="robots" content="noindex, nofollow">
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --card-bg: #161b22;
+            --text-color: #f0f6fc;
+            --postit-bg: #fff59d;
+            --postit-text: #333333;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 20px 16px;
+        }
+
+        .container {
+            max-width: 650px;
+            margin: 20px auto;
+            width: 100%;
+        }
+
+        .postit-card {
+            background-color: var(--postit-bg);
+            color: var(--postit-text);
+            padding: 30px 26px;
+            border-radius: 4px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            position: relative;
+            transform: rotate(-0.4deg);
+        }
+
+        .postit-card::before {
+            content: '';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 24px;
+            height: 24px;
+            background: #f44336;
+            border-radius: 50%;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.4), inset -2px -2px 4px rgba(0,0,0,0.3);
+        }
+
+        h1 { font-size: 21px; margin-bottom: 18px; color: #1a1a1a; display: flex; align-items: center; gap: 8px; }
+        
+        .discorso-guida {
+            font-size: 15px;
+            line-height: 1.65;
+            color: #222;
+        }
+
+        .discorso-guida p {
+            margin-bottom: 14px;
+        }
+
+        .scadenza-box {
+            background: rgba(255, 152, 0, 0.15);
+            border-left: 4px solid #ff9800;
+            padding: 14px 16px;
+            border-radius: 4px;
+            margin: 18px 0;
+            font-size: 14.5px;
+            line-height: 1.6;
+        }
+
+        .max-idea-box {
+            background: rgba(33, 150, 243, 0.15);
+            border-left: 4px solid #2196f3;
+            padding: 14px 16px;
+            border-radius: 4px;
+            margin: 18px 0;
+            font-size: 14.5px;
+            line-height: 1.6;
+        }
+
+        .btn-close {
+            display: inline-block;
+            margin-top: 20px;
+            background: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: background 0.2s;
+        }
+
+        .btn-close:hover { background: #000; }
+    </style>
+</head>
+<body>
+
+    <main class="container">
+        <article class="postit-card">
+            <h1>📅 Fecha de Caducidad: ¿Estricta o a Ojo?</h1>
+            
+            <div class="discorso-guida">
+                <p>Esta casilla es importantísima para algunos productos y totalmente inútil para otros. ¡No tenemos que hacernos los restauradores estrictos ni volverte loco buscando las fechas grabadas en relieve en los puntos más ocultos de los envases: hacerlo solo te haría perder el tiempo!</p>
+
+                <p><strong>¿Cómo comportarse en la práctica?</strong></p>
+
+                <p><strong>1. Productos No Alimentarios (Sin Caducidad):</strong> Si has escaneado un paquete de servilletas de papel, papel higiénico o platos desechables, ¡la fecha de caducidad no existe! Te bastará con seleccionar <em>"Ninguna"</em> o dejar el campo vacío.</p>
+
+                <p><strong>2. Productos Frescos (Caducidad ESTRICTA):</strong> Para una pechuga de pollo, una salchicha fresca, la leche o una mozzarella, la fecha debe ser precisa. Aquí, al día siguiente de la caducidad, te arriesgas de verdad a tener que tirarlo todo, y es fundamental que la aplicación te avise a tiempo para evitar el desperdicio.</p>
+
+                <div class="scadenza-box">
+                    💡 <strong>3. Consumo Preferente ("Consumir preferentemente antes de"):</strong><br><br>
+                    Para una lata de atún, de sardinas en aceite, la pasta o las legumbres secas, un año arriba o abajo, ¡la conservación es larguísima! No pierdas tiempo buscando el día exacto impreso en caracteres diminutos en el fondo de la lata. En función de tu experiencia sabes perfectamente cuánto tiempo puedes conservar ese producto: si sabes que caduca en 2028, pon una fecha orientativa hacia finales de ese año.<br><br>
+                    Recuerda la regla de oro: la frase <em>"Consumir preferentemente antes de"</em> no es una frontera estricta más allá de la cual la comida se convierte en veneno. Es solo una fecha recomendada por el fabricante para garantizar la máxima frescura. ¡Hay amplios márgenes de seguridad y, al final, los mejores controladores siguen siendo tus ojos y tu nariz!<br><br>
+                    De todas formas, debes saber que si quieres introducir la fecha real impresa en el envase no hay ningún problema; es más, te ahorro el tiempo de buscar la fecha haciendo que no tengas que mover el cursor cuando hayas completado la casilla del día, del mes y las dos últimas del año, ya que saltará automáticamente en cuanto completes el campo.
+                </div>
+
+                <div class="max-idea-box">
+                    ⭐ <strong>Las Ideas Geniales de la App (¡Inspiradas por mi amigo Max!):</strong><br><br>
+                    <strong>• Aviso de consumo inteligente:</strong> Digamos que has comprado 36 huevos que caducan en un mes. Si a mitad de mes la app nota que todavía te quedan 20 y que a tu ritmo actual no vas a terminar a tiempo, te enviará un aviso (mensaje emergente en la app o por correo electrónico) diciendo: <em>"¡Oye, vas tarde con los huevos! Aumenta el consumo o te arriesgas a tener que tirarlos"</em>.<br><br>
+                    <strong>• Lista de la Compra Preventiva:</strong> Es verdad que la app incluye en la lista los productos agotados, pero si te ha quedado un solo huevo en la despensa, ¡te arriesgas a quedarte sin nada el día después de hacer la compra! La app, haciendo estos cálculos, te pondrá igualmente en la lista de la compra aquellos productos que están a punto de agotarse y te dirá: <em>"Solo te queda 1 huevo, ¿quieres volver a comprarlo?"</em>. ¡Tú siempre serás quien decida si volver a comprarlo o no (quizás te vas de vacaciones y prefieres vaciar la despensa!).
+                </div>
+
+                <p><em>(En resumen: ¡la fecha le sirve a la aplicación para ordenar los productos según su caducidad con el fin de ofrecerte primero los más antiguos!)</em></p>
+            </div>
+
+            <a href="carga-productos.html" class="btn-close">← Volver a la Carga</a>
+        </article>
+    </main>
+
+</body>
+</html>

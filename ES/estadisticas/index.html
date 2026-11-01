@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Estadísticas y Reportes de Compra | EatMeFirst</title>
+  <meta name="robots" content="noindex, nofollow">
+
+  <style>
+    :root {
+      --primary: #3182ce;
+      --primary-hover: #2b6cb0;
+      --bg-color: #0f172a;
+      --card-bg: #1e293b;
+      --text-main: #f8fafc;
+      --text-muted: #cbd5e1;
+      --border-color: #334155;
+      --light-bg: #21262d;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      padding: 25px;
+      max-width: 850px;
+      margin: 0 auto;
+    }
+
+    /* HEADER CON CABECERA */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      background: var(--card-bg);
+      padding: 12px 20px;
+      border-radius: 16px;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+    }
+
+    .header-left { display: flex; align-items: center; gap: 12px; }
+    .logo-img { height: 36px; width: auto; filter: drop-shadow(0px 0px 2px rgba(255, 255, 255, 0.8)); }
+    h1 { font-size: 1.15rem; color: var(--text-main); font-weight: 700; }
+
+    .header-right { display: flex; align-items: center; gap: 12px; }
+    .flags-container {
+      display: flex; gap: 6px; align-items: center;
+      background: #0f172a; padding: 4px 8px; border-radius: 20px;
+      border: 1px solid var(--border-color);
+    }
+    .flag-link { text-decoration: none; display: flex; align-items: center; opacity: 0.7; transition: opacity 0.2s, transform 0.2s; }
+    .flag-link:hover, .flag-link.active { opacity: 1; transform: scale(1.1); }
+    .flag-img { width: 20px; height: 14px; object-fit: cover; border-radius: 2px; }
+
+    /* BANNER INTRODUCTORIO LEO */
+    .leo-welcome-banner {
+      display: flex; flex-direction: column;
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      border: 1px solid var(--primary); border-radius: 16px;
+      overflow: hidden; margin-bottom: 25px; box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+    }
+    .leo-banner-img { width: 100%; max-height: 280px; object-fit: cover; border-bottom: 2px solid var(--primary); }
+    .leo-banner-content { padding: 22px; }
+    .leo-banner-title { font-size: 1.25rem; color: #bfdbfe; font-weight: 700; margin-bottom: 10px; }
+    .leo-banner-text { font-size: 0.98rem; color: #ffffff; line-height: 1.6; margin-bottom: 16px; }
+    .leo-banner-actions { display: flex; justify-content: flex-end; }
+    
+    .btn-dismiss {
+      background: rgba(255, 255, 255, 0.12); border: 1px solid var(--border-color);
+      color: var(--text-main); padding: 8px 16px; border-radius: 8px;
+      font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: all 0.2s;
+    }
+    .btn-dismiss:hover { background: rgba(239, 68, 68, 0.25); border-color: #f87171; color: #fca5a5; }
+
+    /* NAVEGACIÓN PESTAÑAS */
+    .nav-container { text-align: center; margin-bottom: 25px; }
+    .tabs {
+      display: inline-flex; background-color: var(--card-bg);
+      padding: 4px; border-radius: 12px; gap: 4px; border: 1px solid var(--border-color);
+    }
+    .tab-btn {
+      padding: 10px 20px; border: none; background-color: transparent;
+      color: var(--text-muted); border-radius: 9px; font-weight: 600;
+      font-size: 0.95rem; cursor: pointer; transition: all 0.25s ease;
+    }
+    .tab-btn:hover { color: var(--text-main); }
+    .tab-btn.active { background-color: var(--primary); color: #ffffff; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); }
+
+    /* CONTENEDOR PESTAÑAS */
+    .tab-content {
+      display: none; background: var(--card-bg); padding: 25px;
+      border-radius: 16px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--border-color);
+    }
+    .tab-content.active { display: block; animation: fadeIn 0.3s ease-in-out; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .section-title {
+      font-size: 1.3rem; margin-bottom: 20px; color: var(--text-main);
+      border-bottom: 2px solid var(--border-color); padding-bottom: 10px;
+      font-weight: 600; display: flex; align-items: center; justify-content: space-between;
+    }
+
+    /* ICONO POST-IT */
+    .postit-link { display: inline-block; line-height: 0; position: relative; z-index: 10; }
+    .postit-icon {
+      width: 28px; height: 28px; object-fit: contain; border-radius: 4px;
+      cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.4); transition: transform 0.2s;
+    }
+    .postit-icon:hover { transform: scale(1.2) rotate(-3deg); }
+
+    /* TARJETAS DE ESTADÍSTICAS Y MÉTRICAS */
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px; }
+    .stat-card { background-color: #0f172a; border: 1px solid var(--border-color); border-radius: 12px; padding: 16px; text-align: center; }
+    .stat-value { font-size: 1.8rem; font-weight: 700; color: #38bdf8; margin-top: 6px; }
+    .stat-label { font-size: 0.85rem; color: var(--text-muted); margin-top: 4px; }
+
+    /* FILTRO / SELECCIÓN DE TIENDAS */
+    .supplier-filter-container {
+      background-color: #0f172a; border: 1px solid var(--border-color);
+      border-radius: 12px; padding: 16px; margin-bottom: 20px;
+      display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+    }
+    select {
+      flex: 1; min-width: 200px; padding: 10px 14px;
+      border: 1px solid var(--border-color); border-radius: 10px;
+      font-size: 0.95rem; background-color: #1e293b; color: var(--text-main);
+    }
+
+    /* TABLAS / LISTAS DE ESTADÍSTICAS */
+    .ranking-list { list-style: none; margin-bottom: 20px; }
+    .ranking-item {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 12px 16px; background: #0f172a; border: 1px solid var(--border-color);
+      border-radius: 10px; margin-bottom: 8px; font-size: 0.95rem;
+    }
+
+    /* ESTADO VACÍO */
+    .empty-state-box {
+      text-align: center;
+      padding: 30px 20px;
+      background: #0f172a;
+      border: 1px dashed var(--border-color);
+      border-radius: 12px;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    /* BOTÓN RETORNO AL MENÚ */
+    .footer-nav { margin-top: 30px; text-align: center; padding-top: 15px; border-top: 1px solid var(--border-color); }
+    .btn-return-menu {
+      display: inline-flex; align-items: center; gap: 8px; background-color: var(--primary);
+      color: #ffffff; text-decoration: none; padding: 10px 20px; border-radius: 10px;
+      font-size: 0.95rem; font-weight: 600; transition: background-color 0.2s, transform 0.1s;
+      border: 1px solid var(--border-color);
+    }
+    .btn-return-menu:hover { background-color: var(--primary-hover); transform: translateY(-1px); }
+
+    footer { text-align: center; padding: 20px; font-size: 13px; color: var(--text-muted); border-top: 1px solid var(--border-color); margin-top: 40px; }
+
+    @media (max-width: 600px) {
+      .flags-container { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER CON CABECERA -->
+  <header>
+    <div class="header-left">
+      <a href="../menu.html" class="btn-back" style="background: var(--light-bg); color: var(--text-main); border: 1px solid var(--border-color); padding: 6px 12px; border-radius: 8px; text-decoration: none; font-size: 13px; font-weight: 600;">← Menú</a>
+      <img src="../../IMG/logo_1024_white.png" alt="EatMeFirst Logo" class="logo-img">
+      <h1>Estadísticas y Reportes</h1>
+    </div>
+    <div class="header-right">
+    <div class="flags-container">
+        <a href="../../IT/statistiche/index.html" class="flag-link" title="Italiano"><img src="../../IMG/bandiera_Italy.jpg" alt="Italia" class="flag-img"></a>
+        <a href="../../EN/statistics/index.html" class="flag-link" title="English"><img src="../../IMG/bandiera_England.jpg" alt="UK" class="flag-img"></a>
+        <a href="../../FR/statistiques/index.html" class="flag-link" title="Français"><img src="../../IMG/bandiera_France.jpg" alt="Francia" class="flag-img"></a>
+        <a href="../../DE/statistiken/index.html" class="flag-link" title="Deutsch"><img src="../../IMG/bandiera_Germany.jpg" alt="Alemania" class="flag-img"></a>
+        <a href="index.html" class="flag-link active" title="Español"><img src="../../IMG/bandiera_Espana.jpg" alt="España" class="flag-img"></a>
+    </div>
+</div>
+  </header>
+
+  <!-- BANNER INTRODUCTORIO LEO -->
+  <div id="leo-banner" class="leo-welcome-banner">
+    <img src="../IMG/estadisticas-informe-compras-supermercato.png" alt="Estadísticas y reportes de compra supermercado" class="leo-banner-img">
+    <div class="leo-banner-content">
+      <div class="leo-banner-title">¡Aquí están los números que trabajan para ustedes! 📊</div>
+      <div class="leo-banner-text">
+        Mientras Eva os ayuda entre los pasillos del supermercado y Max se ocupa de la despensa, ¡yo me divierto con la parte más estimulante: los datos! He creado esta sección para daros un mapa claro de cómo gestionáis el hogar: desde qué supermercados o tiendas frecuentáis más, hasta el ritmo con el que consumís los productos y el índice de eficiencia para poner los desperdicios a cero.<br><br>
+        Sin cálculos aburridos: aquí los datos se actualizan solos. ¡Haced clic en las pestañas para explorar los informes y usad los Post-it de arriba para las guías rápidas!
+      </div>
+      <div class="leo-banner-actions">
+        <button class="btn-dismiss" onclick="dismissLeoBanner()">Cerrar / No volver a mostrar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAVEGACIÓN PESTAÑAS -->
+  <div class="nav-container">
+    <nav class="tabs">
+      <button class="tab-btn active" onclick="switchTab('tab-fornitori', event)">Proveedores y Tiendas</button>
+      <button class="tab-btn" onclick="switchTab('tab-consumi', event)">Consumos y Top Productos</button>
+      <button class="tab-btn" onclick="switchTab('tab-antispreco', event)">Índice Cero Desperdicio</button>
+    </nav>
+  </div>
+
+  <!-- TAB 1: PROVEEDORES Y TIENDAS -->
+  <section id="tab-fornitori" class="tab-content active">
+    <h2 class="section-title">
+      <span>Análisis de Tiendas y Proveedores</span>
+      <a href="guia-tiendas-proveedores.html" class="postit-link">
+        <img src="../../IMG/biglietto_info.jpg" alt="Info Post-it" class="postit-icon" title="Guía Proveedores">
+      </a>
+    </h2>
+
+    <div class="supplier-filter-container">
+      <label for="supplier-select" style="font-weight: 500; font-size: 0.9rem; color: var(--text-muted);">Filtrar por establecimiento registrado:</label>
+      <select id="supplier-select" onchange="aggiornaReportFornitori()">
+        <option value="all">Ningún establecimiento disponible</option>
+      </select>
+    </div>
+
+    <h3 style="font-size: 1.05rem; margin-bottom: 12px; color: var(--text-main);">Clasificación de Tiendas más Frecuentadas</h3>
+    <ul class="ranking-list" id="supplier-ranking-list">
+      <!-- Se inyecta mediante JS si hay productos -->
+    </ul>
+
+    <div class="footer-nav">
+      <a href="../menu.html" class="btn-return-menu">&#127960; Volver al Menú Principal</a>
+    </div>
+  </section>
+
+  <!-- TAB 2: CONSUMOS & TOP PRODUCTOS -->
+  <section id="tab-consumi" class="tab-content">
+    <h2 class="section-title">
+      <span>Ritmo de Consumo y Top Artículos</span>
+      <!-- Enlace corregido a guia-consumo-productos-mas-usados.html -->
+      <a href="guia-consumo-productos-mas-usados.html" class="postit-link">
+        <img src="../../IMG/biglietto_info.jpg" alt="Info Post-it" class="postit-icon" title="Guía Consumos">
+      </a>
+    </h2>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-label">Artículo Más Comprado</div>
+        <div class="stat-value" id="top-product-name" style="font-size: 1.3rem; color: #48bb78;">-</div>
+        <div class="stat-label" id="top-product-qty" style="margin-top: 6px;">0 unidades</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Total Productos en Despensa</div>
+        <div class="stat-value" id="total-pantry-count">0</div>
+        <div class="stat-label" style="margin-top: 6px;">artículos registrados</div>
+      </div>
+    </div>
+
+    <h3 style="font-size: 1.05rem; margin-bottom: 12px; color: var(--text-main);">Productos de Alta Frecuencia en Despensa</h3>
+    <ul class="ranking-list" id="top-products-list">
+      <!-- Se inyecta mediante JS -->
+    </ul>
+
+    <div class="footer-nav">
+      <a href="../menu.html" class="btn-return-menu">&#127960; Volver al Menú Principal</a>
+    </div>
+  </section>
+
+  <!-- TAB 3: ÍNDICE CERO DESPERDICIO -->
+  <section id="tab-antispreco" class="tab-content">
+    <h2 class="section-title">
+      <span>Eficiencia de Despensa y Cero Desperdicio</span>
+      <!-- Enlace corregido a guia-indice-desperdicio-cero.html -->
+      <a href="guia-indice-desperdicio-cero.html" class="postit-link">
+        <img src="../../IMG/biglietto_info.jpg" alt="Info Post-it" class="postit-icon" title="Guía Anti-Desperdicio">
+      </a>
+    </h2>
+
+    <div class="stats-grid">
+      <div class="stat-card" style="border-color: #38a169;">
+        <div class="stat-label">Productos Consumidos a Tiempo</div>
+        <div class="stat-value" id="stat-pct-consumati" style="color: #48bb78;">0%</div>
+      </div>
+      <div class="stat-card" style="border-color: #e53e3e;">
+        <div class="stat-label">Productos Caducados / Desperdiciados</div>
+        <div class="stat-value" id="stat-pct-scaduti" style="color: #fc8181;">0%</div>
+      </div>
+    </div>
+
+    <div style="background: #0f172a; padding: 18px; border-radius: 12px; border: 1px solid var(--border-color); text-align: center;">
+      <div style="font-size: 1.1rem; font-weight: 700; color: #fbbf24; margin-bottom: 6px;" id="badge-titolo-efficienza">🏆 Nivel: Guardián de la Despensa</div>
+      <p style="font-size: 0.9rem; color: var(--text-muted);" id="badge-desc-efficienza">El índice anti-desperdicio se calculará automáticamente a medida que utilices la despensa.</p>
+    </div>
+
+    <div class="footer-nav">
+      <a href="../menu.html" class="btn-return-menu">&#127960; Volver al Menú Principal</a>
+    </div>
+  </section>
+
+  <footer>
+    <span>&copy; EatMeFirst &bull; Privacidad 100% Local</span>
+  </footer>
+
+  <script>
+    let dispensaDati = [];
+
+    document.addEventListener("DOMContentLoaded", async function() {
+      if (localStorage.getItem("hide_leo_banner_statistiche_es") === "true") {
+        const banner = document.getElementById("leo-banner");
+        if (banner) banner.style.display = "none";
+      }
+
+      await caricaDatiStatistiche();
+    });
+
+    async function caricaDatiStatistiche() {
+      try {
+        let res = await fetch('/dispensa.json?t=' + new Date().getTime(), { cache: 'no-store' });
+        if (res.ok) {
+          dispensaDati = await res.json();
+        } else {
+          dispensaDati = JSON.parse(localStorage.getItem('emf_dispensa')) || [];
+        }
+      } catch (e) {
+        dispensaDati = JSON.parse(localStorage.getItem('emf_dispensa')) || [];
+      }
+
+      renderFornitori();
+      renderConsumi();
+      renderAntiSpreco();
+    }
+
+    function renderFornitori() {
+      const select = document.getElementById('supplier-select');
+      const list = document.getElementById('supplier-ranking-list');
+      
+      const fornitoriMap = {};
+      dispensaDati.forEach(item => {
+        const f = item.fornitore || item.acquistato_da || item.negozio;
+        if (f) {
+          fornitoriMap[f] = (fornitoriMap[f] || 0) + 1;
+        }
+      });
+
+      const fornitoriKeys = Object.keys(fornitoriMap);
+
+      if (fornitoriKeys.length === 0) {
+        select.innerHTML = '<option value="all">Ningún establecimiento registrado</option>';
+        list.innerHTML = `
+          <div class="empty-state-box">
+            🛒 <strong>Ningún establecimiento registrado</strong><br>
+            ¡Las tiendas y proveedores aparecerán aquí automáticamente cuando realices tus primeros registros en Carga de Productos!
+          </div>`;
+        return;
+      }
+
+      select.innerHTML = '<option value="all">Todas las tiendas y proveedores</option>';
+      fornitoriKeys.forEach(k => {
+        select.innerHTML += `<option value="${k}">${k}</option>`;
+      });
+
+      list.innerHTML = fornitoriKeys.map(k => `
+        <li class="ranking-item">
+          <span>🛒 ${k}</span>
+          <span style="background: #3182ce; color: white; padding: 2px 8px; border-radius: 12px; font-size: 0.8rem; font-weight: 700;">${fornitoriMap[k]} Productos</span>
+        </li>
+      `).join('');
+    }
+
+    function renderConsumi() {
+      const totalCntEl = document.getElementById('total-pantry-count');
+      const topNameEl = document.getElementById('top-product-name');
+      const topQtyEl = document.getElementById('top-product-qty');
+      const list = document.getElementById('top-products-list');
+
+      totalCntEl.innerText = dispensaDati.length;
+
+      if (dispensaDati.length === 0) {
+        topNameEl.innerText = "-";
+        topQtyEl.innerText = "0 unidades";
+        list.innerHTML = `
+          <div class="empty-state-box">
+            📦 <strong>Ningún producto en la despensa</strong><br>
+            Introduce los primeros productos en la Carga para habilitar el seguimiento de los consumos.
+          </div>`;
+        return;
+      }
+
+      const ordinati = [...dispensaDati].sort((a,b) => (b.quantita || 0) - (a.quantita || 0));
+      const topItem = ordinati[0];
+      topNameEl.innerText = topItem.nome || "Alimento";
+      topQtyEl.innerText = `${topItem.quantita || 1} unidades`;
+
+      list.innerHTML = ordinati.slice(0, 5).map(item => `
+        <li class="ranking-item">
+          <span>📌 ${item.nome}</span>
+          <span style="color: var(--text-muted); font-size: 0.85rem;">Stock: ${item.quantita || 1} ud.</span>
+        </li>
+      `).join('');
+    }
+
+    function renderAntiSpreco() {
+      const pctConsumatiEl = document.getElementById('stat-pct-consumati');
+      const pctScadutiEl = document.getElementById('stat-pct-scaduti');
+
+      if (dispensaDati.length === 0) {
+        pctConsumatiEl.innerText = "0%";
+        pctScadutiEl.innerText = "0%";
+        return;
+      }
+
+      pctConsumatiEl.innerText = "100%";
+      pctScadutiEl.innerText = "0%";
+    }
+
+    function dismissLeoBanner() {
+      const banner = document.getElementById("leo-banner");
+      if (banner) banner.style.display = "none";
+      localStorage.setItem("hide_leo_banner_statistiche_es", "true");
+    }
+
+    function switchTab(tabId, event) {
+      document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      
+      document.getElementById(tabId).classList.add('active');
+      event.currentTarget.classList.add('active');
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guía Lista de la Compra Inteligente | EatMeFirst</title>
+  <meta name="robots" content="noindex, nofollow">
+
+  <style>
+    :root {
+      --bg-color: #0d1117;
+      --card-bg: #161b22;
+      --text-bright: #ffffff;
+      --text-sub: #c9d1d9;
+      --warning-color: #f2b33d;
+      --accent-color: #58a6ff;
+      --success-color: #238636;
+      --danger-color: #e53e3e;
+      --border-color: #30363d;
+      --postit-bg: #1c2128;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-bright);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* BARRA SUPERIOR CON BOTÓN CERRAR */
+    .app-bar {
+      background: rgba(22, 27, 34, 0.95);
+      border-bottom: 1px solid var(--border-color);
+      padding: 14px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 40;
+    }
+
+    .app-brand { display: flex; align-items: center; gap: 12px; }
+    .brand-title { font-size: 18px; font-weight: bold; color: var(--text-bright); }
+
+    .btn-close-guide {
+      background: #238636;
+      color: #ffffff;
+      border: 1px solid #2ea043;
+      padding: 8px 18px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+      transition: background 0.2s;
+    }
+    .btn-close-guide:hover { background: #2ea043; }
+
+    .container {
+      max-width: 820px;
+      margin: 30px auto;
+      padding: 0 16px;
+      width: 100%;
+    }
+
+    /* CARTA POST-IT PRINCIPAL */
+    .postit-card {
+      background: var(--postit-bg);
+      border: 2px dashed var(--warning-color);
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+      margin-bottom: 24px;
+    }
+
+    .postit-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 14px;
+    }
+
+    .postit-title {
+      font-size: 22px;
+      color: var(--warning-color);
+      font-weight: 700;
+    }
+
+    .intro-text {
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--text-bright);
+      margin-bottom: 24px;
+    }
+
+    /* TARJETAS PUNTOS CLAVE */
+    .feature-list {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      margin-bottom: 24px;
+    }
+
+    .feature-box {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-left: 5px solid var(--accent-color);
+      border-radius: 10px;
+      padding: 18px 20px;
+    }
+
+    .feature-box.automatic { border-left-color: var(--danger-color); }
+    .feature-box.smart { border-left-color: var(--accent-color); }
+    .feature-box.store { border-left-color: var(--success-color); }
+
+    .feature-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text-bright);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .feature-desc {
+      font-size: 15px;
+      color: var(--text-sub);
+      line-height: 1.6;
+    }
+
+    /* CAJA COLORES DE UN VISTAZO */
+    .color-legend-box {
+      background: rgba(22, 27, 34, 0.8);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 18px;
+      margin: 20px 0;
+    }
+
+    .color-legend-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--warning-color);
+      margin-bottom: 12px;
+    }
+
+    .color-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+      font-size: 14.5px;
+    }
+    .color-item:last-child { margin-bottom: 0; }
+
+    .color-badge {
+      padding: 3px 10px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+    .badge-rosso { background: var(--danger-color); color: #fff; }
+    .badge-verde { background: var(--success-color); color: #fff; }
+    .badge-grigio { background: #4a5568; color: #fff; }
+
+    .tip-box {
+      background: rgba(242, 179, 61, 0.12);
+      border: 1px solid var(--warning-color);
+      border-radius: 10px;
+      padding: 16px 20px;
+      font-size: 14.5px;
+      color: var(--text-bright);
+      line-height: 1.6;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 13px;
+      color: var(--text-sub);
+      border-top: 1px solid var(--border-color);
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- BARRA SUPERIOR -->
+  <header class="app-bar">
+    <div class="app-brand">
+      <div class="mini-logo" style="display: inline-flex; align-items: center;">
+        <img src="../../IMG/logo_1024_white.png" alt="Logo EatMeFirst" style="height: 32px; width: auto;">
+      </div>
+      <span class="brand-title">📌 Post-it de Ayuda Lista de la Compra</span>
+    </div>
+    <a href="index.html" class="btn-close-guide" title="Volver a la Compra">
+      ✕ Cerrar y Volver a la Compra
+    </a>
+  </header>
+
+  <main class="container">
+    <article class="postit-card">
+      <div class="postit-header">
+        <span style="font-size: 30px;">🛒</span>
+        <h1 class="postit-title">Cómo funciona la Lista de la Compra Inteligente</h1>
+      </div>
+
+      <p class="intro-text">
+        La función <strong>Lista de la Compra</strong> de EatMeFirst está diseñada para acompañarte paso a paso entre los pasillos del supermercado, haciéndote ahorrar tiempo y evitando compras dobles u olvidos.
+      </p>
+
+      <div class="feature-list">
+
+        <!-- 1. CREACIÓN INICIAL Y AUTOMÁTICA -->
+        main class="container">
+        <div class="feature-box automatic">
+          <div class="feature-title">
+            <span>✍️</span> 1. De la cumplimentación manual a la automatización
+          </div>
+          <div class="feature-desc">
+            Cuando usas la app por primera vez y la despensa aún está vacía, compones la lista introduciendo a mano los productos que necesitas (como en una hoja de papel). A medida que cargas la despensa, <strong>la lista comenzará a crearse sola</strong>: ¡cada vez que un alimento se consume por completo, vuelve a entrar automáticamente en el listado para ser recomprado!
+          </div>
+        </div>
+
+        <!-- 2. CÁLCULO INTELIGENTE DE VENCIMIENTOS -->
+        <div class="feature-box smart">
+          <div class="feature-title">
+            <span>🧠</span> 2. Cálculo preventivo de existencias
+          </div>
+          <div class="feature-desc">
+            ¡La app no espera a que un producto se acabe! Realiza un cálculo basado en tus ritmos de consumo: si detecta que a un alimento aún le quedan unidades disponibles, pero <strong>no serán suficientes hasta la próxima compra</strong>, te avisa incluyéndolo en la lista e indicando claramente las unidades que todavía quedan en casa.
+          </div>
+        </div>
+
+        <!-- 3. ENTRE LOS PASILLOS DEL SUPERMERCADO -->
+        <div class="feature-box store">
+          <div class="feature-title">
+            <span>📲</span> 3. Tacha en tiempo real en el supermercado
+          </div>
+          <div class="feature-desc">
+            Todos los productos están ordenados por <strong>sección comercial / pasillo</strong>, por lo que nunca tendrás que ir de un lado a otro de la tienda. A medida que coges un artículo de los estantes y lo metes en el carro, tócalo en la pantalla: <strong>¡el texto se tachará y se irá automáticamente al fondo de la lista</strong>, dejando arriba solo lo que todavía te falta por coger!
+          </div>
+        </div>
+
+      </div>
+
+      <!-- LEYENDA DE COLORES -->
+      <div class="color-legend-box">
+        <div class="color-legend-title">🎨 Los 3 Colores de la Lista de la Compra:</div>
+        
+        <div class="color-item">
+          <span class="color-badge badge-rosso">🔴 Rojo</span>
+          <span><strong>Todo agotado:</strong> Producto totalmente agotado en la despensa.</span>
+        </div>
+        
+        <div class="color-item">
+          <span class="color-badge badge-verde">🟢 Verde</span>
+          <span><strong>Casi agotado:</strong> Producto presente en casa pero con unidades insuficientes hasta la próxima compra.</span>
+        </div>
+        
+        <div class="color-item">
+          <span class="color-badge badge-grigio">🩶 Gris</span>
+          <span><strong>Producto Nuevo:</strong> Apunte introducido a mano por el usuario que aún no está presente en la base de datos.</span>
+        </div>
+      </div>
+
+      <!-- CONSEJO PRÁCTICO UTILIDAD -->
+      <div class="tip-box">
+        <strong style="color: var(--warning-color);">💡 Recuerda antes de salir de casa:</strong><br>
+        Fuera de casa no tendrás conexión directa con la despensa del hogar. Para llevar la lista siempre contigo en el móvil, ¡te bastará con descargarla en un momento yendo a la sección de <strong>Utilidades</strong>!
+      </div>
+
+    </article>
+  </main>
+
+  <footer>
+    <span>&copy; EatMeFirst &bull; Privacidad 100% Local</span>
+  </footer>
+
+</body>
+</html>

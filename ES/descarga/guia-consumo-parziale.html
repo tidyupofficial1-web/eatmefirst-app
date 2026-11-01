@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía de Consumo Parcial de Alimentos | EatMeFirst</title>
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --card-bg: #161b22;
+            --text-color: #f0f6fc;
+            --text-muted: #8b949e;
+            --accent-color: #58a6ff;
+            --border-color: #30363d;
+        }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            padding: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .postit-card {
+            background: #1a2634;
+            border: 1px solid #3182ce;
+            border-left: 6px solid #3182ce;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+        }
+        .eva-header { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+        .eva-avatar { width: 55px; height: 55px; border-radius: 50%; border: 2px solid #58a6ff; object-fit: cover; }
+        .eva-title { font-size: 18px; color: var(--accent-color); font-weight: bold; }
+        .eva-sub { font-size: 12px; color: var(--text-muted); }
+        .content { font-size: 14.5px; line-height: 1.6; color: var(--text-color); }
+        .btn-close {
+            display: inline-block; margin-top: 20px; background: #21262d; color: var(--text-color);
+            border: 1px solid var(--border-color); padding: 8px 16px; border-radius: 8px;
+            text-decoration: none; font-size: 13px; font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="postit-card">
+        <div class="eva-header">
+            <img src="../../IMG/avatar_eva.png" alt="Eva Avatar" class="eva-avatar">
+            <div>
+                <div class="eva-title">Consumo Parcial de Alimentos 📌</div>
+                <div class="eva-sub">La guía de Eva para dosificar las existencias</div>
+            </div>
+        </div>
+        <div class="content">
+            <p>Aquí he querido extremar la precisión: puedes gestionar la cantidad de producto consumido parcialmente ajustando el porcentaje de consumo sobre el producto entero deslizando la flecha del ratón o moviendo el control deslizante en la línea.</p>
+            <br>
+            <p>Es algo sencillo e intuitivo. Si prefieres no usarlo, siempre puedes eliminar el producto por completo usando el botón <strong>"Agotado"</strong> y luego navegar visualmente cuando revises los lugares de la despensa.</p>
+        </div>
+        <a href="javascript:window.close();" class="btn-close">✕ Cerrar Pestaña</a>
+    </div>
+</body>
+</html>
