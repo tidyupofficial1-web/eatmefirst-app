@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anleitung für die Speisekammer-Übersicht | EatMeFirst</title>
+    <meta name="description" content="Erfahren Sie, wie Sie Ihre Bestände im Inventar verwalten, filtern und nach Verfallsdatum sortieren.">
+    <meta name="robots" content="noindex, nofollow">
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --card-bg: #161b22;
+            --text-color: #f0f6fc;
+            --postit-bg: #fff59d;
+            --postit-text: #333333;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 20px 16px;
+        }
+
+        .container {
+            max-width: 650px;
+            margin: 20px auto;
+            width: 100%;
+        }
+
+        .postit-card {
+            background-color: var(--postit-bg);
+            color: var(--postit-text);
+            padding: 30px 26px;
+            border-radius: 4px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            position: relative;
+            transform: rotate(-0.4deg);
+        }
+
+        .postit-card::before {
+            content: '';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 24px;
+            height: 24px;
+            background: #f44336;
+            border-radius: 50%;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.4), inset -2px -2px 4px rgba(0,0,0,0.3);
+        }
+
+        h1 { font-size: 21px; margin-bottom: 18px; color: #1a1a1a; display: flex; align-items: center; gap: 8px; }
+        
+        .discorso-guida {
+            font-size: 15px;
+            line-height: 1.65;
+            color: #222;
+        }
+
+        .discorso-guida p { margin-bottom: 14px; }
+
+        .info-box {
+            background: rgba(33, 150, 243, 0.15);
+            border-left: 4px solid #2196f3;
+            padding: 14px 16px;
+            border-radius: 4px;
+            margin: 18px 0;
+            font-size: 14.5px;
+            line-height: 1.6;
+        }
+
+        .btn-close {
+            display: inline-block;
+            margin-top: 20px;
+            background: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: background 0.2s;
+        }
+
+        .btn-close:hover { background: #000; }
+    </style>
+</head>
+<body>
+
+    <main class="container">
+        <article class="postit-card">
+            <h1>📋 Speisekammer-Inventar: Alles im Blick behalten</h1>
+            
+            <div class="discorso-guida">
+                <p>In dieser Übersicht sehen Sie alle Produkte, die aktuell in Ihrer Speisekammer eingelagert sind. Das System ordnet die Waren automatisch so an, dass ablaufende oder ältere Produkte sofort ins Auge springen.</p>
+
+                <p><strong>Die Hauptfunktionen im Überblick:</strong></p>
+                <p>• <strong>Automatische Sortierung:</strong> Die Liste priorisiert Produkte nach ihrem Verfallsdatum, damit Sie immer zuerst das verbrauchen, was am ehesten ablöft.</p>
+                <p>• <strong>Filter nach Lagerort:</strong> Überprüfen Sie gezielt einzelne Bereiche wie den Kühlschrank, den Gefrierschrank oder das Kellerregal.</p>
+
+                <div class="info-box">
+                    💡 <strong>Clevere Anti-Verschwendungs-Regel:</strong><br>
+                    Die App warnt Sie rechtzeitig vor drohendem Verfall, sodass Sie frische Lebensmittel optimal verbrauchen und unnötige Abfälle vermeiden können.
+                </div>
+            </div>
+
+            <a href="index.html" class="btn-close">← Zurück zur Speisekammer</a>
+        </article>
+    </main>
+
+</body>
+</html>

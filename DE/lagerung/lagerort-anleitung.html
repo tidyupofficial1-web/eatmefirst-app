@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anleitung für Lagerorte und benutzerdefinierte Orte | EatMeFirst</title>
+    <meta name="robots" content="noindex, nofollow">
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --card-bg: #161b22;
+            --text-color: #f0f6fc;
+            --postit-bg: #fff59d;
+            --postit-text: #333333;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 20px 16px;
+        }
+
+        .container {
+            max-width: 650px;
+            margin: 20px auto;
+            width: 100%;
+        }
+
+        .postit-card {
+            background-color: var(--postit-bg);
+            color: var(--postit-text);
+            padding: 30px 26px;
+            border-radius: 4px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            position: relative;
+            transform: rotate(-0.4deg);
+        }
+
+        .postit-card::before {
+            content: '';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 24px;
+            height: 24px;
+            background: #f44336;
+            border-radius: 50%;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.4), inset -2px -2px 4px rgba(0,0,0,0.3);
+        }
+
+        h1 { font-size: 21px; margin-bottom: 18px; color: #1a1a1a; display: flex; align-items: center; gap: 8px; }
+        
+        .discorso-guida {
+            font-size: 15px;
+            line-height: 1.65;
+            color: #222;
+        }
+
+        .discorso-guida p {
+            margin-bottom: 14px;
+        }
+
+        .memoria-box {
+            background: rgba(76, 175, 80, 0.15);
+            border-left: 4px solid #4caf50;
+            padding: 14px 16px;
+            border-radius: 4px;
+            margin: 18px 0;
+            font-size: 14.5px;
+            line-height: 1.6;
+        }
+
+        .btn-close {
+            display: inline-block;
+            margin-top: 20px;
+            background: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: background 0.2s;
+        }
+
+        .btn-close:hover { background: #000; }
+    </style>
+</head>
+<body>
+
+    <main class="container">
+        <article class="postit-card">
+            <h1>📍 Lagerort und benutzerdefinierte Orte</h1>
+            
+            <div class="discorso-guida">
+                <p>Zu Beginn, wenn Sie diese Anwendung zum ersten Mal verwenden, sind alle Optionen einschließlich dieser leer[cite: 14]. Wir möchten nämlich, dass Sie Ihre Bestimmungsorte für die Produkte ganz individuell und nach Ihren eigenen Wünschen erstellen[cite: 14]!</p>
+
+                <p>Sie können zum Beispiel <em>"Mutters Gefrierschrank"</em> oder <em>"Weinkeller-Regal"</em> eingeben: Wählen Sie einfach <strong>"Neuen Lagerort hinzufügen"</strong> und tippen Sie den Namen des Ortes ein[cite: 14]. Das ist schon alles[cite: 14]!</p>
+
+                <div class="memoria-box">
+                    💡 <strong>Vermeiden Sie Duplikate und Verwirrung[cite: 14]!</strong><br><br>
+                    Bei den nächsten Malen werden Ihnen alle bereits gespeicherten Orte wieder vorgeschlagen, und Sie können sie mit einem einfachen Klick auswählen[cite: 14]. Auf diese Weise müssen Sie den Zielort nicht jedes Mal neu eintippen und vermeiden ähnliche Varianten (wie <em>"Weinkeller Regal"</em>, <em>"Kellerregal"</em> oder <em>"Weinfach"</em>), die für denselben Ort stehen und nur zu Verwirrung führen[cite: 14].
+                </div>
+
+                <p><em>(Und denken Sie daran: Wenn Sie genau wissen, in welchem Zimmer oder Möbelstück sich ein Produkt befindet, müssen Sie nicht jedes Mal extra angeben, ob es in den Kühlschrank, Gefrierschrank oder Vorratsschrank gehört[cite: 14]!)</em></p>
+            </div>
+
+            <a href="einlagerung.html" class="btn-close">← Zurück zum Einlagern</a>
+        </article>
+    </main>
+
+</body>
+</html>
