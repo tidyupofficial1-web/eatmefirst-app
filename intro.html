@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EatMeFirst - Welcome</title>
+    <style>
+        :root {
+            --bg-color: #12181b;
+            --primary-color: #2ecc71;
+            --text-color: #e0e6ed;
+            --border-color: #2d3748;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .welcome-stage {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Scritte multilingua fluttuanti */
+        .welcome-text {
+            position: absolute;
+            font-weight: bold;
+            opacity: 0;
+            animation-fill-mode: forwards;
+        }
+
+        /* 1. Benvenuto (Italiano) - Dall'Alto */
+        .it {
+            font-size: 3.5rem;
+            color: var(--primary-color);
+            animation: slideFromTop 2.5s ease-out 0.3s forwards, fadeOut 1.5s ease-in 5.5s forwards;
+        }
+
+        /* 2. Welcome (Inglese) - Da Sinistra */
+        .en {
+            font-size: 2.5rem;
+            color: #3182ce;
+            top: 25%;
+            left: 10%;
+            animation: slideFromLeft 2.5s ease-out 1s forwards, fadeOut 1.5s ease-in 5.5s forwards;
+        }
+
+        /* 3. Willkommen (Tedesco) - Da Destra */
+        .de {
+            font-size: 2.5rem;
+            color: #e53e3e;
+            top: 30%;
+            right: 10%;
+            animation: slideFromRight 2.5s ease-out 1.8s forwards, fadeOut 1.5s ease-in 5.5s forwards;
+        }
+
+        /* 4. Bienvenue (Francese) - Dal Basso Sinistra */
+        .fr {
+            font-size: 2.2rem;
+            color: #ecc94b;
+            bottom: 25%;
+            left: 15%;
+            animation: slideFromBottom 2.5s ease-out 2.5s forwards, fadeOut 1.5s ease-in 5.5s forwards;
+        }
+
+        /* 5. Bienvenido (Spagnolo) - Dal Basso Destra */
+        .es {
+            font-size: 2.2rem;
+            color: #9f7aea;
+            bottom: 20%;
+            right: 15%;
+            animation: slideFromBottom 2.5s ease-out 3.2s forwards, fadeOut 1.5s ease-in 5.5s forwards;
+        }
+
+        /* Animazioni Keyframes */
+        @keyframes slideFromTop {
+            0% { transform: translateY(-100px); opacity: 0; }
+            100% { transform: translateY(-40px); opacity: 1; }
+        }
+
+        @keyframes slideFromLeft {
+            0% { transform: translateX(-150px); opacity: 0; }
+            100% { transform: translateX(0); opacity: 0.85; }
+        }
+
+        @keyframes slideFromRight {
+            0% { transform: translateX(150px); opacity: 0; }
+            100% { transform: translateX(0); opacity: 0.85; }
+        }
+
+        @keyframes slideFromBottom {
+            0% { transform: translateY(150px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 0.85; }
+        }
+
+        @keyframes fadeOut {
+            0% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        /* Player Video Integrato */
+        #videoContainer {
+            display: none;
+            width: 100%;
+            height: 100%;
+            justify-content: center;
+            align-items: center;
+            background-color: #000;
+        }
+
+        video {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Animazione Multilingua (Durata totale: ~6.5 secondi) -->
+    <div id="welcomeStage" class="welcome-stage">
+        <div class="welcome-text it">Benvenuto</div>
+        <div class="welcome-text en">Welcome</div>
+        <div class="welcome-text de">Willkommen</div>
+        <div class="welcome-text fr">Bienvenue</div>
+        <div class="welcome-text es">Bienvenido</div>
+    </div>
+
+    <!-- Contenitore Video Clip -->
+    <div id="videoContainer">
+        <video id="siglaVideo" muted playsinline>
+            <source src="../IMG/sigla.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <script>
+        const welcomeStage = document.getElementById('welcomeStage');
+        const videoContainer = document.getElementById('videoContainer');
+        const video = document.getElementById('siglaVideo');
+
+        // Funzione per rilevare la lingua dell'utente e reindirizzarlo correttamente
+        function vaiAllaPaginaBenvenuto() {
+            var userLang = (navigator.language || navigator.userLanguage || 'it').substring(0, 2).toLowerCase();
+            
+            if (userLang === 'en') {
+                window.location.href = '../EN/benvenuto.html';
+            } else if (userLang === 'de') {
+                window.location.href = '../DE/willkommen.html';
+            } else if (userLang === 'fr') {
+                window.location.href = '../FR/bienvenue.html';
+            } else if (userLang === 'es') {
+                window.location.href = '../ES/benvenuto.html';
+            } else {
+                // Default: Italiano
+                window.location.href = 'benvenuto.html';
+            }
+        }
+
+        // Dopo 6.5 secondi di animazione delle scritte:
+        setTimeout(() => {
+            welcomeStage.style.display = 'none';
+            videoContainer.style.display = 'flex';
+
+            // Velocità di riproduzione rallentata per la sigla
+            video.playbackRate = 0.65; 
+            
+            video.play().catch(err => {
+                // Se l'autoplay fallisce, va direttamente alla pagina di benvenuto della lingua
+                vaiAllaPaginaBenvenuto();
+            });
+        }, 6500);
+
+        // Quando la clip video termina, passa alla pagina di benvenuto corretta
+        video.addEventListener('ended', () => {
+            vaiAllaPaginaBenvenuto();
+        });
+
+        // Consentiamo anche un click per saltare l'intro in qualsiasi momento
+        document.body.addEventListener('click', () => {
+            vaiAllaPaginaBenvenuto();
+        });
+    </script>
+</body>
+</html>
