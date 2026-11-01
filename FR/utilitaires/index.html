@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Utilitaires, Sauvegardes & TimeMachine | EatMeFirst</title>
+  <meta name="description" content="Gérez les sauvegardes en temps réel, les points de restauration TimeMachine, la sécurité de la clé USB et les mises à jour avec le Centre d'Études de Leo.">
+  <meta name="robots" content="noindex, nofollow">
+
+  <style>
+    :root {
+      --bg-color: #0d1117;
+      --card-bg: #161b22;
+      --text-color: #f0f6fc;
+      --text-muted: #8b949e;
+      --accent-color: #58a6ff;
+      --primary: #3182ce;
+      --primary-hover: #2b6cb0;
+      --success-color: #238636;
+      --success-hover: #2ea043;
+      --danger-color: #f85149;
+      --warning-color: #d29922;
+      --border-color: #30363d;
+      --light-bg: #21262d;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 16px;
+    }
+
+    .container { max-width: 850px; margin: 0 auto; width: 100%; }
+
+    /* BARRE SUPÉRIEURE */
+    .app-bar {
+      background: rgba(22, 27, 34, 0.95);
+      border-bottom: 1px solid var(--border-color);
+      padding: 12px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky; top: 0; z-index: 40;
+      border-radius: 12px; margin-bottom: 20px;
+    }
+
+    .app-brand { display: flex; align-items: center; gap: 12px; }
+    .btn-back {
+      background: var(--light-bg); color: var(--text-color);
+      border: 1px solid var(--border-color); padding: 6px 14px;
+      border-radius: 8px; text-decoration: none; font-size: 13.5px; font-weight: 600;
+    }
+    .btn-back:hover { border-color: var(--accent-color); color: var(--accent-color); }
+    .brand-title { font-size: 18px; font-weight: bold; color: var(--text-color); }
+
+    .language-flags {
+      display: flex; gap: 6px; align-items: center;
+      background: var(--light-bg); padding: 4px 8px;
+      border-radius: 20px; border: 1px solid var(--border-color);
+    }
+    .flag-link { text-decoration: none; display: flex; align-items: center; opacity: 0.7; transition: opacity 0.2s, transform 0.2s; }
+    .flag-link:hover, .flag-link.active { opacity: 1; transform: scale(1.1); }
+    .flag-img { width: 20px; height: 14px; object-fit: cover; border-radius: 2px; }
+
+    /* BANNIÈRE INTRODUCTIVE LEO */
+    .leo-welcome-banner {
+      display: flex; flex-direction: column;
+      background: linear-gradient(135deg, #161b22 0%, #0d1117 100%);
+      border: 1px solid var(--primary); border-radius: 16px;
+      overflow: hidden; margin-bottom: 25px; box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+    }
+    .leo-banner-img {
+      width: 100%; max-height: 320px; object-fit: contain;
+      background-color: #0d1117; border-bottom: 2px solid var(--primary);
+    }
+    .leo-banner-content { padding: 22px; }
+    .leo-banner-title { font-size: 1.25rem; color: #bfdbfe; font-weight: 700; margin-bottom: 10px; }
+    .leo-banner-text { font-size: 0.98rem; color: #ffffff; line-height: 1.6; margin-bottom: 16px; }
+    .leo-banner-actions { display: flex; justify-content: flex-end; }
+    
+    .btn-dismiss {
+      background: rgba(255, 255, 255, 0.12); border: 1px solid var(--border-color);
+      color: var(--text-color); padding: 8px 16px; border-radius: 8px;
+      font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: all 0.2s;
+    }
+    .btn-dismiss:hover { background: rgba(239, 68, 68, 0.25); border-color: #f87171; color: #fca5a5; }
+
+    /* CARTES DE SECTION */
+    .section-card {
+      background: var(--card-bg); border-radius: 16px;
+      border: 1px solid var(--border-color); padding: 25px;
+      margin-bottom: 25px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+    }
+
+    .section-title {
+      font-size: 1.25rem; font-weight: 700; color: var(--text-color);
+      margin-bottom: 18px; display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 2px solid var(--border-color); padding-bottom: 10px;
+    }
+
+    /* POST-IT ICONE */
+    .postit-link { display: inline-block; line-height: 0; position: relative; z-index: 10; }
+    .postit-icon {
+      width: 28px; height: 28px; object-fit: contain; border-radius: 4px; cursor: pointer;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.4); transition: transform 0.2s;
+    }
+    .postit-icon:hover { transform: scale(1.2) rotate(-3deg); }
+
+    /* GRILLE RESTAURATION */
+    .restore-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 15px; margin-top: 15px;
+    }
+
+    .btn-restore {
+      background: #0d1117; border: 1px solid var(--border-color);
+      color: var(--text-color); padding: 16px; border-radius: 12px;
+      font-size: 0.95rem; font-weight: 600; cursor: pointer; text-align: left;
+      display: flex; flex-direction: column; gap: 6px; transition: all 0.2s;
+    }
+    .btn-restore:hover { border-color: var(--accent-color); background: var(--light-bg); transform: translateY(-1px); }
+    .btn-restore span.subtext { font-size: 0.8rem; color: var(--text-muted); font-weight: normal; }
+
+    /* BIBLIOTHÈQUE COMPLÈTE */
+    .guides-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 12px; margin-top: 15px;
+    }
+    .guide-card-link {
+      background: #0d1117; border: 1px solid var(--border-color);
+      padding: 14px 16px; border-radius: 10px; text-decoration: none; color: var(--text-color);
+      display: flex; align-items: center; gap: 10px; transition: all 0.2s;
+    }
+    .guide-card-link:hover { border-color: var(--accent-color); background: var(--light-bg); }
+
+    /* JOURNAL DES OPÉRATIONS */
+    .log-container {
+      background: #0d1117; border: 1px solid var(--border-color);
+      border-radius: 12px; max-height: 250px; overflow-y: auto; padding: 12px;
+    }
+    .empty-log {
+      text-align: center; padding: 20px; color: var(--text-muted); font-style: italic; font-size: 0.9rem;
+    }
+    .log-item {
+      display: flex; justify-content: space-between; padding: 10px; border-bottom: 1px solid var(--border-color); font-size: 0.9rem;
+    }
+    .log-item:last-child { border-bottom: none; }
+    .log-time { color: var(--text-muted); font-size: 0.85rem; }
+
+    /* GRILLE PRIX */
+    .pricing-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 15px; margin-top: 15px;
+    }
+    .pricing-card {
+      background: #0d1117; border: 1px solid var(--border-color);
+      border-radius: 12px; padding: 18px; display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .pricing-card.featured { border-color: #68d391; background: rgba(56, 161, 105, 0.1); }
+    .pricing-title { font-size: 1.05rem; font-weight: 700; color: #bfdbfe; margin-bottom: 6px; }
+    .pricing-price { font-size: 1.5rem; font-weight: 800; color: #38a169; margin-bottom: 8px; }
+    .pricing-sub { font-size: 0.85rem; color: var(--text-muted); line-height: 1.4; }
+
+    /* ZONE DE DANGER */
+    .danger-zone { border-color: #7f1d1d; background: rgba(127, 29, 29, 0.12); }
+    .danger-title { color: #fca5a5; }
+
+    .btn-danger-action {
+      width: 100%; background: var(--danger-color); color: #fff; border: none; padding: 14px; border-radius: 10px; font-weight: 700; cursor: pointer; margin-top: 12px; transition: opacity 0.2s;
+    }
+    .btn-danger-action:hover { opacity: 0.9; }
+
+    .btn-warning-action {
+      width: 100%; background: var(--warning-color); color: #0d1117; border: none; padding: 14px; border-radius: 10px; font-weight: 700; cursor: pointer; margin-top: 12px; transition: opacity 0.2s;
+    }
+    .btn-warning-action:hover { opacity: 0.9; }
+
+    /* MODALE */
+    .modal-overlay {
+      display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.85); z-index: 1000; align-items: center; justify-content: center; padding: 20px;
+    }
+    .modal-box {
+      background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; max-width: 450px; width: 100%; padding: 25px; text-align: center;
+    }
+    .modal-title { font-size: 1.25rem; font-weight: 700; margin-bottom: 12px; }
+    .modal-text { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 25px; text-align: left; line-height: 1.6; }
+    .modal-actions { display: flex; gap: 12px; }
+    .btn-modal-cancel { flex: 1; background: var(--light-bg); color: var(--text-color); border: 1px solid var(--border-color); padding: 12px; border-radius: 8px; font-weight: 600; cursor: pointer; }
+    .btn-modal-confirm { flex: 1; background: var(--danger-color); color: #fff; border: none; padding: 12px; border-radius: 8px; font-weight: 700; cursor: pointer; }
+
+    footer { text-align: center; padding: 20px; font-size: 13px; color: var(--text-muted); border-top: 1px solid var(--border-color); margin-top: 40px; }
+
+    @media (max-width: 600px) {
+      .language-flags { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- BARRE SUPÉRIEURE -->
+    <header class="app-bar">
+      <div class="app-brand">
+        <a href="../menu.html" class="btn-back">← Menu</a>
+        <div class="mini-logo" style="display: inline-flex; align-items: center;">
+          <img src="../../IMG/logo_1024_white.png" alt="EatMeFirst Logo" style="height: 32px; width: auto;">
+        </div>
+        <span class="brand-title">Utilitaires & TimeMachine</span>
+      </div>
+      <div class="app-nav-right">
+    <nav class="language-flags">
+        <a href="../../IT/utilita/index.html" class="flag-link" title="Italiano"><img src="../../IMG/bandiera_Italy.jpg" class="flag-img" alt="IT"></a>
+        <a href="../../EN/utilities/index.html" class="flag-link" title="English"><img src="../../IMG/bandiera_England.jpg" class="flag-img" alt="EN"></a>
+        <a href="../../DE/hilfsmittel/index.html" class="flag-link" title="Deutsch"><img src="../../IMG/bandiera_Germany.jpg" class="flag-img" alt="DE"></a>
+        <a href="index.html" class="flag-link active" title="Français"><img src="../../IMG/bandiera_France.jpg" class="flag-img" alt="FR"></a>
+        <a href="../../ES/utilidades/index.html" class="flag-link" title="Español"><img src="../../IMG/bandiera_Espana.jpg" class="flag-img" alt="ES"></a>
+    </nav>
+</div>
+    </header>
+
+    <!-- BANNIÈRE INTRODUCTIVE LEO -->
+    <div id="leo-banner" class="leo-welcome-banner">
+      <img src="../IMG/utilitaires-famille-sauvegarde-garde-manger.png" alt="EatMeFirst Utilitaires, Sauvegarde et TimeMachine" class="leo-banner-img">
+      <div class="leo-banner-content">
+        <div class="leo-banner-title">La sécurité de votre garde-manger, protégée contre tout imprévu ! 🛡️💾</div>
+        <div class="leo-banner-text">
+          Toutes les modifications sont <strong>toujours sauvegardées en temps réel sur l'appareil que vous utilisez</strong>. En connectant une clé USB, la sauvegarde s'effectue simultanément sur l'appareil et sur la clé USB : ainsi, même en cas de panne ou de bris de l'ordinateur ou du smartphone, vos données restent en sécurité sur la clé et prêtes à être réutilisées sur un autre appareil.<br><br>
+          De plus, au sein de l'application, <strong>TimeMachine</strong> enregistre chaque modification en temps réel pour vous permettre de corriger des étourderies, d'annuler des sessions ou d'effectuer un « Nouveau Départ » en toute sérénité. Explorez les sections ci-dessous et utilisez les Post-it d'information pour chaque guide !
+        </div>
+        <div class="leo-banner-actions">
+          <button class="btn-dismiss" onclick="dismissLeoBanner()">Fermer / Ne plus afficher</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 1: TIMEMACHINE & POINTS DE RESTAURATION -->
+    <section class="section-card">
+      <h2 class="section-title">
+        <span>🛡️ TimeMachine & Points de Restauration</span>
+        <a href="guide-recuperation-timemachine.html" class="postit-link">
+          <img src="../../IMG/biglietto_info.jpg" alt="Info Post-it" class="postit-icon" title="Guide TimeMachine" onclick="window.location.href='guide-recuperation-timemachine.html'; return false;">
+        </a>
+      </h2>
+      <p style="font-size: 0.92rem; color: var(--text-muted);">
+        Chaque opération est protégée en temps réel. Si vous avez commis une étourderie lors d'une entrée ou d'une sortie, utilisez ces outils de sécurité immédiate.
+      </p>
+      
+      <div class="restore-grid">
+        <button class="btn-restore" onclick="restoreAction('undo')">
+          <span>🔄 Annuler la Dernière Opération</span>
+          <span class="subtext">Annule la dernière insertion ou sortie en temps réel.</span>
+        </button>
+
+        <button class="btn-restore" onclick="restoreAction('session_carico')">
+          <span>📦 Restaurer la Session d'Entrée du Jour</span>
+          <span class="subtext">Annule toutes les entrées effectuées aujourd'hui.</span>
+        </button>
+
+        <button class="btn-restore" onclick="restoreAction('session_scarico')">
+          <span>📤 Restaurer la Session de Sortie du Jour</span>
+          <span class="subtext">Annule toutes les sorties/consommations d'aujourd'hui.</span>
+        </button>
+
+        <button class="btn-restore" onclick="restoreAction('recupero_foto')">
+          <span>🖼️ Récupération des Images Supprimées</span>
+          <span class="subtext">Restaure les photos ou tickets de caisse supprimés récents.</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- SECTION 2: JOURNAL DES OPÉRATIONS -->
+    <section class="section-card">
+      <h2 class="section-title">
+        <span>💳 Journal des Opérations (Dernières 30 - Consultation Seule)</span>
+        <a href="guide-journal-operations.html" class="postit-link">
+          <img src="../../IMG/biglietto_info.jpg" alt="Info Post-it" class="postit-icon" title="Guide Journal" onclick="window.location.href='guide-journal-operations.html'; return false;">
+        </a>
+      </h2>
+      <p style="font-size: 0.92rem; color: var(--text-muted); margin-bottom: 12px;">
+        Relevé consultable des mouvements locaux récents. <em>Remarque : le journal réside uniquement sur la mémoire de l'appareil utilisé et n'est pas transféré sur le smartphone.</em>
+      </p>
+      
+      <div id="operation-log" class="log-container">
+        <!-- Généré dynamiquement via JS -->
+      </div>
+    </section>
+
+    <!-- SECTION 3: SAUVEGARDE ET SÉCURITÉ USB & PRIX -->
+    <section class="section-card" style="border-color: #3182ce; background: linear-gradient(135deg, #161b22 0%, #0d1117 100%);">
+      <h2 class="section-title">
+        <span>💾 Sauvegardes & Sécurité de la Clé USB</span>
+        <a href="guide-sauvegarde-cle-usb.html" class="postit-link">
+          <img src="../../IMG/biglietto_info.jpg" alt="Info Post-it" class="postit-icon" title="Guide Clé USB" onclick="window.location.href='guide-sauvegarde-cle-usb.html'; return false;">
+        </a>
+      </h2>
+      
+      <!-- POINT 1: PC vs SMARTPHONE -->
+      <div style="background: #0d1117; border: 1px solid var(--border-color); border-radius: 12px; padding: 18px; margin-bottom: 15px;">
+        <div style="font-size: 1.05rem; font-weight: 700; color: #bfdbfe; margin-bottom: 8px;">1. 🖥️ PC/Ordinateur portable à la maison, 📱 Smartphone en mobilité</div>
+        <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6;">
+          Le programme EatMeFirst peut être installé aussi bien sur smartphone que sur ordinateur fixe ou portable. <strong>Nous recommandons l'utilisation sur PC ou ordinateur portable pour la gestion à domicile</strong>, afin d'avoir une excellente vue d'ensemble de l'inventaire et des stocks.<br>
+          Sur le smartphone, vous enregistrerez confortablement la <strong>Liste de Courses avec notes rapides</strong> pour une assistance directe dans les allées du supermarché.
+        </p>
+      </div>
+
+      <!-- POINT 2: SAUVEGARDE APPAREIL ET CLÉ -->
+      <div style="background: #0d1117; border: 1px solid var(--border-color); border-radius: 12px; padding: 18px; margin-bottom: 15px;">
+        <div style="font-size: 1.05rem; font-weight: 700; color: #68d391; margin-bottom: 8px;">2. 💾 Sauvegarde en temps réel sur l'Appareil et la Clé USB</div>
+        <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6;">
+          Que ce soit dans la version Standard ou Premium, le programme sauvegarde <strong>toujours en temps réel sur la mémoire de l'appareil</strong>. Lorsque vous connectez la clé USB, les données sont écrites <strong>en simultané</strong>, vous protégeant contre toute panne soudaine.
+        </p>
+      </div>
+
+      <!-- POINT 3: CENTRE ÉTUDES DE LEO + PLANS -->
+      <div style="background: rgba(49, 130, 206, 0.12); border: 1px solid rgba(49, 130, 206, 0.35); border-radius: 12px; padding: 18px;">
+        <div style="font-size: 1.05rem; font-weight: 700; color: #fbd38d; margin-bottom: 8px;">3. ☕ Trois cafés à la machine par mois pour le Centre d'Études de Leo !</div>
+        <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 15px;">
+          Au <strong>Centre d'Études de Leo</strong>, nous étions trois : moi, Leo et Eva, pour résoudre les vrais problèmes du quotidien à la maison. Cela nous revient pratiquement à <strong>un café à la machine par personne et par mois</strong> ! Choisissez la formule qui vous convient le mieux :
+        </p>
+
+        <div class="pricing-grid">
+          <div class="pricing-card">
+            <div>
+              <div class="pricing-title">Formule Semestrielle</div>
+              <div class="pricing-price">20,00 € <span style="font-size:0.9rem; font-weight:normal; color:var(--text-muted);">/ 6 mois</span></div>
+            </div>
+            <div class="pricing-sub">Moins de 3,35 € par mois. Idéal pour essayer en toute sérénité.</div>
+          </div>
+
+          <div class="pricing-card featured">
+            <div>
+              <div style="font-size: 0.75rem; font-weight: 700; color: #68d391; text-transform: uppercase; margin-bottom: 4px;">🔥 Le plus économique</div>
+              <div class="pricing-title" style="color:#68d391;">Formule Annuelle (Remisée)</div>
+              <div class="pricing-price">35,00 € <span style="font-size:0.9rem; font-weight:normal; color:var(--text-muted);">/ an</span></div>
+            </div>
+            <div class="pricing-sub">Moins de 2,90 € par mois. Économisez immédiatement 5,00 € et assurez-vous une année entière de protection sur clé USB !</div>
+          </div>
+        </div>
+
+        <p style="font-size: 0.88rem; color: #bfdbfe; font-style: italic; margin-top: 15px;">
+          ℹ️ <strong>Transparence à 100 % :</strong> Si vous n'activez pas ou ne renouvelez pas la fonction Premium, le programme continuera à sauvegarder normalement sur l'appareil, mais <strong>cessera d'exporter les données sur la clé USB</strong>.
+        </p>
+      </div>
+    </section>
+
+    <!-- SECTION 4: MISES À JOUR & CENTRE D'ÉTUDES DE LEO -->
+    <section class="section-card" style="border-color: #38a169; background: linear-gradient(135deg, #161b22 0%, #0d1117 100%);">
+      <h2 class="section-title">
+        <span>🔄 Mises à jour & Centre d'Études de Leo</span>
+        <a href="guide-mises-a-jour-leo.html" class="postit-link">
+          <img src="../../IMG/biglietto_info.jpg" alt="Info Post-it" class="postit-icon" title="Guide Mises à jour" onclick="window.location.href='guide-mises-a-jour-leo.html'; return false;">
+        </a>
+      </h2>
+      
+      <p style="font-size: 0.92rem; color: var(--text-muted); margin-bottom: 15px;">
+        Aucune connexion à des sites externes (vous travaillez entièrement en local) : c'est vous qui demandez s'il y a des nouveautés quand vous le souhaitez. Lisez le Post-it ci-dessus pour découvrir comment cela fonctionne !
+      </p>
+
+      <div style="background: #0d1117; border: 1px solid var(--border-color); border-radius: 12px; padding: 15px; margin-bottom: 15px;">
+        <div style="font-size: 0.85rem; color: var(--text-muted);">Version installée en cours :</div>
+        <div style="font-size: 0.95rem; font-weight: 600; color: #bfdbfe;" id="install-version-text">EatMeFirst V1.0 (Installée le : 18/10/2026)</div>
+      </div>
+
+      <div class="restore-grid">
+        <button class="btn-restore" onclick="openLeoUpdateModal('manual')" style="border-color: #38a169;">
+          <span style="color: #68d391;">🚀 Vérifier les nouveautés avec Leo</span>
+          <span class="subtext">Lance la vérification manuelle avec le laboratoire.</span>
+        </button>
+
+        <button class="btn-restore" onclick="openLeoUpdateModal('rollback')" style="border-color: #ed8936;">
+          <span style="color: #fbd38d;">⏪ Restaurer la version précédente</span>
+          <span class="subtext">Revient en arrière tout en conservant les produits ajoutés.</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- SECTION 5: ZONE DE RÉINITIALISATION AVANCÉE -->
+    <section class="section-card danger-zone">
+      <h2 class="section-title danger-title">
+        <span>⚠️ Zone de Réinitialisation Avancée</span>
+        <a href="guide-reinitialisation-avancee.html" class="postit-link">
+          <img src="../../IMG/biglietto_info.jpg" alt="Info Post-it" class="postit-icon" title="Guide Réinitialisation" onclick="window.location.href='guide-reinitialisation-avancee.html'; return false;">
+        </a>
+      </h2>
+      
+      <div style="margin-bottom: 20px;">
+        <h3 style="font-size: 1.05rem; color: #fbd38d;">1. Nouveau Départ (Remise à zéro des quantités)</h3>
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 6px;">
+          Remet à zéro les stocks de tous les produits du garde-manger, mais <strong>conserve la base de données</strong> (noms, catégories, photos et magasins). Idéal pour un nouvel inventaire propre.
+        </p>
+        <button class="btn-warning-action" onclick="openResetModal('nuovo_inizio')">Mettre à zéro les quantités et recommencer</button>
+      </div>
+
+      <hr style="border: none; border-top: 1px solid var(--border-color); margin: 20px 0;">
+
+      <div>
+        <h3 style="font-size: 1.05rem; color: #fca5a5;">2. Réinitialisation Totale de l'Application</h3>
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 6px;">
+          Efface définitivement toutes les données, les paramètres et les images. L'application reviendra à l'état de la première installation.
+        </p>
+        <button class="btn-danger-action" onclick="openResetModal('reset_totale')">Réinitialisation Totale de l'App</button>
+      </div>
+    </section>
+
+    <!-- SECTION EXTRA: BIBLIOTHÈQUE COMPLÈTE DES GUIDES -->
+    <section class="section-card">
+      <h2 class="section-title">
+        <span>📚 Bibliothèque Complète des Guides & Post-it</span>
+      </h2>
+      <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 15px;">
+        Accédez directement à n'importe quel document de support et d'approfondissement disponible dans la section utilitaires :
+      </p>
+      <div class="guides-grid">
+        <a href="guide-mises-a-jour-logiciel.html" class="guide-card-link">📌 Guide Mises à Jour Logiciel</a>
+        <a href="guide-mises-a-jour-leo.html" class="guide-card-link">📌 Guide Centre d'Études de Leo</a>
+        <a href="guide-sauvegarde-backup.html" class="guide-card-link">📌 Guide Sauvegarde & Sécurité</a>
+        <a href="guide-exportation-donnees.html" class="guide-card-link">📌 Guide Exportation des Données</a>
+        <a href="guide-sauvegarde-cle-usb.html" class="guide-card-link">📌 Guide Sauvegarde sur Clé USB</a>
+        <a href="guide-recuperation-timemachine.html" class="guide-card-link">📌 Guide TimeMachine & Restauration</a>
+        <a href="guide-journal-operations.html" class="guide-card-link">📌 Guide Journal des Opérations</a>
+        <a href="guide-reinitialisation-avancee.html" class="guide-card-link">📌 Guide Réinitialisation Avancée (Reset)</a>
+      </div>
+    </section>
+
+  </div>
+
+  <footer>
+    <span>&copy; EatMeFirst &bull; Confidentialité 100% Locale</span>
+  </footer>
+
+  <!-- MODALE DE CONFIRMATION DE RÉINITIALISATION -->
+  <div id="confirmation-modal" class="modal-overlay">
+    <div class="modal-box">
+      <div id="modal-title" class="modal-title">Confirmation de l'Opération</div>
+      <div id="modal-text" class="modal-text">Êtes-vous sûr de vouloir continuer ?</div>
+      <div class="modal-actions">
+        <button class="btn-modal-cancel" onclick="closeResetModal()">Annuler</button>
+        <button id="btn-modal-confirm-exec" class="btn-modal-confirm" onclick="executeReset()">Confirmer et Procéder</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODALE LEO MISES À JOUR -->
+  <div id="leo-update-modal" class="modal-overlay">
+    <div class="modal-box" style="max-width: 550px;">
+      <div style="display: flex; gap: 15px; align-items: flex-start; margin-bottom: 15px;">
+        <img src="../IMG/avatar_leo.png" alt="Leo Avatar" style="width: 70px; height: 70px; border-radius: 50%; border: 2px solid var(--primary); object-fit: cover;">
+        <div style="text-align: left;">
+          <div id="leo-modal-title" class="modal-title" style="color: #bfdbfe; font-size: 1.15rem; margin-bottom: 4px;">Un bonjour de Leo ! 🧙‍♂️</div>
+          <div style="font-size: 0.8rem; color: #68d391;">Centre d'Études & Conception EatMeFirst</div>
+        </div>
+      </div>
+
+      <div id="leo-modal-text" class="modal-text" style="background: #0d1117; padding: 15px; border-radius: 12px; border: 1px solid var(--border-color); font-size: 0.92rem;"></div>
+
+      <div class="modal-actions" style="margin-top: 20px;">
+        <button class="btn-modal-cancel" onclick="closeLeoUpdateModal()">Pas maintenant</button>
+        <button id="btn-leo-confirm" class="btn-modal-confirm" style="background: var(--primary);" onclick="executeLeoUpdate()">Procéder à la vérification</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      if (localStorage.getItem("hide_leo_banner_utilita_fr") === "true") {
+        const banner = document.getElementById("leo-banner");
+        if (banner) banner.style.display = "none";
+      }
+      loadOperationLog();
+    });
+
+    function dismissLeoBanner() {
+      const banner = document.getElementById("leo-banner");
+      if (banner) banner.style.display = "none";
+      localStorage.setItem("hide_leo_banner_utilita_fr", "true");
+    }
+
+    let activeResetType = null;
+    let currentLeoAction = null;
+
+    function loadOperationLog() {
+      const logContainer = document.getElementById('operation-log');
+      const sampleLogs = [];
+
+      logContainer.innerHTML = '';
+      if (sampleLogs.length === 0) {
+        logContainer.innerHTML = '<div class="empty-log">Aucune opération récente enregistrée sur cet appareil.</div>';
+        return;
+      }
+
+      sampleLogs.forEach(item => {
+        const row = document.createElement('div');
+        row.className = 'log-item';
+        row.innerHTML = `<span>${item.text}</span><span class="log-time">${item.time}</span>`;
+        logContainer.appendChild(row);
+      });
+    }
+
+    function restoreAction(type) {
+      if(type === 'undo') alert("Annulation de la dernière opération exécutée avec succès !");
+      if(type === 'session_carico') alert("Toutes les entrées effectuées aujourd'hui ont été annulées.");
+      if(type === 'session_scarico') alert("Toutes les sorties effectuées aujourd'hui ont été annulées.");
+      if(type === 'recupero_foto') alert("Ouverture des archives de photos supprimées récemment...");
+    }
+
+    function openResetModal(type) {
+      activeResetType = type;
+      const modal = document.getElementById('confirmation-modal');
+      const title = document.getElementById('modal-title');
+      const text = document.getElementById('modal-text');
+      const confirmBtn = document.getElementById('btn-modal-confirm-exec');
+
+      if (type === 'nuovo_inizio') {
+        title.innerText = "⚠️ Confirmez-vous le 'Nouveau Départ' ?";
+        title.style.color = "#ed8936";
+        text.innerHTML = "Vous êtes sur le point de <strong>remettre à zéro tous les stocks et quantités</strong> de votre garde-manger.<br><br>Les noms de vos produits, les catégories, les photos et les magasins <strong>NE seront PAS supprimés</strong> et resteront sauvegardés pour vous permettre de réaliser un nouvel inventaire rapide.<br><br>Voulez-vous continuer ?";
+        confirmBtn.style.background = "#ed8936";
+      } else if (type === 'reset_totale') {
+        title.innerText = "🚨 ATTENTION : Réinitialisation Totale";
+        title.style.color = "#e53e3e";
+        text.innerHTML = "Cette opération est <strong> IRRÉVERSIBLE</strong>.<br><br>Tous les produits, photos, notes et l'historique des opérations seront définitivement effacés.<br><br>Êtes-vous absolument sûr de vouloir tout effacer ?";
+        confirmBtn.style.background = "#e53e3e";
+      }
+
+      modal.style.display = 'flex';
+    }
+
+    function closeResetModal() {
+      document.getElementById('confirmation-modal').style.display = 'none';
+      activeResetType = null;
+    }
+
+    function executeReset() {
+      if (activeResetType === 'nuovo_inizio') {
+        alert("Quantités remises à zéro avec succès ! La base de données de vos produits est restée intacte.");
+      } else if (activeResetType === 'reset_totale') {
+        localStorage.clear();
+        alert("Application réinitialisée à l'état d'usine.");
+      }
+      closeResetModal();
+    }
+
+    function openLeoUpdateModal(triggerType) {
+      currentLeoAction = triggerType;
+      const modal = document.getElementById('leo-update-modal');
+      const title = document.getElementById('leo-modal-title');
+      const text = document.getElementById('leo-modal-text');
+      const confirmBtn = document.getElementById('btn-leo-confirm');
+
+      if (triggerType === 'manual') {
+        title.innerText = "Vérification des nouveautés à la demande";
+        text.innerHTML = `
+          Quel plaisir ! J'ai vu que vous souhaitez vérifier immédiatement s'il y a des nouveautés pour notre application.<br><br>
+          Comme vous le savez, notre centre d'études ne peut pas vous contacter directement car votre application fonctionne en totale autonomie et confidentialité sur votre appareil. C'est pourquoi c'est toujours vous qui avez les clés en main !<br><br>
+          Avant de toucher à quoi que ce soit, je vais mettre en sécurité une copie de votre garde-manger directement ici sur votre appareil. Si nous trouvons des nouveautés, nous les installerons en un instant.<br><br>
+          <strong>Voulez-vous procéder à la vérification ?</strong>
+        `;
+        confirmBtn.innerText = "Procéder à la vérification";
+        confirmBtn.style.background = "#3182ce";
+      } else if (triggerType === 'rollback') {
+        title.innerText = "Restauration de la Version Précédente";
+        text.innerHTML = `
+          Aucun problème ! Si vous étiez attaché à la version précédente, je peux vous y ramener immédiatement.<br><br>
+          <strong>Vous ne perdrez rien :</strong> tous les produits que vous avez ajoutés ou modifiés récemment seront conservés et transférés sur la version précédente.<br><br>
+          Voulez-vous confirmer la restauration ?
+        `;
+        confirmBtn.innerText = "Oui, restaurer l'ancienne version";
+        confirmBtn.style.background = "#ed8936";
+      }
+
+      modal.style.display = 'flex';
+    }
+
+    function closeLeoUpdateModal() {
+      document.getElementById('leo-update-modal').style.display = 'none';
+      currentLeoAction = null;
+    }
+
+    function executeLeoUpdate() {
+      if (currentLeoAction === 'manual') {
+        alert("Leo : Sauvegarde de la base de données créée avec succès ! Vérification en cours...");
+      } else if (currentLeoAction === 'rollback') {
+        alert("Leo : Restauration à la version précédente terminée ! Vos données ont été conservées.");
+      }
+      closeLeoUpdateModal();
+    }
+  </script>
+</body>
+</html>

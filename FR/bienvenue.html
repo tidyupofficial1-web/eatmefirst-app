@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EatMeFirst - Bienvenue par Max et Eva</title>
+    <style>
+        :root {
+            --bg-color: #12181b;
+            --card-bg: #1e272c;
+            --primary-color: #2ecc71;
+            --text-color: #e0e6ed;
+            --text-muted: #a0aec0;
+            --border-color: #2d3748;
+            --info-bg: #1a2634;
+            --info-border: #3182ce;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Barre de navigation supérieure standard */
+        .top-navbar {
+            width: 100%;
+            background-color: #101416;
+            padding: 12px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-sizing: border-box;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: #ffffff;
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+
+        .brand-logo img {
+            height: 36px;
+            width: auto;
+        }
+
+        .language-flags {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .flag-icon {
+            width: 30px;
+            height: 20px;
+            cursor: pointer;
+            object-fit: cover;
+            border-radius: 3px;
+            transition: transform 0.2s;
+            border: 1px solid rgba(255,255,255,0.2);
+            display: inline-block;
+        }
+
+        .flag-icon:hover {
+            transform: scale(1.15);
+        }
+
+        /* Disposition Principale */
+        .main-wrapper {
+            padding: 30px 20px;
+            width: 100%;
+            max-width: 850px;
+            box-sizing: border-box;
+        }
+
+        .container {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 35px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--border-color);
+        }
+
+        .header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 25px;
+            margin-bottom: 25px;
+        }
+
+        .presentation-img {
+            width: 100%;
+            max-width: 480px;
+            border-radius: 8px;
+            border: 3px solid var(--primary-color);
+            object-fit: cover;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            margin-bottom: 20px;
+        }
+
+        .header-text h1 {
+            margin: 0;
+            color: var(--primary-color);
+            font-size: 2rem;
+        }
+
+        .header-text p {
+            margin: 8px 0 0 0;
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        h2 {
+            font-size: 1.3rem;
+            color: #ffffff;
+            margin-top: 30px;
+        }
+
+        p, li {
+            line-height: 1.7;
+            color: var(--text-color);
+            font-size: 1.02rem;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        ul li {
+            margin-bottom: 10px;
+        }
+
+        .highlight-box {
+            background-color: var(--info-bg);
+            border-left: 4px solid var(--info-border);
+            padding: 20px;
+            border-radius: 6px;
+            margin: 25px 0;
+        }
+
+        .price-question {
+            font-weight: bold;
+            color: var(--primary-color);
+            font-size: 1.15rem;
+            margin-top: 30px;
+        }
+
+        /* Boîte de Saisie du Nom */
+        .name-box {
+            background-color: #101416;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px dashed var(--primary-color);
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .name-box input {
+            background-color: #1e272c;
+            border: 1px solid var(--border-color);
+            color: #ffffff;
+            padding: 10px 15px;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            width: 80%;
+            max-width: 350px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .name-box input:focus {
+            border-color: var(--primary-color);
+        }
+
+        /* Section contenu dynamique qui apparaît après la saisie */
+        #storyContent {
+            display: none;
+            animation: fadeIn 0.8s ease-in forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .btn-container {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .btn-start {
+            display: inline-block;
+            padding: 14px 35px;
+            background-color: var(--primary-color);
+            color: #12181b;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(46, 204, 113, 0.3);
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-start:hover {
+            background-color: #27ae60;
+            transform: scale(1.03);
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar Supérieure avec Logo et Drapeaux -->
+<header class="top-navbar">
+    <a href="menu.html" class="brand-logo">
+        <img src="../IMG/logo_1024_white.png" alt="EatMeFirst Logo">
+        <span>EatMeFirst</span>
+    </a>
+    <div class="language-flags">
+        <a href="../IT/benvenuto.html" title="Italiano"><img src="../IMG/bandiera_Italy.jpg" alt="Italiano" class="flag-icon"></a>
+        <a href="../EN/benvenuto.html" title="English"><img src="../IMG/bandiera_England.jpg" alt="English" class="flag-icon"></a>
+        <a href="../DE/willkommen.html" title="Deutsch"><img src="../IMG/bandiera_Germany.jpg" alt="Deutsch" class="flag-icon"></a>
+        <a href="bienvenue.html" title="Français"><img src="../IMG/bandiera_France.jpg" alt="Français" class="flag-icon"></a>
+        <a href="../ES/benvenuto.html" title="Español"><img src="../IMG/bandiera_Espana.jpg" alt="Español" class="flag-icon"></a>
+    </div>
+</header>
+
+<div class="main-wrapper">
+    <div class="container">
+        
+        <!-- En-tête avec image de Max et Eva -->
+        <div class="header">
+            <img src="IMG/organisation-garde-manger-domestique.png" alt="Max et Eva - EatMeFirst" class="presentation-img">
+            <div class="header-text">
+                <h1>Un problème courant dans de nombreux foyers</h1>
+                <p>Bonjour, nous sommes Max et Eva et vous, comment vous appelez-vous ?</p>
+            </div>
+        </div>
+
+        <!-- Boîte de Saisie du Nom -->
+        <div class="name-box" id="nameBox">
+            <p style="margin-top: 0; font-weight: 500;">Écrivez votre prénom ici (ou attendez quelques secondes pour continuer) :</p>
+            <input type="text" id="userNameInput" maxlength="80" placeholder="Entrez votre prénom..." autofocus>
+        </div>
+
+        <!-- Bloc de l'Histoire (Apparaît automatiquement) -->
+        <div id="storyContent">
+            
+            <p>Nous sommes un couple de consommateurs qui, tout comme vous, fait ses courses presque tous les jours. Malheureusement, il nous arrivait souvent de trouver des produits périmés au fond du placard et de devoir les jeter.</p>
+            
+            <p>Un jour, nous en avons discuté avec un ami informaticien pour voir s'il était possible de créer un système pour mieux gérer les achats à la maison. Et <span class="user-name-span"></span>vous savez ce que c'est... une chose en entraînant une autre ! Nous nous sommes passionnés pour ce projet et avons créé un programme capable de prendre en compte chaque variable de la vie quotidienne : des produits de cuisine aux produits d'entretien et d'hygiène personnelle.</p>
+            
+            <p>Croyez-le <span class="user-name-span-2"></span> : ce que vous êtes sur le point d'essayer va véritablement changer votre façon de gérer vos courses et votre garde-manger. Leo, notre ami programmeur, stimulé par nos demandes constantes, a fait de véritables miracles !</p>
+
+            <!-- Section Confidentialité -->
+            <div class="highlight-box">
+                <strong style="font-size: 1.1rem; color: #ffffff;">🔒 La confidentialité absolue avant tout</strong><br><br>
+                L'une des premières exigences fondamentales que nous lui avons demandée est la sécurité : nous ne voulions en aucun cas que les données sur nos habitudes d'achat finissent sur des serveurs externes pour être vendues à des publicitaires. C'est pourquoi nous avons décidé que tout resterait uniquement sur votre appareil (ordinateur fixe ou portable).
+                <ul style="margin-top: 12px; margin-bottom: 0;">
+                    <li><strong>Ultra-léger :</strong> Pas besoin d'installer des gigaoctets de fichiers, seulement quelques centaines de mégaoctets.</li>
+                    <li><strong>Autonome :</strong> Il ne ralentira pas votre ordinateur et vous pourrez l'utiliser même sans connexion Internet, une fois les produits que vous utilisez habituellement enregistrés.</li>
+                </ul>
+            </div>
+
+            <h2>Comment fonctionne le chargement ?</h2>
+            <p>Votre ordinateur travaille entièrement en local. Vous êtes peut-être arrivé ici précisément pour cette raison, et à cet égard, nous vous invitons à remarquer que dans la barre d'adresse ci-dessus, vous ne voyez pas de site Web externe (<code>https://www...</code>), mais que vous naviguez directement à l'intérieur des dossiers de votre appareil (<code>file:///C:/...</code>). Vous êtes à 100 % à l'intérieur de votre ordinateur.</p>
+            
+            <p>Cependant, lorsque vous devez charger un nouveau produit, le système utilise le code-barres présent sur l'emballage et se connecte à des bases de données publiques pour récupérer automatiquement les détails, les calories, les allergènes et l'image de l'emballage. Ce qui part de votre PC ne sont que de simples requêtes de consultation : c'est vous qui demandez des informations au Web, et non l'inverse ! Aucune donnée personnelle n'est envoyée à l'extérieur. Si vous voulez faire un test, il vous suffit de scanner n'importe quel code-barres avec l'appareil photo de votre smartphone pour voir immédiatement quelles fiches publiques sont renvoyées. Vous êtes et resterez toujours en sécurité.</p>
+
+            <h2>Et pour lire le code ?</h2>
+            <p>Au lieu de vous faire acheter un lecteur laser de supermarché (qui coûte entre 15 et 20 euros), nous avons demandé à Leo une alternative gratuite. Résultat ? Il a suffi de récupérer un vieux smartphone sans carte SIM, connecté au Wi-Fi de la maison, pour le transformer en scanner professionnel. <strong>Coût : 0 euro !</strong></p>
+
+            <p>Bref : gestion complète des produits par code-barres, confidentialité maximale et matériel à coût zéro.</p>
+
+            <p class="price-question">Vous vous demandez sûrement : « Mais combien tout cela va-t-il me coûter ? »</p>
+            <p>Cela semble fou, mais nous vous l'offrons. Aucun abonnement, aucune publicité, aucun piège : c'est gratuit et ça le restera pour toujours.</p>
+
+            <h2>Une dernière question vous trotte peut-être dans la tête...</h2>
+            <p>« Comment faire confiance à un programme téléchargé ? Et s'il contenait des virus ? »</p>
+            <p>Nous vous garantissons à 100 % la fiabilité de l'application, mais nous voulons que vous vous sentiez totalement rassuré. Sur l'écran suivant, nous laisserons la parole à Leo qui vous expliquera comment effectuer une vérification directe avec votre antivirus.</p>
+
+            <!-- Bouton de passage vers Leo -->
+            <div class="btn-container">
+                <a href="chargement/connexion.html" class="btn-start">D'accord Max et Eva, écoutons ce que Leo a à dire →</a>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<script>
+    const nameInput = document.getElementById('userNameInput');
+    const storyContent = document.getElementById('storyContent');
+    let typingTimer;
+    let autoStartTimer;
+    let hasRevealed = false;
+
+    function revealStory() {
+        if (hasRevealed) return;
+        hasRevealed = true;
+
+        const val = nameInput.value.trim();
+        const spans1 = document.querySelectorAll('.user-name-span');
+        const spans2 = document.querySelectorAll('.user-name-span-2');
+
+        if (val !== "") {
+            spans1.forEach(s => s.textContent = val + ", ");
+            spans2.forEach(s => s.textContent = ", " + val);
+        } else {
+            spans1.forEach(s => s.textContent = "");
+            spans2.forEach(s => s.textContent = "");
+        }
+
+        storyContent.style.display = 'block';
+    }
+
+    // 1. Minuteur initial de 7 secondes si l'utilisateur ne fait rien
+    autoStartTimer = setTimeout(() => {
+        revealStory();
+    }, 7000);
+
+    // 2. Événement de saisie : attendre 5 secondes après la dernière touche pressée
+    nameInput.addEventListener('input', () => {
+        clearTimeout(autoStartTimer);
+        clearTimeout(typingTimer);
+        typingTimer = setTimeout(() => {
+            revealStory();
+        }, 5000);
+    });
+
+    // 3. Si l'utilisateur appuie sur Entrée, afficher immédiatement l'histoire
+    nameInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            clearTimeout(autoStartTimer);
+            clearTimeout(typingTimer);
+            revealStory();
+        }
+    });
+</script>
+
+</body>
+</html>

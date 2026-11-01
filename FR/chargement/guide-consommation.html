@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guide Mode de Consommation | EatMeFirst</title>
+    <meta name="robots" content="noindex, nofollow">
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --card-bg: #161b22;
+            --text-color: #f0f6fc;
+            --postit-bg: #fff59d;
+            --postit-text: #333333;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 20px 16px;
+        }
+
+        .container {
+            max-width: 650px;
+            margin: 20px auto;
+            width: 100%;
+        }
+
+        .postit-card {
+            background-color: var(--postit-bg);
+            color: var(--postit-text);
+            padding: 30px 26px;
+            border-radius: 4px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            position: relative;
+            transform: rotate(-0.4deg);
+        }
+
+        .postit-card::before {
+            content: '';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 24px;
+            height: 24px;
+            background: #f44336;
+            border-radius: 50%;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.4), inset -2px -2px 4px rgba(0,0,0,0.3);
+        }
+
+        h1 { font-size: 21px; margin-bottom: 18px; color: #1a1a1a; display: flex; align-items: center; gap: 8px; }
+        
+        .discorso-guida {
+            font-size: 15px;
+            line-height: 1.65;
+            color: #222;
+        }
+
+        .discorso-guida p {
+            margin-bottom: 14px;
+        }
+
+        .memoria-box {
+            background: rgba(76, 175, 80, 0.15);
+            border-left: 4px solid #4caf50;
+            padding: 14px 16px;
+            border-radius: 4px;
+            margin: 18px 0;
+            font-size: 14.5px;
+            line-height: 1.6;
+        }
+
+        .btn-close {
+            display: inline-block;
+            margin-top: 20px;
+            background: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: background 0.2s;
+        }
+
+        .btn-close:hover { background: #000; }
+    </style>
+</head>
+<body>
+
+    <main class="container">
+        <article class="postit-card">
+            <h1>📊 Mode de Consommation : Unité ou Fractionnement</h1>
+            
+            <div class="discorso-guida">
+                <p>Tous les aliments ne se consomment pas de la même manière : certains se déduisent entièrement par pièces ou emballages, d'autres s'utilisent progressivement, petit à petit. Cette option sert à choisir comment vous préférez gérer la sortie (le déchargement) du produit.</p>
+
+                <p>Voici les deux modes disponibles :</p>
+
+                <ul>
+                    <li style="margin-bottom: 10px;">
+                        <strong>📦 Par Unité (Entières) :</strong> C'est le choix par défaut pour la plupart des produits (ex. briques de lait, paquets de biscuits, boîtes de conserve). Lorsque vous déchargerez ce produit, vous retirerez une unité entière à la fois de votre inventaire.
+                    </li>
+                    <li style="margin-bottom: 10px;">
+                        <strong>🧀 Par Fractionnement (en 10 Dixièmes) :</strong> Idéal pour les aliments que l'on coupe ou que l'on consomme par portions (ex. un saucisson, une meule de fromage, un bloc de beurre ou une brique de jus de fruit entamée).
+                    </li>
+                </ul>
+
+                <div class="memoria-box">
+                    💡 <strong>Comment fonctionne le déchargement automatique ?</strong><br><br>
+                    • <strong>Par Fractionnement (en 10 Dixièmes) :</strong> Chaque fois que vous consommez une portion (ex. 3 dixièmes d'une meule de fromage), vous indiquez les dixièmes consommés. L'application mettra à jour la barre restante. Lorsque les 10 dixièmes auront été consommés, le produit sera automatiquement retiré du garde-manger.<br><br>
+                    • <strong>Par Emballage / Pièces :</strong> Si vous indiquez par exemple 2 emballages de 6 bouteilles (12 pièces au total), à chaque déchargement, il vous suffira de déduire les pièces consommées. Vous n'aurez pas à effacer manuellement les lignes : l'application ajustera les stocks et supprimera l'élément automatiquement uniquement lors de son vidage complet !
+                </div>
+
+                <p><em>(Si vous hésitez, laissez simplement réglé sur « Par Unité (Entières) » : vous pourrez toujours gérer le déchargement standard à tout moment !)</em></p>
+            </div>
+
+            <a href="chargement.html" class="btn-close">← Retour au Chargement</a>
+        </article>
+    </main>
+
+</body>
+</html>

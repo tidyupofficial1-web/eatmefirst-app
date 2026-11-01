@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Déchargement & Consommations Interactives | EatMeFirst</title>
+    <meta name="robots" content="noindex, nofollow">
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --card-bg: #161b22;
+            --text-color: #f0f6fc;
+            --text-muted: #8b949e;
+            --accent-color: #58a6ff;
+            --success-color: #238636;
+            --danger-color: #da3633;
+            --border-color: #30363d;
+            --light-bg: #21262d;
+            --input-bg: #0d1117;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- BARRE DE NAVIGATION --- */
+        .app-bar {
+            background: rgba(22, 27, 34, 0.95);
+            border-bottom: 1px solid var(--border-color);
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky; top: 0; z-index: 40;
+        }
+
+        .app-brand { display: flex; align-items: center; gap: 12px; }
+        .btn-back {
+            background: var(--light-bg); color: var(--text-color);
+            border: 1px solid var(--border-color); padding: 6px 14px;
+            border-radius: 8px; text-decoration: none; font-size: 13.5px; font-weight: 600;
+        }
+        .btn-back:hover { border-color: var(--accent-color); color: var(--accent-color); }
+        .brand-title { font-size: 18px; font-weight: bold; color: var(--text-color); }
+
+        .container { max-width: 900px; margin: 30px auto; padding: 0 16px; width: 100%; }
+
+        /* CARTE FILTRES & RECHERCHE */
+        .card-box {
+            background: var(--card-bg); border-radius: 16px;
+            border: 1px solid var(--border-color); padding: 24px;
+            margin-bottom: 24px; box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+        }
+        .card-title-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+        .card-title { font-size: 19px; color: var(--accent-color); font-weight: 700; }
+
+        .filtri-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px; }
+        .search-input, .filter-select {
+            width: 100%; padding: 11px 14px; background: var(--input-bg);
+            border: 1px solid var(--border-color); border-radius: 8px;
+            color: var(--text-color); font-size: 14px; outline: none;
+        }
+
+        /* LISTE DE PRODUITS */
+        .product-list { display: flex; flex-direction: column; gap: 10px; }
+        .product-item {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 14px 16px; background: var(--light-bg);
+            border: 1px solid var(--border-color); border-radius: 10px;
+        }
+
+        .btn-action {
+            background-color: var(--success-color); color: #fff;
+            border: none; padding: 8px 16px; border-radius: 8px;
+            font-weight: bold; cursor: pointer; font-size: 14px;
+        }
+        .btn-action:hover { background-color: #2ea043; }
+
+        /* --- MODALE DÉCHARGEMENT DYNAMIQUE AVEC FORMES RÉELLES --- */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.85); display: flex; justify-content: center;
+            align-items: center; z-index: 100; padding: 20px;
+        }
+        .modal-content {
+            background: var(--card-bg); border: 1px solid var(--border-color);
+            border-radius: 16px; max-width: 480px; width: 100%; padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        /* CONTENEUR INTERACTIF POUR LE RÉGULATEUR VISUEL DE NIVEAU */
+        .interactive-shape-wrapper {
+            background: #0d1117;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 15px 0;
+            user-select: none;
+        }
+
+        /* STYLES DES FORMES SVG */
+        .shape-canvas {
+            cursor: pointer;
+            transition: transform 0.1s ease;
+        }
+
+        .slider-level-control {
+            width: 80%;
+            margin-top: 15px;
+            accent-color: var(--success-color);
+            cursor: pointer;
+        }
+
+        .status-badge-container {
+            display: flex; justify-content: space-around; width: 100%;
+            margin-top: 12px; font-size: 13.5px; font-weight: 600;
+        }
+        .badge-ver { color: #2ecc71; }
+        .badge-ros { color: #e74c3c; }
+
+        .modal-buttons { display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px; }
+        .btn-secondary {
+            background: var(--light-bg); color: var(--text-color);
+            border: 1px solid var(--border-color); padding: 8px 16px; border-radius: 8px; cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="app-bar">
+        <div class="app-brand">
+            <a href="../menu.html" class="btn-back">← Menu</a>
+            <span class="brand-title">Déchargement & Consommations Interactives</span>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="card-box">
+            <div class="card-title-row">
+                <div class="card-title">🔍 Rechercher un aliment à décharger</div>
+            </div>
+
+            <div class="filtri-grid">
+                <input type="text" id="filtroNome" class="search-input" placeholder="Rechercher par nom..." oninput="filtraDispensa()">
+                <select id="filtroUbicazione" class="filter-select" onchange="filtraDispensa()">
+                    <option value="">Tous les emplacements</option>
+                </select>
+                <select id="filtroCategoria" class="filter-select" onchange="filtraDispensa()">
+                    <option value="">Toutes les catégories</option>
+                </select>
+            </div>
+
+            <div id="listaRisultati" class="product-list"></div>
+        </div>
+    </main>
+
+    <!-- MODALE DÉCHARGEMENT AVEC FORME VISUELLE ET CURSEUR SOURIS -->
+    <div id="modalScaricoVisual" class="modal-overlay" style="display:none;">
+        <div class="modal-content">
+            <h3 id="modalNomeProdotto" style="color: var(--accent-color); font-size: 20px; text-align: center;">Nom du Produit</h3>
+            <p id="modalUbicazioneProdotto" style="text-align: center; color: var(--text-muted); font-size: 13px; margin-top: 3px;">Emplacement : Réfrigérateur</p>
+
+            <div class="interactive-shape-wrapper">
+                <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px; text-transform: uppercase;">Ajustez le niveau restant avec la souris ou le curseur</p>
+                
+                <!-- CANVAS / CONTENEUR GRAPHIQUE -->
+                <div id="shapeContainer"></div>
+
+                <!-- CURSEUR ALTERNATIF POUR AJUSTEMENT PRÉCIS AVEC LA SOURIS -->
+                <input type="range" id="levelSlider" class="slider-level-control" min="0" max="100" value="100" oninput="aggiornaLivelloVisivo(this.value)">
+
+                <div class="status-badge-container">
+                    <span class="badge-ver">🟢 Restant : <strong id="lblRimanente">100%</strong></span>
+                    <span class="badge-ros">🔴 Consommé : <strong id="lblConsumato">0%</strong></span>
+                </div>
+            </div>
+
+            <div class="modal-buttons">
+                <button type="button" class="btn-secondary" onclick="chiudiModalScarico()">Annuler</button>
+                <button type="button" class="btn-action" onclick="confermaScaricoEffettivo()">Confirmer le Déchargement</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let prodottoSelezionato = null;
+        let percentualeAttuale = 100;
+
+        // Données de test simulées
+        const dispensaTest = [
+            { id: 1, nome: "Bouteille de Lait", ubicazione: "Réfrigérateur", categoria: "Produits laitiers", forma: "cilindro_verticale", percentuale: 80 },
+            { id: 2, nome: "Saucisson Maison", ubicazione: "Garde-manger", categoria: "Charcuterie", forma: "cilindro_orizzontale", percentuale: 60 },
+            { id: 3, nome: "Tarte Margherita", ubicazione: "Cuisine", categoria: "Desserts", forma: "forma_circolare", percentuale: 75 },
+            { id: 4, nome: "Bac de Glace", ubicazione: "Congélateur", categoria: "Surgelés", forma: "parallelepipedo", percentuale: 50 }
+        ];
+
+        window.addEventListener('DOMContentLoaded', () => {
+            if (!localStorage.getItem('emf_dispensa')) {
+                localStorage.setItem('emf_dispensa', JSON.stringify(dispensaTest));
+            }
+            popolaFiltri();
+            filtraDispensa();
+        });
+
+        function popolaFiltri() {
+            const dispensa = JSON.parse(localStorage.getItem('emf_dispensa')) || [];
+            const ubSelect = document.getElementById('filtroUbicazione');
+            const catSelect = document.getElementById('filtroCategoria');
+            
+            const ubs = [...new Set(dispensa.map(p => p.ubicazione))];
+            const cats = [...new Set(dispensa.map(p => p.categoria))];
+
+            ubs.forEach(u => ubSelect.innerHTML += `<option value="${u}">${u}</option>`);
+            cats.forEach(c => catSelect.innerHTML += `<option value="${c}">${c}</option>`);
+        }
+
+        function filtraDispensa() {
+            const query = document.getElementById('filtroNome').value.toLowerCase();
+            const ub = document.getElementById('filtroUbicazione').value;
+            const cat = document.getElementById('filtroCategoria').value;
+            const dispensa = JSON.parse(localStorage.getItem('emf_dispensa')) || [];
+
+            const container = document.getElementById('listaRisultati');
+            const filtrati = dispensa.filter(p => 
+                p.nome.toLowerCase().includes(query) &&
+                (ub === "" || p.ubicazione === ub) &&
+                (cat === "" || p.categoria === cat)
+            );
+
+            container.innerHTML = filtrati.map(p => `
+                <div class="product-item">
+                    <div>
+                        <strong>${p.nome}</strong><br>
+                        <small style="color: var(--text-muted)">📍 ${p.ubicazione} \vert{} Forme :${p.forma}</small>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <span style="font-weight: bold; color: var(--accent-color)">${p.percentuale}% restant</span>
+                        <button class="btn-action" onclick="apriModalVisual(${p.id})">Décharger / Ajuster</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function apriModalVisual(id) {
+            const dispensa = JSON.parse(localStorage.getItem('emf_dispensa')) || [];
+            prodottoSelezionato = dispensa.find(p => p.id === id);
+            if (!prodottoSelezionato) return;
+
+            percentualeAttuale = prodottoSelezionato.percentuale || 100;
+
+            document.getElementById('modalNomeProdotto').innerText = prodottoSelezionato.nome;
+            document.getElementById('modalUbicazioneProdotto').innerText = `Emplacement : ${prodottoSelezionato.ubicazione}`;
+            document.getElementById('levelSlider').value = percentualeAttuale;
+
+            disegnaFormaSVG(prodottoSelezionato.forma, percentualeAttuale);
+            aggiornaEtichette(percentualeAttuale);
+
+            document.getElementById('modalScaricoVisual').style.display = 'flex';
+        }
+
+        function disegnaFormaSVG(forma, percentuale) {
+            const container = document.getElementById('shapeContainer');
+            const hVerde = (percentuale / 100) * 140; // Hauteur verte proportionnelle
+            const hRosso = 140 - hVerde;
+
+            if (forma === 'cilindro_verticale' || forma === 'parallelepipedo') {
+                container.innerHTML = `
+                    <svg width="100" height="160" viewBox="0 0 100 160" class="shape-canvas" onclick="gestisciClickAltezza(event, 160)">
+                        <rect x="15" y="10" width="70" height="140" rx="8" fill="#e74c3c" />
+                        <rect x="15" y="${10 + hRosso}" width="70" height="${hVerde}" rx="0" fill="#2ecc71" />
+                        <rect x="15" y="10" width="70" height="140" rx="8" fill="none" stroke="#ffffff" stroke-width="3" />
+                    </svg>
+                `;
+            } else if (forma === 'cilindro_orizzontale') {
+                const wVerde = (percentuale / 100) * 160;
+                container.innerHTML = `
+                    <svg width="180" height="90" viewBox="0 0 180 90" class="shape-canvas" onclick="gestisciClickLarghezza(event, 180)">
+                        <rect x="10" y="20" width="160" height="50" rx="25" fill="#e74c3c"
