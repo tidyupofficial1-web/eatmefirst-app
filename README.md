@@ -2,6 +2,13 @@
 
 ---
 
+### 🌐 Access Links / Link di Accesso
+
+* 🌐 **[Web Version / Versione Online](https://tidyupofficial1-web.github.io/eatmefirst-app/)**
+* 📦 **[Local Version (ZIP) / Versione Locale (ZIP)](https://github.com/tidyupofficial1-web/eatmefirst-app/archive/refs/heads/main.zip)**
+
+---
+
 ### [English]
 **EatMeFirst** is a domestic pantry management and expiration tracking application designed to help you organize groceries, monitor expiry dates, and eliminate food waste while maintaining total privacy.
 
