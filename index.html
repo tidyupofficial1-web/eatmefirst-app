@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EatMeFirst - Benvenuto</title>
 
-    <!-- CONTROLLORE BROWSER: SE GIÀ REGISTRATO SALTA LA PRESENTAZIONE -->
+    <!-- CONTROLLORE BROWSER: GESTISCE IL PRIMO ACCESSO O IL RITORNO AL MENU -->
     <script>
         (function() {
             var userLang = (navigator.language || navigator.userLanguage || 'it').substring(0, 2).toLowerCase();
@@ -13,9 +13,11 @@
             var linguaDestinazione = lingueSupportate.includes(userLang) ? userLang.toUpperCase() : 'IT';
 
             if (localStorage.getItem('eatmefirst_consent') === 'accepted') {
+                // Utente già registrato: va dritto al menu della sua lingua
                 window.location.href = linguaDestinazione + '/menu.html';
             } else {
-                window.location.href = linguaDestinazione + '/index.html';
+                // Primo accesso: mostra la clip d'intro multilingua e video
+                window.location.href = linguaDestinazione + '/intro.html';
             }
         })();
     </script>
