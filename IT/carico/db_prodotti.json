@@ -1,0 +1,86 @@
+{
+    "https://192.168.1.72:8888/IT/carico/scanner.html": {
+        "found": true,
+        "barcode": "https://192.168.1.72:8888/IT/carico/scanner.html",
+        "nome": "",
+        "categoria": "",
+        "foto": "",
+        "quantita_netta": "",
+        "ingredienti": "",
+        "allergeni": "",
+        "calorie": "",
+        "extra": {}
+    },
+    "8014006000560": {
+        "found": true,
+        "barcode": "8014006000560",
+        "nome": "Pan Grattato",
+        "categoria": "Pangrattato",
+        "foto": "https://images.openfoodfacts.org/images/products/801/400/600/0560/front_it.25.400.jpg",
+        "quantita_netta": "400 g",
+        "ingredienti": "Farina di frumento, sale, lievito. Può contenere tracce di soia. Conservare in luogo asciutto. Da consumarsi preferibilmente entro il: in confezione integra vedere linguetta sul fondo. Prodotto in Germania. Origine del grano: UE. BREADCRUMBS Ingredients: Wheat flour, salt, yeast. May contain traces of soy. Store in a dry place. Best before: see base. Produced in Germany. Origin of wheat: EU. 400g e 14.10Z Stabilimento Granbon S.r.l. Via Ferrata, 21-37040 Caselle di Pressana (VR) ITALIA Tel. +39 044287766 - Fax +39 0442449042 - www.granbon.it",
+        "allergeni": "en:gluten, Farina di frumento",
+        "calorie": 357,
+        "extra": {}
+    },
+    "https://192.168.1.72:8888/IT/carico/carico.html": {
+        "found": true,
+        "barcode": "https://192.168.1.72:8888/IT/carico/carico.html",
+        "nome": "",
+        "categoria": "",
+        "foto": "",
+        "quantita_netta": "",
+        "ingredienti": "",
+        "allergeni": "",
+        "calorie": "",
+        "extra": {}
+    },
+    "8001440118944": {
+        "found": true,
+        "barcode": "8001440118944",
+        "nome": "polpa finissima",
+        "categoria": "Pulpes de tomates",
+        "foto": "https://images.openfoodfacts.org/images/products/800/144/011/8944/front_fr.37.400.jpg",
+        "quantita_netta": "3 x 400g",
+        "ingredienti": "POMODORI, SALE. ORIGINE DEL POMODORO: ITALIA",
+        "allergeni": "",
+        "calorie": 29,
+        "extra": {}
+    },
+    "8076800195132": {
+        "found": true,
+        "barcode": "8076800195132",
+        "nome": "Linguine N.13",
+        "categoria": "Hartweizenteigwaren",
+        "foto": "https://images.openfoodfacts.org/images/products/807/680/019/5132/front_de.177.400.jpg",
+        "quantita_netta": "500g",
+        "ingredienti": "Hartweizengrieß, Wasser. Kann Spuren von Sojabohnen enthalten.",
+        "allergeni": "Gluten",
+        "calorie": 359,
+        "extra": {}
+    },
+    "https://192.168.1.72:8888/ES/carico/carga-productos.html": {
+        "found": true,
+        "barcode": "https://192.168.1.72:8888/ES/carico/carga-productos.html",
+        "nome": "",
+        "categoria": "",
+        "foto": "",
+        "quantita_netta": "",
+        "ingredienti": "",
+        "allergeni": "",
+        "calorie": "",
+        "extra": {}
+    },
+    "http://192.168.1.72:8888/IT/carico/scanner.html": {
+        "found": true,
+        "barcode": "http://192.168.1.72:8888/IT/carico/scanner.html",
+        "nome": "",
+        "categoria": "",
+        "foto": "",
+        "quantita_netta": "",
+        "ingredienti": "",
+        "allergeni": "",
+        "calorie": "",
+        "extra": {}
+    }
+}

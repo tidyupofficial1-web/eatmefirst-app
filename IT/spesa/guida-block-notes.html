@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guida al Block Notes, Foto e Appunti | EatMeFirst</title>
+  <meta name="description" content="Organizza appunti veloci, foto improvvisate tra i negozi e liste della spesa con il Block Notes interattivo e la bacheca Post-it di EatMeFirst.">
+  <meta name="robots" content="noindex, nofollow">
+
+  <style>
+    :root {
+      --bg-color: #0d1117;
+      --card-bg: #161b22;
+      --text-bright: #ffffff;
+      --text-sub: #c9d1d9;
+      --warning-color: #f2b33d;
+      --accent-color: #58a6ff;
+      --success-color: #238636;
+      --border-color: #30363d;
+      --postit-bg: #1c2128;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-bright);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* BARRA SUPERIORE CON PULSANTE CHIUDI */
+    .app-bar {
+      background: rgba(22, 27, 34, 0.95);
+      border-bottom: 1px solid var(--border-color);
+      padding: 14px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 40;
+    }
+
+    .app-brand { display: flex; align-items: center; gap: 12px; }
+    .brand-title { font-size: 18px; font-weight: bold; color: var(--text-bright); }
+
+    .btn-close-guide {
+      background: #238636;
+      color: #ffffff;
+      border: 1px solid #2ea043;
+      padding: 8px 18px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+      transition: background 0.2s;
+    }
+    .btn-close-guide:hover { background: #2ea043; }
+
+    .container {
+      max-width: 820px;
+      margin: 30px auto;
+      padding: 0 16px;
+      width: 100%;
+    }
+
+    /* CARTA POST-IT PRINCIPALE */
+    .postit-card {
+      background: var(--postit-bg);
+      border: 2px dashed var(--warning-color);
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+      margin-bottom: 24px;
+    }
+
+    .postit-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 14px;
+    }
+
+    .postit-title {
+      font-size: 22px;
+      color: var(--warning-color);
+      font-weight: 700;
+    }
+
+    .intro-text {
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--text-bright);
+      margin-bottom: 24px;
+    }
+
+    /* SCHEDE PUNTI CHIAVE */
+    .feature-list {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      margin-bottom: 24px;
+    }
+
+    .feature-box {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-left: 5px solid var(--accent-color);
+      border-radius: 10px;
+      padding: 18px 20px;
+    }
+
+    .feature-box.notes { border-left-color: var(--warning-color); }
+    .feature-box.camera { border-left-color: var(--accent-color); }
+    .feature-box.bacheca { border-left-color: var(--success-color); }
+
+    .feature-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text-bright);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .feature-desc {
+      font-size: 15px;
+      color: var(--text-sub);
+      line-height: 1.6;
+    }
+
+    .feature-desc ul {
+      margin-left: 20px;
+      margin-top: 8px;
+    }
+
+    .feature-desc li {
+      margin-bottom: 6px;
+    }
+
+    .tip-box {
+      background: rgba(242, 179, 61, 0.12);
+      border: 1px solid var(--warning-color);
+      border-radius: 10px;
+      padding: 16px 20px;
+      font-size: 14.5px;
+      color: var(--text-bright);
+      line-height: 1.6;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 13px;
+      color: var(--text-sub);
+      border-top: 1px solid var(--border-color);
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- BARRA SUPERIORE -->
+  <header class="app-bar">
+    <div class="app-brand">
+      <div class="mini-logo" style="display: inline-flex; align-items: center;">
+        <img src="../../IMG/logo_1024_white.png" alt="Logo EatMeFirst" style="height: 32px; width: auto;">
+      </div>
+      <span class="brand-title">📌 Post-it d'Aiuto Block Notes</span>
+    </div>
+    <a href="index.html" class="btn-close-guide" title="Torna al Block Notes">
+      ✕ Chiudi e Torna al Block Notes
+    </a>
+  </header>
+
+  <main class="container">
+    <article class="postit-card">
+      <div class="postit-header">
+        <span style="font-size: 30px;">📝</span>
+        <h1 class="postit-title">Come usare il Block Notes e la Fotocamera</h1>
+      </div>
+
+      <p class="intro-text">
+        La sezione <strong>Block Notes & Foto</strong> è un vero e proprio taccuino multimediale pensato per catturare al volo idee, promemoria visivi ed esigenze estemporanee quando ti trovi fuori casa o in giro per negozi.
+      </p>
+
+      <div class="feature-list">
+
+        <!-- 1. CREAZIONE NOTE ED ESEMPI REALI -->
+        <div class="feature-box notes">
+          <div class="feature-title">
+            <span>💡</span> 1. Appunti veloci e occasioni al volo
+          </div>
+          <div class="feature-desc">
+            Utilizza il Block Notes per annotare qualsiasi promemoria improvvisato. Ad esempio, quando sei in giro puoi:
+            <ul>
+              <li><strong>Fotografare volantini o sconti:</strong> Scatta al volo la foto di un vestito o di un prodotto in offerta per valutarlo o parlarne in famiglia.</li>
+              <li><strong>Appunti della mamma o di parenti:</strong> Inquadra la lista della spesa scritta a mano da tua madre quando scopre che stai andando al supermercato.</li>
+              <li><strong>Incontri ed eventi:</strong> Salva una foto ricordo se incontri un collega o appuntati subito un'idea o una ricetta che ti è venuta in mente.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 2. FOTOCAMERA E ALLEGATI -->
+        <div class="feature-box camera">
+          <div class="feature-title">
+            <span>📸</span> 2. Fotocamera integrata e caricamento file
+          </div>
+          <div class="feature-desc">
+            In un semplice tocco hai a disposizione due strumenti rapidi:
+            <ul>
+              <li><strong>📸 Scatta Foto:</strong> Avvia la fotocamera del tuo smartphone o la webcam del PC per catturare istantaneamente scontrini, biglietti o cartellini dei prezzi.</li>
+              <li><strong>📂 Carica File:</strong> Ti permette di selezionare immagini o documenti (.pdf, .doc) già salvati nella galleria del tuo dispositivo.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 3. BACHECA POST-IT -->
+        <div class="feature-box bacheca">
+          <div class="feature-title">
+            <span>📌</span> 3. Bacheca Post-it interattiva
+          </div>
+          <div class="feature-desc">
+            Ogni volta che salvi una nota o una fotografia, l'app crea un biglietto **Post-it colorato** nella bacheca sottostante.
+            Premendo il pulsante <strong>"Apri"</strong> sul singolo Post-it potrai rileggere il testo completo o visualizzare l'immagine allegata ad alta risoluzione.
+          </div>
+        </div>
+
+      </div>
+
+      <!-- CONSIGLIO PRATICO -->
+      <div class="tip-box">
+        <strong style="color: var(--warning-color);">💡 Sincronizzazione automatica:</strong><br>
+        Tutti i Post-it e le foto salvate vengono scaricati sul tuo cellulare tramite la funzione <strong>Utility</strong>, così da averli sempre a portata di mano anche quando fai la spesa offline!
+      </div>
+
+    </article>
+  </main>
+
+  <footer>
+    <span>&copy; EatMeFirst &bull; Privacy 100% Locale</span>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guida Modalità Consumo | EatMeFirst</title>
+    <meta name="robots" content="noindex, nofollow">
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --card-bg: #161b22;
+            --text-color: #f0f6fc;
+            --postit-bg: #fff59d;
+            --postit-text: #333333;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 20px 16px;
+        }
+
+        .container {
+            max-width: 650px;
+            margin: 20px auto;
+            width: 100%;
+        }
+
+        .postit-card {
+            background-color: var(--postit-bg);
+            color: var(--postit-text);
+            padding: 30px 26px;
+            border-radius: 4px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            position: relative;
+            transform: rotate(-0.4deg);
+        }
+
+        .postit-card::before {
+            content: '';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 24px;
+            height: 24px;
+            background: #f44336;
+            border-radius: 50%;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.4), inset -2px -2px 4px rgba(0,0,0,0.3);
+        }
+
+        h1 { font-size: 21px; margin-bottom: 18px; color: #1a1a1a; display: flex; align-items: center; gap: 8px; }
+        
+        .discorso-guida {
+            font-size: 15px;
+            line-height: 1.65;
+            color: #222;
+        }
+
+        .discorso-guida p {
+            margin-bottom: 14px;
+        }
+
+        .memoria-box {
+            background: rgba(76, 175, 80, 0.15);
+            border-left: 4px solid #4caf50;
+            padding: 14px 16px;
+            border-radius: 4px;
+            margin: 18px 0;
+            font-size: 14.5px;
+            line-height: 1.6;
+        }
+
+        .btn-close {
+            display: inline-block;
+            margin-top: 20px;
+            background: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: background 0.2s;
+        }
+
+        .btn-close:hover { background: #000; }
+    </style>
+</head>
+<body>
+
+    <main class="container">
+        <article class="postit-card">
+            <h1>📊 Modalità Consumo: Unità o Taglio</h1>
+            
+            <div class="discorso-guida">
+                <p>Non tutti gli alimenti si consumano allo stesso modo: alcuni si scaricano interamente a pezzi o confezioni, altri si consumano gradualmente un po' alla volta. Questa opzione serve a scegliere come preferisci gestire lo scarico del prodotto.</p>
+
+                <p>Ecco le due modalità disponibili:</p>
+
+                <ul>
+                    <li style="margin-bottom: 10px;">
+                        <strong>📦 A Unità (Intere):</strong> È la scelta predefinita per la maggior parte dei prodotti (es. cassette di latte, scatole di biscotti, lattine). Quando scaricherai questo prodotto, rimuoverai un'intera unità alla volta dal tuo inventario.
+                    </li>
+                    <li style="margin-bottom: 10px;">
+                        <strong>🧀 A Taglio (10 Decimi):</strong> Ideale per alimenti che tagli o consumi a porzioni (es. un salame, una forma di formaggio, un panetto di burro o un cartone di succo aperto).
+                    </li>
+                </ul>
+
+                <div class="memoria-box">
+    💡 <strong>Come funziona lo scarico automatico?</strong><br><br>
+    • <strong>A Taglio (10 Decimi):</strong> Ogni volta che consumi una porzione (es. 3 decimi di una forma di formaggio), indichi i decimi consumati. L'app aggiornerà la barra rimanente. Quando tutti e 10 i decimi saranno consumati, il prodotto verrà rimosso automaticamente dalla dispensa.<br><br>
+    • <strong>A Confezione / Pezzi:</strong> Se indichi ad esempio 2 confezioni da 6 bottiglie (12 pezzi totali), ad ogni scarico ti basterà scalare i pezzi consumati. Non dovrai cancellare manualmente le righe: l'app scalerà le giacenze e rimuoverà la voce in automatico solo al completo svuotamento!
+</div>
+
+                <p><em>(Se sei indeciso, lascia pure impostato "A Unità (Intere)": potrai sempre gestire lo scarico standard in qualsiasi momento!)</em></p>
+            </div>
+
+            <a href="carico.html" class="btn-close">← Torna al Carico</a>
+        </article>
+    </main>
+
+</body>
+</html>

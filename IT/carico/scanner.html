@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scanner Zero-Touch | EatMeFirst</title>
+    <meta name="robots" content="noindex, nofollow">
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --card-bg: #161b22;
+            --text-color: #f0f6fc;
+            --text-muted: #c9d1d9;
+            --accent-color: #58a6ff;
+            --border-color: #30363d;
+            --success-color: #238636;
+            --danger-color: #da3633;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            min-height: 100vh;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .scanner-container {
+            max-width: 500px;
+            width: 100%;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+        }
+
+        /* Indicatore di connessione (Pallina) */
+        .status-bar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 15px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+            background: rgba(255,255,255,0.03);
+            padding: 8px;
+            border-radius: 8px;
+        }
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: var(--danger-color);
+            box-shadow: 0 0 8px var(--danger-color);
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+        .dot.online {
+            background-color: var(--success-color);
+            box-shadow: 0 0 10px var(--success-color);
+        }
+
+        h1 { font-size: 20px; color: var(--accent-color); margin-bottom: 8px; }
+        p { font-size: 13.5px; color: var(--text-muted); margin-bottom: 15px; line-height: 1.5; }
+
+        .btn-start {
+            background: var(--success-color);
+            color: #ffffff;
+            border: none;
+            padding: 14px 24px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            margin-bottom: 15px;
+            width: 100%;
+            box-shadow: 0 4px 10px rgba(35, 134, 54, 0.3);
+        }
+        .btn-start:hover { opacity: 0.9; }
+
+        #reader { width: 100%; border-radius: 10px; overflow: hidden; background: #000; margin-bottom: 15px; }
+
+        .barcode-result {
+            padding: 15px;
+            background: rgba(35, 134, 54, 0.2);
+            border: 1px solid var(--success-color);
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            color: var(--success-color);
+            word-break: break-all;
+            margin-bottom: 15px;
+            display: none;
+        }
+
+        .info-chiusura {
+            font-size: 12px;
+            color: #8b949e;
+            margin-top: 15px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 12px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="scanner-container">
+        <!-- Spia di stato -->
+        <div class="status-bar">
+            <div id="connectionDot" class="dot"></div>
+            <span id="connectionText">Verifica connessione PC...</span>
+        </div>
+
+        <h1>📷 Scanner Smartphone EatMeFirst</h1>
+        <p>Premi il pulsante qui sotto, consenti l'uso della fotocamera e inquadra il codice a barre del prodotto: verrà inviato all'istante al tuo PC!</p>
+
+        <button id="startButton" class="btn-start" onclick="avviaScanner()">▶ Avvia Fotocamera</button>
+
+        <div id="reader"></div>
+
+        <div id="risultatoScansione" class="barcode-result">
+            🚀 Inviato al PC: <span id="codiceTrovato"></span>
+        </div>
+
+        <div class="info-chiusura">
+            💡 Quando hai finito di caricare la spesa, puoi semplicemente chiudere questa pagina sul telefono.
+        </div>
+    </div>
+
+    <script>
+        // Rileva automaticamente l'IP del server leggendo l'indirizzo da cui è aperta la pagina
+        const PC_SERVER = window.location.protocol + "//" + window.location.hostname + ":8888";
+
+        let html5QrCode = null;
+        let ultimoCodiceInviato = "";
+
+        // Controllo continuo della connessione con il PC (accende la pallina verde)
+        async function verificaConnessione() {
+            const dot = document.getElementById('connectionDot');
+            const text = document.getElementById('connectionText');
+            try {
+                const response = await fetch(`${PC_SERVER}/last_scan`, { method: 'GET', cache: 'no-store' });
+                if (response.ok) {
+                    dot.classList.add('online');
+                    text.textContent = "Connesso al PC (Pronto per la scansione)";
+                } else {
+                    throw new Error();
+                }
+            } catch (e) {
+                dot.classList.remove('online');
+                text.textContent = "Disconnesso (Controlla il Wi-Fi sul PC)";
+            }
+        }
+
+        // Controlla subito e ogni 3 secondi
+        verificaConnessione();
+        setInterval(verificaConnessione, 3000);
+
+        function avviaScanner() {
+            const btn = document.getElementById('startButton');
+            btn.style.display = 'none';
+
+            const resBox = document.getElementById('risultatoScansione');
+            const codeSpan = document.getElementById('codiceTrovato');
+
+            html5QrCode = new Html5Qrcode("reader");
+            const config = { fps: 15, qrbox: { width: 280, height: 140 } };
+
+            html5QrCode.start(
+                { facingMode: "environment" }, 
+                config,
+                (decodedText, decodedResult) => {
+                    const barcodePulito = decodedText.trim();
+                    const soloNumeri = /^\d{8,14}$/.test(barcodePulito);
+
+                    if (soloNumeri && barcodePulito !== ultimoCodiceInviato) {
+                        ultimoCodiceInviato = barcodePulito;
+                        
+                        codeSpan.textContent = barcodePulito;
+                        resBox.style.display = "block";
+                        
+                        if (navigator.vibrate) {
+                            navigator.vibrate(200);
+                        }
+
+                        // METODO BLINDATO: Usa un'immagine fantasma per aggirare qualsiasi blocco di sicurezza mobile
+                        const imgSend = new Image();
+                        imgSend.src = `${PC_SERVER}/save_scan?barcode=${encodeURIComponent(barcodePulito)}&t=` + Date.now();
+                        console.log("Inviato al PC via image-request:", barcodePulito);
+
+                        setTimeout(() => {
+                            ultimoCodiceInviato = "";
+                            resBox.style.display = "none";
+                        }, 2500);
+                    }
+                },
+                (errorMessage) => {}
+            ).catch(err => {
+                console.error("Errore di avvio della fotocamera: ", err);
+                alert("Impossibile accedere alla fotocamera. Assicurati di aver dato i permessi nel browser!");
+                btn.style.display = 'block';
+            });
+        }
+    </script>
+</body>
+</html>

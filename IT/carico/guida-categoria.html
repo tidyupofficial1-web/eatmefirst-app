@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guida Categoria Prodotto | EatMeFirst</title>
+    <meta name="robots" content="noindex, nofollow">
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --card-bg: #161b22;
+            --text-color: #f0f6fc;
+            --postit-bg: #fff59d;
+            --postit-text: #333333;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 20px 16px;
+        }
+
+        .container {
+            max-width: 650px;
+            margin: 20px auto;
+            width: 100%;
+        }
+
+        .postit-card {
+            background-color: var(--postit-bg);
+            color: var(--postit-text);
+            padding: 30px 26px;
+            border-radius: 4px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            position: relative;
+            transform: rotate(-0.4deg);
+        }
+
+        .postit-card::before {
+            content: '';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 24px;
+            height: 24px;
+            background: #f44336;
+            border-radius: 50%;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.4), inset -2px -2px 4px rgba(0,0,0,0.3);
+        }
+
+        h1 { font-size: 21px; margin-bottom: 18px; color: #1a1a1a; display: flex; align-items: center; gap: 8px; }
+        
+        .discorso-guida {
+            font-size: 15px;
+            line-height: 1.65;
+            color: #222;
+        }
+
+        .discorso-guida p {
+            margin-bottom: 14px;
+        }
+
+        .discorso-guida ul {
+            margin-left: 20px;
+            margin-bottom: 14px;
+        }
+
+        .discorso-guida li {
+            margin-bottom: 6px;
+        }
+
+        .categoria-box {
+            background: rgba(76, 175, 80, 0.15);
+            border-left: 4px solid #4caf50;
+            padding: 14px 16px;
+            border-radius: 4px;
+            margin: 18px 0;
+            font-size: 14.5px;
+            line-height: 1.6;
+        }
+
+        .chiusura-box {
+            margin-top: 20px;
+            padding: 14px 16px;
+            background: rgba(35, 134, 54, 0.15);
+            border-left: 4px solid #238636;
+            border-radius: 4px;
+            font-size: 14.5px;
+            line-height: 1.6;
+        }
+
+        .btn-close {
+            display: inline-block;
+            margin-top: 20px;
+            background: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: background 0.2s;
+        }
+
+        .btn-close:hover { background: #000; }
+    </style>
+</head>
+<body>
+
+    <main class="container">
+        <article class="postit-card">
+            <h1>🏷️ Categoria Prodotto: Trova e Organizza in un Clic</h1>
+            
+            <div class="discorso-guida">
+                <p>A cosa serve davvero dividere la dispensa in categorie? Non a fare i pignoli, ma a trovare subito quello che ti serve quando fai un controllo rapido nell'inventario!</p>
+
+                <p>Poi vedremo nella scheda specifica la funzione inventario, che userà anche altri modi per elencare le merci: ad esempio <em>"Scaffale vini cantina"</em> è una delle ubicazioni che potresti aver digitato. L'inventario ti elencherà tutto ciò che è stato caricato su quello scaffale (dove potresti aver messo non solo le bottiglie di vino, ma anche i tappi di sughero per imbottigliare o una damigiana). Ma ne riparleremo a tempo debito!</p>
+
+                <p><strong>Come funziona la Categoria in pratica?</strong></p>
+
+                <p><strong>1. Macrocategorie Pronte all'Uso:</strong> È facile che il prodotto cercato con il codice a barre venga inserito in una categoria (potrebbe essere scritto anche in un'altra lingua rispetto alla tua): se ti va bene la lasci, altrimenti scrivi tu in che categoria vuoi inserire il prodotto. Questa categoria ti sarà offerta insieme alle altre già memorizzate quando dovrai inserire un nuovo prodotto. Troverai inoltre due grandi famiglie pronte per coprire la maggior parte delle esigenze di casa:
+                <ul>
+                    <li>🍎 <strong>Alimentari:</strong> Latticini e Formaggi, Carne e Pesce, Frutta e Verdura, Bevande, Dolci e Colazione, Scatolame e Conserve...</li>
+                    <li>🏠 <strong>Casa e Persona:</strong> Detersivi e Pulizia, Igiene e Saponi, Carta e Monouso...</li>
+                </ul>
+                </p>
+
+                <div class="categoria-box">
+                    💡 <strong>2. Gestisci l'elenco come preferisci:</strong><br><br>
+                    • <strong>Rimuovi quello che non usi:</strong> Se una categoria predefinita non ti serve, puoi selezionare <em>"➖ Rimuovi categoria"</em> per accorciare l'elenco e velocizzare la scelta (sei sempre in tempo a riaggiungerla in futuro!).
+                </div>
+
+                <p><strong>3. Altro / Generico:</strong> Non hai voglia di categorizzare una scatola al volo perché sei di fretta? Lascia pure su <em>"Altro / Generico"</em> e vai avanti! L'importante è caricare il prodotto, a perfezionare i dettagli avrai sempre tempo.</p>
+
+                <div class="chiusura-box">
+                    🟢 <strong>Abbiamo finito l'inserimento del prodotto!</strong><br>
+                    Riguarda se è tutto giusto e, se è tutto a posto, clicca sul pulsante verde <strong>"➕ Aggiungi alla Dispensa"</strong> per salvare definitivamente in memoria!
+                </div>
+            </div>
+
+            <a href="carico.html" class="btn-close">← Torna al Carico</a>
+        </article>
+    </main>
+
+</body>
+</html>
