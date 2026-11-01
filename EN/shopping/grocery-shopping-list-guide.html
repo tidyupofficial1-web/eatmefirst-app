@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Grocery Shopping List Guide | EatMeFirst</title>
+  <meta name="robots" content="noindex, nofollow">
+
+  <style>
+    :root {
+      --bg-color: #0d1117;
+      --card-bg: #161b22;
+      --text-bright: #ffffff;
+      --text-sub: #c9d1d9;
+      --warning-color: #f2b33d;
+      --accent-color: #58a6ff;
+      --success-color: #238636;
+      --danger-color: #e53e3e;
+      --border-color: #30363d;
+      --postit-bg: #1c2128;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-bright);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* TOP BAR WITH CLOSE BUTTON */
+    .app-bar {
+      background: rgba(22, 27, 34, 0.95);
+      border-bottom: 1px solid var(--border-color);
+      padding: 14px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 40;
+    }
+
+    .app-brand { display: flex; align-items: center; gap: 12px; }
+    .brand-title { font-size: 18px; font-weight: bold; color: var(--text-bright); }
+
+    .btn-close-guide {
+      background: #238636;
+      color: #ffffff;
+      border: 1px solid #2ea043;
+      padding: 8px 18px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+      transition: background 0.2s;
+    }
+    .btn-close-guide:hover { background: #2ea043; }
+
+    .container {
+      max-width: 820px;
+      margin: 30px auto;
+      padding: 0 16px;
+      width: 100%;
+    }
+
+    /* MAIN STICKY NOTE CARD */
+    .postit-card {
+      background: var(--postit-bg);
+      border: 2px dashed var(--warning-color);
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+      margin-bottom: 24px;
+    }
+
+    .postit-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 14px;
+    }
+
+    .postit-title {
+      font-size: 22px;
+      color: var(--warning-color);
+      font-weight: 700;
+    }
+
+    .intro-text {
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--text-bright);
+      margin-bottom: 24px;
+    }
+
+    /* KEY FEATURES LIST */
+    .feature-list {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      margin-bottom: 24px;
+    }
+
+    .feature-box {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-left: 5px solid var(--accent-color);
+      border-radius: 10px;
+      padding: 18px 20px;
+    }
+
+    .feature-box.automatic { border-left-color: var(--danger-color); }
+    .feature-box.smart { border-left-color: var(--accent-color); }
+    .feature-box.store { border-left-color: var(--success-color); }
+
+    .feature-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text-bright);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .feature-desc {
+      font-size: 15px;
+      color: var(--text-sub);
+      line-height: 1.6;
+    }
+
+    /* COLOR LEGEND BOX */
+    .color-legend-box {
+      background: rgba(22, 27, 34, 0.8);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 18px;
+      margin: 20px 0;
+    }
+
+    .color-legend-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--warning-color);
+      margin-bottom: 12px;
+    }
+
+    .color-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+      font-size: 14.5px;
+    }
+    .color-item:last-child { margin-bottom: 0; }
+
+    .color-badge {
+      padding: 3px 10px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+    .badge-rosso { background: var(--danger-color); color: #fff; }
+    .badge-verde { background: var(--success-color); color: #fff; }
+    .badge-grigio { background: #4a5568; color: #fff; }
+
+    .tip-box {
+      background: rgba(242, 179, 61, 0.12);
+      border: 1px solid var(--warning-color);
+      border-radius: 10px;
+      padding: 16px 20px;
+      font-size: 14.5px;
+      color: var(--text-bright);
+      line-height: 1.6;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 13px;
+      color: var(--text-sub);
+      border-top: 1px solid var(--border-color);
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <header class="app-bar">
+    <div class="app-brand">
+      <div class="mini-logo" style="display: inline-flex; align-items: center;">
+        <img src="../../IMG/logo_1024_white.png" alt="EatMeFirst Logo" style="height: 32px; width: auto;">
+      </div>
+      <span class="brand-title">📌 Shopping List Help Sticky Note</span>
+    </div>
+    <a href="index.html" class="btn-close-guide" title="Return to Shopping">
+      ✕ Close & Back to Shopping
+    </a>
+  </header>
+
+  <main class="container">
+    <article class="postit-card">
+      <div class="postit-header">
+        <span style="font-size: 30px;">🛒</span>
+        <h1 class="postit-title">How the Smart Shopping List Works</h1>
+      </div>
+
+      <p class="intro-text">
+        The EatMeFirst <strong>Shopping List</strong> feature is designed to guide you step by step down supermarket aisles, saving you time while preventing duplicate purchases or forgotten items.
+      </p>
+
+      <div class="feature-list">
+
+        <!-- 1. MANUAL TO AUTOMATED CREATION -->
+        <div class="feature-box automatic">
+          <div class="feature-title">
+            <span>✍️</span> 1. From manual entry to automation
+          </div>
+          <div class="feature-desc">
+            When you first use the app and your pantry is still empty, build your list by manually adding the items you need (just like a piece of paper). As you load your pantry, <strong>the list will start creating itself</strong>: whenever a food item runs out completely, it automatically reappears on the list to be re-purchased!
+          </div>
+        </div>
+
+        <!-- 2. SMART EXPIRY PREDICTION -->
+        <div class="feature-box smart">
+          <div class="feature-title">
+            <span>🧠</span> 2. Predictive stock calculation
+          </div>
+          <div class="feature-desc">
+            The app doesn't wait for a product to run out! It calculates based on your consumption pace: if it detects that an item still has pieces available, but <strong>they won't last until your next shopping trip</strong>, it warns you by adding it to the list and clearly showing the remaining units left at home.
+          </div>
+        </div>
+
+        <!-- 3. DOWN SUPERMARKET AISLES -->
+        <div class="feature-box store">
+          <div class="feature-title">
+            <span>📲</span> 3. Real-time checklist at the supermarket
+          </div>
+          <div class="feature-desc">
+            All products are sorted by <strong>grocery category / aisle</strong>, so you'll never have to run back and forth across the store. As you pick up an item from the shelves and put it in your cart, tap it on the screen: <strong>the text will be crossed out and automatically move to the bottom of the list</strong>, leaving only what you still need to get right at the top!
+          </div>
+        </div>
+
+      </div>
+
+      <!-- COLOR LEGEND -->
+      <div class="color-legend-box">
+        <div class="color-legend-title">🎨 The 3 Colors of the Shopping List:</div>
+        
+        <div class="color-item">
+          <span class="color-badge badge-rosso">🔴 Red</span>
+          <span><strong>All gone:</strong> Product is completely out of stock in the pantry.</span>
+        </div>
+        
+        <div class="color-item">
+          <span class="color-badge badge-verde">🟢 Green</span>
+          <span><strong>Running low:</strong> Product is available at home but with insufficient pieces until the next shopping trip.</span>
+        </div>
+        
+        <div class="color-item">
+          <span class="color-badge badge-grigio">🩶 Gray</span>
+          <span><strong>New Item:</strong> Note manually entered by the user not yet present in the database.</span>
+        </div>
+      </div>
+
+      <!-- UTILITY PRACTICAL TIP -->
+      <div class="tip-box">
+        <strong style="color: var(--warning-color);">💡 Remember before leaving home:</strong><br>
+        Away from home, you won't have a direct connection to your home pantry. To carry your list with you anywhere on your mobile device, simply download it in a flash by visiting the <strong>Utilities</strong> tab!
+      </div>
+
+    </article>
+  </main>
+
+  <footer>
+    <span>&copy; EatMeFirst &bull; 100% Local Privacy</span>
+  </footer>
+
+</body>
+</html>

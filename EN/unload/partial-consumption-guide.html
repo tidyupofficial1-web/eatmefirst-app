@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Partial Consumption Guide | EatMeFirst</title>
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --card-bg: #161b22;
+            --text-color: #f0f6fc;
+            --text-muted: #8b949e;
+            --accent-color: #58a6ff;
+            --border-color: #30363d;
+        }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            padding: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .postit-card {
+            background: #1a2634;
+            border: 1px solid #3182ce;
+            border-left: 6px solid #3182ce;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+        }
+        .eva-header { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+        .eva-avatar { width: 55px; height: 55px; border-radius: 50%; border: 2px solid #58a6ff; object-fit: cover; }
+        .eva-title { font-size: 18px; color: var(--accent-color); font-weight: bold; }
+        .eva-sub { font-size: 12px; color: var(--text-muted); }
+        .content { font-size: 14.5px; line-height: 1.6; color: var(--text-color); }
+        .btn-close {
+            display: inline-block; margin-top: 20px; background: #21262d; color: var(--text-color);
+            border: 1px solid var(--border-color); padding: 8px 16px; border-radius: 8px;
+            text-decoration: none; font-size: 13px; font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="postit-card">
+        <div class="eva-header">
+            <img src="../../IMG/avatar_eva.png" alt="Eva Avatar" class="eva-avatar">
+            <div>
+                <div class="eva-title">Partial Food Consumption 📌</div>
+                <div class="eva-sub">Eva's guide to dosing supplies</div>
+            </div>
+        </div>
+        <div class="content">
+            <p>Here I wanted to be extra precise: you can manage partial product consumption by adjusting the percentage on the entire product by dragging the mouse arrow or sliding the bar along the line.</p>
+            <br>
+            <p>It's simple and intuitive. If you prefer not to use it, you can always remove the product entirely using the <strong>"Sold out"</strong> button and then browse visually when checking your pantry locations!</p>
+        </div>
+        <a href="javascript:window.close();" class="btn-close">✕ Close Tab</a>
+    </div>
+</body>
+</html>

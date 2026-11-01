@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Pantry Management & Food Expiration Tracking | EatMeFirst</title>
+    <meta name="description" content="Organize your household groceries, track food expiration dates, and avoid waste with your free, private digital pantry.">
+    <meta name="keywords" content="pantry management, food expiration tracker, grocery list, barcode scanning, home inventory, prevent food waste">
+    <meta name="robots" content="index, follow">
+    
+    <meta property="og:title" content="Home Pantry Management & Expiration Tracking | EatMeFirst">
+    <meta property="og:description" content="A smart, private assistant to manage your home groceries and eliminate food waste.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="../IT/IMG/organizzazione-dispensa-domestica.png">
+
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --card-bg: #161b22;
+            --text-color: #f0f6fc;
+            --text-muted: #8b949e;
+            --accent-color: #58a6ff;
+            --border-color: #30363d;
+            --light-bg: #21262d;
+            --success-color: #2ea44f;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* HEADER BAR */
+        .language-bar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            background: rgba(13, 17, 23, 0.95);
+            backdrop-filter: blur(5px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 8px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 50;
+        }
+
+        .logo-container { display: flex; align-items: center; gap: 10px; }
+        .logo-badge {
+            width: 36px; height: 36px; background-color: #FFFFFF;
+            border-radius: 50%; padding: 2px; display: flex;
+            align-items: center; justify-content: center;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 6px rgba(255,255,255,0.1);
+        }
+
+        .logo-badge img { width: 100%; height: 100%; object-fit: contain; border-radius: 50%; }
+        .brand-name { font-size: 16px; font-weight: 700; color: var(--text-color); }
+
+        .flags-container { display: flex; gap: 6px; align-items: center; }
+        .flag-link {
+            text-decoration: none; display: flex; align-items: center; gap: 4px;
+            font-size: 11px; font-weight: bold; color: var(--text-color);
+            padding: 4px 6px; border-radius: 4px; border: 1px solid transparent;
+            transition: all 0.2s;
+        }
+        .flag-link:hover, .flag-link.active { border-color: var(--border-color); background: var(--light-bg); }
+        .flag-img { width: 20px; height: 14px; object-fit: cover; border-radius: 2px; }
+
+        .main-container { max-width: 900px; margin: 75px auto 40px auto; padding: 0 16px; }
+        .hero-card {
+            background: var(--card-bg); border-radius: 16px;
+            border: 1px solid var(--border-color); box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+            overflow: hidden; margin-bottom: 30px;
+        }
+        .hero-img { width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; display: block; }
+        .story-content { padding: 24px; }
+        .story-content h1 { font-size: 24px; color: var(--accent-color); margin-bottom: 15px; font-weight: 700; }
+        .story-content h2 { font-size: 18px; color: var(--accent-color); margin-top: 20px; margin-bottom: 10px; }
+        .story-text { font-size: 15.5px; color: var(--text-color); margin-bottom: 15px; line-height: 1.65; }
+
+        .greeting-row {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 15px;
+            font-size: 15.5px;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .user-name-inline {
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 6px 12px;
+            color: var(--accent-color);
+            font-size: 14.5px;
+            font-weight: bold;
+            outline: none;
+            width: 220px;
+            transition: border-color 0.2s;
+        }
+
+        .user-name-inline:focus {
+            border-color: var(--accent-color);
+        }
+
+        .hidden-story {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+
+        .hidden-story.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .leo-box {
+            background: var(--light-bg);
+            border-left: 4px solid var(--accent-color);
+            padding: 16px;
+            border-radius: 0 8px 8px 0;
+            margin-top: 15px;
+        }
+
+        .scan-instruction-box {
+            background: #1c2128;
+            border: 1px solid #388bfd;
+            border-radius: 8px;
+            padding: 14px;
+            margin: 15px 0;
+            font-size: 14.5px;
+        }
+
+        .consent-box {
+            background: var(--card-bg); border: 1px solid var(--border-color);
+            border-radius: 12px; padding: 25px 20px; text-align: center;
+            margin-top: 25px; box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+        }
+
+        .btn-conditions {
+            background: none; border: none; color: var(--accent-color);
+            font-size: 14px; font-weight: 600; text-decoration: underline;
+            cursor: pointer; margin-bottom: 15px; display: inline-block;
+        }
+
+        .checkbox-label {
+            display: flex; align-items: center; justify-content: center;
+            gap: 10px; font-size: 14px; font-weight: 600; cursor: pointer;
+            margin-bottom: 20px; color: var(--text-color);
+        }
+
+        .checkbox-label input[type="checkbox"] { width: 18px; height: 18px; cursor: pointer; }
+
+        .btn-enter {
+            background-color: var(--accent-color); color: #0d1117; border: none;
+            padding: 14px 32px; font-size: 16px; font-weight: 700; border-radius: 8px;
+            cursor: pointer; transition: all 0.3s; opacity: 0.4; pointer-events: none;
+            text-decoration: none; display: inline-block; width: 100%; max-width: 320px;
+        }
+
+        .btn-enter.active { opacity: 1; pointer-events: auto; box-shadow: 0 4px 12px rgba(88, 166, 255, 0.3); }
+        .btn-enter.active:hover { transform: translateY(-2px); background-color: #79c0ff; }
+
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.8); display: none; justify-content: center;
+            align-items: center; z-index: 100; padding: 20px;
+        }
+
+        .modal-content {
+            background: var(--card-bg); border: 1px solid var(--border-color);
+            border-radius: 12px; max-width: 650px; width: 100%; max-height: 80vh;
+            overflow-y: auto; padding: 25px; position: relative;
+        }
+
+        .modal-content h2 { font-size: 20px; margin-bottom: 15px; color: var(--accent-color); }
+        .modal-body { font-size: 13.5px; color: var(--text-color); line-height: 1.6; margin-bottom: 20px; text-align: left; }
+        .modal-body h3 { font-size: 14px; margin-top: 16px; margin-bottom: 6px; color: var(--accent-color); }
+
+        .btn-close-modal {
+            background: var(--light-bg); color: var(--text-color); border: 1px solid var(--border-color);
+            padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: bold; float: right;
+        }
+
+        @media (max-width: 600px) {
+            .brand-name { display: none; }
+            .story-content { padding: 18px; }
+            .story-content h1 { font-size: 20px; }
+            .story-text { font-size: 14.5px; }
+            .language-bar { padding: 8px 12px; }
+            .user-name-inline { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- INITIAL CONSENT CHECK SCRIPT -->
+    <script>
+        if (localStorage.getItem('eatmefirst_consent') === 'accepted') {
+            if (!localStorage.getItem('eatmefirst_consent_date')) {
+                localStorage.setItem('eatmefirst_consent_date', new Date().toISOString());
+            }
+            window.location.href = 'menu.html';
+        }
+    </script>
+
+    <!-- HEADER BAR WITH LOGO AND FLAGS -->
+    <div class="language-bar">
+        <div class="logo-container">
+            <div class="logo-badge"><img src="../IMG/logo_1024_white.png" alt="EatMeFirst Logo"></div>
+            <span class="brand-name">EatMeFirst</span>
+        </div>
+        <div class="flags-container">
+            <a href="../IT/index.html" class="flag-link"><img src="../IMG/bandiera_Italy.jpg" class="flag-img" alt="IT"> IT</a>
+            <a href="index.html" class="flag-link active"><img src="../IMG/bandiera_England.jpg" class="flag-img" alt="EN"> EN</a>
+            <a href="../DE/index.html" class="flag-link"><img src="../IMG/bandiera_Germany.jpg" class="flag-img" alt="DE"> DE</a>
+            <a href="../FR/index.html" class="flag-link"><img src="../IMG/bandiera_France.jpg" class="flag-img" alt="FR"> FR</a>
+            <a href="../ES/index.html" class="flag-link"><img src="../IMG/bandiera_Espana.jpg" class="flag-img" alt="ES"> ES</a>
+        </div>
+    </div>
+
+    <main class="main-container">
+        
+        <!-- CARD 1: MAX AND EVA -->
+        <article class="hero-card">
+            <img src="../IT/IMG/organizzazione-dispensa-domestica.png" alt="Family organizing home groceries and pantry to prevent food waste" class="hero-img">
+            
+            <div class="story-content">
+                <h1>Welcome to EatMeFirst</h1>
+                
+                <div class="greeting-row">
+                    <span>«Hi, we are Max and Eva, and you?</span>
+                    <input type="text" id="userName" class="user-name-inline" placeholder="Your name (optional)" oninput="gestisciInputUtente()">
+                </div>
+
+                <div id="storyContainer" class="hidden-story">
+                    <div class="story-text">
+                        <p id="introDynamic">«We are a couple of regular consumers who, just like you, go grocery shopping every day. Unfortunately, it happened often to us too to find expired products at the back of the pantry and have to throw them away.</p>
+                        
+                        <p>One day we talked to a software developer friend to see if it was possible to create a system to better manage home purchases. And you know how it goes... one thing led to another! We got passionate about this project and created a program capable of considering every single variable of daily shopping: from kitchen products to detergents and personal care items.</p>
+                        
+                        <p>Believe us, <span id="displayNameMax">friend</span>: what you are about to try <strong>will truly change the way you manage your home groceries and pantry</strong>. Leo, our developer friend, inspired by our continuous requests, worked absolute magic!</p>
+                        
+                        <p>One of the first essential things we asked him for was <strong>maximum privacy</strong>: we didn't want our buying habit data ending up on external servers to be sold to advertising companies. That’s why we decided that <strong>everything will stay exclusively on your device</strong> (desktop PC or laptop).</p>
+                        
+                        <ul style="margin: 15px 0 15px 20px;">
+                            <li><strong>Lightweight:</strong> You won't need to install Gigabytes of files, just a few hundred Megabytes.</li>
+                            <li><strong>Autonomous:</strong> It won't slow down your computer and you can use it <strong>even without an Internet connection</strong> once your usual products are saved.</li>
+                        </ul>
+
+                        <p><strong>How does loading products work?</strong><br>
+                        Your PC works locally, but when you need to load a product, it uses the barcode on the package. The program connects to public databases to retrieve details, calories, allergens, and even product images.</p>
+
+                        <p>And to read the code? Instead of making you buy a supermarket laser scanner (which costs around €15), we asked Leo for a zero-cost alternative. The result? You just need an <strong>old smartphone without a SIM card</strong>, connected to your home Wi-Fi, to turn it into a professional scanner. <strong>Cost: 0 Euros!</strong></p>
+
+                        <p>In short: complete management of barcode products (including those from local markets!), total privacy, and zero-cost hardware.</p>
+
+                        <p>You might be asking yourself: <em>«So how much does all this cost me?»</em><br>
+                        It might sound strange, but <strong>it's a gift</strong>. No subscriptions, no ads, no tricks: it's free and always will be.</p>
+
+                        <p>One last question might be on your mind: <em>«How can I trust a downloaded program? What if it contains viruses?»</em><br>
+                        We guarantee 100% safety, but we want you to feel completely reassured. I'll pass the word to Leo, who will explain how to run a direct check with your antivirus.</p>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- CARD 2: LEO -->
+        <article class="hero-card hidden-story" id="secondCard">
+            <img src="../IT/IMG/app-controllo-scadenze-alimenti.png" alt="Scanning grocery barcodes with smartphone and managing expirations on computer" class="hero-img">
+            
+            <div class="story-content">
+                <div class="story-text leo-box">
+                    <p><strong>Leo (the developer):</strong></p>
+                    <p>«Hi <span id="displayNameLeo">friend</span>! As a developer, I completely understand caution when launching software for the first time. Windows Defender or your trusted antivirus (like Avast, Norton, or Bitdefender) might show a warning simply because EatMeFirst is independent software developed by us and not by a multinational corporation.</p>
+
+                    <div class="scan-instruction-box">
+                        <strong>How to run a scan (it's super easy):</strong><br>
+                        All you need to do is right-click on the compressed or extracted folder of the program with your mouse and select <em>'Scan with Windows Defender'</em> (or your antivirus name, e.g., <em>Scan with Avast</em>). In just a few seconds, your antivirus will check everything and confirm that the file is clean.
+                    </div>
+
+                    <h2>Why might Windows or browser warnings appear?</h2>
+                    <p>Now, since we'll conveniently use your old smartphone as a barcode scanner, you will need to "pair" the phone with your computer. 
+                    Windows is great for security, but sometimes overreacts: when it sees two devices communicating locally, it might display warnings like <em>'unsecure website'</em> or <em>'connection not private'</em>.</p>
+
+                    <p>Don't be alarmed: <strong>you are connecting YOUR personal phone</strong>, not a stranger's! Since your antivirus already verified the program is 100% clean, it's just the computer being extra cautious.</p>
+
+                    <h2>How do we connect the phone?</h2>
+                    <ul style="margin: 10px 0 15px 20px;">
+                        <li><strong>Via Wi-Fi:</strong> If you choose wireless, make sure both your PC and phone are connected directly to your <strong>main home router</strong> and not a Wi-Fi extender, as extenders can act like a wall preventing devices from discovering each other.</li>
+                        <li><strong>Via USB Cable:</strong> If you want maximum stability and to avoid network hiccups, you can connect the phone directly via USB cable! It's a very convenient option that bypasses network issues.</li>
+                    </ul>
+
+                    <p>Of course, you could also type barcodes manually on your keyboard, but <strong>entering 13 digits for every single can or jar isn't very fun!</strong> Alternatively, you can use a classic laser barcode gun, but using your smartphone (via Wi-Fi or USB) remains the most practical free solution.</p>
+
+                    <p>I'll guide you through all the pairing steps calmly as soon as you enter the <strong>Product Loading</strong> section.</p>
+
+                    <p>Now everything is ready to begin: whenever you're ready, let's start!»</p>
+                </div>
+            </div>
+        </article>
+
+        <!-- CONSENT & MENU LINK -->
+        <section class="consent-box hidden-story" id="consentSection">
+            <button type="button" class="btn-conditions" onclick="apriModal()">Read terms of use and health disclaimers</button>
+            
+            <label class="checkbox-label">
+                <input type="checkbox" id="checkAccetto" onchange="gestisciSpunta()">
+                <span>I have read the information and agree to the terms of use</span>
+            </label>
+
+            <a href="menu.html" id="btnEntra" class="btn-enter" onclick="confermaAccettazione(event)">Let's start!</a>
+        </section>
+
+    </main>
+
+    <!-- MODAL CONDITIONS -->
+    <div id="modalDisclaimer" class="modal-overlay">
+        <div class="modal-content">
+            <button type="button" class="btn-close-modal" onclick="chiudiModal()">Close</button>
+            <h2>Terms, Conditions of Use, and Health Disclaimer</h2>
+            <div class="modal-body">
+                <h3>1. Total Health and Food Liability Exclusion</h3>
+                <p>EatMeFirst is a simple household organizational and inventory support tool. <strong>The user expressly acknowledges and agrees that the author and creators of the application are fully released from any civil or criminal liability</strong> resulting from the consumption of food tracked within the app. Visual, smell, and taste inspection of food freshness remains the sole responsibility of the user prior to consumption.</p>
+                
+                <h3>2. Strict and Recommended Expiration Dates</h3>
+                <p>Entered dates are divided into strict (for perishable fresh foods) and recommended (for long-shelf-life goods). Alerts serve purely as reminders, and <strong>the author does not guarantee absolute accuracy of external databases or estimates</strong>, declining liability for data entry errors or delayed consumption.</p>
+
+                <h3>3. Local Storage, Privacy, and Backups</h3>
+                <p>Data resides exclusively on the user's device. <strong>The user is solely responsible for performing periodic backups</strong> (by saving data to a USB flash drive or backup file). The author has no access to user data and cannot recover it in case of device failure.</p>
+                
+                <h3>4. Free License</h3>
+                <p>The application is provided free of charge, with no data tracking or selling to third parties.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let timerIniziale10s = null;
+        let timerPausa5s = null;
+        let giaMostrato = false;
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedName = localStorage.getItem('eatmefirst_username');
+            if (savedName) {
+                document.getElementById('userName').value = savedName;
+            }
+            
+            timerIniziale10s = setTimeout(() => {
+                mostraTestoEContenuti();
+            }, 10000);
+        });
+
+        function gestisciInputUtente() {
+            if (timerIniziale10s) {
+                clearTimeout(timerIniziale10s);
+                timerIniziale10s = null;
+            }
+
+            if (giaMostrato) {
+                aggiornaFraseText();
+                return;
+            }
+
+            if (timerPausa5s) {
+                clearTimeout(timerPausa5s);
+            }
+
+            timerPausa5s = setTimeout(() => {
+                mostraTestoEContenuti();
+            }, 5000);
+        }
+
+        function aggiornaFraseText() {
+            const nome = document.getElementById('userName').value.trim();
+            const elMax = document.getElementById('displayNameMax');
+            const elLeo = document.getElementById('displayNameLeo');
+
+            if (nome !== '') {
+                elMax.textContent = nome;
+                elLeo.textContent = nome;
+            } else {
+                elMax.textContent = 'friend';
+                elLeo.textContent = 'friend';
+            }
+        }
+
+        function mostraTestoEContenuti() {
+            if (timerIniziale10s) { clearTimeout(timerIniziale10s); timerIniziale10s = null; }
+            if (timerPausa5s) { clearTimeout(timerPausa5s); timerPausa5s = null; }
+
+            aggiornaFraseText();
+
+            if (!giaMostrato) {
+                document.getElementById('storyContainer').classList.add('visible');
+                document.getElementById('secondCard').classList.add('visible');
+                document.getElementById('consentSection').classList.add('visible');
+                giaMostrato = true;
+            }
+        }
+
+        function apriModal() { document.getElementById('modalDisclaimer').style.display = 'flex'; }
+        function chiudiModal() { document.getElementById('modalDisclaimer').style.display = 'none'; }
+        
+        function gestisciSpunta() {
+            const check = document.getElementById('checkAccetto');
+            const btn = document.getElementById('btnEntra');
+            if (check.checked) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        }
+
+        function confermaAccettazione(event) {
+            const check = document.getElementById('checkAccetto');
+            if (!check.checked) {
+                event.preventDefault();
+                return;
+            }
+            
+            localStorage.setItem('eatmefirst_consent', 'accepted');
+            localStorage.setItem('eatmefirst_consent_date', new Date().toISOString());
+            
+            const inputNome = document.getElementById('userName').value.trim();
+            if (inputNome !== '') {
+                localStorage.setItem('eatmefirst_username', inputNome);
+            } else {
+                localStorage.removeItem('eatmefirst_username');
+            }
+        }
+    </script>
+</body>
+</html>

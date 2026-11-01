@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EatMeFirst - Welcome from Max and Eva</title>
+    <meta name="robots" content="noindex, nofollow">
+    <style>
+        :root {
+            --bg-color: #12181b;
+            --card-bg: #1e272c;
+            --primary-color: #2ecc71;
+            --text-color: #e0e6ed;
+            --text-muted: #a0aec0;
+            --border-color: #2d3748;
+            --info-bg: #1a2634;
+            --info-border: #3182ce;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .top-navbar {
+            width: 100%;
+            background-color: #101416;
+            padding: 12px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-sizing: border-box;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: #ffffff;
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+
+        .brand-logo img {
+            height: 36px;
+            width: auto;
+        }
+
+        .language-flags {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .flag-icon {
+            width: 30px;
+            height: 20px;
+            cursor: pointer;
+            object-fit: cover;
+            border-radius: 3px;
+            transition: transform 0.2s;
+            border: 1px solid rgba(255,255,255,0.2);
+            display: inline-block;
+        }
+
+        .flag-icon:hover {
+            transform: scale(1.15);
+        }
+
+        .main-wrapper {
+            padding: 30px 20px;
+            width: 100%;
+            max-width: 850px;
+            box-sizing: border-box;
+        }
+
+        .container {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 35px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--border-color);
+        }
+
+        .header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 25px;
+            margin-bottom: 25px;
+        }
+
+        .presentation-img {
+            width: 100%;
+            max-width: 480px;
+            border-radius: 8px;
+            border: 3px solid var(--primary-color);
+            object-fit: cover;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            margin-bottom: 20px;
+        }
+
+        .header-text h1 {
+            margin: 0;
+            color: var(--primary-color);
+            font-size: 2rem;
+        }
+
+        .header-text p {
+            margin: 8px 0 0 0;
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        h2 {
+            font-size: 1.3rem;
+            color: #ffffff;
+            margin-top: 30px;
+        }
+
+        p, li {
+            line-height: 1.7;
+            color: var(--text-color);
+            font-size: 1.02rem;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        ul li {
+            margin-bottom: 10px;
+        }
+
+        .highlight-box {
+            background-color: var(--info-bg);
+            border-left: 4px solid var(--info-border);
+            padding: 20px;
+            border-radius: 6px;
+            margin: 25px 0;
+        }
+
+        .price-question {
+            font-weight: bold;
+            color: var(--primary-color);
+            font-size: 1.15rem;
+            margin-top: 30px;
+        }
+
+        .name-box {
+            background-color: #101416;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px dashed var(--primary-color);
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .name-box input {
+            background-color: #1e272c;
+            border: 1px solid var(--border-color);
+            color: #ffffff;
+            padding: 10px 15px;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            width: 80%;
+            max-width: 350px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .name-box input:focus {
+            border-color: var(--primary-color);
+        }
+
+        #storyContent {
+            display: none;
+            animation: fadeIn 0.8s ease-in forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .btn-container {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .btn-start {
+            display: inline-block;
+            padding: 14px 35px;
+            background-color: var(--primary-color);
+            color: #12181b;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(46, 204, 113, 0.3);
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-start:hover {
+            background-color: #27ae60;
+            transform: scale(1.03);
+        }
+    </style>
+</head>
+<body>
+
+<!-- Top Navbar: Logo e Bandiere dalla RADICE (../IMG/) e Link alle Lingue con ../ -->
+<header class="top-navbar">
+    <a href="menu.html" class="brand-logo">
+        <img src="../IMG/logo_1024_white.png" alt="EatMeFirst Logo">
+        <span>EatMeFirst</span>
+    </a>
+    <div class="language-flags">
+        <a href="../IT/benvenuto.html" title="Italiano"><img src="../IMG/bandiera_Italy.jpg" alt="Italiano" class="flag-icon"></a>
+        <a href="benvenuto.html" title="English"><img src="../IMG/bandiera_England.jpg" alt="English" class="flag-icon"></a>
+        <a href="../DE/willkommen.html" title="Deutsch"><img src="../IMG/bandiera_Germany.jpg" alt="Deutsch" class="flag-icon"></a>
+        <a href="../FR/bienvenue.html" title="Français"><img src="../IMG/bandiera_France.jpg" alt="Français" class="flag-icon"></a>
+        <a href="../ES/benvenuto.html" title="Español"><img src="../IMG/bandiera_Espana.jpg" alt="Español" class="flag-icon"></a>
+    </div>
+</header>
+
+<div class="main-wrapper">
+    <div class="container">
+        
+        <!-- Immagine personalizzata da EN/IMG/ (IMG/home-pantry-inventory-organization.png) -->
+        <div class="header">
+            <img src="IMG/home-pantry-inventory-organization.png" alt="Max and Eva - EatMeFirst" class="presentation-img">
+            <div class="header-text">
+                <h1>A common problem in many households</h1>
+                <p>Hello, we are Max and Eva. What is your name?</p>
+            </div>
+        </div>
+
+        <div class="name-box" id="nameBox">
+            <p style="margin-top: 0; font-weight: 500;">Type your name here (or wait a few seconds to proceed):</p>
+            <input type="text" id="userNameInput" maxlength="80" placeholder="Enter your name..." autofocus>
+        </div>
+
+        <div id="storyContent">
+            
+            <p>We are a couple of consumers who, just like you, go grocery shopping almost every day. Unfortunately, it often happened to us too that we found expired products at the back of the pantry and had to throw them away.</p>
+            
+            <p>One day we talked about it with a software engineer friend to see if it was possible to create a system to better manage household purchases. And <span class="user-name-span"></span>you know how it goes... one thing led to another! We got passionate about this project and created a program capable of handling every single variable of daily shopping: from kitchen products to cleaning supplies and personal care items.</p>
+            
+            <p>Believe us <span class="user-name-span-2"></span>: what you are about to try will truly change how you manage your groceries and home pantry. Leo, our programmer friend, driven by our continuous requests, performed absolute miracles!</p>
+
+            <div class="highlight-box">
+                <strong style="font-size: 1.1rem; color: #ffffff;">🔒 Total Confidentiality First</strong><br><br>
+                One of the very first things we asked him was security: we did not want our shopping habit data to end up on external servers to be sold to advertising companies. For this reason, we decided that everything will remain solely on your device (desktop or laptop PC).
+                <ul style="margin-top: 12px; margin-bottom: 0;">
+                    <li><strong>Ultra-lightweight:</strong> You won't need to install gigabytes of files, just a few hundred megabytes.</li>
+                    <li><strong>Autonomous:</strong> It won't burden your computer, and you can even use it without an internet connection once your regular products are stored.</li>
+                </ul>
+            </div>
+
+            <h2>How does loading work?</h2>
+            <p>Your PC works entirely locally. Perhaps you arrived here for this exact reason, and in this regard, we invite you to notice that in the address bar above you do not see an external website (<code>https://www...</code>), but you are navigating directly inside the folders of your device (<code>file:///C:/...</code>). You are 100% inside your own computer.</p>
+            
+            <p>However, when you need to load a new product, the system uses the barcode on the package and connects to public databases to automatically retrieve details, calories, allergens, and the product image. What starts from your PC are purely query requests: you are asking the web for information, not the other way around! No personal data is sent externally. If you want to test it, just use your smartphone camera to scan any barcode to instantly see what public records are returned. You are and will always remain safe.</p>
+
+            <h2>And how to read the barcode?</h2>
+            <p>Instead of making you buy a supermarket laser scanner (which costs around 15 to 20 euros), we asked Leo for a zero-cost alternative. The result? It was enough to repurpose an old smartphone without a SIM card, connected to the home Wi-Fi, turning it into a professional scanner. <strong>Cost: 0 euros!</strong></p>
+
+            <p>In short: complete product management with barcodes, maximum confidentiality, and zero-cost hardware.</p>
+
+            <p class="price-question">You might be wondering: «So how much does all this cost me?»</p>
+            <p>It sounds strange, but we are giving it to you for free. No subscriptions, no ads, no tricks: it is free and always will be.</p>
+
+            <h2>One last question is probably on your mind...</h2>
+            <p>«But how can I trust a downloaded program? What if it contains viruses?»</p>
+            <p>We 100% guarantee the reliability of the application, but we want you to feel completely at ease. In the next screen, we will hand it over to Leo, who will explain how to run a direct check with your antivirus.</p>
+
+            <div class="btn-container">
+                <a href="load/connection.html" class="btn-start">Alright Max and Eva, let's hear what Leo says →</a>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<script>
+    const nameInput = document.getElementById('userNameInput');
+    const storyContent = document.getElementById('storyContent');
+    let typingTimer;
+    let autoStartTimer;
+    let hasRevealed = false;
+
+    function revealStory() {
+        if (hasRevealed) return;
+        hasRevealed = true;
+
+        const val = nameInput.value.trim();
+        const spans1 = document.querySelectorAll('.user-name-span');
+        const spans2 = document.querySelectorAll('.user-name-span-2');
+
+        if (val !== "") {
+            spans1.forEach(s => s.textContent = val + ", ");
+            spans2.forEach(s => s.textContent = ", " + val);
+        } else {
+            spans1.forEach(s => s.textContent = "");
+            spans2.forEach(s => s.textContent = "");
+        }
+
+        storyContent.style.display = 'block';
+    }
+
+    autoStartTimer = setTimeout(() => {
+        revealStory();
+    }, 7000);
+
+    nameInput.addEventListener('input', () => {
+        clearTimeout(autoStartTimer);
+        clearTimeout(typingTimer);
+        typingTimer = setTimeout(() => {
+            revealStory();
+        }, 5000);
+    });
+
+    nameInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            clearTimeout(autoStartTimer);
+            clearTimeout(typingTimer);
+            revealStory();
+        }
+    });
+</script>
+
+</body>
+</html>
