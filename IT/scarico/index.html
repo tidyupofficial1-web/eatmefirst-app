@@ -320,9 +320,7 @@
             filtraDispensa();
         }
 
-        // Funzione di salvataggio sincronizzata (aggiorna localStorage o invia al server se necessario)
         function salvaDispensaAggiornata() {
-            // Se stiamo lavorando in locale (Standalone), salviamo nel localStorage unificato
             localStorage.setItem('eat_dispensa_locale', JSON.stringify(dispensaGlobale));
         }
 
@@ -371,7 +369,6 @@
             `).join('');
         }
 
-        // ESAURITO AL 100%
         function segnaEsauritoDiretto(index) {
             const prod = dispensaGlobale[index];
             if (!prod) return;
@@ -526,7 +523,7 @@
                 if (selectVal === 'ALTRO') {
                     const customVal = document.getElementById('inputNuovaUbicazioneCustom').value.trim();
                     if (customVal !== "") {
-                        nuovaUbicazione = customVal;
+                        nuubilicazione = customVal;
                     }
                 } else if (selectVal !== "") {
                     nuovaUbicazione = selectVal;
