@@ -7,7 +7,7 @@
     <meta name="description" content="Carica e organizza i prodotti nella tua dispensa locale in modo semplice, sicuro e intelligente con EatMeFirst.">
     <meta name="robots" content="noindex, nofollow">
 
-    <!-- Libreria per la scansione automatica del codice a barre via fotocamera del browser -->
+    <!-- Libreria per la decodifica dei codici a barre da immagini -->
     <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
 
     <style>
@@ -209,7 +209,7 @@
             gap: 8px;
         }
 
-        /* Griglia principale del form allargata per dare più spazio alla colonna del testo */
+        /* Griglia principale con colonna testo ben aperta */
         .form-grid {
             display: grid;
             grid-template-columns: 260px 1fr;
@@ -244,16 +244,6 @@
             object-fit: contain;
         }
 
-        /* Container per lo scanner fotocamera live */
-        #interactive-scanner {
-            width: 100%;
-            height: 240px;
-            background: #000;
-            border-radius: 10px;
-            overflow: hidden;
-            display: none;
-        }
-
         .peso-badge {
             font-size: 0.8rem;
             background: #101416;
@@ -263,7 +253,6 @@
             border: 1px solid var(--border-color);
         }
 
-        /* Colonna dei campi di testo (espansa) */
         .form-fields {
             display: flex;
             flex-direction: column;
@@ -445,7 +434,7 @@
     <div class="important-box">
         <h3>💡 Importante: Scegli come scansionare</h3>
         <p>
-            <strong>Giacomo</strong>, a questa pagina si llega in due modi: lanciando il link direttamente dal tuo cellulare oppure dal tuo PC fisso o portatile.
+            <strong>Giacomo</strong>, a questa pagina si arriva in due modi: lanciando il link direttamente dal tuo cellulare oppure dal tuo PC fisso o portatile.
         </p>
         <p>
             • <strong>Se hai avviato il programma direttamente dallo smartphone:</strong> e devi fare la scansione del primo codice a barre, ti basta cliccare sul pulsante di sinistra per attivare la fotocamera e iniziare subito a inquadrare il prodotto, compilando la scheda passo dopo passo secondo le istruzioni.<br>
@@ -458,9 +447,12 @@
             <em>Nota sulla sicurezza:</em> Quando colleghi lo smartphone al PC via Wi-Fi locale, Windows o l'antivirus potrebbero mostrare avvisi in rosso o segnalazioni di potenziale pericolo. Si tratta di un normale controllo di sicurezza quando due dispositivi comunicano direttamente sulla stessa rete domestica senza passare da server esterni. Per capire cosa succede e procedere in tranquillità, consulta la nostra <a href="modalita.html" style="color: var(--primary-color);" target="_blank">guida sulla sicurezza della rete locale</a>.
         </p>
 
-        <!-- I DUE PULSANTI SEPARATI -->
+        <!-- PULSANTI CON INPUT FOTOCAMERA NATIVO -->
         <div class="scanner-choice-actions">
-            <button type="button" class="btn btn-primary" onclick="avviaFotocameraNativa()">
+            <!-- Input nascosto per scattare la foto nativa dal browser del telefono -->
+            <input type="file" id="camera-file-input" accept="image/*" capture="environment" style="display: none;" onchange="processaFotoCodice(this)">
+            
+            <button type="button" class="btn btn-primary" onclick="document.getElementById('camera-file-input').click()">
                 📷 Collega la tua fotocamera
             </button>
             <a href="collegamento.html" class="btn btn-secondary">
@@ -493,9 +485,6 @@
                 <img id="prodotto-foto" src="" alt="Anteprima Prodotto">
                 <div id="prodotto-peso-badge" class="peso-badge" style="display:none;"></div>
             </div>
-
-            <!-- Box Scanner Fotocamera Live (si attiva al clic del pulsante) -->
-            <div id="interactive-scanner"></div>
         </div>
 
         <!-- Colonna dei Campi (Allargata) -->
@@ -643,7 +632,6 @@
 <script>
     let ultimoBarcodeElaborato = "";
     let cellCollegatoInPrecedenza = false;
-    let html5QrcodeScanner = null;
 
     window.addEventListener('DOMContentLoaded', async () => {
         if (localStorage.getItem('eat_hide_max_carico') !== 'true') {
@@ -663,36 +651,20 @@
         localStorage.setItem('eat_hide_max_carico', 'true');
     }
 
-    /* --- SCANSIONE FOTOCAMERA NATIVA WEB --- */
-    function avviaFotocameraNativa() {
-        const scannerContainer = document.getElementById('interactive-scanner');
-        scannerContainer.style.display = 'block';
+    /* --- DECODIFICA FOTO NATIVA --- */
+    async function processaFotoCodice(input) {
+        if (!input.files || input.files.length === 0) return;
+        
+        const file = input.files[0];
+        const html5QrCode = new Html5Qrcode("box-foto-prodotto");
 
-        if (html5QrcodeScanner === null) {
-            html5QrcodeScanner = new Html5Qrcode("interactive-scanner");
+        try {
+            const barcode = await html5QrCode.scanFile(file, true);
+            document.getElementById('prodotto-barcode').value = barcode;
+            cercaProdottoOnline(barcode);
+        } catch (err) {
+            alert("⚠️ Impossibile leggere il codice a barre dall'immagine. Prova a scattare una foto più nitida o ravvicinata.");
         }
-
-        const config = { fps: 10, qrbox: { width: 250, height: 150 } };
-
-        html5QrcodeScanner.start(
-            { facingMode: "environment" }, 
-            config,
-            (decodedText, decodedResult) => {
-                // Quando scansiona con successo il codice a barre
-                document.getElementById('prodotto-barcode').value = decodedText;
-                cercaProdottoOnline(decodedText);
-                
-                // Ferma lo scanner dopo aver scansionato
-                html5QrcodeScanner.stop().then(() => {
-                    scannerContainer.style.display = 'none';
-                }).catch(err => console.error(err));
-            },
-            (errorMessage) => {
-                // Scansione in corso...
-            }
-        ).catch(err => {
-            alert("⚠️ Impossibile accedere alla fotocamera. Assicurati di aver concesso i permessi nel browser.");
-        });
     }
 
     /* --- RICERCA AUTOMATICA NEI DATABASE ONLINE (Open Food Facts) --- */
