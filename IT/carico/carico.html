@@ -7,6 +7,9 @@
     <meta name="description" content="Carica e organizza i prodotti nella tua dispensa locale in modo semplice, sicuro e intelligente con EatMeFirst.">
     <meta name="robots" content="noindex, nofollow">
 
+    <!-- Libreria per la scansione automatica del codice a barre via fotocamera del browser -->
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+
     <style>
         :root {
             --bg-color: #12181b;
@@ -37,7 +40,7 @@
         /* Carta Intestata Superiore Standard */
         .top-navbar {
             width: 100%;
-            max-width: 900px;
+            max-width: 950px;
             background-color: #101416;
             padding: 12px 24px;
             display: flex;
@@ -92,7 +95,7 @@
         }
 
         .container {
-            max-width: 900px;
+            max-width: 950px;
             width: 100%;
             background-color: var(--card-bg);
             border-radius: 14px;
@@ -121,7 +124,7 @@
         }
 
         .important-box p {
-            font-size: 0.93rem;
+            font-size: 0.95rem;
             line-height: 1.6;
             color: var(--text-color);
             margin-bottom: 12px;
@@ -206,16 +209,23 @@
             gap: 8px;
         }
 
+        /* Griglia principale del form allargata per dare più spazio alla colonna del testo */
         .form-grid {
             display: grid;
-            grid-template-columns: 200px 1fr;
-            gap: 25px;
+            grid-template-columns: 260px 1fr;
+            gap: 30px;
             align-items: start;
         }
 
+        .sidebar-scanner-box {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
         .product-image-box {
-            width: 200px;
-            height: 200px;
+            width: 100%;
+            height: 240px;
             background: #101416;
             border: 2px dashed var(--border-color);
             border-radius: 10px;
@@ -225,12 +235,23 @@
             overflow: hidden;
             flex-direction: column;
             gap: 8px;
+            position: relative;
         }
 
         .product-image-box img {
             width: 100%;
-            height: 140px;
+            height: 170px;
             object-fit: contain;
+        }
+
+        /* Container per lo scanner fotocamera live */
+        #interactive-scanner {
+            width: 100%;
+            height: 240px;
+            background: #000;
+            border-radius: 10px;
+            overflow: hidden;
+            display: none;
         }
 
         .peso-badge {
@@ -242,10 +263,11 @@
             border: 1px solid var(--border-color);
         }
 
+        /* Colonna dei campi di testo (espansa) */
         .form-fields {
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 18px;
         }
 
         .row-group-2 {
@@ -267,7 +289,7 @@
         }
 
         label {
-            font-size: 0.88rem;
+            font-size: 0.9rem;
             color: var(--text-muted);
             font-weight: bold;
         }
@@ -332,11 +354,11 @@
         .scadenza-options-box {
             background: #101416;
             border: 1px solid var(--border-color);
-            padding: 12px;
+            padding: 14px;
             border-radius: 8px;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 12px;
         }
 
         .scadenza-row {
@@ -351,10 +373,10 @@
         }
 
         .info-tech {
-            font-size: 0.82rem;
+            font-size: 0.85rem;
             color: var(--text-muted);
             background: #101416;
-            padding: 8px 12px;
+            padding: 10px 14px;
             border-radius: 6px;
             border-left: 3px solid var(--primary-color);
             line-height: 1.4;
@@ -384,6 +406,15 @@
         .btn-primary:hover { opacity: 0.9; }
         .btn-secondary { background-color: var(--border-color); color: var(--text-color); }
         .btn-secondary:hover { background-color: #3e4c62; }
+
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            .product-image-box {
+                height: 200px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -414,22 +445,22 @@
     <div class="important-box">
         <h3>💡 Importante: Scegli come scansionare</h3>
         <p>
-            <strong>Giacomo</strong>, a questa pagina si arriva in due modi: lanciando il link direttamente dal tuo cellulare oppure dal tuo PC fisso o portatile.
+            <strong>Giacomo</strong>, a questa pagina si llega in due modi: lanciando il link direttamente dal tuo cellulare oppure dal tuo PC fisso o portatile.
         </p>
         <p>
-            • <strong>Se hai avviato il programma direttamente dallo smartphone:</strong> e devi fare la scansione del primo codice a barre, ti basta cliccare sul pulsante di sinistra per attivare la fotocamera e iniziare subito a inquadrare il prodotto, compilando la scheda passo dopo passo secondo le istruzioni[cite: 2].<br>
-            • <strong>Se invece sei arrivato a questa pagina dal computer di casa:</strong> e devi scansionare un codice a barre, usare la webcam del portatile non è la scelta ideale per due motivi: le webcam sono progettate prevalentemente per le videochiamate ed è estremamente scomodo orientare la confezione davanti allo schermo. Per questo motivo conviene collegare e trasformare il tuo telefono (anche uno vecchio senza SIM) in un pratico lettore di codici a barre a distanza[cite: 2].
+            • <strong>Se hai avviato il programma direttamente dallo smartphone:</strong> e devi fare la scansione del primo codice a barre, ti basta cliccare sul pulsante di sinistra per attivare la fotocamera e iniziare subito a inquadrare il prodotto, compilando la scheda passo dopo passo secondo le istruzioni.<br>
+            • <strong>Se invece sei arrivato a questa pagina dal computer di casa:</strong> e devi scansionare un codice a barre, usare la webcam del portatile non è la scelta ideale per due motivi: le webcam sono progettate prevalentemente per le videochiamate ed è estremamente scomodo orientare la confezione davanti allo schermo. Per questo motivo conviene collegare e trasformare il tuo telefono (anche uno vecchio senza SIM) in un pratico lettore di codici a barre a distanza.
         </p>
         <p>
-            Per farlo sfrutterai la connessione Wi-Fi locale: tieni solo a mente di collegare entrambi i dispositivi direttamente al modem principale di casa (evitando ripetitori o amplificatori di segnale che, per impostazioni di sicurezza, bloccano la comunicazione tra i dispositivi)[cite: 2]. Se per caso la linea dovesse cadere o i dispositivi smettessero di comunicare, ti basterà un semplice clic sul pulsante di destra per ricollegare subito la fotocamera dello smartphone[cite: 2].
+            Per farlo sfrutterai la connessione Wi-Fi locale: tieni solo a mente di collegare entrambi i dispositivi direttamente al modem principale di casa (evitando ripetitori o amplificatori di segnale che, per impostazioni di sicurezza, bloccano la comunicazione tra i dispositivi). Se per caso la linea dovesse cadere o i dispositivi smettessero di comunicare, ti basterà un semplice clic sul pulsante di destra per ricollegare subito la fotocamera dello smartphone.
         </p>
         <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 0;">
-            <em>Nota sulla sicurezza:</em> Quando colleghi lo smartphone al PC via Wi-Fi locale, Windows o l'antivirus potrebbero mostrare avvisi in rosso o segnalazioni di potenziale pericolo. Si tratta di un normale controllo di sicurezza quando due dispositivi comunicano direttamente sulla stessa rete domestica senza passare da server esterni. Per capire cosa succede e procedere in tranquillità, consulta la nostra <a href="modalita.html" style="color: var(--primary-color);" target="_blank">guida sulla sicurezza della rete locale</a>[cite: 2].
+            <em>Nota sulla sicurezza:</em> Quando colleghi lo smartphone al PC via Wi-Fi locale, Windows o l'antivirus potrebbero mostrare avvisi in rosso o segnalazioni di potenziale pericolo. Si tratta di un normale controllo di sicurezza quando due dispositivi comunicano direttamente sulla stessa rete domestica senza passare da server esterni. Per capire cosa succede e procedere in tranquillità, consulta la nostra <a href="modalita.html" style="color: var(--primary-color);" target="_blank">guida sulla sicurezza della rete locale</a>.
         </p>
 
-        <!-- I DUE PULSANTI RICHIESTI -->
+        <!-- I DUE PULSANTI SEPARATI -->
         <div class="scanner-choice-actions">
-            <button type="button" class="btn btn-primary" onclick="alert('Funzione fotocamera diretta da smartphone in attivazione...')">
+            <button type="button" class="btn btn-primary" onclick="avviaFotocameraNativa()">
                 📷 Collega la tua fotocamera
             </button>
             <a href="collegamento.html" class="btn btn-secondary">
@@ -456,11 +487,18 @@
     </div>
 
     <div class="form-grid">
-        <div class="product-image-box">
-            <img id="prodotto-foto" src="" alt="Anteprima Prodotto">
-            <div id="prodotto-peso-badge" class="peso-badge" style="display:none;"></div>
+        <div class="sidebar-scanner-box">
+            <!-- Box Anteprima Foto Prodotto -->
+            <div id="box-foto-prodotto" class="product-image-box">
+                <img id="prodotto-foto" src="" alt="Anteprima Prodotto">
+                <div id="prodotto-peso-badge" class="peso-badge" style="display:none;"></div>
+            </div>
+
+            <!-- Box Scanner Fotocamera Live (si attiva al clic del pulsante) -->
+            <div id="interactive-scanner"></div>
         </div>
 
+        <!-- Colonna dei Campi (Allargata) -->
         <div class="form-fields">
             <div class="field-group">
                 <div class="label-with-postit">
@@ -605,6 +643,7 @@
 <script>
     let ultimoBarcodeElaborato = "";
     let cellCollegatoInPrecedenza = false;
+    let html5QrcodeScanner = null;
 
     window.addEventListener('DOMContentLoaded', async () => {
         if (localStorage.getItem('eat_hide_max_carico') !== 'true') {
@@ -624,6 +663,81 @@
         localStorage.setItem('eat_hide_max_carico', 'true');
     }
 
+    /* --- SCANSIONE FOTOCAMERA NATIVA WEB --- */
+    function avviaFotocameraNativa() {
+        const scannerContainer = document.getElementById('interactive-scanner');
+        scannerContainer.style.display = 'block';
+
+        if (html5QrcodeScanner === null) {
+            html5QrcodeScanner = new Html5Qrcode("interactive-scanner");
+        }
+
+        const config = { fps: 10, qrbox: { width: 250, height: 150 } };
+
+        html5QrcodeScanner.start(
+            { facingMode: "environment" }, 
+            config,
+            (decodedText, decodedResult) => {
+                // Quando scansiona con successo il codice a barre
+                document.getElementById('prodotto-barcode').value = decodedText;
+                cercaProdottoOnline(decodedText);
+                
+                // Ferma lo scanner dopo aver scansionato
+                html5QrcodeScanner.stop().then(() => {
+                    scannerContainer.style.display = 'none';
+                }).catch(err => console.error(err));
+            },
+            (errorMessage) => {
+                // Scansione in corso...
+            }
+        ).catch(err => {
+            alert("⚠️ Impossibile accedere alla fotocamera. Assicurati di aver concesso i permessi nel browser.");
+        });
+    }
+
+    /* --- RICERCA AUTOMATICA NEI DATABASE ONLINE (Open Food Facts) --- */
+    async function cercaProdottoOnline(barcode) {
+        try {
+            let res = await fetch(`https://world.openfoodfacts.org/api/v0/product/${barcode}.json`);
+            let data = await res.json();
+
+            if (data.status === 1) {
+                let product = data.product;
+                document.getElementById('prodotto-nome').value = product.product_name || product.product_name_it || '';
+                document.getElementById('prodotto-categoria').value = product.categories ? product.categories.split(',')[0] : '';
+                
+                if (product.image_url) {
+                    document.getElementById('prodotto-foto').src = product.image_url;
+                }
+
+                const badgePeso = document.getElementById('prodotto-peso-badge');
+                if (product.quantity) {
+                    badgePeso.innerText = "⚖️ " + product.quantity;
+                    badgePeso.style.display = "block";
+                }
+
+                const boxTech = document.getElementById('box-info-tecniche');
+                let infoExtra = [];
+                if (product.nutriments && product.nutriments['energy-kcal_100g']) {
+                    infoExtra.push(`Calorie: ${product.nutriments['energy-kcal_100g']} kcal/100g`);
+                }
+                if (product.allergens_tags && product.allergens_tags.length > 0) {
+                    infoExtra.push(`Allergeni: ${product.allergens_tags.join(', ').replaceAll('en:', '')}`);
+                }
+
+                if (infoExtra.length > 0) {
+                    document.getElementById('testo-info-tecniche').innerText = infoExtra.join(' | ');
+                    boxTech.style.display = "block";
+                }
+            } else {
+                document.getElementById('prodotto-nome').placeholder = 'Prodotto non trovato nei database online: inserisci il nome...';
+            }
+        } catch(e) {
+            console.log("Errore nella ricerca online:", e);
+        }
+    }
+
+    /* --- MONITORAGGIO SERVER LOCALE (Modalità PC/Wi-Fi) --- */
     async function controllaEIncollaDati() {
         try {
             let response = await fetch('/last_scan', { cache: 'no-store' });
