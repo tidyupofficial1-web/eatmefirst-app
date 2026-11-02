@@ -275,24 +275,63 @@
     </div>
 
     <script>
+        let dispensaGlobale = [];
         let prodottoSelezionato = null;
         let percentualeAttuale = 100;
 
-        window.addEventListener('DOMContentLoaded', () => {
-            if (!localStorage.getItem('emf_dispensa')) {
-                localStorage.setItem('emf_dispensa', JSON.stringify([]));
-            }
-            popolaFiltri();
-            filtraDispensa();
+        window.addEventListener('DOMContentLoaded', async () => {
+            await caricaDispensaCombinata();
         });
 
+        /* --- CARICAMENTO COMBINATO (SERVER + LOCALSTORAGE) --- */
+        async function caricaDispensaCombinata() {
+            let prodottiServer = [];
+            let prodottiLocali = [];
+
+            // 1. Prova a leggere dal Server Python (Wi-Fi locale)
+            try {
+                let response = await fetch('/dispensa.json?t=' + new Date().getTime(), { cache: 'no-store' });
+                if (response.ok) {
+                    prodottiServer = await response.json();
+                }
+            } catch (e) {
+                prodottiServer = [];
+            }
+
+            // 2. Leggi dal localStorage del cellulare (Modalità Standalone)
+            try {
+                prodottiLocali = JSON.parse(localStorage.getItem('eat_dispensa_locale')) || [];
+            } catch (e) {
+                prodottiLocali = [];
+            }
+
+            // Per retrocompatibilità, controlla anche la vecchia chiave se esiste
+            try {
+                let vecchiLocali = JSON.parse(localStorage.getItem('emf_dispensa')) || [];
+                if (vecchiLocali.length > 0 && prodottiLocali.length === 0) {
+                    prodottiLocali = vecchiLocali;
+                }
+            } catch(e) {}
+
+            // Unisce le liste
+            dispensaGlobale = [...prodottiServer, ...prodottiLocali];
+
+            popolaFiltri();
+            filtraDispensa();
+        }
+
+        // Funzione di salvataggio sincronizzata (aggiorna localStorage o invia al server se necessario)
+        function salvaDispensaAggiornata() {
+            // Se stiamo lavorando in locale (Standalone), salviamo nel localStorage unificato
+            localStorage.setItem('eat_dispensa_locale', JSON.stringify(dispensaGlobale));
+        }
+
         function popolaFiltri() {
-            const dispensa = JSON.parse(localStorage.getItem('emf_dispensa')) || [];
             const ubSelect = document.getElementById('filtroUbicazione');
             const catSelect = document.getElementById('filtroCategoria');
             
-            const ubs = [...new Set(dispensa.map(p => p.ubicazione).filter(Boolean))];
-            const cats = [...new Set(dispensa.map(p => p.categoria).filter(Boolean))];
+            const ubs = [...new Set(dispensaGlobale.map(p => p.ubicazione).filter(Boolean))];
+            const cats = [...new Set(dispensaGlobale.map(p => p.categoria).filter(Boolean))];
 
             ubSelect.innerHTML = '<option value="">Tutte le ubicazioni</option>';
             ubs.forEach(u => ubSelect.innerHTML += `<option value="${u}">${u}</option>`);
@@ -305,10 +344,9 @@
             const query = document.getElementById('filtroNome').value.toLowerCase();
             const ub = document.getElementById('filtroUbicazione').value;
             const cat = document.getElementById('filtroCategoria').value;
-            const dispensa = JSON.parse(localStorage.getItem('emf_dispensa')) || [];
 
             const container = document.getElementById('listaRisultati');
-            const filtrati = dispensa.filter(p => 
+            const filtrati = dispensaGlobale.filter(p => 
                 (p.nome || "").toLowerCase().includes(query) &&
                 (ub === "" || p.ubicazione === ub) &&
                 (cat === "" || p.categoria === cat)
@@ -319,58 +357,57 @@
                 return;
             }
 
-            container.innerHTML = filtrati.map(p => `
+            container.innerHTML = filtrati.map((p, index) => `
                 <div class="product-item">
                     <div>
-                        <strong>${p.nome}</strong><br>
+                        <strong>${p.nome || 'Senza nome'}</strong><br>
                         <small style="color: var(--text-muted)">📍 ${p.ubicazione || 'Non specificata'} | ⏳ Rimasto: ${p.percentuale || 100}%</small>
                     </div>
                     <div class="actions-group">
-                        <button class="btn-esaurito" onclick="segnaEsauritoDiretto(${p.id})">Esaurito</button>
-                        <button class="btn-parziale" onclick="apriModalVisual(${p.id})">Parziale</button>
+                        <button class="btn-esaurito" onclick="segnaEsauritoDiretto(${index})">Esaurito</button>
+                        <button class="btn-parziale" onclick="apriModalVisual(${index})">Parziale</button>
                     </div>
                 </div>
             `).join('');
         }
 
-        // ESAURITO AL 100% (Sposta in lista spesa e rimuove)
-        function segnaEsauritoDiretto(id) {
-            let dispensa = JSON.parse(localStorage.getItem('emf_dispensa')) || [];
-            const prod = dispensa.find(p => p.id === id);
+        // ESAURITO AL 100%
+        function segnaEsauritoDiretto(index) {
+            const prod = dispensaGlobale[index];
             if (!prod) return;
 
-            if (confirm(`Confermi che "${prod.nome}" è completamente esaurito? Verrà rimosso dalla dispensa e inserito nella Lista della Spesa.`)) {
+            if (confirm(`Confermi che "${prod.nome || 'questo prodotto'}" è completamente esaurito? Verrà rimosso dalla dispensa e inserito nella Lista della Spesa.`)) {
                 spostaInListaSpesa(prod);
-                dispensa = dispensa.filter(p => p.id !== id);
-                localStorage.setItem('emf_dispensa', JSON.stringify(dispensa));
+                dispensaGlobale.splice(index, 1);
+                salvaDispensaAggiornata();
                 popolaFiltri();
                 filtraDispensa();
             }
         }
 
         function spostaInListaSpesa(prod) {
-            let spesa = JSON.parse(localStorage.getItem('emf_spesa')) || [];
+            let spesa = JSON.parse(localStorage.getItem('eat_spesa_locale')) || JSON.parse(localStorage.getItem('emf_spesa')) || [];
             if (!spesa.some(s => s.nome === prod.nome)) {
                 spesa.push({ nome: prod.nome, categoria: prod.categoria || 'Generico', quantita: 1, stato: 'esaurito' });
-                localStorage.setItem('emf_spesa', JSON.stringify(spesa));
+                localStorage.setItem('eat_spesa_locale', JSON.stringify(spesa));
             }
         }
 
-        function apriModalVisual(id) {
-            const dispensa = JSON.parse(localStorage.getItem('emf_dispensa')) || [];
-            prodottoSelezionato = dispensa.find(p => p.id === id);
+        function apriModalVisual(index) {
+            prodottoSelezionato = dispensaGlobale[index];
             if (!prodottoSelezionato) return;
 
+            prodottoSelezionato.indiceGlobale = index;
             percentualeAttuale = prodottoSelezionato.percentuale || 100;
 
-            document.getElementById('modalNomeProdotto').innerText = prodottoSelezionato.nome;
+            document.getElementById('modalNomeProdotto').innerText = prodottoSelezionato.nome || 'Senza nome';
             document.getElementById('modalUbicazioneAttuale').innerText = `Ubicazione attuale: ${prodottoSelezionato.ubicazione || 'Non specificata'}`;
             document.getElementById('levelSlider').value = percentualeAttuale;
 
             const nomeStr = prodottoSelezionato.nome ? `"${prodottoSelezionato.nome}"` : "questo prodotto";
             document.getElementById('evaGuidaTesto').innerHTML = `Per <strong>${nomeStr}</strong> ho voluto eccedere nella precisione: puoi gestire la quantità di prodotto consumato parzialmente regolando la percentuale di consumo sull'intero prodotto facendo scorrere la freccina del mouse o spostando il cursore sulla linea. È una cosa semplice e intuitiva. Se non vuoi usarla puoi sempre eliminare il prodotto interamente con il tasto "Esaurito" e poi navigare a vista quando guarderai i posti della dispensa.`;
 
-            popolaUbicazioniModal(dispensa, prodottoSelezionato.ubicazione);
+            popolaUbicazioniModal(prodottoSelezionato.ubicazione);
 
             disegnaFormaSVG(prodottoSelezionato.forma || 'cilindro_verticale', percentualeAttuale);
             aggiornaEtichette(percentualeAttuale);
@@ -378,13 +415,13 @@
             document.getElementById('modalScaricoVisual').style.display = 'flex';
         }
 
-        function popolaUbicazioniModal(dispensa, ubicazioneCorrente) {
+        function popolaUbicazioniModal(ubicazioneCorrente) {
             const select = document.getElementById('nuovaUbicazioneSelect');
             const inputCustom = document.getElementById('inputNuovaUbicazioneCustom');
             inputCustom.style.display = 'none';
             inputCustom.value = '';
 
-            const ubs = [...new Set(dispensa.map(p => p.ubicazione).filter(Boolean))];
+            const ubs = [...new Set(dispensaGlobale.map(p => p.ubicazione).filter(Boolean))];
             
             let html = `<option value="${ubicazioneCorrente || ''}">Mantieni in: ${ubicazioneCorrente || 'Ubicazione attuale'}</option>`;
             ubs.forEach(u => {
@@ -412,7 +449,7 @@
             const hVerde = (percentuale / 100) * 140; 
             const hRosso = 140 - hVerde;
 
-            if (forma === 'cilindro_verticale' || forma === 'parallelepipedo') {
+            if (forma === 'cilindro_verticale' || forma === 'parallelepipedo' || !forma) {
                 container.innerHTML = `
                     <svg width="100" height="160" viewBox="0 0 100 160" class="shape-canvas" onclick="gestisciClickAltezza(event, 160)">
                         <rect x="15" y="10" width="70" height="140" rx="8" fill="#e74c3c" />
@@ -447,7 +484,7 @@
             }
         }
 
-        function gestisciClickAltezza(e, maxH) {
+        function gestisciClickAltezza(e) {
             const rect = e.currentTarget.getBoundingClientRect();
             const clickY = e.clientY - rect.top;
             let p = Math.round(100 - ((clickY / rect.height) * 100));
@@ -456,7 +493,7 @@
             aggiornaLivelloVisivo(p);
         }
 
-        function gestisciClickLarghezza(e, maxW) {
+        function gestisciClickLarghezza(e) {
             const rect = e.currentTarget.getBoundingClientRect();
             const clickX = e.clientX - rect.left;
             let p = Math.round((clickX / rect.width) * 100);
@@ -481,12 +518,10 @@
         }
 
         function confermaScaricoEffettivo() {
-            let dispensa = JSON.parse(localStorage.getItem('emf_dispensa')) || [];
-            const idx = dispensa.findIndex(p => p.id === prodottoSelezionato.id);
-
-            if (idx !== -1) {
+            const idx = prodottoSelezionato.indiceGlobale;
+            if (idx !== undefined && dispensaGlobale[idx]) {
                 const selectVal = document.getElementById('nuovaUbicazioneSelect').value;
-                let nuovaUbicazione = prodottoSelezionato.ubicazione;
+                let nuovaUbicazione = dispensaGlobale[idx].ubicazione;
                 
                 if (selectVal === 'ALTRO') {
                     const customVal = document.getElementById('inputNuovaUbicazioneCustom').value.trim();
@@ -498,20 +533,20 @@
                 }
 
                 const msg = percentualeAttuale <= 0 
-                    ? `Il prodotto "${prodottoSelezionato.nome}" ha raggiunto lo 0% e verrà considerato esaurito. Vuoi confermare e metterlo nella Lista della Spesa?`
-                    : `Confermi l'aggiornamento per "${prodottoSelezionato.nome}" al ${percentualeAttuale}% di rimanenza nell'ubicazione "${nuovaUbicazione}"?`;
+                    ? `Il prodotto "${dispensaGlobale[idx].nome}" ha raggiunto lo 0% e verrà considerato esaurito. Vuoi confermare e metterlo nella Lista della Spesa?`
+                    : `Confermi l'aggiornamento per "${dispensaGlobale[idx].nome}" al ${percentualeAttuale}% di rimanenza nell'ubicazione "${nuovaUbicazione}"?`;
 
                 if (!confirm(msg)) return;
 
-                dispensa[idx].percentuale = percentualeAttuale;
-                dispensa[idx].ubicazione = nuovaUbicazione;
+                dispensaGlobale[idx].percentuale = percentualeAttuale;
+                dispensaGlobale[idx].ubicazione = nuovaUbicazione;
 
                 if (percentualeAttuale <= 0) {
-                    spostaInListaSpesa(dispensa[idx]);
-                    dispensa.splice(idx, 1);
+                    spostaInListaSpesa(dispensaGlobale[idx]);
+                    dispensaGlobale.splice(idx, 1);
                 }
 
-                localStorage.setItem('emf_dispensa', JSON.stringify(dispensa));
+                salvaDispensaAggiornata();
                 chiudiModalScarico();
                 popolaFiltri();
                 filtraDispensa();
