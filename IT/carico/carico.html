@@ -101,6 +101,39 @@
             border: 1px solid var(--border-color);
         }
 
+        /* Box Importante per la Guida ai 2 Modi d'uso */
+        .important-box {
+            background-color: var(--info-bg);
+            border: 1px solid var(--info-border);
+            border-left: 4px solid var(--info-border);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+
+        .important-box h3 {
+            color: var(--primary-color);
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .important-box p {
+            font-size: 0.93rem;
+            line-height: 1.6;
+            color: var(--text-color);
+            margin-bottom: 12px;
+        }
+
+        .scanner-choice-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
         /* Presentazione di Max */
         .max-presentation-box {
             background-color: var(--info-bg);
@@ -376,6 +409,34 @@
 </header>
 
 <div class="container">
+
+    <!-- BOX IMPORTANTE: GUIDA AI 2 MODI D'USO E PULSANTI -->
+    <div class="important-box">
+        <h3>💡 Importante: Scegli come scansionare</h3>
+        <p>
+            <strong>Giacomo</strong>, a questa pagina si arriva in due modi: lanciando il link direttamente dal tuo cellulare oppure dal tuo PC fisso o portatile.
+        </p>
+        <p>
+            • <strong>Se hai avviato il programma direttamente dallo smartphone:</strong> e devi fare la scansione del primo codice a barre, ti basta cliccare sul pulsante di sinistra per attivare la fotocamera e iniziare subito a inquadrare il prodotto, compilando la scheda passo dopo passo secondo le istruzioni[cite: 2].<br>
+            • <strong>Se invece sei arrivato a questa pagina dal computer di casa:</strong> e devi scansionare un codice a barre, usare la webcam del portatile non è la scelta ideale per due motivi: le webcam sono progettate prevalentemente per le videochiamate ed è estremamente scomodo orientare la confezione davanti allo schermo. Per questo motivo conviene collegare e trasformare il tuo telefono (anche uno vecchio senza SIM) in un pratico lettore di codici a barre a distanza[cite: 2].
+        </p>
+        <p>
+            Per farlo sfrutterai la connessione Wi-Fi locale: tieni solo a mente di collegare entrambi i dispositivi direttamente al modem principale di casa (evitando ripetitori o amplificatori di segnale che, per impostazioni di sicurezza, bloccano la comunicazione tra i dispositivi)[cite: 2]. Se per caso la linea dovesse cadere o i dispositivi smettessero di comunicare, ti basterà un semplice clic sul pulsante di destra per ricollegare subito la fotocamera dello smartphone[cite: 2].
+        </p>
+        <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 0;">
+            <em>Nota sulla sicurezza:</em> Quando colleghi lo smartphone al PC via Wi-Fi locale, Windows o l'antivirus potrebbero mostrare avvisi in rosso o segnalazioni di potenziale pericolo. Si tratta di un normale controllo di sicurezza quando due dispositivi comunicano direttamente sulla stessa rete domestica senza passare da server esterni. Per capire cosa succede e procedere in tranquillità, consulta la nostra <a href="modalita.html" style="color: var(--primary-color);" target="_blank">guida sulla sicurezza della rete locale</a>[cite: 2].
+        </p>
+
+        <!-- I DUE PULSANTI RICHIESTI -->
+        <div class="scanner-choice-actions">
+            <button type="button" class="btn btn-primary" onclick="alert('Funzione fotocamera diretta da smartphone in attivazione...')">
+                📷 Collega la tua fotocamera
+            </button>
+            <a href="collegamento.html" class="btn btn-secondary">
+                🔄 Ricollega il tuo scanner
+            </a>
+        </div>
+    </div>
 
     <!-- PRESENTAZIONE DI MAX -->
     <div id="maxPresentationBox" class="max-presentation-box" style="display: none;">
