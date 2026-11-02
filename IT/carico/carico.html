@@ -448,7 +448,7 @@
     <button type="button" class="btn-chiudi-scanner" onclick="chiudiScannerLive()">❌ Chiudi Scanner</button>
 </div>
 
-<!-- Carta Intestata Superiore (Senza pulsante ricollega in alto a dx) -->
+<!-- Carta Intestata Superiore -->
 <header class="top-navbar">
     <a href="../menu.html" class="brand-logo">
         <img src="../../IMG/logo_1024_white.png" alt="EatMeFirst Logo">
@@ -473,7 +473,7 @@
     <div class="important-box">
         <h3>💡 Importante: Scegli come scansionare</h3>
         <p>
-            <strong>Giacomo</strong>, a questa pagina si arriva in due modi: lanciando il link direttamente dal tuo cellulare oppure dal tuo PC fisso o portatile.
+            Giacomo, a questa pagina si arriva in due modi: lanciando il link direttamente dal tuo cellulare oppure dal tuo PC fisso o portatile.
         </p>
         <p>
             • <strong>Se hai avviato il programma direttamente dallo smartphone:</strong> e devi fare la scansione del primo codice a barre, ti basta cliccare sul pulsante di sinistra per attivare la fotocamera e iniziare subito a inquadrare il prodotto, compilando la scheda passo dopo passo secondo le istruzioni.<br>
@@ -664,17 +664,12 @@
 </div>
 
 <script>
-    let ultimoBarcodeElaborato = "";
-    let cellCollegatoInPrecedenza = false;
     let html5QrCodeScanner = null;
 
-    window.addEventListener('DOMContentLoaded', async () => {
+    window.addEventListener('DOMContentLoaded', () => {
         if (localStorage.getItem('eat_hide_max_carico') !== 'true') {
             document.getElementById('maxPresentationBox').style.display = 'flex';
         }
-
-        await controllaEIncollaDati();
-        setInterval(controllaEIncollaDati, 1000);
     });
 
     function chiudiMaxTemporaneo() {
@@ -701,14 +696,11 @@
             { facingMode: "environment" }, 
             config,
             (decodedText, decodedResult) => {
-                // Trovato il codice a barre con successo!
                 document.getElementById('prodotto-barcode').value = decodedText;
                 cercaProdottoOnline(decodedText);
                 chiudiScannerLive();
             },
-            (errorMessage) => {
-                // Inquadratura in corso (nessun errore bloccante)
-            }
+            (errorMessage) => {}
         ).catch(err => {
             alert("⚠️ Impossibile avviare la fotocamera live. Verifica i permessi del browser.");
             chiudiScannerLive();
@@ -769,69 +761,6 @@
         }
     }
 
-    /* --- MONITORAGGIO SERVER LOCALE (Modalità PC/Wi-Fi) --- */
-    async function controllaEIncollaDati() {
-        try {
-            let response = await fetch('/last_scan', { cache: 'no-store' });
-            let data = await response.json();
-
-            if (data && data.barcode && data.barcode !== ultimoBarcodeElaborato) {
-                let scanValue = data.barcode.trim();
-                if (scanValue.includes("carico.html") || scanValue.includes("192.168.") || scanValue.startsWith("http")) {
-                    return;
-                }
-
-                ultimoBarcodeElaborato = data.barcode;
-                document.getElementById('prodotto-barcode').value = data.barcode;
-                
-                if (data.found && data.nome) {
-                    document.getElementById('prodotto-nome').value = data.nome;
-                } else {
-                    document.getElementById('prodotto-nome').value = '';
-                    document.getElementById('prodotto-nome').placeholder = 'Codice non trovato: inserisci la descrizione...';
-                }
-
-                document.getElementById('prodotto-categoria').value = data.categoria || '';
-                
-                if (data.foto) {
-                    document.getElementById('prodotto-foto').src = data.foto;
-                } else {
-                    document.getElementById('prodotto-foto').src = "";
-                }
-
-                if (data.pezzi) {
-                    document.getElementById('prodotto-pezzi').value = data.pezzi;
-                }
-
-                const badgePeso = document.getElementById('prodotto-peso-badge');
-                if (data.quantita_netta) {
-                    badgePeso.innerText = "⚖️ " + data.quantita_netta;
-                    badgePeso.style.display = "block";
-                } else {
-                    badgePeso.style.display = "none";
-                }
-
-                const boxTech = document.getElementById('box-info-tecniche');
-                let infoExtra = [];
-                if (data.calorie) infoExtra.push(`Calorie: ${data.calorie} kcal/100g`);
-                if (data.allergeni) infoExtra.push(`Allergeni: ${data.allergeni}`);
-                if (data.ingredienti) infoExtra.push(`Ingredienti: ${data.ingredienti.substring(0, 70)}...`);
-
-                if (infoExtra.length > 0) {
-                    document.getElementById('testo-info-tecniche').innerText = infoExtra.join(' | ');
-                    boxTech.style.display = "block";
-                } else {
-                    boxTech.style.display = "none";
-                }
-
-                document.getElementById('prodotto-quantita').value = "1";
-                document.getElementById('prodotto-note').value = "";
-                document.getElementById('scad-opt-1').checked = true;
-                aggiornaScadenzaUI();
-            }
-        } catch (e) {}
-    }
-
     function aggiornaScadenzaUI() {
         const tipo = document.querySelector('input[name="tipo-scadenza"]:checked').value;
         document.getElementById('valore-giorni').disabled = (tipo !== 'giorni');
@@ -839,7 +768,8 @@
         document.getElementById('valore-data-esatta').disabled = (tipo !== 'esatta');
     }
 
-    async function salvaProdotto() {
+    /* --- SALVATAGGIO LOCALE STANDALONE ( localStorage ) --- */
+    function salvaProdotto() {
         const barcode = document.getElementById('prodotto-barcode').value;
         const nome = document.getElementById('prodotto-nome').value;
         const categoria = document.getElementById('prodotto-categoria').value;
@@ -849,6 +779,7 @@
         const fornitore = document.getElementById('prodotto-fornitore').value;
         const tassativo = document.getElementById('prodotto-tassativo').checked;
         const note = document.getElementById('prodotto-note').value;
+        const foto = document.getElementById('prodotto-foto').src;
 
         const tipoScadenza = document.querySelector('input[name="tipo-scadenza"]:checked').value;
         let scadenzaValore = "";
@@ -870,7 +801,7 @@
 
         const prodottoData = {
             barcode: barcode,
-            nome: nome,
+            nome: nome || 'Prodotto senza nome',
             categoria: categoria,
             ubicazione: ubicazione,
             fornitore: fornitore,
@@ -880,34 +811,34 @@
             tipo_scadenza: tipoScadenza,
             valore_scadenza: scadenzaValore,
             note: note,
+            foto: foto,
             data_carico: new Date().toISOString()
         };
 
         try {
-            let res = await fetch('/save_pantry', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(prodottoData)
-            });
+            // Recupera la dispensa esistente dal localStorage del cellulare o crea un array vuoto
+            let dispensa = JSON.parse(localStorage.getItem('eat_dispensa_locale')) || [];
+            dispensa.push(prodottoData);
+            
+            // Salva nuovamente nel localStorage
+            localStorage.setItem('eat_dispensa_locale', JSON.stringify(dispensa));
 
-            if (res.ok) {
-                alert("✅ Prodotto salvato con successo nella dispensa! Pagina pronta per la prossima scansione.");
+            alert("✅ Prodotto salvato con successo nella dispensa locale del cellulare!");
 
-                await fetch('/save_scan?barcode=', { cache: 'no-store' });
+            // Resetta i campi per la prossima scansione
+            document.getElementById('prodotto-barcode').value = "";
+            document.getElementById('prodotto-nome').value = "";
+            document.getElementById('prodotto-categoria').value = "";
+            document.getElementById('prodotto-ubicazione').value = "";
+            document.getElementById('prodotto-fornitore').value = "";
+            document.getElementById('prodotto-foto').src = "";
+            document.getElementById('box-info-tecniche').style.display = "none";
+            document.getElementById('prodotto-peso-badge').style.display = "none";
+            document.getElementById('scad-opt-1').checked = true;
+            aggiornaScadenzaUI();
 
-                document.getElementById('prodotto-barcode').value = "";
-                document.getElementById('prodotto-nome').value = "";
-                document.getElementById('prodotto-categoria').value = "";
-                document.getElementById('prodotto-ubicazione').value = "";
-                document.getElementById('prodotto-fornitore').value = "";
-                document.getElementById('prodotto-foto').src = "";
-                document.getElementById('box-info-tecniche').style.display = "none";
-                document.getElementById('prodotto-peso-badge').style.display = "none";
-            } else {
-                alert("⚠️ Errore di salvataggio sul server.");
-            }
         } catch (e) {
-            alert("⚠️ Errore di connessione al server durante il salvataggio.");
+            alert("⚠️ Errore di salvataggio nella memoria locale del browser.");
         }
     }
 </script>
