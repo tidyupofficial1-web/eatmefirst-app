@@ -7,7 +7,7 @@
     <meta name="description" content="Carica e organizza i prodotti nella tua dispensa locale in modo semplice, sicuro e intelligente con EatMeFirst.">
     <meta name="robots" content="noindex, nofollow">
 
-    <!-- Libreria per la decodifica dei codici a barre da immagini -->
+    <!-- Libreria per la scansione automatica del codice a barre via fotocamera -->
     <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
 
     <style>
@@ -37,7 +37,7 @@
             padding: 20px;
         }
 
-        /* Carta Intestata Superiore Standard */
+        /* Carta Intestata Superiore Standard (Senza il vecchio pulsante ricollega a dx) */
         .top-navbar {
             width: 100%;
             max-width: 950px;
@@ -137,6 +137,37 @@
             flex-wrap: wrap;
         }
 
+        /* Overlay modale per la fotocamera live */
+        #scanner-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        #reader {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .btn-chiudi-scanner {
+            margin-top: 20px;
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
         /* Presentazione di Max */
         .max-presentation-box {
             background-color: var(--info-bg);
@@ -209,7 +240,7 @@
             gap: 8px;
         }
 
-        /* Griglia principale con colonna testo ben aperta */
+        /* Griglia principale con colonna testo allargata */
         .form-grid {
             display: grid;
             grid-template-columns: 260px 1fr;
@@ -408,7 +439,13 @@
 </head>
 <body>
 
-<!-- Carta Intestata Superiore con Logo e Bandiere -->
+<!-- Modale Fotocamera Scanner Live -->
+<div id="scanner-modal">
+    <div id="reader"></div>
+    <button type="button" class="btn-chiudi-scanner" onclick="chiudiScannerCamera()">❌ Chiudi Fotocamera</button>
+</div>
+
+<!-- Carta Intestata Superiore (Senza pulsante ricollega in alto a dx) -->
 <header class="top-navbar">
     <a href="../menu.html" class="brand-logo">
         <img src="../../IMG/logo_1024_white.png" alt="EatMeFirst Logo">
@@ -424,13 +461,12 @@
             <a href="../../ES/carga/carga-productos.html" title="Español"><img src="../../IMG/bandiera_Espana.jpg" alt="Español" class="flag-icon"></a>
         </div>
         <a href="../menu.html" class="btn btn-secondary" style="padding: 6px 12px; font-size: 0.85rem;">🏠 Menu Principale</a>
-        <a href="collegamento.html" class="btn btn-secondary" style="padding: 6px 12px; font-size: 0.85rem;">🔄 Ricollega Scanner</a>
     </div>
 </header>
 
 <div class="container">
 
-    <!-- BOX IMPORTANTE: GUIDA AI 2 MODI D'USO E PULSANTI -->
+    <!-- BOX IMPORTANTE -->
     <div class="important-box">
         <h3>💡 Importante: Scegli come scansionare</h3>
         <p>
@@ -447,12 +483,9 @@
             <em>Nota sulla sicurezza:</em> Quando colleghi lo smartphone al PC via Wi-Fi locale, Windows o l'antivirus potrebbero mostrare avvisi in rosso o segnalazioni di potenziale pericolo. Si tratta di un normale controllo di sicurezza quando due dispositivi comunicano direttamente sulla stessa rete domestica senza passare da server esterni. Per capire cosa succede e procedere in tranquillità, consulta la nostra <a href="modalita.html" style="color: var(--primary-color);" target="_blank">guida sulla sicurezza della rete locale</a>.
         </p>
 
-        <!-- PULSANTI CON INPUT FOTOCAMERA NATIVO -->
+        <!-- PULSANTI ATTIVAZIONE -->
         <div class="scanner-choice-actions">
-            <!-- Input nascosto per scattare la foto nativa dal browser del telefono -->
-            <input type="file" id="camera-file-input" accept="image/*" capture="environment" style="display: none;" onchange="processaFotoCodice(this)">
-            
-            <button type="button" class="btn btn-primary" onclick="document.getElementById('camera-file-input').click()">
+            <button type="button" class="btn btn-primary" onclick="avviaScannerCamera()">
                 📷 Collega la tua fotocamera
             </button>
             <a href="collegamento.html" class="btn btn-secondary">
@@ -480,14 +513,12 @@
 
     <div class="form-grid">
         <div class="sidebar-scanner-box">
-            <!-- Box Anteprima Foto Prodotto -->
             <div id="box-foto-prodotto" class="product-image-box">
                 <img id="prodotto-foto" src="" alt="Anteprima Prodotto">
                 <div id="prodotto-peso-badge" class="peso-badge" style="display:none;"></div>
             </div>
         </div>
 
-        <!-- Colonna dei Campi (Allargata) -->
         <div class="form-fields">
             <div class="field-group">
                 <div class="label-with-postit">
@@ -632,6 +663,7 @@
 <script>
     let ultimoBarcodeElaborato = "";
     let cellCollegatoInPrecedenza = false;
+    let html5QrCodeScanner = null;
 
     window.addEventListener('DOMContentLoaded', async () => {
         if (localStorage.getItem('eat_hide_max_carico') !== 'true') {
@@ -651,19 +683,44 @@
         localStorage.setItem('eat_hide_max_carico', 'true');
     }
 
-    /* --- DECODIFICA FOTO NATIVA --- */
-    async function processaFotoCodice(input) {
-        if (!input.files || input.files.length === 0) return;
-        
-        const file = input.files[0];
-        const html5QrCode = new Html5Qrcode("box-foto-prodotto");
+    /* --- LETTORE CODICE A BARRE LIVE CON HTML5-QRCODE --- */
+    function avviaScannerCamera() {
+        const modal = document.getElementById('scanner-modal');
+        modal.style.display = 'flex';
 
-        try {
-            const barcode = await html5QrCode.scanFile(file, true);
-            document.getElementById('prodotto-barcode').value = barcode;
-            cercaProdottoOnline(barcode);
-        } catch (err) {
-            alert("⚠️ Impossibile leggere il codice a barre dall'immagine. Prova a scattare una foto più nitida o ravvicinata.");
+        if (!html5QrCodeScanner) {
+            html5QrCodeScanner = new Html5Qrcode("reader");
+        }
+
+        const config = { fps: 10, qrbox: { width: 250, height: 150 } };
+
+        html5QrCodeScanner.start(
+            { facingMode: "environment" }, 
+            config,
+            (decodedText, decodedResult) => {
+                // Successo: trovato il codice a barre!
+                document.getElementById('prodotto-barcode').value = decodedText;
+                cercaProdottoOnline(decodedText);
+                chiudiScannerCamera();
+            },
+            (errorMessage) => {
+                // Durante la scansione inquadrando (nessun errore bloccante)
+            }
+        ).catch(err => {
+            alert("⚠️ Impossibile accedere alla fotocamera. Verifica i permessi del browser.");
+            chiudiScannerCamera();
+        });
+    }
+
+    function chiudiScannerCamera() {
+        if (html5QrCodeScanner) {
+            html5QrCodeScanner.stop().then(() => {
+                document.getElementById('scanner-modal').style.display = 'none';
+            }).catch(err => {
+                document.getElementById('scanner-modal').style.display = 'none';
+            });
+        } else {
+            document.getElementById('scanner-modal').style.display = 'none';
         }
     }
 
@@ -715,15 +772,6 @@
             let response = await fetch('/last_scan', { cache: 'no-store' });
             let data = await response.json();
 
-            if (data && (data.connected === true || (data.barcode && data.barcode.trim() !== ""))) {
-                if (!cellCollegatoInPrecedenza) {
-                    cellCollegatoInPrecedenza = true;
-                    document.getElementById('max-title').innerText = "Finalmente ecco collegato il tuo cell!";
-                    document.getElementById('max-text').innerHTML = "Come previsto avrai notato la scritta in rosso ma non temere: sei sempre sul tuo hard disk, lo vedi dal codice IP! Ma veniamo alla spiegazione della pagina di carico.<br><br>" +
-                        "Questa è la pagina dove si inseriscono i prodotti, sia che abbiano il codice a barre sia quelli acquistati al mercato e senza codice. Inoltre potrai inserire anche quei prodotti fatti da te come torte, salse, semilavorati di cibi, ecc. Puoi inserire i prodotti nella tua dispensa locale scegliendo tu il nome del posto dove li conserverai. Queste sono solo alcune delle funzioni: per qualsiasi dubbio sui campi da compilare, cerca i piccoli post-it informativi gialli accanto alle etichette, ti spiegheranno in modo semplice come compilarli.";
-                }
-            }
-
             if (data && data.barcode && data.barcode !== ultimoBarcodeElaborato) {
                 let scanValue = data.barcode.trim();
                 if (scanValue.includes("carico.html") || scanValue.includes("192.168.") || scanValue.startsWith("http")) {
@@ -767,7 +815,7 @@
                 if (data.ingredienti) infoExtra.push(`Ingredienti: ${data.ingredienti.substring(0, 70)}...`);
 
                 if (infoExtra.length > 0) {
-                    document.getElementById('testo-info-tecniche').innerText = infoExtra.join(' | ');
+                    document.getElementById('testo-info-tecniche').innerText = infoExtra.join(' | ';
                     boxTech.style.display = "block";
                 } else {
                     boxTech.style.display = "none";
