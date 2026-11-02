@@ -332,14 +332,36 @@
             }
             await caricaDispensaDalServer();
         });
+
+        /* --- CARICAMENTO COMBINATO (SERVER + LOCALSTORAGE) --- */
         async function caricaDispensaDalServer() {
+            let prodottiServer = [];
+            let prodottiLocali = [];
+
+            // 1. Prova a leggere dal Server Python (se in rete Wi-Fi)
             try {
                 let response = await fetch('/dispensa.json?t=' + new Date().getTime(), { cache: 'no-store' });
-                dispensaGlobale = response.ok ? await response.json() : [];
-            } catch (e) { dispensaGlobale = []; }
+                if (response.ok) {
+                    prodottiServer = await response.json();
+                }
+            } catch (e) {
+                prodottiServer = [];
+            }
+
+            // 2. Leggi dal localStorage del cellulare (modalità Standalone)
+            try {
+                prodottiLocali = JSON.parse(localStorage.getItem('eat_dispensa_locale')) || [];
+            } catch (e) {
+                prodottiLocali = [];
+            }
+
+            // Unisce le liste dei prodotti di entrambe le fonti
+            dispensaGlobale = [...prodottiServer, ...prodottiLocali];
+
             popolaFiltriSelect();
             filtraInventario();
         }
+
         function popolaFiltriSelect() {
             const ubicazioni = [...new Set(dispensaGlobale.map(p => p.ubicazione).filter(Boolean))];
             const selUb = document.getElementById('filtroUbicazione');
@@ -354,6 +376,7 @@
                 categorie.forEach(c => { selCat.innerHTML += `<option value="${c}">${c}</option>`; });
             }
         }
+
         function filtraInventario() {
             const queryNome = document.getElementById('filtroNome') ? document.getElementById('filtroNome').value.trim().toLowerCase() : '';
             const filtroUb = document.getElementById('filtroUbicazione') ? document.getElementById('filtroUbicazione').value : '';
@@ -390,11 +413,12 @@
                 </div>
             `).join('');
         }
+
         function apriDettaglioProdotto(index) {
             const p = dispensaGlobale[index];
             if (!p) return;
             document.getElementById('contenutoDettaglioProdotto').innerHTML = `
-                <div style="display: flex; gap: 15px; align-items: center; margin-bottom: 15px; background: var(--light-bg); padding: 12px; border-radius: 12px; border: 1px solid var(--border-color);">
+                <div style="display: flex; gap: 15px; align-items: center; margin-bottom: 15px; background: var::light-bg; padding: 12px; border-radius: 12px; border: 1px solid var(--border-color);">
                     <img src="${p.immagine || '../../IMG/logo_1024_white.png'}" alt="Prodotto" style="width: 70px; height: 70px; object-fit: cover; border-radius: 8px; border: 1px solid var(--border-color);">
                     <div>
                         <h4 style="color: var(--accent-color); font-size: 18px; margin-bottom: 4px;">${p.nome || 'Senza nome'}</h4>
