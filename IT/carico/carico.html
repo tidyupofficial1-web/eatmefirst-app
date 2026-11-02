@@ -7,7 +7,7 @@
     <meta name="description" content="Carica e organizza i prodotti nella tua dispensa locale in modo semplice, sicuro e intelligente con EatMeFirst.">
     <meta name="robots" content="noindex, nofollow">
 
-    <!-- Libreria per la scansione automatica del codice a barre via fotocamera -->
+    <!-- Libreria per la decodifica dei codici a barre -->
     <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
 
     <style>
@@ -37,7 +37,7 @@
             padding: 20px;
         }
 
-        /* Carta Intestata Superiore Standard (Senza il vecchio pulsante ricollega a dx) */
+        /* Carta Intestata Superiore Standard */
         .top-navbar {
             width: 100%;
             max-width: 950px;
@@ -135,37 +135,6 @@
             gap: 15px;
             margin-top: 15px;
             flex-wrap: wrap;
-        }
-
-        /* Overlay modale per la fotocamera live */
-        #scanner-modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            padding: 20px;
-        }
-
-        #reader {
-            width: 100%;
-            max-width: 400px;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        .btn-chiudi-scanner {
-            margin-top: 20px;
-            background: #e74c3c;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
         }
 
         /* Presentazione di Max */
@@ -439,12 +408,6 @@
 </head>
 <body>
 
-<!-- Modale Fotocamera Scanner Live -->
-<div id="scanner-modal">
-    <div id="reader"></div>
-    <button type="button" class="btn-chiudi-scanner" onclick="chiudiScannerCamera()">❌ Chiudi Fotocamera</button>
-</div>
-
 <!-- Carta Intestata Superiore (Senza pulsante ricollega in alto a dx) -->
 <header class="top-navbar">
     <a href="../menu.html" class="brand-logo">
@@ -474,7 +437,7 @@
         </p>
         <p>
             • <strong>Se hai avviato il programma direttamente dallo smartphone:</strong> e devi fare la scansione del primo codice a barre, ti basta cliccare sul pulsante di sinistra per attivare la fotocamera e iniziare subito a inquadrare il prodotto, compilando la scheda passo dopo passo secondo le istruzioni.<br>
-            • <strong>Se invece sei arrivato a questa pagina dal computer di casa:</strong> e devi scansionare un codice a barre, usare la webcam del portatile non è la scelta ideale per due motivi: le webcam sono progettate prevalentemente per le videochiamate ed è estremamente scomodo orientare la confezione davanti allo schermo. Per questo motivo conviene collegare e trasformare il tuo telefono (anche uno vecchio senza SIM) in un pratico lettore di codici a barre a distanza.
+            • <strong>Se invece sei arrivato a questa pagina dal computer di casa:</strong> e devi scansionare un codice a barre, usare la webcam del portatile non è la scelta ideale per due motivi: le webcam sono progettate prevalentemente per le videochiamate ed è estremamente scomodo orientare la confezione davanti schermo. Per questo motivo conviene collegare e trasformare il tuo telefono (anche uno vecchio senza SIM) in un pratico lettore di codici a barre a distanza.
         </p>
         <p>
             Per farlo sfrutterai la connessione Wi-Fi locale: tieni solo a mente di collegare entrambi i dispositivi direttamente al modem principale di casa (evitando ripetitori o amplificatori di segnale che, per impostazioni di sicurezza, bloccano la comunicazione tra i dispositivi). Se per caso la linea dovesse cadere o i dispositivi smettessero di comunicare, ti basterà un semplice clic sul pulsante di destra per ricollegare subito la fotocamera dello smartphone.
@@ -483,9 +446,12 @@
             <em>Nota sulla sicurezza:</em> Quando colleghi lo smartphone al PC via Wi-Fi locale, Windows o l'antivirus potrebbero mostrare avvisi in rosso o segnalazioni di potenziale pericolo. Si tratta di un normale controllo di sicurezza quando due dispositivi comunicano direttamente sulla stessa rete domestica senza passare da server esterni. Per capire cosa succede e procedere in tranquillità, consulta la nostra <a href="modalita.html" style="color: var(--primary-color);" target="_blank">guida sulla sicurezza della rete locale</a>.
         </p>
 
-        <!-- PULSANTI ATTIVAZIONE -->
+        <!-- PULSANTI ATTIVAZIONE CON INPUT FILE NATIVO E SICURO -->
         <div class="scanner-choice-actions">
-            <button type="button" class="btn btn-primary" onclick="avviaScannerCamera()">
+            <!-- Input nascosto per attivare la camera nativa del telefono in sicurezza -->
+            <input type="file" id="camera-file-input" accept="image/*" capture="environment" style="display: none;" onchange="leggiCodiceDaScatto(this)">
+            
+            <button type="button" class="btn btn-primary" onclick="document.getElementById('camera-file-input').click()">
                 📷 Collega la tua fotocamera
             </button>
             <a href="collegamento.html" class="btn btn-secondary">
@@ -663,7 +629,6 @@
 <script>
     let ultimoBarcodeElaborato = "";
     let cellCollegatoInPrecedenza = false;
-    let html5QrCodeScanner = null;
 
     window.addEventListener('DOMContentLoaded', async () => {
         if (localStorage.getItem('eat_hide_max_carico') !== 'true') {
@@ -683,44 +648,25 @@
         localStorage.setItem('eat_hide_max_carico', 'true');
     }
 
-    /* --- LETTORE CODICE A BARRE LIVE CON HTML5-QRCODE --- */
-    function avviaScannerCamera() {
-        const modal = document.getElementById('scanner-modal');
-        modal.style.display = 'flex';
+    /* --- LETTURA DEL CODICE DALLO SCATTO DELLA FOTOCAMERA --- */
+    async function leggiCodiceDaScatto(input) {
+        if (!input.files || input.files.length === 0) return;
+        
+        const file = input.files[0];
+        const html5QrCode = new Html5Qrcode("box-foto-prodotto");
 
-        if (!html5QrCodeScanner) {
-            html5QrCodeScanner = new Html5Qrcode("reader");
-        }
-
-        const config = { fps: 10, qrbox: { width: 250, height: 150 } };
-
-        html5QrCodeScanner.start(
-            { facingMode: "environment" }, 
-            config,
-            (decodedText, decodedResult) => {
-                // Successo: trovato il codice a barre!
-                document.getElementById('prodotto-barcode').value = decodedText;
-                cercaProdottoOnline(decodedText);
-                chiudiScannerCamera();
-            },
-            (errorMessage) => {
-                // Durante la scansione inquadrando (nessun errore bloccante)
-            }
-        ).catch(err => {
-            alert("⚠️ Impossibile accedere alla fotocamera. Verifica i permessi del browser.");
-            chiudiScannerCamera();
-        });
-    }
-
-    function chiudiScannerCamera() {
-        if (html5QrCodeScanner) {
-            html5QrCodeScanner.stop().then(() => {
-                document.getElementById('scanner-modal').style.display = 'none';
-            }).catch(err => {
-                document.getElementById('scanner-modal').style.display = 'none';
-            });
-        } else {
-            document.getElementById('scanner-modal').style.display = 'none';
+        try {
+            // Decodifica automatica dell'immagine scattata
+            const barcode = await html5QrCode.scanFile(file, true);
+            document.getElementById('prodotto-barcode').value = barcode;
+            
+            // Mostra l'anteprima della foto scattata nel box a sinistra
+            document.getElementById('prodotto-foto').src = URL.createObjectURL(file);
+            
+            // Avvia la ricerca online nei database
+            cercaProdottoOnline(barcode);
+        } catch (err) {
+            alert("⚠️ Non sono riuscito a leggere chiaramente il codice a barre da questa foto. Assicurati di inquadrare bene le stanghette nere ed evita riflessi di luce.");
         }
     }
 
@@ -815,7 +761,7 @@
                 if (data.ingredienti) infoExtra.push(`Ingredienti: ${data.ingredienti.substring(0, 70)}...`);
 
                 if (infoExtra.length > 0) {
-                    document.getElementById('testo-info-tecniche').innerText = infoExtra.join(' | ';
+                    document.getElementById('testo-info-tecniche').innerText = infoExtra.join(' | ');
                     boxTech.style.display = "block";
                 } else {
                     boxTech.style.display = "none";
