@@ -137,7 +137,7 @@
             flex-wrap: wrap;
         }
 
-        /* Finestra Modale per lo Scanner Live */
+        /* Finestra Overlay Scanner Live */
         #scanner-overlay {
             display: none;
             position: fixed;
@@ -473,7 +473,7 @@
     <div class="important-box">
         <h3>💡 Importante: Scegli come scansionare</h3>
         <p>
-            Giacomo, a questa pagina si arriva in due modi: lanciando il link direttamente dal tuo cellulare oppure dal tuo PC fisso o portatile.
+            <strong>Giacomo</strong>, a questa pagina si arriva in due modi: lanciando il link direttamente dal tuo cellulare oppure dal tuo PC fisso o portatile.
         </p>
         <p>
             • <strong>Se hai avviato il programma direttamente dallo smartphone:</strong> e devi fare la scansione del primo codice a barre, ti basta cliccare sul pulsante di sinistra per attivare la fotocamera e iniziare subito a inquadrare il prodotto, compilando la scheda passo dopo passo secondo le istruzioni.<br>
@@ -768,8 +768,8 @@
         document.getElementById('valore-data-esatta').disabled = (tipo !== 'esatta');
     }
 
-    /* --- SALVATAGGIO LOCALE STANDALONE ( localStorage ) --- */
-    function salvaProdotto() {
+    /* --- SALVATAGGIO ADATTIVO (SERVER + LOCALSTORAGE FALLBACK) --- */
+    async function salvaProdotto() {
         const barcode = document.getElementById('prodotto-barcode').value;
         const nome = document.getElementById('prodotto-nome').value;
         const categoria = document.getElementById('prodotto-categoria').value;
@@ -811,35 +811,45 @@
             tipo_scadenza: tipoScadenza,
             valore_scadenza: scadenzaValore,
             note: note,
-            foto: foto,
+            immagine: foto,
             data_carico: new Date().toISOString()
         };
 
+        // 1. Prova a salvare sul Server Python (Modalità Remote PC / Wi-Fi)
+        let salvatoSulServer = false;
         try {
-            // Recupera la dispensa esistente dal localStorage del cellulare o crea un array vuoto
+            let res = await fetch('/save_pantry', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(prodottoData)
+            });
+            if (res.ok) {
+                salvatoSulServer = true;
+            }
+        } catch (e) {
+            salvatoSulServer = false;
+        }
+
+        // 2. Se il server non c'è, salva nel localStorage (Modalità Standalone dal Cellulare)
+        if (!salvatoSulServer) {
             let dispensa = JSON.parse(localStorage.getItem('eat_dispensa_locale')) || [];
             dispensa.push(prodottoData);
-            
-            // Salva nuovamente nel localStorage
             localStorage.setItem('eat_dispensa_locale', JSON.stringify(dispensa));
-
-            alert("✅ Prodotto salvato con successo nella dispensa locale del cellulare!");
-
-            // Resetta i campi per la prossima scansione
-            document.getElementById('prodotto-barcode').value = "";
-            document.getElementById('prodotto-nome').value = "";
-            document.getElementById('prodotto-categoria').value = "";
-            document.getElementById('prodotto-ubicazione').value = "";
-            document.getElementById('prodotto-fornitore').value = "";
-            document.getElementById('prodotto-foto').src = "";
-            document.getElementById('box-info-tecniche').style.display = "none";
-            document.getElementById('prodotto-peso-badge').style.display = "none";
-            document.getElementById('scad-opt-1').checked = true;
-            aggiornaScadenzaUI();
-
-        } catch (e) {
-            alert("⚠️ Errore di salvataggio nella memoria locale del browser.");
         }
+
+        alert("✅ Prodotto salvato con successo nella dispensa!");
+
+        // Resetta i campi per la prossima scansione
+        document.getElementById('prodotto-barcode').value = "";
+        document.getElementById('prodotto-nome').value = "";
+        document.getElementById('prodotto-categoria').value = "";
+        document.getElementById('prodotto-ubicazione').value = "";
+        document.getElementById('prodotto-fornitore').value = "";
+        document.getElementById('prodotto-foto').src = "";
+        document.getElementById('box-info-tecniche').style.display = "none";
+        document.getElementById('prodotto-peso-badge').style.display = "none";
+        document.getElementById('scad-opt-1').checked = true;
+        aggiornaScadenzaUI();
     }
 </script>
 
