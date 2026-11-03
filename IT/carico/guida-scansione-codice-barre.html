@@ -4,16 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guida alla Scansione dei Codici a Barre e Sicurezza Dati | EatMeFirst</title>
-    <meta name="description" content="Scopri come collegare lo smartphone al PC via Wi-Fi domestico per la scansione dei codici a barre e come mettere al sicuro i tuoi dati con una chiavetta USB.">
+    <meta name="description" content="Scopri come utilizzare la fotocamera del tuo smartphone per la scansione dei codici a barre e come proteggere i tuoi dati con EatMeFirst.">
     <meta name="robots" content="noindex, nofollow">
     <style>
         :root {
-            --bg-color: #0d1117;
-            --card-bg: #161b22;
-            --text-color: #f0f6fc;
-            --text-muted: #c9d1d9;
+            --bg-color: #12181b;
+            --card-bg: #1e272c;
+            --text-color: #e0e6ed;
+            --text-muted: #a0aec0;
             --postit-bg: #fff59d;
             --postit-text: #333333;
+            --border-color: #2d3748;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -21,93 +22,79 @@
         body {
             background-color: var(--bg-color);
             color: var(--text-color);
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            padding: 20px 16px;
+            align-items: center;
+            padding: 15px 10px;
         }
 
         .container {
-            max-width: 650px;
-            margin: 20px auto;
+            max-width: 950px;
+            margin: 0 auto;
             width: 100%;
         }
 
         .postit-card {
             background-color: var(--postit-bg);
             color: var(--postit-text);
-            padding: 30px 26px;
-            border-radius: 4px;
+            padding: 25px 20px;
+            border-radius: 8px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.5);
             position: relative;
-            transform: rotate(-0.4deg);
         }
 
-        .postit-card::before {
-            content: '';
-            position: absolute;
-            top: -12px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 24px;
-            height: 24px;
-            background: #f44336;
-            border-radius: 50%;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.4), inset -2px -2px 4px rgba(0,0,0,0.3);
-        }
-
-        h1 { font-size: 21px; margin-bottom: 18px; color: #1a1a1a; display: flex; align-items: center; gap: 8px; }
+        h1 { font-size: 1.3rem; margin-bottom: 16px; color: #1a1a1a; display: flex; align-items: center; gap: 8px; }
         
         .discorso-leo {
-            font-size: 15px;
-            line-height: 1.65;
+            font-size: 0.95rem;
+            line-height: 1.6;
             color: #222;
         }
 
         .discorso-leo p {
-            margin-bottom: 14px;
+            margin-bottom: 12px;
         }
 
         .parentesi-box {
             background: rgba(0,0,0,0.05);
             border-left: 4px solid #333;
-            padding: 12px 16px;
+            padding: 12px 14px;
             border-radius: 4px;
-            margin: 16px 0;
-            font-size: 14.5px;
-            line-height: 1.6;
+            margin: 15px 0;
+            font-size: 0.92rem;
+            line-height: 1.5;
         }
 
         .privacy-box {
-            background: rgba(46, 125, 50, 0.1);
+            background: rgba(46, 125, 50, 0.15);
             border-left: 4px solid #2e7d32;
-            padding: 12px 16px;
+            padding: 12px 14px;
             border-radius: 4px;
-            margin: 16px 0;
-            font-size: 14.5px;
-            line-height: 1.6;
+            margin: 15px 0;
+            font-size: 0.92rem;
+            line-height: 1.5;
         }
 
         .consiglio-pro-box {
-            background: rgba(33, 150, 243, 0.12);
+            background: rgba(33, 150, 243, 0.15);
             border-left: 4px solid #2196f3;
-            padding: 12px 16px;
+            padding: 12px 14px;
             border-radius: 4px;
-            margin: 16px 0;
-            font-size: 14.5px;
-            line-height: 1.6;
+            margin: 15px 0;
+            font-size: 0.92rem;
+            line-height: 1.5;
         }
 
         .raccordo-box {
             background: rgba(255, 152, 0, 0.15);
             border-left: 4px solid #ff9800;
-            padding: 12px 16px;
+            padding: 12px 14px;
             border-radius: 4px;
-            margin: 16px 0;
-            font-size: 14.5px;
-            line-height: 1.6;
+            margin: 15px 0;
+            font-size: 0.92rem;
+            line-height: 1.5;
         }
 
         .btn-close {
@@ -118,8 +105,8 @@
             padding: 10px 20px;
             border-radius: 8px;
             text-decoration: none;
-            font-weight: 600;
-            font-size: 14px;
+            font-weight: bold;
+            font-size: 0.9rem;
             transition: background 0.2s;
         }
 
@@ -130,41 +117,40 @@
 
     <main class="container">
         <article class="postit-card">
-            <h1>💬 La Scansione e i Consigli di Leo per una Connessione Perfetta</h1>
+            <h1>💬 La Scansione e i Consigli di Leo per una Gestione Semplice</h1>
             
             <div class="discorso-leo">
-                <p>Questa funzione della scansione, una volta fatto il collegamento tra il tuo vecchio cellulare e il tuo PC o portatile, è semplicissima: è sufficiente cliccare su <strong>Scansiona</strong> e il cellulare diventa automaticamente il lettore dei codici a barre (oltre che dei QR code, quei strani quadratini con tanti puntini neri... anche quelli sono una specie di codice a barre!).</p>
+                <p>La funzione di scansione integrata trasforma la fotocamera del tuo smartphone in un pratico lettore di codici a barre (inclusi i QR code). Ti basta toccare il pulsante di scansione e inquadrare il codice sulla confezione.</p>
 
-                <p>A noi interessa far inquadrare i numeri del codice alla webcam del cell. Vedrai che appena si riesce a inquadrare tutti e 13 i numeri e l'immagine va a fuoco — ma non nel senso che brucia! 😂 — e non è più sgranata, il suo compito è terminato e il lavoro passa subito al tuo PC.</p>
+                <p>Non appena la fotocamera mette a fuoco i numeri del codice a barre, l'applicazione acquisisce il codice e avvia immediatamente la ricerca dei dettagli del prodotto.</p>
 
                 <div class="parentesi-box">
-                    <strong>Qui apro una parentesi:</strong> se usassi un telefono come quello che hai in mano si potrebbe fare tutto sul cellulare, ma sarebbe scomodo avere lo schermo piccolo su cui lavorare. Quindi avere il PC fisso o il tuo portatile è molto meglio!<br><br>
-                    Altro dettaglio: il tuo PC o portatile non è necessario che stia vicino al vecchio cell, basta che si trovi sotto lo stesso modem Wi-Fi di casa. Quindi il telefono potrebbe stare in cucina e il PC nello studio o in sala.
+                    <strong>Come funziona sul tuo smartphone:</strong><br>
+                    Tutto avviene direttamente dal tuo dispositivo mobile in modo rapido e immediato, sfruttando la comodità del touchscreen e la portabilità del telefono per scansionare i prodotti ovunque ti trovi in casa (in cucina, in dispensa o vicino al frigo).
                 </div>
 
                 <div class="consiglio-pro-box">
-                    ⚠️ <strong>Due cose importanti da ricordare per il Wi-Fi e la sicurezza:</strong><br><br>
-                    1. <strong>Collega i dispositivi al modem principale:</strong> Assicurati che sia il PC che lo smartphone siano agganciati direttamente al Wi-Fi del modem principale di casa, evitando l'uso di ripetitori di segnale (range extender). I ripetitori, infatti, a volte creano sottoreti separate che impediscono ai due dispositivi di parlarsi in modo fluido e diretto.<br><br>
-                    2. <strong>Il consiglio d'oro per i tuoi dati (Chiavetta USB):</strong> Ti consiglio caldamente di inserire una chiavetta USB dedicata nel computer per ricevere regolarmente i salvataggi delle operazioni che fai sul programma. In questo modo, anche in caso di guasti imprevisti del computer, avrai sempre una copia aggiornata del database pronta per ricaricare i tuoi dati in un attimo e senza pensieri!
+                    ⚠️ <strong>Consigli per la connessione e la sicurezza dei dati:</strong><br><br>
+                    1. <strong>Stabilità di rete:</strong> Assicurati di avere una buona connessione Wi-Fi o dati mobili attiva per consentire all'app di interrogare rapidamente i database online durante la scansione.<br><br>
+                    2. <strong>Autonomia e salvataggi protetti (Chiavetta USB):</strong> L'applicazione sfrutta la memoria interna del browser per conservare i tuoi dati in autonomia sul dispositivo. Tuttavia, per evitare qualsiasi rischio in caso di perdita o guasto improvviso del cellulare, consigliamo caldamente di collegare una chiavetta USB dedicata (tramite apposito adattatore o supporto compatibile) in modo che il programma possa specchiare e salvare i dati anche su quel supporto esterno, garantendoti una sicurezza totale!
                 </div>
 
                 <div class="privacy-box">
                     🔒 <strong>Privacy Blindata:</strong><br>
-                    Tutti i dati che inserisci restano qui da te, sul cellulare o sul PC che usi: descrizione, quantità, dove lo metti, che scadenza ha, ecc. Tutto resta blindato sul tuo dispositivo! L'unico contatto esterno che si ha è per <em>ricevere</em> dati e non per darli.<br><br>
-                    Anzi, mi spiego meglio: diamo un solo dato esterno, ovvero il <strong>codice a barre</strong> che si trova sulla scatola del detersivo o sulla confezione di pesce.
+                    Tutti i dati che inserisci (descrizione, quantità, ubicazione, scadenze) restano esclusivamente tuoi! L'unico scambio con l'esterno riguarda esclusivamente la lettura del <strong>codice a barre</strong> della confezione per recuperare le informazioni online.
                 </div>
 
-                <p>Ecco allora cosa fa il tuo PC: una volta arrivato il codice, lo manda a un sito che ha raccolto moltissimi codici a barre e che, per ogni prodotto, ha creato una scheda contenente descrizione, produttore, allergeni, ingredienti, calorie e persino la foto del prodotto! Se questo sito ha quel codice nel suo archivio, ti invia tutti questi dati gratuitamente.</p>
+                <p>Cosa succede dopo? Una volta letto il codice, l'app interroga un database aperto per recuperare in automatico nome, categoria, ingredienti e foto del prodotto. Se il prodotto è presente nell'archivio, la scheda si compila da sola!</p>
 
-                <p>E la volta successiva che scansionerai quel codice? Il tuo PC non farà nemmeno la richiesta su Internet: <strong>ha già tutti i dati salvati in memoria!</strong> Ti basterà semplicemente aggiornare la quantità e la nuova data di scadenza.</p>
+                <p>E la volta successiva? Se scansionerai di nuovo lo stesso articolo, l'app attingerà direttamente alla memoria salvata sul tuo dispositivo: ti basterà aggiornare quantità e data di scadenza con un tap.</p>
 
                 <div class="raccordo-box">
-                    💡 <strong>E se la scansione non dà risultati?</strong><br>
-                    Se il codice non è inserito nei siti che interpelliamo, oppure è rovinato, sporco o proprio non c'è (come per la merce del mercato), te lo dico subito con un avviso. Ma stai tranquillo: risolviamo tutto alla grande e ti spiego come funziona quando andrai a leggere le info della <strong>Descrizione / Nome Prodotto</strong>!
+                    💡 <strong>E se la scansione non trova il prodotto?</strong><br>
+                    Se il codice a barre non è presente nei database online, è rovinato o appartiene a prodotti freschi del mercato rionale (come frutta, verdura o formaggi al banco), l'app te lo segnalerà subito. Nessun problema: potrai inserire la descrizione manualmente in un attimo, come spiegato nella guida dedicata al <strong>Nome Prodotto</strong>!
                 </div>
             </div>
 
-            <a href="carico.html" class="btn-close">← Torna al Carico</a>
+            <a href="carico.html" class="btn-close" onclick="window.close(); return false;">✕ Chiudi Guida</a>
         </article>
     </main>
 

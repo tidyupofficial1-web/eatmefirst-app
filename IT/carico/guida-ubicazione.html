@@ -4,14 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guida Ubicazione e Luoghi | EatMeFirst</title>
+    <meta name="description" content="Scopri come organizzare e personalizzare le ubicazioni dei tuoi prodotti in dispensa con EatMeFirst.">
     <meta name="robots" content="noindex, nofollow">
     <style>
         :root {
-            --bg-color: #0d1117;
-            --card-bg: #161b22;
-            --text-color: #f0f6fc;
+            --bg-color: #12181b;
+            --card-bg: #1e272c;
+            --text-color: #e0e6ed;
             --postit-bg: #fff59d;
             --postit-text: #333333;
+            --border-color: #2d3748;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -19,63 +21,49 @@
         body {
             background-color: var(--bg-color);
             color: var(--text-color);
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            padding: 20px 16px;
+            align-items: center;
+            padding: 15px 10px;
         }
 
         .container {
-            max-width: 650px;
-            margin: 20px auto;
+            max-width: 950px;
+            margin: 0 auto;
             width: 100%;
         }
 
         .postit-card {
             background-color: var(--postit-bg);
             color: var(--postit-text);
-            padding: 30px 26px;
-            border-radius: 4px;
+            padding: 25px 20px;
+            border-radius: 8px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.5);
             position: relative;
-            transform: rotate(-0.4deg);
         }
 
-        .postit-card::before {
-            content: '';
-            position: absolute;
-            top: -12px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 24px;
-            height: 24px;
-            background: #f44336;
-            border-radius: 50%;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.4), inset -2px -2px 4px rgba(0,0,0,0.3);
-        }
-
-        h1 { font-size: 21px; margin-bottom: 18px; color: #1a1a1a; display: flex; align-items: center; gap: 8px; }
+        h1 { font-size: 1.3rem; margin-bottom: 16px; color: #1a1a1a; display: flex; align-items: center; gap: 8px; }
         
         .discorso-guida {
-            font-size: 15px;
-            line-height: 1.65;
+            font-size: 0.95rem;
+            line-height: 1.6;
             color: #222;
         }
 
         .discorso-guida p {
-            margin-bottom: 14px;
+            margin-bottom: 12px;
         }
 
         .memoria-box {
             background: rgba(76, 175, 80, 0.15);
             border-left: 4px solid #4caf50;
-            padding: 14px 16px;
+            padding: 12px 14px;
             border-radius: 4px;
-            margin: 18px 0;
-            font-size: 14.5px;
-            line-height: 1.6;
+            margin: 15px 0;
+            font-size: 0.92rem;
+            line-height: 1.5;
         }
 
         .btn-close {
@@ -86,8 +74,8 @@
             padding: 10px 20px;
             border-radius: 8px;
             text-decoration: none;
-            font-weight: 600;
-            font-size: 14px;
+            font-weight: bold;
+            font-size: 0.9rem;
             transition: background 0.2s;
         }
 
@@ -101,19 +89,19 @@
             <h1>📍 Ubicazione e Luoghi Personalizzati</h1>
             
             <div class="discorso-guida">
-                <p>All'inizio, quando comincerai a usare questa applicazione, troverai tutte le opzioni vuote compresa questa. Vogliamo infatti che sia tu a creare i tuoi luoghi di destinazione dei prodotti, nel modo più personalizzato possibile!</p>
+                <p>All'inizio, quando comincerai a usare questa applicazione, troverai questo campo vuoto. Vogliamo infatti che sia tu a creare i luoghi di destinazione dei tuoi prodotti in modo del tutto personalizzato, adattandoli alla struttura della tua casa!</p>
 
-                <p>Potrai scrivere <em>"Congelatore di mamma"</em> oppure <em>"Scaffale vini cantina"</em>: è sufficiente selezionare <strong>"Aggiungi nuova ubicazione"</strong> e digitare il nome del posto. Tutto qui!</p>
+                <p>Potrai scrivere liberamente <em>"Congelatore in cantina"</em> oppure <em>"Scaffale vini"</em>: basta digitare il nome del posto la prima volta. Tutto qui!</p>
 
                 <div class="memoria-box">
                     💡 <strong>Evita doppioni e confusione!</strong><br><br>
-                    Le volte successive ti verranno riproposti tutti i posti che hai salvato e potrai sceglierli con un semplice clic. In questo modo eviterai di dover riscrivere ogni volta la destinazione e rischiare di creare varianti simili (come <em>"scaffale vino cantina"</em>, <em>"scaffalatura cantina"</em> o <em>"scaffale vini"</em>), evitando così una serie di nomi doppioni che fanno riferimento allo stesso posto creando solo confusione.
+                    Le volte successive, l'app ricorderà i luoghi che hai salvato e te li proporrà rapidamente. In questo modo eviterai di riscrivere ogni volta la destinazione con piccole varianti (come <em>"scaffale vino cantina"</em> o <em>"scaffalatura cantina"</em>), prevenendo la creazione di nomi doppi che indicano lo stesso identico posto.
                 </div>
 
-                <p><em>(E ricordati: sapere esattamente in quale stanza o mobile si trova un prodotto ti evita anche di dover specificare ogni volta se va in frigo, freezer o credenza!)</em></p>
+                <p><em>(Ricordati: sapere esattamente in quale mobile o stanza si trova un articolo ti permette di ritrovarlo subito senza dover perdere tempo a cercarlo per casa!)</em></p>
             </div>
 
-            <a href="carico.html" class="btn-close">← Torna al Carico</a>
+            <a href="carico.html" class="btn-close" onclick="window.close(); return false;">✕ Chiudi Guida</a>
         </article>
     </main>
 

@@ -4,15 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guida Quantità | EatMeFirst</title>
-    <meta name="description" content="Come indicare il numero di confezioni o pacchi da caricare in dispensa.">
+    <meta name="description" content="Scopri come indicare correttamente il numero di confezioni o pacchi da caricare nella tua dispensa con EatMeFirst.">
     <meta name="robots" content="noindex, nofollow">
     <style>
         :root {
-            --bg-color: #0d1117;
-            --card-bg: #161b22;
-            --text-color: #f0f6fc;
+            --bg-color: #12181b;
+            --card-bg: #1e272c;
+            --text-color: #e0e6ed;
             --postit-bg: #fff59d;
             --postit-text: #333333;
+            --border-color: #2d3748;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -20,61 +21,56 @@
         body {
             background-color: var(--bg-color);
             color: var(--text-color);
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            padding: 20px 16px;
+            align-items: center;
+            padding: 15px 10px;
         }
 
         .container {
-            max-width: 650px;
-            margin: 20px auto;
+            max-width: 950px;
+            margin: 0 auto;
             width: 100%;
         }
 
         .postit-card {
             background-color: var(--postit-bg);
             color: var(--postit-text);
-            padding: 30px 26px;
-            border-radius: 4px;
+            padding: 25px 20px;
+            border-radius: 8px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.5);
             position: relative;
-            transform: rotate(-0.4deg);
         }
 
-        .postit-card::before {
-            content: '';
-            position: absolute;
-            top: -12px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 24px;
-            height: 24px;
-            background: #f44336;
-            border-radius: 50%;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.4), inset -2px -2px 4px rgba(0,0,0,0.3);
-        }
-
-        h1 { font-size: 21px; margin-bottom: 18px; color: #1a1a1a; display: flex; align-items: center; gap: 8px; }
+        h1 { font-size: 1.3rem; margin-bottom: 16px; color: #1a1a1a; display: flex; align-items: center; gap: 8px; }
         
         .discorso-guida {
-            font-size: 15px;
-            line-height: 1.65;
+            font-size: 0.95rem;
+            line-height: 1.6;
             color: #222;
         }
 
-        .discorso-guida p { margin-bottom: 14px; }
+        .discorso-guida p { margin-bottom: 12px; }
+
+        .discorso-guida ul {
+            margin-left: 20px;
+            margin-bottom: 12px;
+        }
+
+        .discorso-guida li {
+            margin-bottom: 6px;
+        }
 
         .info-box {
             background: rgba(33, 150, 243, 0.15);
             border-left: 4px solid #2196f3;
-            padding: 14px 16px;
+            padding: 12px 14px;
             border-radius: 4px;
-            margin: 18px 0;
-            font-size: 14.5px;
-            line-height: 1.6;
+            margin: 15px 0;
+            font-size: 0.92rem;
+            line-height: 1.5;
         }
 
         .btn-close {
@@ -85,8 +81,8 @@
             padding: 10px 20px;
             border-radius: 8px;
             text-decoration: none;
-            font-weight: 600;
-            font-size: 14px;
+            font-weight: bold;
+            font-size: 0.9rem;
             transition: background 0.2s;
         }
 
@@ -100,20 +96,22 @@
             <h1>🔢 Quantità di Confezioni Acquistate</h1>
             
             <div class="discorso-guida">
-                <p>In questo campo indichi semplicemente <strong>quante confezioni, scatole o pacchi interi</strong> hai comprato e vuoi aggiungere alla dispensa (usando numeri interi: 1, 2, 3, ecc.).</p>
+                <p>In questo campo indichi semplicemente <strong>quante confezioni, scatole o pacchi interi</strong> hai comprato e desideri aggiungere alla dispensa (usando numeri interi: 1, 2, 3, ecc.).</p>
 
                 <p><strong>Esempi pratici:</strong></p>
-                <p>• Hai comprato <strong>2 pacchi</strong> di pasta? Inserisci <strong>2</strong>.</p>
-                <p>• Hai preso <strong>1 fardello</strong> d'acqua? Inserisci <strong>1</strong> (il numero di bottiglie contenute lo indicherai nella casella accanto <em>Pezzi per Confezione</em>).</p>
-                <p>• Hai preso <strong>3 confezioni</strong> di yogurt? Inserisci <strong>3</strong>.</p>
+                <ul>
+                    <li>Hai comprato <strong>2 pacchi</strong> di pasta? Inserisci <strong>2</strong>.</li>
+                    <li>Hai preso <strong>1 fardello</strong> d'acqua? Inserisci <strong>1</strong> (il numero di bottiglie contenute andrà invece indicato nella casella accanto <em>Pezzi per Confezione</em>).</li>
+                    <li>Hai preso <strong>3 confezioni</strong> di yogurt? Inserisci <strong>3</strong>.</li>
+                </ul>
 
                 <div class="info-box">
-                    💡 <strong>Nota semplice:</strong><br>
-                    Usa sempre numeri interi. Non preoccuparti di frazioni o porzioni: se il prodotto verrà consumato a fette o a porzioni"</em>!
+                    💡 <strong>Regola generale:</strong><br>
+                    Usa sempre numeri interi per contare i colli o i pacchi. Non preoccuparti di frazioni o porzioni: eventuali consumi parziali o frazionati verranno gestiti direttamente e comodamente nella pagina di scarico!
                 </div>
             </div>
 
-            <a href="carico.html" class="btn-close">← Torna al Carico</a>
+            <a href="carico.html" class="btn-close" onclick="window.close(); return false;">✕ Chiudi Guida</a>
         </article>
     </main>
 
