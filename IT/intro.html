@@ -151,28 +151,46 @@
         const videoContainer = document.getElementById('videoContainer');
         const video = document.getElementById('siglaVideo');
 
+        // Funzione per rilevare la lingua dell'utente e reindirizzarlo correttamente
+        function vaiAllaPaginaBenvenuto() {
+            var userLang = (navigator.language || navigator.userLanguage || 'it').substring(0, 2).toLowerCase();
+            
+            if (userLang === 'en') {
+                window.location.href = '../EN/benvenuto.html';
+            } else if (userLang === 'de') {
+                window.location.href = '../DE/willkommen.html';
+            } else if (userLang === 'fr') {
+                window.location.href = '../FR/bienvenue.html';
+            } else if (userLang === 'es') {
+                window.location.href = '../ES/benvenuto.html';
+            } else {
+                // Default: Italiano
+                window.location.href = 'benvenuto.html';
+            }
+        }
+
         // Dopo 6.5 secondi di animazione delle scritte:
         setTimeout(() => {
             welcomeStage.style.display = 'none';
             videoContainer.style.display = 'flex';
 
-            // Imposta la velocità di riproduzione rallentata per far durare il video circa 6-7 secondi
+            // Velocità di riproduzione rallentata per la sigla
             video.playbackRate = 0.65; 
             
             video.play().catch(err => {
-                // Se l'autoplay fallisce o il video finisce, va diretto a benvenuto.html
-                window.location.href = 'benvenuto.html';
+                // Se l'autoplay fallisce, va direttamente alla pagina di benvenuto della lingua
+                vaiAllaPaginaBenvenuto();
             });
         }, 6500);
 
-        // Quando la clip video termina, passa alla pagina di benvenuto di Max ed Eva
+        // Quando la clip video termina, passa alla pagina di benvenuto corretta
         video.addEventListener('ended', () => {
-            window.location.href = 'benvenuto.html';
+            vaiAllaPaginaBenvenuto();
         });
 
         // Consentiamo anche un click per saltare l'intro in qualsiasi momento
         document.body.addEventListener('click', () => {
-            window.location.href = 'benvenuto.html';
+            vaiAllaPaginaBenvenuto();
         });
     </script>
 </body>
