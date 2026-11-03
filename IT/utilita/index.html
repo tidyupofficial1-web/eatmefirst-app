@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Utilità, Backup & TimeMachine | EatMeFirst</title>
-  <meta name="description" content="Gestisci backup in tempo reale, punti di ripristino TimeMachine, sicurezza su chiavetta USB e aggiornamenti con il Centro Studi di Leo.">
+  <title>Utilità & Sicurezza Chiavetta | EatMeFirst</title>
+  <meta name="description" content="Gestisci la sicurezza dei dati su chiavetta USB, la sincronizzazione tra PC e smartphone e gli aggiornamenti istantanei tramite il server centrale.">
   <meta name="robots" content="noindex, nofollow">
 
   <style>
@@ -113,21 +113,6 @@
     }
     .postit-icon:hover { transform: scale(1.2) rotate(-3deg); }
 
-    /* GRIGLIA PULSANTI RIPRISTINO */
-    .restore-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 15px; margin-top: 15px;
-    }
-
-    .btn-restore {
-      background: #0d1117; border: 1px solid var(--border-color);
-      color: var(--text-color); padding: 16px; border-radius: 12px;
-      font-size: 0.95rem; font-weight: 600; cursor: pointer; text-align: left;
-      display: flex; flex-direction: column; gap: 6px; transition: all 0.2s;
-    }
-    .btn-restore:hover { border-color: var(--accent-color); background: var(--light-bg); transform: translateY(-1px); }
-    .btn-restore span.subtext { font-size: 0.8rem; color: var(--text-muted); font-weight: normal; }
-
     /* BIBLIOTECA COMPLETA GRID */
     .guides-grid {
       display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -139,20 +124,6 @@
       display: flex; align-items: center; gap: 10px; transition: all 0.2s;
     }
     .guide-card-link:hover { border-color: var(--accent-color); background: var(--light-bg); }
-
-    /* REGISTRO OPERAZIONI */
-    .log-container {
-      background: #0d1117; border: 1px solid var(--border-color);
-      border-radius: 12px; max-height: 250px; overflow-y: auto; padding: 12px;
-    }
-    .empty-log {
-      text-align: center; padding: 20px; color: var(--text-muted); font-style: italic; font-size: 0.9rem;
-    }
-    .log-item {
-      display: flex; justify-content: space-between; padding: 10px; border-bottom: 1px solid var(--border-color); font-size: 0.9rem;
-    }
-    .log-item:last-child { border-bottom: none; }
-    .log-time { color: var(--text-muted); font-size: 0.85rem; }
 
     /* PRICING GRID */
     .pricing-grid {
@@ -198,15 +169,8 @@
     footer { text-align: center; padding: 20px; font-size: 13px; color: var(--text-muted); border-top: 1px solid var(--border-color); margin-top: 40px; }
 
     @media (max-width: 600px) {
-      .language-flags { 
-        display: flex; 
-        gap: 4px; 
-        padding: 2px 6px; 
-      }
-      .flag-img { 
-        width: 18px; 
-        height: 12px; 
-      }
+      .language-flags { display: flex; gap: 4px; padding: 2px 6px; }
+      .flag-img { width: 18px; height: 12px; }
     }
   </style>
 </head>
@@ -221,7 +185,7 @@
         <div class="mini-logo" style="display: inline-flex; align-items: center;">
           <img src="../../IMG/logo_1024_white.png" alt="Logo EatMeFirst" style="height: 32px; width: auto;">
         </div>
-        <span class="brand-title">Utilità & TimeMachine</span>
+        <span class="brand-title">Utilità & Sicurezza</span>
       </div>
       <div class="app-nav-right">
         <nav class="language-flags">
@@ -229,19 +193,18 @@
             <a href="../../EN/utilities/index.html" class="flag-link" title="English"><img src="../../IMG/bandiera_England.jpg" class="flag-img" alt="EN"></a>
             <a href="../../DE/hilfsmittel/index.html" class="flag-link" title="Deutsch"><img src="../../IMG/bandiera_Germany.jpg" class="flag-img" alt="DE"></a>
             <a href="../../FR/utilitaires/index.html" class="flag-link" title="Français"><img src="../../IMG/bandiera_France.jpg" class="flag-img" alt="FR"></a>
-            <a href="../../ES/utilidades/index.html" class="flag-link" title="Español"><img src="../../IMG/bandiera_Espana.jpg" class="flag-img" alt="ES"></a>
+            <a href="../../ES/utilidades/index.html" class="flag-link" title="Español"><img src="../../IMG/bandiera_Espana.jpg" class="flag-img" alt="Español"></a>
         </nav>
       </div>
     </header>
 
     <!-- BANNER INTRODUTTIVO LEO -->
     <div id="leo-banner" class="leo-welcome-banner">
-      <img src="../IMG/utilita-famiglia-backup-dispensa.png" alt="Utilità, Backup e TimeMachine EatMeFirst" class="leo-banner-img">
+      <img src="../IMG/utilita-famiglia-backup-dispensa.png" alt="Utilità e Backup EatMeFirst" class="leo-banner-img">
       <div class="leo-banner-content">
-        <div class="leo-banner-title">La sicurezza della tua dispensa, protetta contro ogni imprevisto! 🛡️💾</div>
+        <div class="leo-banner-title">La sicurezza della tua dispensa, protetta su dispositivo e chiavetta USB! 🛡️💾</div>
         <div class="leo-banner-text">
-          Tutte le modifiche vengono <strong>salvate sempre in tempo reale sul dispositivo su cui lavori</strong>. Collegando una chiavetta USB, il salvataggio avviene in contemporanea sia sul dispositivo che sulla chiavetta: così, anche in caso di guasto o rottura del PC o dello smartphone, i tuoi dati rimangono al sicuro sulla chiavetta e pronti da riutilizzare su un altro dispositivo.<br><br>
-          Inoltre, all'interno dell'app la <strong>TimeMachine</strong> registra ogni modifica in tempo reale per permetterti di correggere distrazioni, annullare sessioni o fare un "Nuovo Inizio" in totale serenità. Esplora le sezioni qui sotto e usa i Post-it informativi per qualsiasi guida!
+          EatMeFirst lavora in modalità <em>Local-First</em>: tutte le modifiche vengono salvate in tempo reale sulla memoria del dispositivo in uso. Collegando una chiavetta USB, il salvataggio avviene in contemporanea, garantendo tre funzioni chiave: il trasporto dei dati tra PC e smartphone, la protezione totale in caso di guasto hardware e la sincronizzazione per avere la dispensa aggiornata tra le corsie del supermercato.
         </div>
         <div class="leo-banner-actions">
           <button class="btn-dismiss" onclick="dismissLeoBanner()">Chiudi / Non mostrare più</button>
@@ -249,64 +212,12 @@
       </div>
     </div>
 
-    <!-- SEZIONE 1: TIMEMACHINE & PUNTI DI RIPRISTINO -->
-    <section class="section-card">
-      <h2 class="section-title">
-        <span>🛡️ TimeMachine & Punti di Ripristino</span>
-        <a href="guida-timemachine-ripristino.html" class="postit-link">
-          <img src="../../IMG/biglietto_info.jpg" alt="Info Post-it" class="postit-icon" title="Guida TimeMachine" onclick="window.location.href='guida-timemachine-ripristino.html'; return false;">
-        </a>
-      </h2>
-      <p style="font-size: 0.92rem; color: var(--text-muted);">
-        Ogni operazione è protetta in tempo reale. Se hai commesso una distrazione durante il carico o lo scarico, usa questi strumenti di sicurezza immediata.
-      </p>
-      
-      <div class="restore-grid">
-        <button class="btn-restore" onclick="restoreAction('undo')">
-          <span>🔄 Annulla Ultima Operazione</span>
-          <span class="subtext">Annulla l'ultimo singolo inserimento o scarico in tempo reale.</span>
-        </button>
-
-        <button class="btn-restore" onclick="restoreAction('session_carico')">
-          <span>📦 Ripristina Sessione Carico Odierna</span>
-          <span class="subtext">Annulla tutti i carichi effettuati oggi.</span>
-        </button>
-
-        <button class="btn-restore" onclick="restoreAction('session_scarico')">
-          <span>📤 Ripristina Sessione Scarico Odierna</span>
-          <span class="subtext">Annulla tutti gli scarichi/consumi di oggi.</span>
-        </button>
-
-        <button class="btn-restore" onclick="restoreAction('recupero_foto')">
-          <span>🖼️ Recupero Immagini Cancellate</span>
-          <span class="subtext">Ripristina foto o scontrini rimossi di recente.</span>
-        </button>
-      </div>
-    </section>
-
-    <!-- SEZIONE 2: REGISTRO DELLE ULTIME 30 OPERAZIONI -->
-    <section class="section-card">
-      <h2 class="section-title">
-        <span>💳 Registro Operazioni (Ultime 30 - Solo Consultazione)</span>
-        <a href="guida-registro-operazioni.html" class="postit-link">
-          <img src="../../IMG/biglietto_info.jpg" alt="Info Post-it" class="postit-icon" title="Guida Registro" onclick="window.location.href='guida-registro-operazioni.html'; return false;">
-        </a>
-      </h2>
-      <p style="font-size: 0.92rem; color: var(--text-muted); margin-bottom: 12px;">
-        Estratto conto consultabile dei movimenti locali recenti. <em>Nota: il registro risiede unicamente sulla memoria del dispositivo in uso e non viene trasferito allo smartphone.</em>
-      </p>
-      
-      <div id="operation-log" class="log-container">
-        <!-- Generato dinamicamente via JS -->
-      </div>
-    </section>
-
-    <!-- SEZIONE 3: COME FUNZIONANO I SALVATAGGI & IL VALORE DELLA CHIAVETTA PREMIUM -->
+    <!-- SEZIONE: COME FUNZIONANO I SALVATAGGI & LA CHIAVETTA USB -->
     <section class="section-card" style="border-color: #3182ce; background: linear-gradient(135deg, #161b22 0%, #0d1117 100%);">
       <h2 class="section-title">
-        <span>💾 Come funzionano i Salvataggi & La Sicurezza della Chiavetta</span>
-        <a href="guida-salvataggio-chiavetta.html" class="postit-link">
-          <img src="../../IMG/biglietto_info.jpg" alt="Info Post-it" class="postit-icon" title="Guida Chiavetta" onclick="window.location.href='guida-salvataggio-chiavetta.html'; return false;">
+        <span>💾 Salvataggi, Chiavetta USB & Studio di Leo</span>
+        <a href="guida-backup.html" class="postit-link">
+          <img src="../../IMG/biglietto_info.jpg" alt="Info Post-it" class="postit-icon" title="Guida Backup">
         </a>
       </h2>
       
@@ -314,24 +225,23 @@
       <div style="background: #0d1117; border: 1px solid var(--border-color); border-radius: 12px; padding: 18px; margin-bottom: 15px;">
         <div style="font-size: 1.05rem; font-weight: 700; color: #bfdbfe; margin-bottom: 8px;">1. 🖥️ PC/Laptop a casa, 📱 Smartphone in mobilità</div>
         <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6;">
-          Il programma EatMeFirst si può installare sia su cellulare che su PC fisso o portatile. <strong>Consigliamo l'uso su PC o laptop per la gestione di casa</strong>, così da avere una visione panoramica eccellente dell'inventario e delle scorte.<br>
-          Sul cellulare si salverà comodamente la <strong>Lista della Spesa con gli appunti veloci</strong> per l'assistenza diretta tra le corsie del supermercato.
+          Consigliamo l'uso del programma su PC o laptop per la gestione domestica dell'inventario. Su smartphone potrai comodamente caricare i dati aggiornati tramite USB per consultare la lista della spesa tra le corsie del supermercato.
         </p>
       </div>
 
-      <!-- PUNTO 2: SALVATAGGIO DISPOSITIVO E CHIAVETTA -->
+      <!-- PUNTO 2: SALVATAGGIO IN CONTEMPORANEA -->
       <div style="background: #0d1117; border: 1px solid var(--border-color); border-radius: 12px; padding: 18px; margin-bottom: 15px;">
-        <div style="font-size: 1.05rem; font-weight: 700; color: #68d391; margin-bottom: 8px;">2. 💾 Salvataggio in tempo reale su Dispositivo e Chiavetta USB</div>
+        <div style="font-size: 1.05rem; font-weight: 700; color: #68d391; margin-bottom: 8px;">2. 💾 Salvataggio in contemporanea e Ruolo della Chiavetta</div>
         <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6;">
-          Sia nella versione Standard che in quella Premium, il programma salva <strong>sempre in tempo reale sulla memoria del dispositivo</strong>. Quando colleghi la chiavetta USB, i dati vengono scritti <strong>in contemporanea</strong>, proteggendoti da qualsiasi guasto improvviso.
+          Il programma salva sempre sulla memoria locale. Se la chiavetta USB è inserita, la scrittura avviene in contemporanea. La chiavetta serve a: <strong>trasportare i dati</strong> tra i dispositivi, <strong>fare da scorta aggiornata</strong> in caso di guasto (se si rompe la chiavetta, ricarichi l'ultima copia dal PC/cellulare e viceversa) e <strong>sincronizzare la spesa</strong> per il supermercato.
         </p>
       </div>
 
       <!-- PUNTO 3: STUDIO DI LEO + PIANI -->
       <div style="background: rgba(49, 130, 206, 0.12); border: 1px solid rgba(49, 130, 206, 0.35); border-radius: 12px; padding: 18px;">
-        <div style="font-size: 1.05rem; font-weight: 700; color: #fbd38d; margin-bottom: 8px;">3. ☕ Tre caffè alla macchinetta al mese per lo Studio di Leo!</div>
+        <div style="font-size: 1.05rem; font-weight: 700; color: #fbd38d; margin-bottom: 8px;">3. ☕ Scegli il piano di supporto per lo Studio di Leo!</div>
         <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 15px;">
-          Nello <strong>Studio di Leo</strong> siamo stati in tre: io, Leo ed Eva, per risolvere le vere problematiche quotidiane della casa. Ci paghi praticamente <strong>un caffè alla macchinetta a testa al mese</strong>! Scegli il piano più adatto:
+          Un piccolo contributo per mantenere vivo il progetto sviluppato da Leo ed Eva. Scegli il piano più adatto alle tue esigenze:
         </p>
 
         <div class="pricing-grid">
@@ -340,7 +250,7 @@
               <div class="pricing-title">Piano Semestrale</div>
               <div class="pricing-price">20,00 € <span style="font-size:0.9rem; font-weight:normal; color:var(--text-muted);">/ 6 mesi</span></div>
             </div>
-            <div class="pricing-sub">Meno di 3,35 € al mese. Ideale per fare una prova in totale serenità.</div>
+            <div class="pricing-sub">Meno di 3,35 € al mese. Ideale per iniziare in totale serenità.</div>
           </div>
 
           <div class="pricing-card featured">
@@ -349,53 +259,36 @@
               <div class="pricing-title" style="color:#68d391;">Piano Annuale (Scontato)</div>
               <div class="pricing-price">35,00 € <span style="font-size:0.9rem; font-weight:normal; color:var(--text-muted);">/ anno</span></div>
             </div>
-            <div class="pricing-sub">Meno di 2,90 € al mese. Risparmi subito 5,00 € e ti assicuri un anno intero di protezione chiavetta!</div>
+            <div class="pricing-sub">Meno di 2,90 € al mese. Risparmi subito 5,00 € e ti assicuri un anno di protezione chiavetta!</div>
           </div>
         </div>
 
         <p style="font-size: 0.88rem; color: #bfdbfe; font-style: italic; margin-top: 15px;">
-          ℹ️ <strong>Trasparenza al 100%:</strong> Se non attivi o non rinnovi la funzione Premium, il programma continuerà a salvare regolarmente sul dispositivo, ma <strong>smetterà di scaricare i dati sulla chiavetta USB</strong>.
+          ℹ️ <strong>Trasparenza al 100%:</strong> Se non attivi o non rinnovi il piano, il programma continuerà a salvare regolarmente sulla memoria del dispositivo, ma smetterà di sincronizzare i dati sulla chiavetta USB.
         </p>
       </div>
     </section>
 
-    <!-- SEZIONE 4: AGGIORNAMENTI & CENTRO STUDI DI LEO -->
+    <!-- SEZIONE: AGGIORNAMENTI & TRASPARENZA SERVER -->
     <section class="section-card" style="border-color: #38a169; background: linear-gradient(135deg, #161b22 0%, #0d1117 100%);">
       <h2 class="section-title">
-        <span>🔄 Aggiornamenti & Centro Studi di Leo</span>
-        <a href="guida-aggiornamenti-leo.html" class="postit-link">
-          <img src="../../IMG/biglietto_info.jpg" alt="Info Post-it" class="postit-icon" title="Guida Aggiornamenti" onclick="window.location.href='guida-aggiornamenti-leo.html'; return false;">
+        <span>🔄 Aggiornamenti Trasparenti via Server</span>
+        <a href="guida-aggiornamenti.html" class="postit-link">
+          <img src="../../IMG/biglietto_info.jpg" alt="Info Post-it" class="postit-icon" title="Guida Aggiornamenti">
         </a>
       </h2>
       
-      <p style="font-size: 0.92rem; color: var(--text-muted); margin-bottom: 15px;">
-        Non c'è alcun collegamento con i siti esterni (lavori tutto in locale): sarai tu a chiedere se ci sono novità quando lo desideri. Leggi il Post-it qui sopra per scoprire come funziona!
+      <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.5;">
+        L'applicazione si aggiorna istantaneamente e in modo trasparente tramite il nostro server centrale non appena rilasciamo miglioramenti. I dati della tua dispensa restano sempre protetti in locale senza alcun file da scaricare manualmente.
       </p>
-
-      <div style="background: #0d1117; border: 1px solid var(--border-color); border-radius: 12px; padding: 15px; margin-bottom: 15px;">
-        <div style="font-size: 0.85rem; color: var(--text-muted);">Versione installata in uso:</div>
-        <div style="font-size: 0.95rem; font-weight: 600; color: #bfdbfe;" id="install-version-text">EatMeFirst V1.0 (Installata il: 18/10/2026)</div>
-      </div>
-
-      <div class="restore-grid">
-        <button class="btn-restore" onclick="openLeoUpdateModal('manual')" style="border-color: #38a169;">
-          <span style="color: #68d391;">🚀 Controlla novità ora con Leo</span>
-          <span class="subtext">Avvia la verifica manuale con il laboratorio.</span>
-        </button>
-
-        <button class="btn-restore" onclick="openLeoUpdateModal('rollback')" style="border-color: #ed8936;">
-          <span style="color: #fbd38d;">⏪ Ripristina versione precedente</span>
-          <span class="subtext">Torna indietro mantenendo i prodotti aggiunti.</span>
-        </button>
-      </div>
     </section>
 
-    <!-- SEZIONE 5: ZONA RESET AVANZATI -->
+    <!-- SEZIONE: ZONA RESET AVANZATI -->
     <section class="section-card danger-zone">
       <h2 class="section-title danger-title">
         <span>⚠️ Zone di Reset Avanzato</span>
         <a href="guida-reset-avanzati.html" class="postit-link">
-          <img src="../../IMG/biglietto_info.jpg" alt="Info Post-it" class="postit-icon" title="Guida Reset" onclick="window.location.href='guida-reset-avanzati.html'; return false;">
+          <img src="../../IMG/biglietto_info.jpg" alt="Info Post-it" class="postit-icon" title="Guida Reset">
         </a>
       </h2>
       
@@ -421,19 +314,16 @@
     <!-- SEZIONE EXTRA: BIBLIOTECA COMPLETA DELLE GUIDE -->
     <section class="section-card">
       <h2 class="section-title">
-        <span>📚 Biblioteca Completa delle Guide e Post-it</span>
+        <span>📚 Biblioteca delle Guide Ufficiali</span>
       </h2>
       <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 15px;">
-        Accedi direttamente a qualsiasi documento di supporto e approfondimento disponibile nella sezione utilità:
+        Accedi direttamente alla documentazione di supporto disponibile:
       </p>
       <div class="guides-grid">
         <a href="guida-aggiornamenti.html" class="guide-card-link">📌 Guida Aggiornamenti Software</a>
-        <a href="guida-aggiornamenti-leo.html" class="guide-card-link">📌 Guida Centro Studi Leo</a>
         <a href="guida-backup.html" class="guide-card-link">📌 Guida Backup e Sicurezza</a>
-        <a href="guida-esportazione.html" class="guide-card-link">📌 Guida Esportazione Dati</a>
         <a href="guida-salvataggio-chiavetta.html" class="guide-card-link">📌 Guida Salvataggio su Chiavetta USB</a>
-        <a href="guida-timemachine-ripristino.html" class="guide-card-link">📌 Guida TimeMachine & Ripristino</a>
-        <a href="guida-registro-operazioni.html" class="guide-card-link">📌 Guida Registro delle Operazioni</a>
+        <a href="guida-esportazione.html" class="guide-card-link">📌 Guida Lista Spesa & Rientro</a>
         <a href="guida-reset-avanzati.html" class="guide-card-link">📌 Guida Reset Avanzati & Nuovo Inizio</a>
       </div>
     </section>
@@ -456,33 +346,12 @@
     </div>
   </div>
 
-  <!-- MODALE LEO AGGIORNAMENTI -->
-  <div id="leo-update-modal" class="modal-overlay">
-    <div class="modal-box" style="max-width: 550px;">
-      <div style="display: flex; gap: 15px; align-items: flex-start; margin-bottom: 15px;">
-        <img src="../IMG/avatar_leo.png" alt="Leo Avatar" style="width: 70px; height: 70px; border-radius: 50%; border: 2px solid var(--primary); object-fit: cover;">
-        <div style="text-align: left;">
-          <div id="leo-modal-title" class="modal-title" style="color: #bfdbfe; font-size: 1.15rem; margin-bottom: 4px;">Un saluto da Leo! 🧙‍♂️</div>
-          <div style="font-size: 0.8rem; color: #68d391;">Centro Studi & Progettazione EatMeFirst</div>
-        </div>
-      </div>
-
-      <div id="leo-modal-text" class="modal-text" style="background: #0d1117; padding: 15px; border-radius: 12px; border: 1px solid var(--border-color); font-size: 0.92rem;"></div>
-
-      <div class="modal-actions" style="margin-top: 20px;">
-        <button class="btn-modal-cancel" onclick="closeLeoUpdateModal()">Non ora</button>
-        <button id="btn-leo-confirm" class="btn-modal-confirm" style="background: var(--primary);" onclick="executeLeoUpdate()">Procediamo con la verifica</button>
-      </div>
-    </div>
-  </div>
-
   <script>
     document.addEventListener("DOMContentLoaded", function() {
       if (localStorage.getItem("hide_leo_banner_utilita_it") === "true") {
         const banner = document.getElementById("leo-banner");
         if (banner) banner.style.display = "none";
       }
-      loadOperationLog();
     });
 
     function dismissLeoBanner() {
@@ -492,32 +361,6 @@
     }
 
     let activeResetType = null;
-    let currentLeoAction = null;
-
-    function loadOperationLog() {
-      const logContainer = document.getElementById('operation-log');
-      const sampleLogs = [];
-
-      logContainer.innerHTML = '';
-      if (sampleLogs.length === 0) {
-        logContainer.innerHTML = '<div class="empty-log">Nessuna operazione recente registrata su questo dispositivo.</div>';
-        return;
-      }
-
-      sampleLogs.forEach(item => {
-        const row = document.createElement('div');
-        row.className = 'log-item';
-        row.innerHTML = `<span>${item.text}</span><span class="log-time">${item.time}</span>`;
-        logContainer.appendChild(row);
-      });
-    }
-
-    function restoreAction(type) {
-      if(type === 'undo') alert("Annullamento dell'ultima operazione eseguito con successo!");
-      if(type === 'session_carico') alert("Tutti i carichi effettuati oggi sono stati annullati.");
-      if(type === 'session_scarico') alert("Tutti gli scarichi effettuati oggi sono stati annullati.");
-      if(type === 'recupero_foto') alert("Apertura archivio foto cancellate di recente...");
-    }
 
     function openResetModal(type) {
       activeResetType = type;
@@ -541,7 +384,7 @@
       modal.style.display = 'flex';
     }
 
-    function closeResetModal() {
+    let closeResetModal = function() {
       document.getElementById('confirmation-modal').style.display = 'none';
       activeResetType = null;
     }
@@ -554,51 +397,6 @@
         alert("Applicazione resettata allo stato di fabbrica.");
       }
       closeResetModal();
-    }
-
-    function openLeoUpdateModal(triggerType) {
-      currentLeoAction = triggerType;
-      const modal = document.getElementById('leo-update-modal');
-      const title = document.getElementById('leo-modal-title');
-      const text = document.getElementById('leo-modal-text');
-      const confirmBtn = document.getElementById('btn-leo-confirm');
-
-      if (triggerType === 'manual') {
-        title.innerText = "Controllo Novità su Richiesta";
-        text.innerHTML = `
-          Che piacere! Ho visto che vuoi controllare subito se ci sono novità per la nostra applicazione.<br><br>
-          Come sai, il nostro centro studi non può contattarti direttamente perché la tua app lavora in totale autonomia e riservatezza sul tuo dispositivo. Per questo sei sempre tu ad avere le chiavi in mano!<br><br>
-          Prima di toccare qualsiasi cosa, metterò al sicuro una copia della tua dispensa qui sul tuo dispositivo. Se troviamo novità, le installiamo in un attimo.<br><br>
-          <strong>Vogliamo procedere con la verifica?</strong>
-        `;
-        confirmBtn.innerText = "Procedi con la verifica";
-        confirmBtn.style.background = "#3182ce";
-      } else if (triggerType === 'rollback') {
-        title.innerText = "Ripristino Versione Precedente";
-        text.innerHTML = `
-          Nessun problema! Se ti eri affezionato alla versione precedente, posso riportarti subito indietro.<br><br>
-          <strong>Non perderai nulla:</strong> tutti i prodotti che hai aggiunto o modificato di recente verranno conservati e trasferiti sulla versione precedente.<br><br>
-          Vuoi confermare il ripristino?
-        `;
-        confirmBtn.innerText = "Sì, ripristina vecchia versione";
-        confirmBtn.style.background = "#ed8936";
-      }
-
-      modal.style.display = 'flex';
-    }
-
-    function closeLeoUpdateModal() {
-      document.getElementById('leo-update-modal').style.display = 'none';
-      currentLeoAction = null;
-    }
-
-    function executeLeoUpdate() {
-      if (currentLeoAction === 'manual') {
-        alert("Leo: Backup del database creato con successo! Verifica in corso...");
-      } else if (currentLeoAction === 'rollback') {
-        alert("Leo: Ripristino alla versione precedente completato! I tuoi dati sono stati conservati.");
-      }
-      closeLeoUpdateModal();
     }
   </script>
 </body>
