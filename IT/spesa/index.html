@@ -122,7 +122,7 @@
       border: 1px solid var(--border-color); border-radius: 8px;
       color: var(--text-color); font-size: 14.5px; outline: none; flex: 1;
     }
-    input[type="text"]:focus { border-color: var(--accent-color); }
+    input[type="text"]:focus, textarea:focus { border-color: var(--accent-color); }
     
     button.btn-add {
       background: #238636; color: #fff; border: none; padding: 10px 22px;
@@ -191,14 +191,14 @@
         <span class="brand-title">Gestione Spesa & Note</span>
       </div>
       <div class="app-nav-right">
-    <nav class="language-flags">
-        <a href="index.html" class="flag-link active" title="Italiano"><img src="../../IMG/bandiera_Italy.jpg" class="flag-img" alt="IT"></a>
-        <a href="../../EN/shopping/index.html" class="flag-link" title="English"><img src="../../IMG/bandiera_England.jpg" class="flag-img" alt="EN"></a>
-        <a href="../../DE/einkaufsliste/index.html" class="flag-link" title="Deutsch"><img src="../../IMG/bandiera_Germany.jpg" class="flag-img" alt="DE"></a>
-        <a href="../../FR/courses/index.html" class="flag-link" title="Français"><img src="../../IMG/bandiera_France.jpg" class="flag-img" alt="FR"></a>
-        <a href="../../ES/compra/index.html" class="flag-link" title="Español"><img src="../../IMG/bandiera_Espana.jpg" class="flag-img" alt="ES"></a>
-    </nav>
-</div>
+        <nav class="language-flags">
+            <a href="index.html" class="flag-link active" title="Italiano"><img src="../../IMG/bandiera_Italy.jpg" class="flag-img" alt="IT"></a>
+            <a href="../../EN/shopping/index.html" class="flag-link" title="English"><img src="../../IMG/bandiera_England.jpg" class="flag-img" alt="EN"></a>
+            <a href="../../DE/einkaufsliste/index.html" class="flag-link" title="Deutsch"><img src="../../IMG/bandiera_Germany.jpg" class="flag-img" alt="DE"></a>
+            <a href="../../FR/courses/index.html" class="flag-link" title="Français"><img src="../../IMG/bandiera_France.jpg" class="flag-img" alt="FR"></a>
+            <a href="../../ES/compra/index.html" class="flag-link" title="Español"><img src="../../IMG/bandiera_Espana.jpg" class="flag-img" alt="ES"></a>
+        </nav>
+      </div>
     </header>
 
     <!-- TAB NAVIGAZIONE -->
@@ -278,14 +278,46 @@
             <img src="../../IMG/biglietto_info.jpg" alt="Guida Block Notes" class="info-icon-img">
           </a>
         </h2>
-        <p class="field-label" style="margin-bottom: 12px; font-size: 13.5px; color: var(--text-muted);">Salva ricette, appunti veloci e allega foto o scontrini.</p>
+        <p class="field-label" style="margin-bottom: 12px; font-size: 13.5px; color: var(--text-muted);">Salva ricette, appunti veloci e allega foto o scontrini mandati dai familiari.</p>
 
-        <textarea id="note-text" rows="4" placeholder="Scrivi qui una nota, ricetta o appunto..."></textarea>
+        <textarea id="note-text" rows="3" placeholder="Scrivi qui una nota, ricetta o appunto..."></textarea>
         
-        <button class="btn-add" style="width: 100%; padding: 12px; margin-top: 10px;" onclick="savePostItNote()">💾 Salva in Bacheca Post-it</button>
+        <!-- DUE PULSANTI DISTINTi: ATTIVA FOTOCAMERA LIVE E CARICA FILE -->
+        <div style="margin-top: 12px; display: flex; gap: 10px; flex-wrap: wrap;">
+          
+          <!-- Pulsante per aprire la fotocamera live -->
+          <button type="button" onclick="startCamera()" style="flex: 1; min-width: 140px; background: #238636; border: none; padding: 11px 12px; border-radius: 8px; text-align: center; cursor: pointer; font-size: 13.5px; color: #fff; font-weight: 600; transition: background 0.2s;">
+            📸 Apri Fotocamera Live
+          </button>
 
-        <h3 style="color: var(--accent-color); margin-top: 20px; margin-bottom: 10px;">📌 Bacheca Post-it</h3>
-        <div id="postit-bacheca" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px;"></div>
+          <!-- Pulsante per caricare un file o immagine esistente dalla galleria -->
+          <label style="flex: 1; min-width: 140px; background: var(--light-bg); border: 1px solid var(--border-color); padding: 11px 12px; border-radius: 8px; text-align: center; cursor: pointer; font-size: 13.5px; color: var(--text-color); font-weight: 600; display: block; transition: border-color 0.2s;">
+            📁 Carica File / Immagine
+            <input type="file" accept="image/*" style="display: none;" onchange="previewImage(event)">
+          </label>
+
+        </div>
+
+        <!-- BOX VIDEO LIVE FOTOCAMERA (Nascosto finché non si clicca su Apri Fotocamera) -->
+        <div id="camera-stream-box" style="display: none; margin-top: 12px; text-align: center; background: #000; border-radius: 8px; padding: 10px; border: 1px solid var(--border-color);">
+          <video id="video-elem" autoplay playsinline style="width: 100%; max-height: 220px; border-radius: 6px; object-fit: cover;"></video>
+          <div style="margin-top: 10px; display: flex; gap: 10px; justify-content: center;">
+            <button type="button" onclick="takeSnapshot()" style="background: #238636; color: #fff; border: none; padding: 8px 16px; border-radius: 6px; font-weight: bold; cursor: pointer;">🔴 Scatta Foto</button>
+            <button type="button" onclick="stopCamera()" style="background: #e53e3e; color: #fff; border: none; padding: 8px 16px; border-radius: 6px; font-weight: bold; cursor: pointer;">✕ Chiudi</button>
+          </div>
+        </div>
+        <canvas id="canvas-elem" style="display: none;"></canvas>
+
+        <!-- ANTEPRIMA FOTO ACQUISITA -->
+        <div id="foto-preview-container" style="display: none; margin-top: 12px; position: relative; text-align: center;">
+          <img id="img-preview" src="" alt="Anteprima" style="max-height: 150px; border-radius: 8px; border: 1px solid var(--border-color);">
+          <button onclick="clearPhoto()" style="position: absolute; top: 5px; right: 5px; background: rgba(0,0,0,0.7); color: #fff; border: none; border-radius: 50%; width: 24px; height: 24px; cursor: pointer; font-size: 12px;">✕</button>
+        </div>
+        
+        <button class="btn-add" style="width: 100%; padding: 12px; margin-top: 15px;" onclick="savePostItNote()">💾 Salva in Bacheca Post-it</button>
+
+        <h3 style="color: var(--accent-color); margin-top: 25px; margin-bottom: 10px;">📌 Bacheca Post-it</h3>
+        <div id="postit-bacheca" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px;"></div>
       </div>
     </section>
 
@@ -296,16 +328,21 @@
   </footer>
 
   <script>
-    // LISTA SPESA INIZIALMENTE VUOTA
+    // VAR GLOBALI
     let listaSpesa = [];
+    let currentPhotoBase64 = null;
+    let bachecaNotes = [];
+    let videoStream = null;
 
     function openTab(evt, tabId) {
+      stopCamera();
       document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
       document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
       document.getElementById(tabId).classList.add('active');
       evt.currentTarget.classList.add('active');
     }
 
+    // LOGICA LISTA SPESA
     function renderListaSpesa() {
       const ul = document.getElementById('lista-spesa-ul');
       ul.innerHTML = '';
@@ -315,7 +352,6 @@
         return;
       }
 
-      // Ordina: Prima gli articoli NON presi (checked: false), poi quelli PRESI (checked: true)
       const listaOrdinata = [...listaSpesa].sort((a, b) => a.checked - b.checked);
 
       listaOrdinata.forEach(item => {
@@ -391,8 +427,124 @@
       input.value = '';
     }
 
+    // LOGICA FOTOCAMERA LIVE & FILE UPLOAD
+    async function startCamera() {
+      const box = document.getElementById('camera-stream-box');
+      const video = document.getElementById('video-elem');
+      box.style.display = 'block';
+
+      try {
+        videoStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' }, audio: false });
+        video.srcObject = videoStream;
+      } catch (err) {
+        alert("Impossibile accedere alla fotocamera. Verifica i permessi del browser.");
+        box.style.display = 'none';
+      }
+    }
+
+    function stopCamera() {
+      if (videoStream) {
+        videoStream.getTracks().forEach(track => track.stop());
+        videoStream = null;
+      }
+      document.getElementById('camera-stream-box').style.display = 'none';
+    }
+
+    function takeSnapshot() {
+      const video = document.getElementById('video-elem');
+      const canvas = document.getElementById('canvas-elem');
+      canvas.width = video.videoWidth || 640;
+      canvas.height = video.videoHeight || 480;
+
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+      currentPhotoBase64 = canvas.toDataURL('image/png');
+      document.getElementById('img-preview').src = currentPhotoBase64;
+      document.getElementById('foto-preview-container').style.display = 'block';
+
+      stopCamera();
+    }
+
+    function previewImage(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          currentPhotoBase64 = e.target.result;
+          document.getElementById('img-preview').src = currentPhotoBase64;
+          document.getElementById('foto-preview-container').style.display = 'block';
+        }
+        reader.readAsDataURL(file);
+      }
+    }
+
+    function clearPhoto() {
+      currentPhotoBase64 = null;
+      document.querySelectorAll('input[type="file"]').forEach(input => input.value = '');
+      document.getElementById('foto-preview-container').style.display = 'none';
+      stopCamera();
+    }
+
+    function savePostItNote() {
+      const text = document.getElementById('note-text').value.trim();
+      if (!text && !currentPhotoBase64) {
+        alert("Inserisci del testo o scatta una foto prima di salvare.");
+        return;
+      }
+
+      bachecaNotes.push({
+        id: Date.now(),
+        text: text,
+        photo: currentPhotoBase64,
+        date: new Date().toLocaleDateString()
+      });
+
+      document.getElementById('note-text').value = '';
+      clearPhoto();
+      renderBacheca();
+    }
+
+    function renderBacheca() {
+      const bacheca = document.getElementById('postit-bacheca');
+      bacheca.innerHTML = '';
+
+      if (bachecaNotes.length === 0) {
+        bacheca.innerHTML = `<div style="grid-column: 1 / -1; text-align: center; padding: 15px; color: var(--text-muted); font-style: italic; font-size: 13.5px;">Nessun post-it o foto in bacheca.</div>`;
+        return;
+      }
+
+      bachecaNotes.forEach(note => {
+        const card = document.createElement('div');
+        card.style.background = '#fff59d';
+        card.style.color = '#333333';
+        card.style.padding = '12px';
+        card.style.borderRadius = '8px';
+        card.style.boxShadow = '0 4px 10px rgba(0,0,0,0.3)';
+        card.style.fontSize = '13.5px';
+        card.style.position = 'relative';
+
+        let photoHTML = note.photo ? `<img src="${note.photo}" style="width: 100%; max-height: 120px; object-fit: cover; border-radius: 4px; margin-top: 8px;">` : '';
+        let textHTML = note.text ? `<p style="word-break: break-word; margin-bottom: 4px;">${note.text}</p>` : '';
+
+        card.innerHTML = `
+          <button onclick="deleteNote(${note.id})" style="position: absolute; top: 6px; right: 6px; background: none; border: none; font-weight: bold; cursor: pointer; color: #555;">✕</button>
+          <div style="font-size: 11px; color: #666; margin-bottom: 4px;">${note.date}</div>
+          ${textHTML}
+          ${photoHTML}
+        `;
+        bacheca.appendChild(card);
+      });
+    }
+
+    function deleteNote(id) {
+      bachecaNotes = bachecaNotes.filter(n => n.id !== id);
+      renderBacheca();
+    }
+
     window.addEventListener('DOMContentLoaded', () => {
       renderListaSpesa();
+      renderBacheca();
     });
   </script>
 </body>
