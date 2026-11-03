@@ -3,101 +3,118 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Guida - Cose da Fare</title>
+  <title>Guida - Cose da Fare | EatMeFirst</title>
+  <meta name="description" content="Scopri come organizzare le commissioni e i promemoria fuori casa con la sezione Cose da Fare di EatMeFirst.">
+  <meta name="robots" content="noindex, nofollow">
   <style>
     :root {
-      --bg-color: #0f172a;
-      --card-bg: #1e293b;
-      --text-main: #f8fafc;
-      --text-muted: #94a3b8;
-      --border-color: #334155;
-      --primary: #3182ce;
+      --bg-color: #12181b;
+      --card-bg: #1e272c;
+      --text-main: #e0e6ed;
+      --text-muted: #a0aec0;
+      --border-color: #2d3748;
+      --postit-bg: #fff59d;
+      --postit-text: #333333;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       background-color: var(--bg-color);
       color: var(--text-main);
-      padding: 25px;
-      max-width: 650px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 15px 10px;
+    }
+
+    .container {
+      max-width: 950px;
       margin: 0 auto;
+      width: 100%;
     }
 
     .guide-card {
-      background: var(--card-bg);
-      padding: 30px;
-      border-radius: 16px;
-      border: 1px solid var(--border-color);
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+      background-color: var(--postit-bg);
+      color: var(--postit-text);
+      padding: 25px 20px;
+      border-radius: 8px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      position: relative;
     }
 
     h1 {
-      font-size: 1.4rem;
-      margin-bottom: 15px;
-      color: #fef08a;
+      font-size: 1.3rem;
+      margin-bottom: 16px;
+      color: #1a1a1a;
       display: flex;
       align-items: center;
       gap: 10px;
-      border-bottom: 2px solid var(--border-color);
-      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(0,0,0,0.15);
+      padding-bottom: 12px;
     }
 
     p {
-      color: var(--text-muted);
+      color: #222;
       line-height: 1.6;
-      margin-bottom: 15px;
-      font-size: 0.98rem;
+      margin-bottom: 12px;
+      font-size: 0.95rem;
     }
 
     ul {
       margin-left: 20px;
-      margin-bottom: 20px;
-      color: var(--text-main);
+      margin-bottom: 16px;
+      color: #222;
     }
 
     li {
-      margin-bottom: 8px;
-      font-size: 0.95rem;
+      margin-bottom: 6px;
+      font-size: 0.92rem;
     }
 
-    .back-btn {
+    li strong {
+      color: #b7791f;
+    }
+
+    .btn-close {
       display: inline-block;
-      margin-top: 15px;
-      padding: 10px 18px;
-      background-color: var(--primary);
+      margin-top: 20px;
+      background: #333;
       color: #fff;
-      text-decoration: none;
+      padding: 10px 20px;
       border-radius: 8px;
-      font-weight: 600;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 0.9rem;
       transition: background 0.2s;
     }
 
-    .back-btn:hover {
-      background-color: #2b6cb0;
-    }
+    .btn-close:hover { background: #000; }
   </style>
 </head>
 <body>
 
-  <div class="guide-card">
-    <h1>📌 Guida: Cose da Fare</h1>
-    
-    <p>Questa sezione è pensata come un <strong>promemoria dinamico per le commissioni da svolgere fuori casa</strong>, particolarmente utile quando ci si trova già in giro per fare la spesa o per altri impegni quotidiani.</p>
+  <main class="container">
+    <article class="guide-card">
+      <h1>📌 Guida: Cose da Fare</h1>
+      
+      <p>Questa sezione è pensata come un <strong>promemoria dinamico per le commissioni da svolgere fuori casa</strong>, particolarmente utile quando ci si trova già in giro per fare la spesa o per altri impegni quotidiani.</p>
 
-    <p>Invece delle mansioni o pulizie domestiche, utilizza questa lista per annotare rapidamente compiti come:</p>
-    <ul>
-      <li><strong>Ferramenta:</strong> Fare la copia delle chiavi o acquistare minuteria.</li>
-      <li><strong>Libreria / Cartoleria:</strong> Passare a ritirare i libri di scuola o materiale per l'ufficio.</li>
-      <li><strong>Farmacia:</strong> Acquistare i farmaci prescritti o prodotti da banco.</li>
-      <li><strong>Commissioni varie:</strong> Consegna o ritiro capi in tintoria, pagamenti o ritiri pacchi.</li>
-    </ul>
+      <p>Invece delle mansioni o delle pulizie domestiche, utilizza questa lista per annotare rapidamente compiti come:</p>
+      <ul>
+        <li><strong>Ferramenta:</strong> Fare la copia delle chiavi o acquistare minuteria.</li>
+        <li><strong>Libreria / Cartoleria:</strong> Passare a ritirare i libri di scuola o materiale per l'ufficio.</li>
+        <li><strong>Farmacia:</strong> Acquistare i farmaci prescritti o prodotti da banco.</li>
+        <li><strong>Commissioni varie:</strong> Consegna o ritiro capi in tintoria, pagamenti o ritiri pacchi.</li>
+      </ul>
 
-    <p>Ogni elemento aggiunto può essere spuntato una volta completato oppure cancellato definitivamente dall'elenco.</p>
+      <p>Ogni elemento aggiunto può essere spuntato una volta completato oppure cancellato definitivamente dall'elenco.</p>
 
-    <a href="index.html" class="back-btn">&larr; Torna alla Pagina Principale</a>
-  </div>
+      <a href="index.html" class="btn-close" onclick="window.close(); return false;">✕ Chiudi Guida</a>
+    </article>
+  </main>
 
 </body>
 </html>
