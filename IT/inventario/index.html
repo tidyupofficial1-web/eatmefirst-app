@@ -234,7 +234,16 @@
 
         @media (max-width: 768px) {
             .filtri-grid { grid-template-columns: 1fr; }
-            .language-flags { display: none; }
+            /* Bandiere responsive su mobile */
+            .language-flags { 
+                display: flex; 
+                gap: 4px; 
+                padding: 2px 6px; 
+            }
+            .flag-img { 
+                width: 18px; 
+                height: 12px; 
+            }
         }
     </style>
 </head>
@@ -418,7 +427,7 @@
             const p = dispensaGlobale[index];
             if (!p) return;
             document.getElementById('contenutoDettaglioProdotto').innerHTML = `
-                <div style="display: flex; gap: 15px; align-items: center; margin-bottom: 15px; background: var::light-bg; padding: 12px; border-radius: 12px; border: 1px solid var(--border-color);">
+                <div style="display: flex; gap: 15px; align-items: center; margin-bottom: 15px; background: var(--light-bg); padding: 12px; border-radius: 12px; border: 1px solid var(--border-color);">
                     <img src="${p.immagine || '../../IMG/logo_1024_white.png'}" alt="Prodotto" style="width: 70px; height: 70px; object-fit: cover; border-radius: 8px; border: 1px solid var(--border-color);">
                     <div>
                         <h4 style="color: var(--accent-color); font-size: 18px; margin-bottom: 4px;">${p.nome || 'Senza nome'}</h4>
