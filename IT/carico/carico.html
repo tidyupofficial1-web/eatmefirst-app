@@ -34,7 +34,7 @@
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            padding: 20px;
+            padding: 10px;
         }
 
         /* Carta Intestata Superiore Standard */
@@ -42,15 +42,15 @@
             width: 100%;
             max-width: 950px;
             background-color: #101416;
-            padding: 12px 24px;
+            padding: 12px 16px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid var(--border-color);
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             border-radius: 8px;
             flex-wrap: wrap;
-            gap: 15px;
+            gap: 10px;
         }
 
         .brand-logo {
@@ -59,27 +59,27 @@
             gap: 10px;
             text-decoration: none;
             color: #ffffff;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             font-weight: bold;
         }
 
-        .brand-logo img { height: 36px; width: auto; }
+        .brand-logo img { height: 32px; width: auto; }
 
         .navbar-right {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 10px;
         }
 
         .language-flags {
             display: flex;
-            gap: 10px;
+            gap: 8px;
             align-items: center;
         }
 
         .flag-icon {
-            width: 28px;
-            height: 18px;
+            width: 26px;
+            height: 17px;
             cursor: pointer;
             object-fit: cover;
             border-radius: 3px;
@@ -98,43 +98,10 @@
             max-width: 950px;
             width: 100%;
             background-color: var(--card-bg);
-            border-radius: 14px;
-            padding: 30px;
+            border-radius: 12px;
+            padding: 18px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
             border: 1px solid var(--border-color);
-        }
-
-        /* Box Importante per la Guida ai 2 Modi d'uso */
-        .important-box {
-            background-color: var(--info-bg);
-            border: 1px solid var(--info-border);
-            border-left: 4px solid var(--info-border);
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 25px;
-        }
-
-        .important-box h3 {
-            color: var(--primary-color);
-            font-size: 1.1rem;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .important-box p {
-            font-size: 0.95rem;
-            line-height: 1.6;
-            color: var(--text-color);
-            margin-bottom: 12px;
-        }
-
-        .scanner-choice-actions {
-            display: flex;
-            gap: 15px;
-            margin-top: 15px;
-            flex-wrap: wrap;
         }
 
         /* Finestra Overlay Scanner Live */
@@ -177,17 +144,17 @@
             border: 1px solid var(--info-border);
             border-left: 4px solid var(--info-border);
             border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 25px;
+            padding: 15px;
+            margin-bottom: 20px;
             display: flex;
             align-items: flex-start;
-            gap: 18px;
+            gap: 15px;
             position: relative;
         }
 
         .max-avatar {
-            width: 70px;
-            height: 70px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             border: 2px solid var(--primary-color);
             object-fit: cover;
@@ -196,15 +163,15 @@
 
         .max-text-content h3 {
             color: var(--primary-color);
-            font-size: 1.15rem;
+            font-size: 1.1rem;
             margin-bottom: 6px;
         }
 
         .max-text-content p {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             line-height: 1.5;
             color: var(--text-color);
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         .max-actions {
@@ -231,35 +198,56 @@
 
         .header-title {
             border-bottom: 2px solid var(--border-color);
-            padding-bottom: 15px;
+            padding-bottom: 12px;
             margin-bottom: 20px;
         }
 
         h1 {
             color: var(--primary-color);
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             display: flex;
             align-items: center;
             gap: 8px;
         }
 
-        /* Griglia principale con colonna testo allargata */
+        /* Griglia principale */
         .form-grid {
             display: grid;
             grid-template-columns: 260px 1fr;
-            gap: 30px;
+            gap: 20px;
             align-items: start;
         }
 
         .sidebar-scanner-box {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 10px;
+        }
+
+        .btn-scan-main {
+            width: 100%;
+            padding: 12px;
+            font-size: 1rem;
+            justify-content: center;
+            background-color: var(--primary-color);
+            color: #12181b;
+            font-weight: bold;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: opacity 0.2s;
+        }
+
+        .btn-scan-main:hover {
+            opacity: 0.9;
         }
 
         .product-image-box {
             width: 100%;
-            height: 240px;
+            height: 200px;
             background: #101416;
             border: 2px dashed var(--border-color);
             border-radius: 10px;
@@ -274,7 +262,7 @@
 
         .product-image-box img {
             width: 100%;
-            height: 170px;
+            height: 150px;
             object-fit: contain;
         }
 
@@ -290,13 +278,13 @@
         .form-fields {
             display: flex;
             flex-direction: column;
-            gap: 18px;
+            gap: 16px;
         }
 
         .row-group-2 {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 15px;
+            gap: 12px;
         }
 
         .field-group {
@@ -312,7 +300,7 @@
         }
 
         label {
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             color: var(--text-muted);
             font-weight: bold;
         }
@@ -377,17 +365,18 @@
         .scadenza-options-box {
             background: #101416;
             border: 1px solid var(--border-color);
-            padding: 14px;
+            padding: 12px;
             border-radius: 8px;
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 10px;
         }
 
         .scadenza-row {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
+            flex-wrap: wrap;
         }
 
         .scadenza-row select, .scadenza-row input {
@@ -408,12 +397,13 @@
         .actions {
             margin-top: 25px;
             display: flex;
-            gap: 15px;
+            gap: 12px;
             justify-content: flex-end;
+            flex-wrap: wrap;
         }
 
         .btn {
-            padding: 10px 20px;
+            padding: 10px 18px;
             border-radius: 8px;
             font-weight: bold;
             cursor: pointer;
@@ -430,13 +420,15 @@
         .btn-secondary { background-color: var(--border-color); color: var(--text-color); }
         .btn-secondary:hover { background-color: #3e4c62; }
 
+        /* Responsive Mobile a piena larghezza */
         @media (max-width: 768px) {
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
-            .product-image-box {
-                height: 200px;
-            }
+            body { padding: 5px; }
+            .container { padding: 12px; border-radius: 8px; }
+            .form-grid { grid-template-columns: 1fr; gap: 15px; }
+            .row-group-2 { grid-template-columns: 1fr; }
+            .product-image-box { height: 170px; }
+            .actions { justify-content: stretch; }
+            .actions .btn { flex: 1; justify-content: center; }
         }
     </style>
 </head>
@@ -463,46 +455,18 @@
             <a href="../../FR/chargement/chargement.html" title="Français"><img src="../../IMG/bandiera_France.jpg" alt="Français" class="flag-icon"></a>
             <a href="../../ES/carga/carga-productos.html" title="Español"><img src="../../IMG/bandiera_Espana.jpg" alt="Español" class="flag-icon"></a>
         </div>
-        <a href="../menu.html" class="btn btn-secondary" style="padding: 6px 12px; font-size: 0.85rem;">🏠 Menu Principale</a>
+        <a href="../menu.html" class="btn btn-secondary" style="padding: 6px 10px; font-size: 0.8rem;">🏠 Menu</a>
     </div>
 </header>
 
 <div class="container">
-
-    <!-- BOX IMPORTANTE -->
-    <div class="important-box">
-        <h3>💡 Importante: Scegli come scansionare</h3>
-        <p>
-            <strong>Giacomo</strong>, a questa pagina si arriva in due modi: lanciando il link direttamente dal tuo cellulare oppure dal tuo PC fisso o portatile.
-        </p>
-        <p>
-            • <strong>Se hai avviato il programma direttamente dallo smartphone:</strong> e devi fare la scansione del primo codice a barre, ti basta cliccare sul pulsante di sinistra per attivare la fotocamera e iniziare subito a inquadrare il prodotto, compilando la scheda passo dopo passo secondo le istruzioni.<br>
-            • <strong>Se invece sei arrivato a questa pagina dal computer di casa:</strong> e devi scansionare un codice a barre, usare la webcam del portatile non è la scelta ideale per due motivi: le webcam sono progettate prevalentemente per le videochiamate ed è estremamente scomodo orientare la confezione davanti allo schermo. Per questo motivo conviene collegare e trasformare il tuo telefono (anche uno vecchio senza SIM) in un pratico lettore di codici a barre a distanza.
-        </p>
-        <p>
-            Per farlo sfrutterai la connessione Wi-Fi locale: tieni solo a mente di collegare entrambi i dispositivi direttamente al modem principale di casa (evitando ripetitori o amplificatori di segnale che, per impostazioni di sicurezza, bloccano la comunicazione tra i dispositivi). Se per caso la linea dovesse cadere o i dispositivi smettessero di comunicare, ti basterà un semplice clic sul pulsante di destra per ricollegare subito la fotocamera dello smartphone.
-        </p>
-        <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 0;">
-            <em>Nota sulla sicurezza:</em> Quando colleghi lo smartphone al PC via Wi-Fi locale, Windows o l'antivirus potrebbero mostrare avvisi in rosso o segnalazioni di potenziale pericolo. Si tratta di un normale controllo di sicurezza quando due dispositivi comunicano direttamente sulla stessa rete domestica senza passare da server esterni. Per capire cosa succede e procedere in tranquillità, consulta la nostra <a href="modalita.html" style="color: var(--primary-color);" target="_blank">guida sulla sicurezza della rete locale</a>.
-        </p>
-
-        <!-- PULSANTI ATTIVAZIONE -->
-        <div class="scanner-choice-actions">
-            <button type="button" class="btn btn-primary" onclick="avviaScannerLive()">
-                📷 Collega la tua fotocamera
-            </button>
-            <a href="collegamento.html" class="btn btn-secondary">
-                🔄 Ricollega il tuo scanner
-            </a>
-        </div>
-    </div>
 
     <!-- PRESENTAZIONE DI MAX -->
     <div id="maxPresentationBox" class="max-presentation-box" style="display: none;">
         <img src="../../IMG/avatar_max.png" alt="Max Avatar" class="max-avatar">
         <div class="max-text-content">
             <h3 id="max-title">Ciao da Max! Benvenuto nel caricamento</h3>
-            <p id="max-text">Questa è la pagina dove si inseriscono i prodotti, sia che abbiano il codice a barre sia quelli acquistati al mercato e senza codice. Inoltre potrai inserire anche quei prodotti fatti da te come torte, salse, semilavorati di cibi, ecc. Puoi inserire i prodotti nella tua dispensa locale scegliendo tu il nome del posto dove li conserverai. Queste sono solo alcune delle funzioni: per qualsiasi dubbio sui campi da compilare, cerca i piccoli post-it informativi gialli accanto alle etichette, ti spiegheranno in modo semplice come compilarli.</p>
+            <p id="max-text">Questa è la pagina dove si inseriscono i prodotti. Ricorderò l'ultima ubicazione, categoria e fornitore usati per velocizzare i tuoi inserimenti! Per qualsiasi dubbio sui campi, usa i piccoli post-it gialli accanto alle etichette.</p>
             <div class="max-actions">
                 <button type="button" class="btn-max-action" onclick="chiudiMaxTemporaneo()">Chiudi</button>
                 <button type="button" class="btn-max-action" onclick="chiudiMaxDefinitivo()">Non mostrare più</button>
@@ -516,6 +480,10 @@
 
     <div class="form-grid">
         <div class="sidebar-scanner-box">
+            <button type="button" class="btn-scan-main" onclick="avviaScannerLive()">
+                📷 Scansiona Codice a Barre
+            </button>
+
             <div id="box-foto-prodotto" class="product-image-box">
                 <img id="prodotto-foto" src="" alt="Anteprima Prodotto">
                 <div id="prodotto-peso-badge" class="peso-badge" style="display:none;"></div>
@@ -670,6 +638,8 @@
         if (localStorage.getItem('eat_hide_max_carico') !== 'true') {
             document.getElementById('maxPresentationBox').style.display = 'flex';
         }
+        // Ripristina gli ultimi valori memorizzati (ubicazione, categoria, fornitore)
+        ripristinaUltimiValoriMemoria();
     });
 
     function chiudiMaxTemporaneo() {
@@ -679,6 +649,22 @@
     function chiudiMaxDefinitivo() {
         document.getElementById('maxPresentationBox').style.display = 'none';
         localStorage.setItem('eat_hide_max_carico', 'true');
+    }
+
+    function ripristinaUltimiValoriMemoria() {
+        const ultimaUbicazione = localStorage.getItem('eat_ultima_ubicazione');
+        const ultimaCategoria = localStorage.getItem('eat_ultima_categoria');
+        const ultimoFornitore = localStorage.getItem('eat_ultimo_fornitore');
+        
+        if (ultimaUbicazione && !document.getElementById('prodotto-ubicazione').value) {
+            document.getElementById('prodotto-ubicazione').value = ultimaUbicazione;
+        }
+        if (ultimaCategoria && !document.getElementById('prodotto-categoria').value) {
+            document.getElementById('prodotto-categoria').value = ultimaCategoria;
+        }
+        if (ultimoFornitore && !document.getElementById('prodotto-fornitore').value) {
+            document.getElementById('prodotto-fornitore').value = ultimoFornitore;
+        }
     }
 
     /* --- GESTIONE SCANNER LIVE INTERNO --- */
@@ -702,7 +688,7 @@
             },
             (errorMessage) => {}
         ).catch(err => {
-            alert("⚠️ Impossibile avviare la fotocamera live. Verifica i permessi del browser.");
+            alert("⚠️ Impossibile avviare la fotocamera. Verifica i permessi del browser.");
             chiudiScannerLive();
         });
     }
@@ -719,7 +705,7 @@
         }
     }
 
-    /* --- RICERCA AUTOMATICA NEI DATABASE ONLINE (Open Food Facts) --- */
+    /* --- RICERCA AUTOMATICA ONLINE (Open Food Facts) --- */
     async function cercaProdottoOnline(barcode) {
         try {
             let res = await fetch(`https://world.openfoodfacts.org/api/v0/product/${barcode}.json`);
@@ -728,7 +714,10 @@
             if (data.status === 1) {
                 let product = data.product;
                 document.getElementById('prodotto-nome').value = product.product_name || product.product_name_it || '';
-                document.getElementById('prodotto-categoria').value = product.categories ? product.categories.split(',')[0] : '';
+                
+                if (product.categories) {
+                    document.getElementById('prodotto-categoria').value = product.categories.split(',')[0];
+                }
                 
                 if (product.image_url) {
                     document.getElementById('prodotto-foto').src = product.image_url;
@@ -754,7 +743,7 @@
                     boxTech.style.display = "block";
                 }
             } else {
-                document.getElementById('prodotto-nome').placeholder = 'Prodotto non trovato nei database online: inserisci il nome...';
+                document.getElementById('prodotto-nome').placeholder = 'Prodotto non trovato online: inserisci il nome...';
             }
         } catch(e) {
             console.log("Errore nella ricerca online:", e);
@@ -768,8 +757,25 @@
         document.getElementById('valore-data-esatta').disabled = (tipo !== 'esatta');
     }
 
-    /* --- SALVATAGGIO ADATTIVO (SERVER + LOCALSTORAGE FALLBACK) --- */
-    async function salvaProdotto() {
+    function resetForm() {
+        document.getElementById('prodotto-barcode').value = "";
+        document.getElementById('prodotto-nome').value = "";
+        document.getElementById('prodotto-foto').src = "";
+        document.getElementById('prodotto-note').value = "";
+        document.getElementById('prodotto-quantita').value = "1";
+        document.getElementById('prodotto-pezzi').value = "1";
+        document.getElementById('prodotto-tassativo').checked = false;
+        document.getElementById('box-info-tecniche').style.display = "none";
+        document.getElementById('prodotto-peso-badge').style.display = "none";
+        document.getElementById('scad-opt-1').checked = true;
+        aggiornaScadenzaUI();
+        
+        // Riattiva i valori memorizzati in precedenza per il prossimo articolo
+        ripristinaUltimiValoriMemoria();
+    }
+
+    /* --- SALVATAGGIO IN LOCALSTORAGE CON MEMORIA E CICLO CONTINUO --- */
+    function salvaProdotto() {
         const barcode = document.getElementById('prodotto-barcode').value;
         const nome = document.getElementById('prodotto-nome').value;
         const categoria = document.getElementById('prodotto-categoria').value;
@@ -780,6 +786,11 @@
         const tassativo = document.getElementById('prodotto-tassativo').checked;
         const note = document.getElementById('prodotto-note').value;
         const foto = document.getElementById('prodotto-foto').src;
+
+        // Salva in memoria locale gli ultimi campi usati per i prossimi inserimenti
+        if (ubicazione) localStorage.setItem('eat_ultima_ubicazione', ubicazione);
+        if (categoria) localStorage.setItem('eat_ultima_categoria', categoria);
+        if (fornitore) localStorage.setItem('eat_ultimo_fornitore', fornitore);
 
         const tipoScadenza = document.querySelector('input[name="tipo-scadenza"]:checked').value;
         let scadenzaValore = "";
@@ -815,41 +826,21 @@
             data_carico: new Date().toISOString()
         };
 
-        // 1. Prova a salvare sul Server Python (Modalità Remote PC / Wi-Fi)
-        let salvatoSulServer = false;
-        try {
-            let res = await fetch('/save_pantry', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(prodottoData)
-            });
-            if (res.ok) {
-                salvatoSulServer = true;
-            }
-        } catch (e) {
-            salvatoSulServer = false;
+        // Salvataggio nel LocalStorage
+        let dispensa = JSON.parse(localStorage.getItem('eat_dispensa_locale')) || [];
+        dispensa.push(prodottoData);
+        localStorage.setItem('eat_dispensa_locale', JSON.stringify(dispensa));
+
+        // Domanda di continuo ciclo di carico
+        const altroProdotto = confirm("✅ Prodotto salvato in dispensa!\n\nVuoi inserire un altro prodotto?");
+
+        resetForm();
+
+        if (altroProdotto) {
+            avviaScannerLive(); // Riapre lo scanner per il prodotto successivo
+        } else {
+            window.location.href = "../menu.html"; // Torna al menu
         }
-
-        // 2. Se il server non c'è, salva nel localStorage (Modalità Standalone dal Cellulare)
-        if (!salvatoSulServer) {
-            let dispensa = JSON.parse(localStorage.getItem('eat_dispensa_locale')) || [];
-            dispensa.push(prodottoData);
-            localStorage.setItem('eat_dispensa_locale', JSON.stringify(dispensa));
-        }
-
-        alert("✅ Prodotto salvato con successo nella dispensa!");
-
-        // Resetta i campi per la prossima scansione
-        document.getElementById('prodotto-barcode').value = "";
-        document.getElementById('prodotto-nome').value = "";
-        document.getElementById('prodotto-categoria').value = "";
-        document.getElementById('prodotto-ubicazione').value = "";
-        document.getElementById('prodotto-fornitore').value = "";
-        document.getElementById('prodotto-foto').src = "";
-        document.getElementById('box-info-tecniche').style.display = "none";
-        document.getElementById('prodotto-peso-badge').style.display = "none";
-        document.getElementById('scad-opt-1').checked = true;
-        aggiornaScadenzaUI();
     }
 </script>
 
