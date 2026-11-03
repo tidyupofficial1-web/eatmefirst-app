@@ -302,7 +302,7 @@
         </div>
     </div>
 
-    <!-- MODALE MODIFICA SCHEDA PRODOTTO -->
+    <!-- MODALE MODIFICA SCHEDA PRODOTTO CON TENDINA UBICAZIONI DINAMICA -->
     <div id="modalModificaScheda" class="modal-overlay" style="display:none;">
         <div class="modal-content">
             <h3 style="color: var(--accent-color); font-size: 18px; text-align: center; margin-bottom: 15px;">✏️ Modifica Scheda Prodotto</h3>
@@ -314,8 +314,10 @@
                 </div>
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
                     <div>
-                        <label style="font-size: 13px; color: var(--text-muted); font-weight: 600;">Ubicazione</label>
-                        <input type="text" id="modEditUbicazione" class="search-input">
+                        <label style="font-size: 13px; color: var(--text-muted); font-weight: 600;">Ubicazione (Dove va)</label>
+                        <select id="modEditUbicazioneSelect" class="filter-select" style="margin-bottom: 6px;" onchange="gestisciUbicazioneCustomModifica(this.value)">
+                        </select>
+                        <input type="text" id="modEditUbicazioneCustom" class="search-input" placeholder="Oppure scrivi nuova ubicazione..." style="display:none;">
                     </div>
                     <div>
                         <label style="font-size: 13px; color: var(--text-muted); font-weight: 600;">Quantità (Conf.)</label>
@@ -350,7 +352,6 @@
             let prodottiServer = [];
             let prodottiLocali = [];
 
-            // 1. Tenta il caricamento dal server Python se attivo
             try {
                 let response = await fetch('/dispensa.json?t=' + new Date().getTime(), { cache: 'no-store' });
                 if (response.ok) {
@@ -360,14 +361,12 @@
                 prodottiServer = [];
             }
 
-            // 2. Legge dal localStorage del browser (Modalità Standalone o File Locale)
             try {
                 prodottiLocali = JSON.parse(localStorage.getItem('eat_dispensa_locale')) || [];
             } catch (e) {
                 prodottiLocali = [];
             }
 
-            // Controlla per retrocompatibilità la vecchia chiave 'emf_dispensa'
             try {
                 let vecchiLocali = JSON.parse(localStorage.getItem('emf_dispensa')) || [];
                 if (vecchiLocali.length > 0 && prodottiLocali.length === 0) {
@@ -375,7 +374,6 @@
                 }
             } catch(e) {}
 
-            // Unisce le due liste eliminando eventuali duplicati identici
             dispensaGlobale = [...prodottiServer];
             prodottiLocali.forEach(pLoc => {
                 if (!dispensaGlobale.some(pServ => pServ.barcode === pLoc.barcode && pServ.nome === pLoc.nome && pLoc.barcode !== "")) {
@@ -443,18 +441,48 @@
             `;}).join('');
         }
 
-        /* --- GESTIONE MODIFICA SCHEDA DIRETTA --- */
+        /* --- GESTIONE MODIFICA SCHEDA DIRETTA E TENDINA UBICAZIONI --- */
         function apriModalModifica(index) {
             indiceModificaAttuale = index;
             const p = dispensaGlobale[index];
             if (!p) return;
 
             document.getElementById('modEditNome').value = p.nome || '';
-            document.getElementById('modEditUbicazione').value = p.ubicazione || '';
             document.getElementById('modEditQuantita').value = p.quantita || 1;
             document.getElementById('modEditNote').value = p.note || '';
 
+            popolaUbicazioniModifica(p.ubicazione);
+
             document.getElementById('modalModificaScheda').style.display = 'flex';
+        }
+
+        function popolaUbicazioniModifica(ubicazioneAttuale) {
+            const select = document.getElementById('modEditUbicazioneSelect');
+            const inputCustom = document.getElementById('modEditUbicazioneCustom');
+            inputCustom.style.display = 'none';
+            inputCustom.value = '';
+
+            const ubs = [...new Set(dispensaGlobale.map(p => p.ubicazione).filter(Boolean))];
+
+            let html = `<option value="${ubicazioneAttuale || ''}">Attuale: ${ubicazioneAttuale || 'Non assegnata'}</option>`;
+            ubs.forEach(u => {
+                if (u !== ubicazioneAttuale) {
+                    html += `<option value="${u}">${u}</option>`;
+                }
+            });
+            html += `<option value="ALTRO">+ Scrivi nuova ubicazione...</option>`;
+            select.innerHTML = html;
+        }
+
+        function gestisciUbicazioneCustomModifica(valore) {
+            const inputCustom = document.getElementById('modEditUbicazioneCustom');
+            if (valore === 'ALTRO') {
+                inputCustom.style.display = 'block';
+                inputCustom.focus();
+            } else {
+                inputCustom.style.display = 'none';
+                inputCustom.value = '';
+            }
         }
 
         function chiudiModalModifica() {
@@ -464,8 +492,20 @@
         function salvaModificaScheda() {
             if (indiceModificaAttuale === null || !dispensaGlobale[indiceModificaAttuale]) return;
 
+            const selectVal = document.getElementById('modEditUbicazioneSelect').value;
+            let nuovaUbicazione = dispensaGlobale[indiceModificaAttuale].ubicazione || '';
+
+            if (selectVal === 'ALTRO') {
+                const customVal = document.getElementById('modEditUbicazioneCustom').value.trim();
+                if (customVal !== "") {
+                    nuovaUbicazione = customVal;
+                }
+            } else if (selectVal !== "") {
+                nuovaUbicazione = selectVal;
+            }
+
             dispensaGlobale[indiceModificaAttuale].nome = document.getElementById('modEditNome').value.trim() || 'Prodotto senza nome';
-            dispensaGlobale[indiceModificaAttuale].ubicazione = document.getElementById('modEditUbicazione').value.trim();
+            dispensaGlobale[indiceModificaAttuale].ubicazione = nuovaUbicazione;
             dispensaGlobale[indiceModificaAttuale].quantita = parseInt(document.getElementById('modEditQuantita').value) || 1;
             dispensaGlobale[indiceModificaAttuale].note = document.getElementById('modEditNote').value.trim();
 
