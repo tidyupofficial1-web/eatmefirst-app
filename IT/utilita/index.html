@@ -198,7 +198,15 @@
     footer { text-align: center; padding: 20px; font-size: 13px; color: var(--text-muted); border-top: 1px solid var(--border-color); margin-top: 40px; }
 
     @media (max-width: 600px) {
-      .language-flags { display: none; }
+      .language-flags { 
+        display: flex; 
+        gap: 4px; 
+        padding: 2px 6px; 
+      }
+      .flag-img { 
+        width: 18px; 
+        height: 12px; 
+      }
     }
   </style>
 </head>
@@ -216,14 +224,14 @@
         <span class="brand-title">Utilità & TimeMachine</span>
       </div>
       <div class="app-nav-right">
-    <nav class="language-flags">
-        <a href="index.html" class="flag-link active" title="Italiano"><img src="../../IMG/bandiera_Italy.jpg" class="flag-img" alt="IT"></a>
-        <a href="../../EN/utilities/index.html" class="flag-link" title="English"><img src="../../IMG/bandiera_England.jpg" class="flag-img" alt="EN"></a>
-        <a href="../../DE/hilfsmittel/index.html" class="flag-link" title="Deutsch"><img src="../../IMG/bandiera_Germany.jpg" class="flag-img" alt="DE"></a>
-        <a href="../../FR/utilitaires/index.html" class="flag-link" title="Français"><img src="../../IMG/bandiera_France.jpg" class="flag-img" alt="FR"></a>
-        <a href="../../ES/utilidades/index.html" class="flag-link" title="Español"><img src="../../IMG/bandiera_Espana.jpg" class="flag-img" alt="ES"></a>
-    </nav>
-</div>
+        <nav class="language-flags">
+            <a href="index.html" class="flag-link active" title="Italiano"><img src="../../IMG/bandiera_Italy.jpg" class="flag-img" alt="IT"></a>
+            <a href="../../EN/utilities/index.html" class="flag-link" title="English"><img src="../../IMG/bandiera_England.jpg" class="flag-img" alt="EN"></a>
+            <a href="../../DE/hilfsmittel/index.html" class="flag-link" title="Deutsch"><img src="../../IMG/bandiera_Germany.jpg" class="flag-img" alt="DE"></a>
+            <a href="../../FR/utilitaires/index.html" class="flag-link" title="Français"><img src="../../IMG/bandiera_France.jpg" class="flag-img" alt="FR"></a>
+            <a href="../../ES/utilidades/index.html" class="flag-link" title="Español"><img src="../../IMG/bandiera_Espana.jpg" class="flag-img" alt="ES"></a>
+        </nav>
+      </div>
     </header>
 
     <!-- BANNER INTRODUTTIVO LEO -->
@@ -488,7 +496,7 @@
 
     function loadOperationLog() {
       const logContainer = document.getElementById('operation-log');
-      const sampleLogs = []; // Svuotato l'elenco simulato
+      const sampleLogs = [];
 
       logContainer.innerHTML = '';
       if (sampleLogs.length === 0) {
@@ -591,13 +599,6 @@
         alert("Leo: Ripristino alla versione precedente completato! I tuoi dati sono stati conservati.");
       }
       closeLeoUpdateModal();
-    }
-
-    function openTab(evt, tabId) {
-      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-      document.getElementById(tabId).classList.add('active');
-      evt.currentTarget.classList.add('active');
     }
   </script>
 </body>
