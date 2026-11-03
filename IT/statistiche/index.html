@@ -143,7 +143,7 @@
       border-radius: 10px; margin-bottom: 8px; font-size: 0.95rem;
     }
 
-    /* BOX STATO VUOTO (NESSUN DATO PREVENTIVO) */
+    /* BOX STATO VUOTO */
     .empty-state-box {
       text-align: center;
       padding: 30px 20px;
@@ -168,7 +168,15 @@
     footer { text-align: center; padding: 20px; font-size: 13px; color: var(--text-muted); border-top: 1px solid var(--border-color); margin-top: 40px; }
 
     @media (max-width: 600px) {
-      .flags-container { display: none; }
+      .flags-container { 
+        display: flex; 
+        gap: 4px; 
+        padding: 2px 6px; 
+      }
+      .flag-img { 
+        width: 18px; 
+        height: 12px; 
+      }
     }
   </style>
 </head>
@@ -182,14 +190,13 @@
       <h1>Statistiche & Report</h1>
     </div>
     <div class="header-right">
-    <div class="flags-container">
-        <a href="index.html" class="flag-link active" title="Italiano"><img src="../../IMG/bandiera_Italy.jpg" alt="Italia" class="flag-img"></a>
-        <a href="../../EN/statistics/index.html" class="flag-link" title="English"><img src="../../IMG/bandiera_England.jpg" alt="UK" class="flag-img"></a>
-        <a href="../../FR/statistiques/index.html" class="flag-link" title="Français"><img src="../../IMG/bandiera_France.jpg" alt="Francia" class="flag-img"></a>
-        <a href="../../DE/statistiken/index.html" class="flag-link" title="Deutsch"><img src="../../IMG/bandiera_Germany.jpg" alt="Germania" class="flag-img"></a>
-        <a href="../../ES/estadisticas/index.html" class="flag-link" title="Español"><img src="../../IMG/bandiera_Espana.jpg" alt="Spagna" class="flag-img"></a>
-    </div>
-</div>
+      <div class="flags-container">
+          <a href="index.html" class="flag-link active" title="Italiano"><img src="../../IMG/bandiera_Italy.jpg" alt="Italia" class="flag-img"></a>
+          <a href="../../EN/statistics/index.html" class="flag-link" title="English"><img src="../../IMG/bandiera_England.jpg" alt="UK" class="flag-img"></a>
+          <a href="../../FR/statistiques/index.html" class="flag-link" title="Français"><img src="../../IMG/bandiera_France.jpg" alt="Francia" class="flag-img"></a>
+          <a href="../../DE/statistiken/index.html" class="flag-link" title="Deutsch"><img src="../../IMG/bandiera_Germany.jpg" alt="Germania" class="flag-img"></a>
+          <a href="../../ES/estadisticas/index.html" class="flag-link" title="Español"><img src="../../IMG/bandiera_Espana.jpg" alt="Spagna" class="flag-img"></a>
+      </div>
     </div>
   </header>
 
@@ -235,7 +242,6 @@
 
     <h3 style="font-size: 1.05rem; margin-bottom: 12px; color: var(--text-main);">Classifica Negozi Più Frequentati</h3>
     <ul class="ranking-list" id="supplier-ranking-list">
-      <!-- Nessun dato precompilato nel codice: iniettato da JS se presenti prodotti -->
     </ul>
 
     <div class="footer-nav">
@@ -267,7 +273,6 @@
 
     <h3 style="font-size: 1.05rem; margin-bottom: 12px; color: var(--text-main);">Prodotti ad Alta Frequenza in Dispensa</h3>
     <ul class="ranking-list" id="top-products-list">
-      <!-- Nessun dato precompilato nel codice -->
     </ul>
 
     <div class="footer-nav">
@@ -327,10 +332,10 @@
         if (res.ok) {
           dispensaDati = await res.json();
         } else {
-          dispensaDati = JSON.parse(localStorage.getItem('emf_dispensa')) || [];
+          dispensaDati = JSON.parse(localStorage.getItem('eat_dispensa_locale')) || JSON.parse(localStorage.getItem('emf_dispensa')) || [];
         }
       } catch (e) {
-        dispensaDati = JSON.parse(localStorage.getItem('emf_dispensa')) || [];
+        dispensaDati = JSON.parse(localStorage.getItem('eat_dispensa_locale')) || JSON.parse(localStorage.getItem('emf_dispensa')) || [];
       }
 
       renderFornitori();
