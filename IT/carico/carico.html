@@ -138,53 +138,58 @@
             cursor: pointer;
         }
 
-        /* Presentazione di Max */
+        /* Presentazione di Max con Avatar SOPRA al testo */
         .max-presentation-box {
             background-color: var(--info-bg);
             border: 1px solid var(--info-border);
             border-left: 4px solid var(--info-border);
             border-radius: 8px;
-            padding: 15px;
+            padding: 18px;
             margin-bottom: 20px;
             display: flex;
-            align-items: flex-start;
-            gap: 15px;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
             position: relative;
         }
 
         .max-avatar {
-            width: 60px;
-            height: 60px;
+            width: 70px;
+            height: 70px;
             border-radius: 50%;
             border: 2px solid var(--primary-color);
             object-fit: cover;
-            flex-shrink: 0;
+            margin-bottom: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
 
         .max-text-content h3 {
             color: var(--primary-color);
-            font-size: 1.1rem;
-            margin-bottom: 6px;
+            font-size: 1.15rem;
+            margin-bottom: 8px;
         }
 
         .max-text-content p {
-            font-size: 0.9rem;
-            line-height: 1.5;
+            font-size: 0.93rem;
+            line-height: 1.6;
             color: var(--text-color);
-            margin-bottom: 12px;
+            margin-bottom: 15px;
+            text-align: left;
         }
 
         .max-actions {
             display: flex;
             gap: 10px;
+            justify-content: center;
             flex-wrap: wrap;
+            width: 100%;
         }
 
         .btn-max-action {
             background: #101416;
             border: 1px solid var(--border-color);
             color: var(--text-color);
-            padding: 6px 12px;
+            padding: 6px 14px;
             border-radius: 6px;
             font-size: 0.85rem;
             cursor: pointer;
@@ -461,12 +466,12 @@
 
 <div class="container">
 
-    <!-- PRESENTAZIONE DI MAX -->
+    <!-- PRESENTAZIONE DI MAX (Avatar sopra e testo dettagliato) -->
     <div id="maxPresentationBox" class="max-presentation-box" style="display: none;">
         <img src="../../IMG/avatar_max.png" alt="Max Avatar" class="max-avatar">
         <div class="max-text-content">
             <h3 id="max-title">Ciao da Max! Benvenuto nel caricamento</h3>
-            <p id="max-text">Questa è la pagina dove si inseriscono i prodotti. Ricorderò l'ultima ubicazione, categoria e fornitore usati per velocizzare i tuoi inserimenti! Per qualsiasi dubbio sui campi, usa i piccoli post-it gialli accanto alle etichette.</p>
+            <p id="max-text">Questa è la pagina dove si inseriscono i prodotti della tua spesa. Potrai inserire oltre agli alimenti anche altri articoli che girano in casa, come tovaglioli, detersivi, prodotti per l'igiene... Man mano che inserirai le destinazioni, le categorie o i fornitori, te li proporrò in modo che non dovrai scriverli di nuovo ogni volta: basterà un clic per fare la scelta. In ogni caso, per qualsiasi dubbio sui campi, usa i piccoli post-it gialli accanto alle etichette che ti daranno altre informazioni più specifiche.</p>
             <div class="max-actions">
                 <button type="button" class="btn-max-action" onclick="chiudiMaxTemporaneo()">Chiudi</button>
                 <button type="button" class="btn-max-action" onclick="chiudiMaxDefinitivo()">Non mostrare più</button>
@@ -638,7 +643,6 @@
         if (localStorage.getItem('eat_hide_max_carico') !== 'true') {
             document.getElementById('maxPresentationBox').style.display = 'flex';
         }
-        // Ripristina gli ultimi valori memorizzati (ubicazione, categoria, fornitore)
         ripristinaUltimiValoriMemoria();
     });
 
@@ -770,7 +774,6 @@
         document.getElementById('scad-opt-1').checked = true;
         aggiornaScadenzaUI();
         
-        // Riattiva i valori memorizzati in precedenza per il prossimo articolo
         ripristinaUltimiValoriMemoria();
     }
 
@@ -787,7 +790,6 @@
         const note = document.getElementById('prodotto-note').value;
         const foto = document.getElementById('prodotto-foto').src;
 
-        // Salva in memoria locale gli ultimi campi usati per i prossimi inserimenti
         if (ubicazione) localStorage.setItem('eat_ultima_ubicazione', ubicazione);
         if (categoria) localStorage.setItem('eat_ultima_categoria', categoria);
         if (fornitore) localStorage.setItem('eat_ultimo_fornitore', fornitore);
@@ -826,20 +828,18 @@
             data_carico: new Date().toISOString()
         };
 
-        // Salvataggio nel LocalStorage
         let dispensa = JSON.parse(localStorage.getItem('eat_dispensa_locale')) || [];
         dispensa.push(prodottoData);
         localStorage.setItem('eat_dispensa_locale', JSON.stringify(dispensa));
 
-        // Domanda di continuo ciclo di carico
         const altroProdotto = confirm("✅ Prodotto salvato in dispensa!\n\nVuoi inserire un altro prodotto?");
 
         resetForm();
 
         if (altroProdotto) {
-            avviaScannerLive(); // Riapre lo scanner per il prodotto successivo
+            avviaScannerLive();
         } else {
-            window.location.href = "../menu.html"; // Torna al menu
+            window.location.href = "../menu.html";
         }
     }
 </script>
