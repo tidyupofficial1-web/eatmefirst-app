@@ -28,12 +28,41 @@
             align-items: center;
             min-height: 100vh;
         }
-.brand-logo-group {
+
+        /* Barra de navegación superior */
+        .top-navbar {
+            width: 100%;
+            background-color: #101416;
+            padding: 12px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-sizing: border-box;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .brand-logo-group {
             display: flex;
             align-items: center;
             gap: 20px;
         }
 
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: #ffffff;
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+
+        .brand-logo img {
+            height: 36px;
+            width: auto;
+        }
+
+        /* Botón verde claro para Suscripción y Copia de seguridad */
         .btn-abbonamento-nav {
             background-color: #2ecc71;
             color: #000000;
@@ -52,33 +81,6 @@
         .btn-abbonamento-nav:hover {
             background-color: #27ae60;
             transform: translateY(-2px);
-        }
-
-        /* Barra superior con cabecera */
-        .top-navbar {
-            width: 100%;
-            background-color: #101416;
-            padding: 12px 24px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-sizing: border-box;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .brand-logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            text-decoration: none;
-            color: #ffffff;
-            font-size: 1.3rem;
-            font-weight: bold;
-        }
-
-        .brand-logo img {
-            height: 36px;
-            width: auto;
         }
 
         .language-flags {
@@ -102,7 +104,7 @@
             transform: scale(1.15);
         }
 
-        /* Diseño principal */
+        /* Contenedor principal */
         .main-wrapper {
             padding: 30px 20px;
             width: 100%;
@@ -110,7 +112,7 @@
             box-sizing: border-box;
         }
 
-        /* Estilo de alerta parpadeante de caducidades */
+        /* Estilo de la alerta parpadeante de caducidades */
         @keyframes blink-animation {
             0% { opacity: 1; border-color: #e74c3c; }
             50% { opacity: 0.4; border-color: #f39c12; }
@@ -157,7 +159,7 @@
             color: var(--text-color);
         }
 
-        /* Modal / Cuadro de lista de solo consulta */
+        /* Ventana modal de consulta */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -215,7 +217,7 @@
             gap: 10px;
         }
 
-        .scadenza-item-card {
+        .caducidad-item-card {
             padding: 12px 15px;
             border-radius: 8px;
             display: flex;
@@ -224,18 +226,17 @@
             font-size: 0.95rem;
         }
 
-        /* Códigos de color requeridos para los elementos */
         .badge-tassativo {
-            background-color: #e74c3c; /* Fondo Rojo */
-            color: #ffffff;            /* Letra Blanca */
+            background-color: #e74c3c;
+            color: #ffffff;
         }
 
         .badge-consigliata {
-            background-color: #f1c40f; /* Fondo Amarillo */
-            color: #000000;            /* Letra Negra */
+            background-color: #f1c40f;
+            color: #000000;
         }
 
-        /* Caja de Guía del Menú (Ocultable) */
+        /* Cuadro de guía del menú (ocultable) */
         .welcome-guide-box {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
@@ -315,7 +316,7 @@
             height: 16px;
         }
 
-        /* Cuadrícula de funciones principales (6 módulos) */
+        /* Cuadrícula de módulos principales (6 módulos) */
         .menu-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -365,7 +366,7 @@
 </head>
 <body>
 
-<!-- Barra superior con cabecera -->
+<!-- Barra de navegación superior -->
 <header class="top-navbar">
     <div class="brand-logo-group">
         <a href="menu.html" class="brand-logo">
@@ -388,24 +389,24 @@
     </div>
 </header>
 
-<div class="main-wrapper">
+<main class="main-wrapper">
 
-    <!-- ALERTA DINÁMICA PARPADEANTE PARA CADUCIDADES -->
-    <div id="alertScadenzeBanner" class="alert-banner" style="display: none;" onclick="apriModalScadenze()">
+    <!-- Alerta dinámica de caducidades -->
+    <div id="alertCaducidadesBanner" class="alert-banner" style="display: none;" onclick="abrirModalCaducidades()">
         <div class="alert-content">
             <div class="alert-icon">⚠️</div>
             <div class="alert-text">
-                <h3 id="alertTitoloTesto">¡Productos próximos a caducar en los próximos días!</h3>
+                <h3 id="alertTituloTexto">¡Productos próximos a caducar en los próximos días!</h3>
                 <p>Haz clic aquí para consultar la lista detallada ordenada por urgencia.</p>
             </div>
         </div>
         <div style="font-size: 1.2rem; color: #ff6b6b; font-weight: bold;">➔</div>
     </div>
 
-    <!-- Caja de Guía de Bienvenida con Banner Grande -->
+    <!-- Guía de bienvenida con banner grande -->
     <div class="welcome-guide-box" id="menuGuideBox">
         <div class="guide-banner-container">
-            <img src="IMG/organizacion-despensa-software.png" alt="Organización de Despensa Software" class="guide-banner-img">
+            <img src="IMG/organizacion-despensa-software.png" alt="Organización Despensa Software" class="guide-banner-img">
         </div>
 
         <div class="guide-content-area">
@@ -430,15 +431,15 @@
 
             <div class="guide-footer">
                 <label class="hide-guide-label">
-                    <input type="checkbox" id="chkHideMenuGuide" onchange="disattivaGuidaMenu()">
+                    <input type="checkbox" id="chkHideMenuGuide" onchange="desactivarGuiaMenu()">
                     <span>Entendido, no volver a mostrar este mensaje en el menú</span>
                 </label>
             </div>
         </div>
     </div>
 
-    <!-- Cuadrícula de los 6 Módulos Operativos de la Despensa -->
-    <main class="menu-grid">
+    <!-- Cuadrícula de los 6 módulos operativos -->
+    <div class="menu-grid">
         <a href="carga/carga-productos.html" class="menu-card">
             <div class="card-icon">📦</div>
             <div class="card-title">Carga de Productos</div>
@@ -474,18 +475,18 @@
             <div class="card-title">Utilidades y Premium</div>
             <div class="card-desc">Gestiona la copia de seguridad de los datos locales, exporta el inventario y descubre las funciones avanzadas.</div>
         </a>
-    </main>
+    </div>
 
-</div>
+</main>
 
-<!-- MODAL DE SOLO CONSULTA PARA ALERTAS DE CADUCIDAD -->
-<div id="modalScadenze" class="modal-overlay">
+<!-- Ventana modal de consulta de caducidades -->
+<div id="modalCaducidades" class="modal-overlay">
     <div class="modal-box">
         <div class="modal-header">
             <h2>⚠️ Productos Próximos a Caducar (Próximos 10 días)</h2>
-            <button class="btn-close-modal" onclick="chiudiModalScadenze()">✕</button>
+            <button class="btn-close-modal" onclick="cerrarModalCaducidades()">✕</button>
         </div>
-        <div class="modal-body" id="modalScadenzeLista">
+        <div class="modal-body" id="modalCaducidadesLista">
             <!-- Los productos se inyectan aquí dinámicamente -->
         </div>
     </div>
@@ -503,27 +504,27 @@
             document.getElementById('menuGuideBox').style.display = 'none';
         }
 
-        await controllaAlertScadenze();
+        await comprobarAlertasCaducidades();
     });
 
-    async function controllaAlertScadenze() {
+    async function comprobarAlertasCaducidades() {
         try {
             let res = await fetch('/api/menu_alerts', { cache: 'no-store' });
             let data = await res.json();
 
             if (data && data.has_alerts) {
-                const banner = document.getElementById('alertScadenzeBanner');
-                const titolo = document.getElementById('alertTitoloTesto');
+                const banner = document.getElementById('alertCaducidadesBanner');
+                const titulo = document.getElementById('alertTitoloTesto');
                 
                 titolo.textContent = `¡Atención! Hay ${data.count} productos próximos a caducar en los próximos días.`;
                 banner.style.display = 'flex';
 
-                const listaContainer = document.getElementById('modalScadenzeLista');
+                const listaContainer = document.getElementById('modalCaducidadesLista');
                 listaContainer.innerHTML = '';
 
                 data.items.forEach(item => {
                     const card = document.createElement('div');
-                    card.className = `scadenza-item-card badge-${item.badge_style}`;
+                    card.className = `caducidad-item-card badge-${item.badge_style}`;
                     
                     card.innerHTML = `
                         <div>
@@ -543,15 +544,15 @@
         }
     }
 
-    function apriModalScadenze() {
-        document.getElementById('modalScadenze').style.display = 'flex';
+    function abrirModalCaducidades() {
+        document.getElementById('modalCaducidades').style.display = 'flex';
     }
 
-    function chiudiModalScadenze() {
-        document.getElementById('modalScadenze').style.display = 'none';
+    function cerrarModalCaducidades() {
+        document.getElementById('modalCaducidades').style.display = 'none';
     }
 
-    function disattivaGuidaMenu() {
+    function desactivarGuiaMenu() {
         const chk = document.getElementById('chkHideMenuGuide');
         if (chk.checked) {
             localStorage.setItem('eat_hide_menu_guide', 'true');

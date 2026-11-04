@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EatMeFirst - Términos, Condiciones y Propiedad Intelectual</title>
+    <meta name="description" content="Términos de uso, condiciones e información sobre la privacidad y el almacenamiento local de EatMeFirst.">
+    <meta name="robots" content="noindex, nofollow">
     <style>
         :root {
             --bg-color: #12181b;
@@ -16,12 +18,13 @@
             --info-border: #3182ce;
         }
 
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
-            margin: 0;
-            padding: 0;
+            padding: 10px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -30,13 +33,15 @@
 
         .top-navbar {
             width: 100%;
+            max-width: 950px;
             background-color: #101416;
-            padding: 12px 24px;
+            padding: 12px 16px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-sizing: border-box;
             border-bottom: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 15px;
         }
 
         .brand-logo {
@@ -45,24 +50,24 @@
             gap: 10px;
             text-decoration: none;
             color: #ffffff;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             font-weight: bold;
         }
 
         .brand-logo img {
-            height: 36px;
+            height: 32px;
             width: auto;
         }
 
         .language-flags {
             display: flex;
-            gap: 12px;
+            gap: 8px;
             align-items: center;
         }
 
         .flag-icon {
-            width: 30px;
-            height: 20px;
+            width: 26px;
+            height: 17px;
             cursor: pointer;
             object-fit: cover;
             border-radius: 3px;
@@ -76,16 +81,14 @@
         }
 
         .main-wrapper {
-            padding: 30px 20px;
             width: 100%;
-            max-width: 850px;
-            box-sizing: border-box;
+            max-width: 950px;
         }
 
         .container {
             background-color: var(--card-bg);
             border-radius: 12px;
-            padding: 35px;
+            padding: 20px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
             border: 1px solid var(--border-color);
         }
@@ -94,17 +97,17 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
         .btn-back {
             background-color: #101416;
             border: 1px solid var(--border-color);
             color: var(--text-color);
-            padding: 8px 16px;
+            padding: 8px 14px;
             border-radius: 6px;
             text-decoration: none;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             transition: all 0.2s;
         }
 
@@ -114,26 +117,30 @@
         }
 
         h1 {
-            font-size: 1.8rem;
+            font-size: 1.4rem;
             margin-top: 0;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             color: var(--primary-color);
             border-bottom: 2px solid var(--border-color);
-            padding-bottom: 15px;
+            padding-bottom: 12px;
         }
 
         h3 {
             color: #ffffff;
-            margin-top: 25px;
-            margin-bottom: 8px;
-            font-size: 1.15rem;
+            margin-top: 20px;
+            margin-bottom: 6px;
+            font-size: 1.05rem;
         }
 
         p {
             color: var(--text-color);
-            font-size: 1rem;
+            font-size: 0.93rem;
             line-height: 1.6;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 15px; }
         }
     </style>
 </head>
@@ -141,15 +148,15 @@
 
 <!-- Barra superior con cabecera -->
 <header class="top-navbar">
-    <a href="../menu.html" class="brand-logo">
+    <a href="menu.html" class="brand-logo">
         <img src="../IMG/logo_1024_white.png" alt="EatMeFirst Logo">
         <span>EatMeFirst</span>
     </a>
     <div class="language-flags">
         <a href="../IT/termini.html" title="Italiano"><img src="../IMG/bandiera_Italy.jpg" alt="Italiano" class="flag-icon"></a>
         <a href="../EN/termini.html" title="English"><img src="../IMG/bandiera_England.jpg" alt="English" class="flag-icon"></a>
-        <a href="../DE/termini.html" title="Deutsch"><img src="../IMG/bandiera_Germany.jpg" alt="Deutsch" class="flag-icon"></a>
-        <a href="../FR/termini.html" title="Français"><img src="../IMG/bandiera_France.jpg" alt="Français" class="flag-icon"></a>
+        <a href="../DE/nutzungsbedingungen.html" title="Deutsch"><img src="../IMG/bandiera_Germany.jpg" alt="Deutsch" class="flag-icon"></a>
+        <a href="../FR/conditions.html" title="Français"><img src="../IMG/bandiera_France.jpg" alt="Français" class="flag-icon"></a>
         <a href="termini.html" title="Español"><img src="../IMG/bandiera_Espana.jpg" alt="Español" class="flag-icon"></a>
     </div>
 </header>
@@ -158,7 +165,7 @@
     <div class="container">
         
         <div class="top-bar">
-            <a href="carico/collegamento.html" class="btn-back">← Volver a la guía</a>
+            <a href="carga/carga-productos.html" class="btn-back">← Volver a la guía</a>
         </div>
 
         <h1>Términos, Condiciones de Uso y Propiedad Intelectual</h1>
@@ -170,15 +177,15 @@
         <p>Al utilizar la aplicación EatMeFirst, el usuario acepta íntegramente los presentes términos y condiciones. La aplicación se proporciona "tal cual" para ayudar al usuario en la gestión de la despensa doméstica y en la reducción del desperdicio alimentario diario.</p>
 
         <h3>3. Almacenamiento Local y Confidencialidad de los Datos</h3>
-        <p>EatMeFirst está diseñado para funcionar íntegramente en el dispositivo local del usuario (mediante servidor local y almacenamiento en el disco duro C://). Ningún dato personal, inventario o hábito de compra se transmite a servidores remotos ni se vende a terceros, garantizando la total privacidad y soberanía de la información.</p>
+        <p>EatMeFirst está diseñado para funcionar íntegramente en el dispositivo local del usuario mediante la memoria del navegador (LocalStorage). Ningún dato personal, inventario o hábito de compra se transmite a servidores remotos ni se vende a terceros, garantizando la total privacidad y soberanía de la información.</p>
 
         <h3>4. Limitación de Responsabilidad</h3>
         <p>Las indicaciones sobre las fechas de caducidad y las funciones de soporte inteligente tienen un valor meramente orientativo. El usuario es el único responsable de verificar el estado real de los alimentos antes de su consumo, con el fin de proteger su propia salud y la de su familia.</p>
 
-        <h3>5. Gratuidad de las Funciones Básicas y Desarrollos Extras</h3>
-        <p><strong>El propósito principal de EatMeFirst es y seguirá siendo siempre gratuito:</strong> el guardado de datos en tu PC, la gestión de la despensa doméstica, los procedimientos de carga/descarga y el control de caducidades nunca requerirán ninguna suscripción.</p>
-        <p>Actualmente, incluso las funciones avanzados de valor añadido —como la <strong>lista de la compra automática</strong>, las <strong>estadísticas detalladas de consumo</strong> y las anotaciones inteligentes— son <strong>completamente accesibles y utilizables desde el primer momento a coste cero</strong>.</p>
-        <p>En el futuro, algunas de estas funciones adicionales o extensiones complementarias podrían proponerse como módulos opcionales de pago, sin perjudicar ni limitar nunca las funciones esenciales de aplicación, que siempre permanecerán libres y totalmente transparentes para todos los usuarios.</p>
+        <h3>5. Gratuidad de las Funciones Básicas y Desarrollos Futuros</h3>
+        <p><strong>El propósito principal de EatMeFirst es y seguirá siendo siempre gratuito:</strong> la carga y descarga de productos, el control de la despensa, las utilidades, la lista de la compra y el guardado de datos en tu móvil nunca requerirán ninguna suscripción.</p>
+        <p>Todas estas funciones esenciales son y seguirán siendo siempre libres, abiertas y totalmente transparentes para todos los usuarios.</p>
+        <p>En el futuro, cualquier nueva funcionalidad o extensión adicional de valor añadido podrá ofrecerse mediante suscripción como módulos opcionales, sin perjudicar, limitar ni desnaturalizar nunca las funciones básicas de la aplicación que utilizas a diario.</p>
 
     </div>
 </div>

@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestión de Despensa Doméstica y Control de Caducidades de Alimentos | EatMeFirst</title>
-    <meta name="description" content="Organiza la compra en casa, supervisa las fechas de caducidad de los alimentos y evita el desperdicio con tu despensa digital privada y gratuita.">
-    <meta name="keywords" content="gestión despensa doméstica, control caducidad alimentos, lista de la compra, escaneo código de barras compra, inventario hogar, evitar desperdicio alimentario">
+    <title>Gestión de Despensa Doméstica y Control de Caducidades | EatMeFirst</title>
+    <meta name="description" content="Organiza tu compra, controla las fechas de caducidad de los alimentos y evita el desperdicio con tu despensa digital privada y gratuita.">
+    <meta name="keywords" content="gestión despensa doméstica, control caducidad alimentos, lista de la compra, escáner código barras compra, inventario casa, evitar desperdicio alimentos">
     <meta name="robots" content="index, follow">
     
     <meta property="og:title" content="Gestión de Despensa Doméstica y Control de Caducidades | EatMeFirst">
-    <meta property="og:description" content="Un asistente inteligente y privado para gestionar la compra del hogar y reducir a cero el desperdicio de alimentos.">
+    <meta property="og:description" content="Un asistente inteligente y privado para gestionar tus compras y eliminar el desperdicio de alimentos.">
     <meta property="og:type" content="website">
-    <meta property="og:image" content="../ES/IMG/organizacion-despensa-domestica.png">
+    <meta property="og:image" content="IMG/organizacion-despensa-domestica.png">
 
     <style>
         :root {
@@ -35,7 +35,7 @@
             overflow-x: hidden;
         }
 
-        /* CABECERA SUPERIOR COMÚN */
+        /* BARRA SUPERIOR CON LOGO Y BANDERAS */
         .language-bar {
             position: fixed;
             top: 0; left: 0; right: 0;
@@ -130,15 +130,6 @@
             margin-top: 15px;
         }
 
-        .scan-instruction-box {
-            background: #1c2128;
-            border: 1px solid #388bfd;
-            border-radius: 8px;
-            padding: 14px;
-            margin: 15px 0;
-            font-size: 14.5px;
-        }
-
         .consent-box {
             background: var(--card-bg); border: 1px solid var(--border-color);
             border-radius: 12px; padding: 25px 20px; text-align: center;
@@ -204,7 +195,7 @@
 
     <!-- SCRIPT DE CONTROL DE CONSENTIMIENTO INICIAL -->
     <script>
-        if (localStorage.getItem('eatmefirst_consent') === 'accepted') {
+        if (localStorage.getItem('eatmefirst_consent_es') === 'accepted' || localStorage.getItem('eatmefirst_consent') === 'accepted') {
             if (!localStorage.getItem('eatmefirst_consent_date')) {
                 localStorage.setItem('eatmefirst_consent_date', new Date().toISOString());
             }
@@ -212,13 +203,14 @@
         }
 
         function accettaTermini() {
+            localStorage.setItem('eatmefirst_consent_es', 'accepted');
             localStorage.setItem('eatmefirst_consent', 'accepted');
             localStorage.setItem('eatmefirst_consent_date', new Date().toISOString());
             window.location.href = 'menu.html';
         }
     </script>
 
-    <!-- CABECERA SUPERIOR CON LOGO Y BANDERAS -->
+    <!-- BARRA SUPERIOR CON LOGO Y BANDERAS -->
     <div class="language-bar">
         <div class="logo-container">
             <div class="logo-badge"><img src="../IMG/logo_1024_white.png" alt="EatMeFirst Logo"></div>
@@ -235,12 +227,12 @@
 
     <main class="main-container">
         
-        <!-- TARJETA 1: MAX Y EVA -->
+        <!-- FICHA 1: MAX Y EVA -->
         <article class="hero-card">
-            <img src="IMG/organizacion-despensa-domestica.png" alt="Familia organizando la compra y la despensa de casa para evitar el desperdicio de alimentos" class="hero-img">
+            <img src="IMG/organizacion-despensa-domestica.png" alt="Familia que organiza la compra y la despensa de casa para evitar el desperdicio de alimentos" class="hero-img">
             
             <div class="story-content">
-                <h1>Bienvenidos a EatMeFirst</h1>
+                <h1>Bienvenido a EatMeFirst</h1>
                 
                 <div class="greeting-row">
                     <span>«Hola, somos Max y Eva y tú?</span>
@@ -249,74 +241,66 @@
 
                 <div id="storyContainer" class="hidden-story">
                     <div class="story-text">
-                        <p id="introDynamic">«Somos una pareja de consumidores que, al igual que tú, hace la compra todos los días. Por desgracia, a menudo nos pasaba también a nosotros encontrar productos caducados al fondo de la despensa y tener que tirarlos.</p>
+                        <p id="introDynamic">«Somos una pareja de consumidores que, al igual que tú, hace la compra todos los días. Por desgracia, a nosotros también nos pasaba a menudo encontrar productos caducados al fondo de la despensa y tener que tirarlos.</p>
                         
-                        <p>Un día se lo contamos a un amigo informático para ver si era posible crear un sistema para gestionar mejor las compras del hogar. Y ya sabes cómo va... ¡de una cosa surge otra! Nos apasionó este proyecto y creamos un programa capaz de tener en cuenta cada variable de la compra diaria: desde los productos de cocina hasta los detergentes, pasando por los artículos de higiene personal.</p>
+                        <p>Un día lo hablamos con un amigo informático para ver si era posible crear un sistema para gestionar mejor las compras de casa. Y ya sabes cómo es... ¡de una cosa surge otra! Nos apasionamos por este proyecto y creamos un programa capaz de considerar cada variable de la compra diaria: desde los productos de cocina hasta los detergentes, pasando por los artículos de higiene personal.</p>
                         
-                        <p>Créenos, <span id="displayNameMax">amigo</span>: lo que estás a punto de probar <strong>cambiará de verdad tu forma de gestionar la compra y la despensa de casa</strong>. ¡Leo, nuestro amigo programador, estimulado por nuestras peticiones continuas, ha hecho verdaderos milagros!</p>
+                        <p>Créenos, <span id="displayNameMax">amigo</span>: lo que estás a punto de probar <strong>cambiará de verdad tu modo de gestionar la compra y la despensa de casa</strong>. Leo, nuestro amigo programador, impulsado por nuestras continuas peticiones ¡ha hecho verdaderos milagros!</p>
                         
-                        <p>Una de las primeras cosas fundamentales que le pedimos fue la <strong>máxima privacidad</strong>: no queríamos de ninguna manera que los datos de nuestros hábitos de compra acabaran en servidores externos para ser vendidos a empresas publicitarias. Por eso decidimos que <strong>todo permanecerá únicamente en tu dispositivo</strong> (PC de sobremesa o portátil).</p>
+                        <p>Una de las primeras cosas fundamentales que le pedimos fue la <strong>máxima confidencialidad</strong>: no queríamos en absoluto que los datos de nuestros hábitos de compra acabaran en servidores externos para ser vendidos a empresas publicitarias. Por eso la aplicación adopta una arquitectura <strong>Local-First</strong>: todos los datos de tu despensa permanecen protegidos exclusivamente en tu smartphone, mientras que la conexión web sirve únicamente para buscar al vuelo los detalles de los productos.</p>
                         
                         <ul style="margin: 15px 0 15px 20px;">
-                            <li><strong>Muy ligero:</strong> No tendrás que instalar Gigabytes de archivos, sino unas pocas cientos de Megabytes.</li>
-                            <li><strong>Autónomo:</strong> No interferirá con tu ordenador y podrás usarlo <strong>incluso sin conexión a Internet</strong>, una vez memorizados los productos que utilizas habitualmente.</li>
+                            <li><strong>Ultraligero:</strong> Una interfaz web de bolsillo, rápida y fluida en cualquier dispositivo.</li>
+                            <li><strong>Máxima Privacidad:</strong> Tus consumos y tus compras se quedan guardados solo en tu dispositivo. Si no tienes que introducir nuevos productos desde el exterior, puedes incluso consultar tu despensa <strong>sin conexión</strong>.</li>
                         </ul>
 
-                        <p><strong>¿Cómo funciona la carga?</strong><br>
-                        Tu PC trabaja de forma local, pero cuando tienes que cargar un producto se aprovecha el código de barras presente en el envase. El programa se conecta a bases de datos públicas para recuperar detalles, calorías, alérgenos e incluso la imagen del producto.</p>
+                        <p><strong>¿Cómo funciona la carga de productos?</strong><br>
+                        Utilizas cómodamente tu smartphone como escáner de bolsillo para enfocar el código de barras del envase. La aplicación se conecta online a bases de datos públicas gratuitas solo para recuperar automáticamente el nombre del producto, la foto, las calorías y los alérgenos.</p>
 
-                        <p>¿Y para leer el código? En lugar de hacerte comprar un lector láser de supermercado (que cuesta alrededor de 15€), le pedimos a Leo una alternativa de coste cero. ¿Resultado? Bastó con recuperar un <strong>viejo smartphone sin SIM</strong>, conectado al Wi-Fi de casa, para transformarlo en un escáner profesional. <strong>¡Coste: 0 Euros!</strong></p>
+                        <p><strong>¿Y para la consulta en pantalla grande o para la seguridad de los datos?</strong><br>
+                        Haces todo desde el teléfono y, cuando quieres gestionar la despensa en tu PC, te basta con transferir el archivo de la base de datos mediante un simple <strong>cable o memoria USB</strong>. ¡Coste de hardware adicional: 0 Euros!</p>
 
-                        <p>En resumen: gestión completa de productos con código de barras (¡incluidos los comprados en el mercado!), máxima privacidad y hardware a coste cero.</p>
+                        <p>En resumen: fichas de producto completísimas desde bases de datos públicas online, cero rastreo personal y tu base de datos bajo tu total control entre el móvil y el PC.</p>
 
                         <p>Te estarás preguntando: <em>«Pero ¿cuánto me cuesta todo esto?»</em><br>
-                        Parece extraño, pero <strong>te lo regalamos</strong>. Ninguna suscripción, ninguna publicidad, ningún truco: es gratis y lo será para siempre.</p>
+                        Todas las funcionalidades básicas de la aplicación para tu móvil son y seguirán siendo <strong>gratuitas para siempre</strong>, sin trucos ni publicidad invasiva.</p>
 
-                        <p>Una última pregunta te rondará por la cabeza: <em>«Pero ¿cómo puedo fiarme de un programa descargado? ¿Y si contiene virus?»</em><br>
-                        Nosotros te garantizamos al 100% la seguridad de la aplicación, pero queremos que te sientas totalmente tranquilo. Le cedo la palabra a Leo para que te explique cómo hacer una comprobación directa con tu antivirus.</p>
+                        <p>Una última pregunta te estará rondando la cabeza: <em>«¿Cómo puedo fiarme de un programa?»</em><br>
+                        Te garantizamos al 100% la seguridad y la fiabilidad. Para todos los detalles técnicos, sobre la copia de seguridad y el funcionamiento práctico, le cedo la palabra a Leo.»</p>
                     </div>
                 </div>
             </div>
         </article>
 
-        <!-- TARJETA 2: LEO -->
+        <!-- FICHA 2: LEO -->
         <article class="hero-card hidden-story" id="secondCard">
-            <img src="IMG/app-control-caducidad-alimentos.png" alt="Escaneo de códigos de barras de la compra con el smartphone y gestión de caducidades en el ordenador" class="hero-img">
+            <img src="IMG/app-control-caducidad-alimentos.png" alt="Escaneo de códigos de barras de la compra con el smartphone y control de caducidades en el ordenador" class="hero-img">
             
             <div class="story-content">
                 <div class="story-text leo-box">
                     <p><strong>Leo (el desarrollador):</strong></p>
-                    <p>«¡Hola <span id="displayNameLeo">amigo</span>! Como desarrollador entiendo perfectamente la desconfianza cuando se ejecuta un software por primera vez. Windows Defender o tu antivirus de confianza (como Avast, Norton o Bitdefender) podrían mostrarte una advertencia simplemente porque EatMeFirst es un software independiente desarrollado por nosotros y no por una multinacional.</p>
+                    <p>«¡Hola <span id="displayNameLeo">amigo</span>! ¡Quiero explicarte en pocas palabras cómo usarás tu smartphone y por qué la memoria USB es tu seguro de vida!</p>
 
-                    <div class="scan-instruction-box">
-                        <strong>Cómo hacer el análisis (es muy fácil):</strong><br>
-                        No tienes más que situarte con el ratón sobre la carpeta comprimida o descomprimida del programa, hacer clic con el <strong>botón derecho del ratón</strong> y buscar la opción del tipo <em>'Analizar con Windows Defender'</em> (o el nombre de tu antivirus, ej. <em>Escanear con Avast</em>). En muy pocos segundos el antivirus lo comprobará todo y te confirmará que el archivo está limpio.
-                    </div>
+                    <p>Tu móvil será tu herramienta principal por dos razones fundamentales:</p>
+                    <ol style="margin: 10px 0 15px 20px; line-height: 1.6;">
+                        <li><strong>Para cargar los productos:</strong> Lo usas para conectarte a los sitios online que leen los códigos de barras. Recuerda que siempre es tu teléfono el que "pide" la información a la base de datos pública, sin enviar ni ceder nunca tus datos personales.</li>
+                        <li><strong>Para ir al supermercado:</strong> Cuando sales a hacer la compra te llevas el móvil. Y lo bueno es que <strong>funcionará perfectamente incluso sin tarjeta SIM ni cobertura</strong>, porque todo tu inventario está guardado localmente en el dispositivo.</li>
+                    </ol>
 
-                    <h2>¿Por qué podrían aparecer advertencias de Windows o del navegador?</h2>
-                    <p>Ahora bien, puesto que por comodidad usaremos tu viejo smartphone como escáner de códigos de barras, tendrás que "vincular" el teléfono al ordenador. 
-                    Has de saber que Windows es formidable para la seguridad, pero a veces exagera: cuando ve dos dispositivos dialogando entre sí, tiende a desconfiar y podría mostrarte algún aviso del tipo <em>'sitio no seguro'</em> o <em>'conexión no privada'</em>.</p>
+                    <p><strong>¿Por qué conviene tener la memoria USB conectada con un cable al móvil?</strong><br>
+                    Por un motivo de seguridad fundamental: ante cada movimiento (añadir, modificar o dar salida a un artículo), el programa realiza una <strong>copia de seguridad simultánea tanto en el móvil como en la memoria USB</strong>. Si el teléfono se cae al agua o se rompe y no tienes la memoria conectada, ¡tus datos se pierden y no se recuperan más! Además, te permite desconectar la memoria, introducirla en el ordenador y gestionar la despensa en pantalla grande.</p>
 
-                    <p>Pero no te alarmes: <strong>estás conectando TU teléfono personal</strong>, ¡no el de un extraño! Desde el momento en que tu antivirus ya ha verificado que el programa está limpio al 100%, se trata solo de un exceso de prudencia del ordenador.</p>
+                    <p><strong>Máxima transparencia sobre el modelo económico y el futuro:</strong><br>
+                    El programa seguirá siendo <strong>siempre gratuito para todas sus funciones en el móvil</strong> (cargar, dar salida a productos, generar la lista de la compra, ver las estadísticas de consumo y hacer todo lo necesario). Más adelante, lo único que requerirá una suscripción de coste realmente ridículo será exclusivamente el servicio de copia de seguridad y transferencia automática a la memoria USB.</p>
 
-                    <h2>¿Cómo conectamos el móvil?</h2>
-                    <ul style="margin: 10px 0 15px 20px;">
-                        <li><strong>Por Wi-Fi:</strong> Si eliges la red inalámbrica, para asegurarte de que la vinculación vaya sobre ruedas al primer intento, comprueba que tanto el PC como el móvil estén conectados directamente al <strong>módem principal de casa</strong> y no a un repetidor de señal (Extender), porque los repetidores a veces hacen de "muro" y evitan que los dos dispositivos se vean.</li>
-                        <li><strong>Por cable USB:</strong> Si quieres la máxima estabilidad y evitar por completo los caprichos de la red Wi-Fi, ¡podremos conectar el móvil directamente con el cable USB! Es una solución comodísima que sortea los problemas de los repetidores y a menudo elimina también las advertencias de la red.</li>
-                    </ul>
-
-                    <p>Ciertamente también podrías teclear los códigos de barras a mano en el teclado, pero <strong>¡tener que introducir 13 dígitos por cada lata o tarro no es precisamente lo más cómodo!</strong> Como alternativa puedes usar una pistola láser clásica de supermercado, pero el móvil (por Wi-Fi o por cable) sigue siendo la solución de coste cero más práctica.</p>
-
-                    <p>Te explicaré todos los pasos de la vinculación con calma tan pronto como entres en la sección dedicada a la <strong>Carga de Productos</strong>.</p>
-
-                    <p>¡Ahora está todo listo para empezar: si quieres podemos comenzar justo por ahí!»</p>
+                    <p>¿Qué pasará si decides no activar esa suscripción? <strong>Nada dramático:</strong> ¡las cosas en el móvil se mantendrán perfectamente igual! Podrás seguir cargando, borrando, haciendo la compra y consultando todo como antes; la única limitación será que ya no podrás transferir los datos a la memoria USB, pero la base de datos en el teléfono seguirá funcionando a la perfección para siempre.»</p>
                 </div>
             </div>
         </article>
 
         <!-- CONSENTIMIENTO Y BOTÓN PARA IR A MENU.HTML -->
         <section class="consent-box hidden-story" id="consentSection">
-            <button type="button" class="btn-conditions" onclick="apriModal()">Leer las condiciones de uso y advertencias sanitarias</button>
+            <button type="button" class="btn-conditions" onclick="apriModal()">Lee las condiciones de uso y las advertencias sanitarias</button>
             
             <label class="checkbox-label">
                 <input type="checkbox" id="checkAccetto" onchange="gestisciSpunta()">
@@ -335,15 +319,15 @@
             <h2>Términos, Condiciones de Uso y Advertencias de Responsabilidad</h2>
             <div class="modal-body">
                 <h3>1. Exclusión Total de Responsabilidad Sanitaria y Alimentaria</h3>
-                <p>EatMeFirst es un simple software de apoyo organizativo e inventarial doméstico. <strong>El usuario reconoce expresamente y acepta que el autor y los creadores de la aplicación quedan totalmente exentos de cualquier responsabilidad civil y penal</strong> derivada del consumo de alimentos rastreados en la app. El control visual, olfativo y organoléptico del estado de conservación y frescura de los alimentos es exclusiva y total responsabilidad del usuario antes de cualquier consumo.</p>
+                <p>EatMeFirst es un simple software de apoyo organizativo y de inventario doméstico. <strong>El usuario reconoce expresamente y acepta que el autor y los creadores de la aplicación son totalmente eximidos de cualquier responsabilidad civil y penal</strong> derivada del consumo de alimentos rastreados en la aplicación. El control visual, olfativo y organoléptico del estado de conservación y frescura de los alimentos es de exclusiva y total responsabilidad del usuario antes de cualquier consumo.</p>
                 
-                <h3>2. Caducidades Taxativas y Recomendadas</h3>
-                <p>Las fechas introducidas se dividen en taxativas (para frescos perecederos) y recomendadas (para productos de larga duración). Los avisos tienen un mero propósito recordatorio y <strong>el autor no garantiza la precisión absoluta de las estimaciones o de las bases de datos externas</strong>, declinando cualquier responsabilidad por errores de introducción o falta de consumo oportuno.</p>
+                <h3>2. Caducidades Estrictas y Recomendadas</h3>
+                <p>Las fechas introducidas se dividen en estrictas (para los frescos perecederos) y recomendadas (para los productos de larga conservación). Los avisos tienen una mera función de recordatorio y <strong>el autor no garantiza la precisión absoluta de las estimaciones o de las bases de datos externas</strong>, declinando toda responsabilidad por errores de introducción o por no consumir los alimentos a tiempo.</p>
 
                 <h3>3. Almacenamiento Local, Privacidad y Copias de Seguridad</h3>
-                <p>Los datos residen exclusivamente en el dispositivo del usuario. <strong>El usuario es el único responsable de realizar copias de seguridad periódicas</strong> (mediante guardado en memoria USB o archivo de seguridad). El autor no tiene acceso a los datos y no puede recuperarlos de ningún modo en caso de avería del dispositivo.</p>
+                <p>Los datos residen exclusivamente en el dispositivo del usuario. <strong>El usuario es el único responsable de la realización de copias de seguridad periódicas</strong> (mediante guardado en memoria USB o archivo de seguridad). El autor no tiene acceso a los datos y no puede recuperarlos de ningún modo en caso de avería del dispositivo.</p>
                 
-                <h3>4. Licencia de Uso Gratuita</h3>
+                <h3>4. Licencia de Uso Gratuito</h3>
                 <p>La aplicación se proporciona de forma gratuita y sin fines de rastreo o venta de datos a empresas terceras.</p>
             </div>
         </div>
@@ -433,6 +417,7 @@
                 return;
             }
             
+            localStorage.setItem('eatmefirst_consent_es', 'accepted');
             localStorage.setItem('eatmefirst_consent', 'accepted');
             localStorage.setItem('eatmefirst_consent_date', new Date().toISOString());
             
