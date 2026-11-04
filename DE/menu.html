@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EatMeFirst - Hauptmenü und Speisekammer-Verwaltung</title>
+    <title>EatMeFirst - Hauptmenü und Speisekammer-Verwaltung & Mindesthaltbarkeit</title>
+    <meta name="description" content="Verwalten Sie Ihre Haushalts-Speisekammer, verfolgen Sie Verfallsdaten, vermeiden Sie Lebensmittelverschwendung und organisieren Sie Einkaufslisten lokal mit absoluter Privatsphäre mit EatMeFirst.">
     <style>
         :root {
             --bg-color: #12181b;
@@ -29,32 +30,7 @@
             min-height: 100vh;
         }
 
-        /* Obere Navigationsleiste mit Briefkopf */
-.brand-logo-group {
-         display: flex;
-         align-items: center;
-         gap: 20px;
-     }
-
-     .btn-abbonamento-nav {
-         background-color: #2ecc71;
-         color: #000000;
-         padding: 8px 16px;
-         border-radius: 6px;
-         text-decoration: none;
-         font-weight: bold;
-         font-size: 0.92rem;
-         display: inline-flex;
-         align-items: center;
-         gap: 6px;
-         transition: background-color 0.2s, transform 0.2s;
-         box-shadow: 0 2px 6px rgba(0,0,0,0.25);
-     }
-
-     .btn-abbonamento-nav:hover {
-         background-color: #27ae60;
-         transform: translateY(-2px);
-     }
+        /* Obere Navigationsleiste */
         .top-navbar {
             width: 100%;
             background-color: #101416;
@@ -64,6 +40,12 @@
             align-items: center;
             box-sizing: border-box;
             border-bottom: 1px solid var(--border-color);
+        }
+
+        .brand-logo-group {
+            display: flex;
+            align-items: center;
+            gap: 20px;
         }
 
         .brand-logo {
@@ -79,6 +61,27 @@
         .brand-logo img {
             height: 36px;
             width: auto;
+        }
+
+        /* Button Abonnement & Backup */
+        .btn-abbonamento-nav {
+            background-color: #2ecc71;
+            color: #000000;
+            padding: 8px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.92rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: background-color 0.2s, transform 0.2s;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+        }
+
+        .btn-abbonamento-nav:hover {
+            background-color: #27ae60;
+            transform: translateY(-2px);
         }
 
         .language-flags {
@@ -224,15 +227,14 @@
             font-size: 0.95rem;
         }
 
-        /* Geforderte Farb-Badges für Elemente */
         .badge-tassativo {
-            background-color: #e74c3c; /* Roter Hintergrund */
-            color: #ffffff;            /* Weiße Schrift */
+            background-color: #e74c3c;
+            color: #ffffff;
         }
 
         .badge-consigliata {
-            background-color: #f1c40f; /* Gelber Hintergrund */
-            color: #000000;            /* Schwarze Schrift */
+            background-color: #f1c40f;
+            color: #000000;
         }
 
         /* Ausblendbare Menü-Anleitungsbox */
@@ -365,15 +367,15 @@
 </head>
 <body>
 
-<!-- Obere Navigationsleiste mit Logo und Flaggen -->
+<!-- Obere Navigationsleiste -->
 <header class="top-navbar">
     <div class="brand-logo-group">
         <a href="menu.html" class="brand-logo">
-            <img src="../IMG/logo_1024_white.png" alt="EatMeFirst Logo">
+            <img src="../IMG/logo_1024_white.png" alt="EatMeFirst Logo - Local-First Speisekammer-Verwaltung">
             <span>EatMeFirst</span>
         </a>
 
-        <!-- Button Abonnement & Backup (Tedesco) -->
+        <!-- Button Abonnement & Backup -->
         <a href="abonnement/index.html" class="btn-abbonamento-nav" title="Entdecken Sie die Vorteile von Abonnement und USB-Backup">
             🔑 Abonnement & Backup
         </a>
@@ -391,7 +393,7 @@
 <div class="main-wrapper">
 
     <!-- DYNAMISCHER BLINKENDER ALARM FÜR VERFALLSDATEN -->
-    <div id="alertScadenzeBanner" class="alert-banner" style="display: none;" onclick="apriModalScadenze()">
+    <div id="alertScadenzeBanner" class="alert-banner" style="display: none;" onclick="oeffneMHDModal()">
         <div class="alert-content">
             <div class="alert-icon">⚠️</div>
             <div class="alert-text">
@@ -405,14 +407,14 @@
     <!-- Willkommens-Anleitungsbox mit großem Banner -->
     <div class="welcome-guide-box" id="menuGuideBox">
         <div class="guide-banner-container">
-            <img src="IMG/software-speisekammer-organisation.png" alt="Software Speisekammer Organisation" class="guide-banner-img">
+            <img src="IMG/software-speisekammer-organisation.png" alt="Software Speisekammer Organisation Dashboard" class="guide-banner-img">
         </div>
 
         <div class="guide-content-area">
             <div class="guide-header-title">
-                <h2 style="margin: 0; color: var(--primary-color); font-size: 1.4rem;">
+                <h1 style="margin: 0; color: var(--primary-color); font-size: 1.4rem; font-weight: bold;">
                     Hallo <span id="displayUserName">Freund</span>!
-                </h2>
+                </h1>
                 <p style="margin: 3px 0 0 0; color: var(--text-muted); font-size: 0.95rem;">
                     Willkommen im Hauptbereich Ihrer Speisekammer
                 </p>
@@ -430,7 +432,7 @@
 
             <div class="guide-footer">
                 <label class="hide-guide-label">
-                    <input type="checkbox" id="chkHideMenuGuide" onchange="disattivaGuidaMenu()">
+                    <input type="checkbox" id="chkHideMenuGuide" onchange="versteckeMenueAnleitung()">
                     <span>Verstanden, diese Meldung im Menü nicht mehr anzeigen</span>
                 </label>
             </div>
@@ -483,7 +485,7 @@
     <div class="modal-box">
         <div class="modal-header">
             <h2>⚠️ Ablaufende Produkte (Nächste 10 Tage)</h2>
-            <button class="btn-close-modal" onclick="chiudiModalScadenze()">✕</button>
+            <button class="btn-close-modal" onclick="schliesseMHDModal()">✕</button>
         </div>
         <div class="modal-body" id="modalScadenzeLista">
             <!-- Produkte werden hier dynamisch eingefügt -->
@@ -503,10 +505,10 @@
             document.getElementById('menuGuideBox').style.display = 'none';
         }
 
-        await controllaAlertScadenze();
+        await prfefeMHDAlerts();
     });
 
-    async function controllaAlertScadenze() {
+    async function prfefeMHDAlerts() {
         try {
             let res = await fetch('/api/menu_alerts', { cache: 'no-store' });
             let data = await res.json();
@@ -543,15 +545,15 @@
         }
     }
 
-    function apriModalScadenze() {
+    function oeffneMHDModal() {
         document.getElementById('modalScadenze').style.display = 'flex';
     }
 
-    function chiudiModalScadenze() {
+    function schliesseMHDModal() {
         document.getElementById('modalScadenze').style.display = 'none';
     }
 
-    function disattivaGuidaMenu() {
+    function versteckeMenueAnleitung() {
         const chk = document.getElementById('chkHideMenuGuide');
         if (chk.checked) {
             localStorage.setItem('eat_hide_menu_guide', 'true');
