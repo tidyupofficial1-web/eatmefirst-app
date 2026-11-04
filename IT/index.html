@@ -35,7 +35,7 @@
             overflow-x: hidden;
         }
 
-        /* CARTA INTESTATA COMUNE */
+        /* BARRA SUPERIORE CON LOGO E BANDIERINE */
         .language-bar {
             position: fixed;
             top: 0; left: 0; right: 0;
@@ -128,15 +128,6 @@
             padding: 16px;
             border-radius: 0 8px 8px 0;
             margin-top: 15px;
-        }
-
-        .scan-instruction-box {
-            background: #1c2128;
-            border: 1px solid #388bfd;
-            border-radius: 8px;
-            padding: 14px;
-            margin: 15px 0;
-            font-size: 14.5px;
         }
 
         .consent-box {
@@ -255,25 +246,26 @@
                         
                         <p>Credici, <span id="displayNameMax">amico</span>: quello che stai per provare <strong>cambierà davvero il tuo modo di gestire la spesa e la dispensa di casa</strong>. Leo, il nostro amico programmatore, stimolato dalle nostre continue richieste ha fatto veri e propri miracoli!</p>
                         
-                        <p>Una delle prime cose fondamentali che gli abbiamo chiesto è stata la <strong>massima riservatezza</strong>: non volevamo in alcun modo che i dati delle nostre abitudini di acquisto finissero su server esterni per essere venduti ad aziende pubblicitarie. Per questo abbiamo deciso che <strong>tutto rimarrà unicamente sul tuo dispositivo</strong> (PC fisso o portatile).</p>
+                        <p>Una delle prime cose fondamentali che gli abbiamo chiesto è stata la <strong>massima riservatezza</strong>: non volevamo in alcun modo che i dati delle nostre abitudini di acquisto finissero su server esterni per essere venduti ad aziende pubblicitarie. Per questo l'applicazione adotta un'architettura <strong>Local-First</strong>: tutti i dati della tua dispensa rimangono protetti unicamente sul tuo smartphone, mentre la connessione web serve solo a cercare al volo i dettagli dei prodotti.</p>
                         
                         <ul style="margin: 15px 0 15px 20px;">
-                            <li><strong>Leggerissimo:</strong> Non dovrai installare Gigabyte di file, ma pochissime centinaia di Megabyte.</li>
-                            <li><strong>Autonomo:</strong> Non intralcerà il tuo computer e potrai usarlo <strong>anche senza connessione Internet</strong>, una volta memorizzati i prodotti che usi abitualmente.</li>
+                            <li><strong>Leggerissimo:</strong> Un'interfaccia web tascabile, veloce e reattiva su qualsiasi dispositivo.</li>
+                            <li><strong>Massima Privacy:</strong> I tuoi consumi e la tua spesa restano salvati solo sul tuo dispositivo. Se non devi inserire nuovi prodotti dall'esterno, puoi persino consultare la dispensa <strong>offline</strong>.</li>
                         </ul>
 
-                        <p><strong>Come funziona il caricamento?</strong><br>
-                        Il tuo PC lavora in locale, ma quando devi caricare un prodotto si sfrutta il codice a barre presente sulla confezione. Il programma si collega a database pubblici per recuperare dettagli, calorie, allergeni e persino l'immagine del prodotto.</p>
+                        <p><strong>Come funziona il caricamento dei prodotti?</strong><br>
+                        Usi comodamente il tuo smartphone come scanner tascabile per inquadrare il codice a barre sulla confezione. L'applicazione si collega online a database pubblici gratuiti solo per recuperare in automatico il nome del prodotto, la foto, le calorie e gli allergeni.</p>
 
-                        <p>E per leggere il codice? Invece di farti acquistare un lettore laser da supermercato (che costa attorno ai 15€), abbiamo chiesto a Leo un'alternativa a costo zero. Risultato? È bastato recuperare un <strong>vecchio smartphone senza SIM</strong>, collegato al Wi-Fi di casa, per trasformarlo in uno scanner professionale. <strong>Costo: 0 Euro!</strong></p>
+                        <p><strong>E per la consultazione su grande schermo o per la sicurezza dei dati?</strong><br>
+                        Fai tutto dal telefono e, quando vuoi gestire la dispensa sul tuo PC, ti basta trasferire il file del database tramite un semplice <strong>cavetto o chiavetta USB</strong>. Costo hardware aggiuntivo: 0 Euro!</p>
 
-                        <p>Insomma: gestione completa dei prodotti con codice a barre (compresi quelli presi al mercato!), massima riservatezza e hardware a costo zero.</p>
+                        <p>Insomma: schede prodotto ricchissime da database pubblici online, zero tracciamento personale e il tuo database sotto il tuo totale controllo tra cellulare e PC.</p>
 
                         <p>Ti starai chiedendo: <em>«Ma quanto mi costa tutto questo?»</em><br>
-                        Sembra strano, ma <strong>te lo regaliamo</strong>. Nessun abbonamento, nessuna pubblicità, nessun trucco: è gratis e lo sarà per sempre.</p>
+                        Tutte le funzionalità di base dell'applicazione per il tuo cellulare sono e rimarranno <strong>gratuite per sempre</strong>, senza trucchetti né pubblicità invasiva.</p>
 
-                        <p>Un'ultima domanda ti starà girando in testa: <em>«Ma come posso fidarmi di un programma scaricato? E se contenesse virus?»</em><br>
-                        Noi ti garantiamo al 100% la sicurezza dell'applicazione, ma vogliamo che tu ti senta totalmente tranquillo. Lascio la parola a Leo che ti spiega come fare un controllo diretto con il tuo antivirus.</p>
+                        <p>Un'ultima domanda ti starà girando in testa: <em>«Ma come posso fidarmi di un programma?»</em><br>
+                        Noi ti garantiamo al 100% la sicurezza e l'affidabilità. Per tutti i dettagli tecnici, sul salvataggio e sul funzionamento pratico, lascio la parola a Leo.»</p>
                     </div>
                 </div>
             </div>
@@ -286,30 +278,21 @@
             <div class="story-content">
                 <div class="story-text leo-box">
                     <p><strong>Leo (lo sviluppatore):</strong></p>
-                    <p>«Ciao <span id="displayNameLeo">amico</span>! Da sviluppatore capisco perfettamente la diffidenza quando si avvia un software per la prima volta. Windows Defender o il tuo antivirus di fiducia (come Avast, Norton o Bitdefender) potrebbero mostrarti un avviso semplicemente perché EatMeFirst è un software indipendente sviluppato da noi e non da una multinazionale.</p>
+                    <p>«Ciao <span id="displayNameLeo">amico</span>! Voglio spiegarti in poche parole come userai il tuo smartphone e perché la chiavetta USB è la tua assicurazione sulla vita!</p>
 
-                    <div class="scan-instruction-box">
-                        <strong>Come fare la scansione (è facilissimo):</strong><br>
-                        Non devi fare altro che posizionarti con il mouse sopra la cartella compressa o scompattata del programma, cliccare con il <strong>tasto destro del mouse</strong>, e cercare la voce del tipo <em>'Analizza con Windows Defender'</em> (o il nome del tuo antivirus, es. <em>Scansiona con Avast</em>). In pochissimi secondi l'antivirus controllerà tutto e ti confermerà che il file è pulito.
-                    </div>
+                    <p>Il tuo cellulare sarà il tuo strumento principale per due motivi fondamentali:</p>
+                    <ol style="margin: 10px 0 15px 20px; line-height: 1.6;">
+                        <li><strong>Per caricare i prodotti:</strong> Lo usi per collegarti ai siti online che leggono i codici a barre. Ricorda che è sempre il tuo telefono a "chiedere" l'informazione al database pubblico, senza mai inviare o cedere i tuoi dati personali.</li>
+                        <li><strong>Per andare al supermercato:</strong> Quando esci a fare la spesa porti dietro il cellulare. E la bellezza è che <strong>funzionerà perfettamente anche senza SIM o campo</strong>, perché tutto il tuo inventario è salvato in locale sul dispositivo!</li>
+                    </ol>
 
-                    <h2>Perché potrebbero apparire avvisi di Windows o del browser?</h2>
-                    <p>Ora, siccome per comodità useremo il tuo vecchio smartphone come scanner per i codici a barre, dovrai "accoppiare" il telefono al computer. 
-                    Devi sapere che Windows è formidabile per la sicurezza, ma a volte esagera: quando vede due dispositivi che dialogano tra loro, tende a storcere il naso e potrebbe mostrarti qualche avviso del tipo <em>'sito non sicuro'</em> o <em>'connessione non privata'</em>.</p>
+                    <p><strong>Perché conviene tenere la chiavetta USB collegata con un cavetto al cellulare?</strong><br>
+                    Per un motivo di sicurezza fondamentale: ad ogni singolo movimento (aggiunta, modifica o scarico di un articolo), il programma effettua un <strong>salvataggio simultaneo sia sul cellulare che sulla chiavetta</strong>. Se il telefono ti cade in acqua o si rompe e non hai la chiavetta collegata, i tuoi dati si perdono e non si recuperano più! Inoltre, ti permette di staccare la chiavetta, infilarla nel computer e gestire la dispensa sullo schermo grande.</p>
 
-                    <p>Ma non allarmarti: <strong>stai collegando il TUO telefono personale</strong>, non quello di un estraneo! Dal momento che il tuo antivirus ha già verificato che il programma è pulito al 100%, si tratta solo di un eccesso di prudenza del computer.</p>
+                    <p><strong>Massima trasparenza sul modello economico e sul futuro:</strong><br>
+                    Il programma rimarrà <strong>sempre gratuito per tutte le sue funzioni sul cellulare</strong> (caricare, scaricare prodotti, generare la lista della spesa, vedere le statistiche di consumo e fare tutto quello che serve). Più avanti, l'unica cosa che richiederà un abbonamento dal costo davvero ridicolo sarà esclusivamente il servizio di salvataggio e trasferimento automatico su chiavetta USB.</p>
 
-                    <h2>Come colleghiamo il cellulare?</h2>
-                    <ul style="margin: 10px 0 15px 20px;">
-                        <li><strong>Via Wi-Fi:</strong> Se scegli la rete senza fili, per fare in modo che l'accoppiamento fili liscio al primo colpo assicurati che sia il PC che il cellulare siano collegati direttamente al <strong>modem principale di casa</strong> e non a un ripetitore di segnale (Extender), perché i ripetitori a volte fanno da "muro" e impediscono ai due dispositivi di vedersi.</li>
-                        <li><strong>Via Cavo USB:</strong> Se vuoi la massima stabilità ed evitare del tutto i capricci della rete Wi-Fi, potremo collegare il cellulare direttamente con il cavo USB! È una soluzione comodissima che scavalca i problemi dei ripetitori e spesso azzera anche gli avvisi della rete.</li>
-                    </ul>
-
-                    <p>Certamente potresti anche digitare i codici a barre a mano sulla tastiera, ma <strong>dover inserire 13 cifre per ogni scatoletta o barattolo non è proprio il massimo della comodità!</strong> In alternativa puoi usare una classica pistola laser da supermercato, ma il cellulare (via Wi-Fi o via cavo) resta la soluzione a costo zero più pratica.</p>
-
-                    <p>Ti spiegherò tutti i passaggi dell'accoppiamento con calma non appena entrerai nella sezione dedicata al <strong>Carico Prodotti</strong>.</p>
-
-                    <p>Ora è tutto pronto per iniziare: se vuoi possiamo cominciare proprio da lì!»</p>
+                    <p>Cosa succederà se deciderai di non attivare quell'abbonamento? <strong>Nulla di drammatico:</strong> le cose sul cellulare resteranno perfettamente immutate! Potrai continuare a caricare, togliere, fare la spesa e consultare tutto come prima; l'unica limitazione sarà che non potrai più trasferire i dati sulla chiavetta USB, ma il database sul telefono continuerà a funzionare perfettamente per sempre!»</p>
                 </div>
             </div>
         </article>
