@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestion du Garde-Manger Domestique et Contrôle des Péremptions | EatMeFirst</title>
-    <meta name="description" content="Organisez vos courses, suivez les dates de péremption de vos aliments et évitez le gaspillage avec votre garde-manger numérique privé et gratuit.">
+    <title>Gestion de garde-manger et contrôle des péremptions | EatMeFirst</title>
+    <meta name="description" content="Organisez vos courses, suivez les dates de péremption et évitez le gaspillage avec votre garde-manger numérique privé et gratuit.">
     <meta name="keywords" content="gestion garde-manger domestique, contrôle péremption aliments, liste de courses, scan code-barres courses, inventaire maison, éviter gaspillage alimentaire">
     <meta name="robots" content="index, follow">
     
-    <meta property="og:title" content="Gestion du Garde-Manger et Contrôle des Péremptions | EatMeFirst">
+    <meta property="og:title" content="Gestion de garde-manger et contrôle des péremptions | EatMeFirst">
     <meta property="og:description" content="Un assistant intelligent et privé pour gérer vos courses et éliminer le gaspillage alimentaire.">
     <meta property="og:type" content="website">
-    <meta property="og:image" content="../FR/IMG/organisation-garde-manger-domestique.png">
+    <meta property="og:image" content="IMG/organisation-garde-manger-domestique.png">
 
     <style>
         :root {
@@ -35,7 +35,7 @@
             overflow-x: hidden;
         }
 
-        /* BARRE SUPÉRIEURE COMMUNE */
+        /* BARRE SUPÉRIEURE AVEC LOGO ET DRAPEAUX */
         .language-bar {
             position: fixed;
             top: 0; left: 0; right: 0;
@@ -130,15 +130,6 @@
             margin-top: 15px;
         }
 
-        .scan-instruction-box {
-            background: #1c2128;
-            border: 1px solid #388bfd;
-            border-radius: 8px;
-            padding: 14px;
-            margin: 15px 0;
-            font-size: 14.5px;
-        }
-
         .consent-box {
             background: var(--card-bg); border: 1px solid var(--border-color);
             border-radius: 12px; padding: 25px 20px; text-align: center;
@@ -202,18 +193,12 @@
 </head>
 <body>
 
-    <!-- SCRIPT DE CONTRÔLE DU CONSENTEMENT INITIAL -->
+    <!-- SCRIPT DE CONTRÔLE INITIAL DU CONSENTEMENT -->
     <script>
-        if (localStorage.getItem('eatmefirst_consent_fr') === 'accepted') {
-            if (!localStorage.getItem('eatmefirst_consent_date_fr')) {
-                localStorage.setItem('eatmefirst_consent_date_fr', new Date().toISOString());
+        if (localStorage.getItem('eatmefirst_consent_fr') === 'accepted' || localStorage.getItem('eatmefirst_consent') === 'accepted') {
+            if (!localStorage.getItem('eatmefirst_consent_date')) {
+                localStorage.setItem('eatmefirst_consent_date', new Date().toISOString());
             }
-            window.location.href = 'menu.html';
-        }
-
-        function accettaTermini() {
-            localStorage.setItem('eatmefirst_consent_fr', 'accepted');
-            localStorage.setItem('eatmefirst_consent_date_fr', new Date().toISOString());
             window.location.href = 'menu.html';
         }
     </script>
@@ -221,7 +206,7 @@
     <!-- BARRE SUPÉRIEURE AVEC LOGO ET DRAPEAUX -->
     <div class="language-bar">
         <div class="logo-container">
-            <div class="logo-badge"><img src="../IMG/logo_1024_white.png" alt="EatMeFirst Logo"></div>
+            <div class="logo-badge"><img src="../IMG/logo_1024_white.png" alt="Logo EatMeFirst"></div>
             <span class="brand-name">EatMeFirst</span>
         </div>
         <div class="flags-container">
@@ -232,11 +217,10 @@
             <a href="../ES/index.html" class="flag-link"><img src="../IMG/bandiera_Espana.jpg" class="flag-img" alt="ES"> ES</a>
         </div>
     </div>
-    </div>
 
     <main class="main-container">
         
-        <!-- FICHE 1 : MAX ET EVA -->
+        <!-- CARTE 1 : MAX ET EVA -->
         <article class="hero-card">
             <img src="IMG/organisation-garde-manger-domestique.png" alt="Famille organisant les courses et le garde-manger pour éviter le gaspillage alimentaire" class="hero-img">
             
@@ -244,80 +228,72 @@
                 <h1>Bienvenue sur EatMeFirst</h1>
                 
                 <div class="greeting-row">
-                    <span>« Bonjour, nous sommes Max et Eva et vous ?</span>
-                    <input type="text" id="userName" class="user-name-inline" placeholder="Votre prénom (facultatif)" oninput="gestisciInputUtente()">
+                    <span>« Bonjour, nous sommes Max et Eva et vous, comment vous appelez-vous ?</span>
+                    <input type="text" id="userName" class="user-name-inline" placeholder="Votre nom (facultatif)" oninput="gestisciInputUtente()">
                 </div>
 
                 <div id="storyContainer" class="hidden-story">
                     <div class="story-text">
-                        <p id="introDynamic">« Nous sommes un couple de consommateurs qui, tout comme vous, fait ses courses tous les jours. Malheureusement, il nous arrivait souvent de trouver des produits périmés au fond du placard et de devoir les jeter.</p>
+                        <p id="introDynamic">« Nous sommes un couple de consommateurs qui, tout comme vous, fait ses courses presque tous les jours. Malheureusement, il nous arrivait souvent de trouver des produits périmés au fond du placard et de devoir les jeter.</p>
                         
-                        <p>Un jour, nous en avons discuté avec un ami informaticien pour voir s'il était possible de créer un système pour mieux gérer les achats à la maison. Et vous savez ce que c'est... une chose en entraînant une autre, nous nous sommes passionnés pour ce projet et avons créé un programme capable de prendre en compte chaque variable de la vie quotidienne : des produits de cuisine aux produits d'entretien et d'hygiène personnelle.</p>
+                        <p>Un jour, nous en avons parlé à un ami informaticien pour voir s'il était possible de créer un système afin de mieux gérer nos achats domestiques. Et de fil en aiguille... nous nous sommes passionnés pour ce projet et avons créé un programme capable de prendre en compte chaque variable des courses quotidiennes : des produits de cuisine aux produits d'entretien, jusqu'aux articles d'hygiène personnelle.</p>
                         
-                        <p>Croyez-le, <span id="displayNameMax">l'ami</span> : ce que vous êtes sur le point d'essayer <strong>va véritablement changer votre façon de gérer vos courses et votre garde-manger</strong>. Leo, notre ami programmeur, stimulé par nos demandes constantes, a fait de véritables miracles !</p>
+                        <p>Croyez-nous, <span id="displayNameMax">l'ami</span> : ce que vous êtes sur le point d'essayer <strong>va vraiment changer votre façon de gérer vos courses et votre garde-manger</strong>. Leo, notre ami programmeur, stimulé par nos demandes incessantes, a fait de véritables miracles !</p>
                         
-                        <p>L'une des premières exigences fondamentales que nous lui avons demandée est la <strong>confidentialité absolue</strong> : nous ne voulions en aucun cas que les données sur nos habitudes d'achat finissent sur des serveurs externes pour être vendues à des publicitaires. C'est pourquoi nous avons décidé que <strong>tout resterait uniquement sur votre appareil</strong> (ordinateur fixe ou portable).</p>
+                        <p>L'une des premières choses fondamentales que nous lui avons demandées est la <strong>confidentialité maximale</strong> : nous ne voulions en aucun cas que les données de nos habitudes d'achat finissent sur des serveurs externes pour être revendues à des entreprises publicitaires. C'est pourquoi l'application adopte une architecture <strong>Local-First</strong> : toutes les données de votre garde-manger restent protégées uniquement sur votre smartphone, tandis que la connexion en ligne sert uniquement à rechercher à la volée les détails des produits.</p>
                         
                         <ul style="margin: 15px 0 15px 20px;">
-                            <li><strong>Ultra-léger :</strong> Pas besoin d'installer des gigaoctets de fichiers, seulement quelques centaines de mégaoctets.</li>
-                            <li><strong>Autonome :</strong> Il ne ralentira pas votre ordinateur et vous pourrez l'utiliser <strong>même sans connexion Internet</strong>, une fois les produits que vous utilisez habituellement enregistrés.</li>
+                            <li><strong>Très léger :</strong> Une interface web de poche, rapide et réactive sur n'importe quel appareil.</li>
+                            <li><strong>Confidentialité maximale :</strong> Vos consommations et vos courses restent enregistrées uniquement sur votre appareil. Si vous n'avez pas besoin d'ajouter de nouveaux produits de l'extérieur, vous pouvez même consulter votre garde-manger <strong>hors ligne</strong>.</li>
                         </ul>
 
-                        <p><strong>Comment fonctionne le chargement ?</strong><br>
-                        Votre ordinateur travaille en local, mais lorsque vous devez charger un produit, vous utilisez le code-barres présent sur l'emballage. Le programme se connecte à des bases de données publiques pour récupérer les détails, les calories, les allergènes et même l'image du produit.</p>
+                        <p><strong>Comment fonctionne l'ajout de produits ?</strong><br>
+                        Vous utilisez simplement votre smartphone comme scanner de poche pour flasher le code-barres sur l'emballage. L'application se connecte en ligne à des bases de données publiques gratuites uniquement pour récupérer automatiquement le nom du produit, la photo, les calories et les allergènes.</p>
 
-                        <p>Et pour lire le code ? Au lieu de vous faire acheter un lecteur laser de supermarché (qui coûte environ 15 €), nous avons demandé à Leo une alternative gratuite. Résultat ? Il a suffi de récupérer un <strong>vieux smartphone sans carte SIM</strong>, connecté au Wi-Fi de la maison, pour le transformer en scanner professionnel. <strong>Coût : 0 euro !</strong></p>
+                        <p><strong>Et pour la consultation sur grand écran ou la sécurité des données ?</strong><br>
+                        Vous faites tout depuis le téléphone et, lorsque vous souhaitez gérer le garde-manger sur votre PC, il vous suffit de transférer le fichier de la base de données via un simple <strong>câble ou une clé USB</strong>. Coût matériel supplémentaire : 0 Euro !</p>
 
-                        <p>Bref : gestion complète des produits par code-barres (y compris ceux achetés au marché !), confidentialité maximale et matériel à coût zéro.</p>
+                        <p>En somme : des fiches produits très riches provenant de bases de données publiques en ligne, aucun suivi personnel et votre base de données sous votre contrôle total entre le téléphone et le PC.</p>
 
-                        <p>Vous vous demandez sûrement : <em>« Mais combien tout cela va-t-il me coûter ? »</em><br>
-                        Cela semble fou, mais <strong>nous vous l'offrons</strong>. Aucun abonnement, aucune publicité, aucun piège : c'est gratuit et ça le restera pour toujours.</p>
+                        <p>Vous vous demandez sûrement : <em>« Mais combien cela va-t-il me coûter ? »</em><br>
+                        Toutes les fonctionnalités de base de l'application sur votre téléphone sont et resteront <strong>gratuites pour toujours</strong>, sans astuces ni publicité envahissante.</p>
 
-                        <p>Une dernière question vous trotte peut-être dans la tête : <em>« Comment faire confiance à un programme téléchargé ? Et s'il contenait des virus ? »</em><br>
-                        Nous vous garantissons à 100 % la sécurité de l'application, mais nous voulons que vous soyez totalement rassuré. Je laisse la parole à Leo qui va vous expliquer comment effectuer une vérification directe avec votre antivirus.</p>
+                        <p>Une dernière question vous trotte sûrement dans la tête : <em>« Mais comment puis-je faire confiance à un programme ? »</em><br>
+                        Nous vous garantissons une sécurité et une fiabilité à 100 %. Pour tous les détails techniques, la sauvegarde et le fonctionnement pratique, je laisse la parole à Leo. »</p>
                     </div>
                 </div>
             </div>
         </article>
 
-        <!-- FICHE 2 : LEO -->
+        <!-- CARTE 2 : LEO -->
         <article class="hero-card hidden-story" id="secondCard">
             <img src="IMG/app-controle-peremption-aliments.png" alt="Scan des codes-barres des courses avec le smartphone et gestion des péremptions sur l'ordinateur" class="hero-img">
             
             <div class="story-content">
                 <div class="story-text leo-box">
                     <p><strong>Leo (le développeur) :</strong></p>
-                    <p>« Bonjour <span id="displayNameLeo">l'ami</span> ! En tant que développeur, je comprends parfaitement la méfiance lors du lancement d'un nouveau logiciel. Windows Defender ou votre antivirus de confiance (comme Avast, Norton ou Bitdefender) pourrait afficher un avertissement simplement parce qu'EatMeFirst est un logiciel indépendant développé par nos soins et non par une multinationale.</p>
+                    <p>« Bonjour <span id="displayNameLeo">l'ami</span> ! Je veux vous expliquer en quelques mots comment vous allez utiliser votre smartphone et pourquoi la clé USB est votre assurance vie !</p>
 
-                    <div class="scan-instruction-box">
-                        <strong>Comment effectuer l'analyse (c'est très simple) :</strong><br>
-                        Il vous suffit de positionner votre curseur sur le dossier compressé ou décompressé du programme, de faire un <strong>clic droit avec la souris</strong> et de chercher une option du type <em>'Analyser avec Windows Defender'</em> (ou le nom de votre antivirus, ex. <em>Analyser avec Avast</em>). En quelques secondes, l'antivirus vérifiera le tout et vous confirmera que le fichier est sain.
-                    </div>
+                    <p>Votre téléphone portable sera votre principal outil pour deux raisons fondamentales :</p>
+                    <ol style="margin: 10px 0 15px 20px; line-height: 1.6;">
+                        <li><strong>Pour charger les produits :</strong> Vous l'utilisez pour vous connecter aux sites en ligne qui lisent les codes-barres. N'oubliez pas que c'est toujours votre téléphone qui "demande" l'information à la base de données publique, sans jamais envoyer ni céder vos données personnelles.</li>
+                        <li><strong>Pour aller au supermarché :</strong> Quand vous sortez faire vos courses, vous emportez votre téléphone. Et le plus beau, c'est qu'il <strong>fonctionnera parfaitement même sans carte SIM ou réseau</strong>, car tout votre inventaire est stocké localement sur l'appareil !</li>
+                    </ol>
 
-                    <h2>Pourquoi des avertissements de Windows ou du navigateur pourraient-ils s'afficher ?</h2>
-                    <p>Maintenant, comme nous allons utiliser par commodité votre ancien smartphone comme scanner de codes-barres, vous devrez "associer" le téléphone à l'ordinateur. 
-                    Sachez que Windows est formidable pour la sécurité, mais qu'il exagère parfois : lorsqu'il voit deux appareils communiquer entre eux, il fronce les sourcils et peut afficher un avertissement du type <em>'site non sécurisé'</em> ou <em>'connexion non privée'</em>.</p>
+                    <p><strong>Pourquoi est-il conseillé de garder la clé USB connectée avec un câble au téléphone ?</strong><br>
+                    Pour une raison de sécurité fondamentale : à chaque mouvement (ajout, modification ou sortie d'un article), le programme effectue une <strong>sauvegarde simultanée à la fois sur le téléphone et sur la clé USB</strong>. Si votre téléphone tombe dans l'eau ou se casse et que vous n'avez pas branché la clé, vos données sont perdues et irrécupérables ! De plus, cela vous permet de détacher la clé, de la brancher sur l'ordinateur et de gérer votre garde-manger sur grand écran.</p>
 
-                    <p>Mais ne vous inquiétez pas : <strong>vous connectez VOTRE téléphone personnel</strong>, pas celui d'un inconnu ! Puisque votre antivirus a déjà vérifié que le programme est propre à 100 %, il s'agit simplement d'un excès de prudence de l'ordinateur.</p>
+                    <p><strong>Transparence maximale sur le modèle économique et l'avenir :</strong><br>
+                    Le programme restera <strong>toujours gratuit pour toutes ses fonctions sur le téléphone</strong> (charger, décharger des produits, générer la liste de courses, consulter les statistiques de consommation et tout ce dont vous avez besoin). Plus tard, la seule chose qui nécessitera un abonnement à un coût vraiment dérisoire sera exclusivement le service de sauvegarde et de transfert automatique sur clé USB.</p>
 
-                    <h2>Comment connecter le téléphone ?</h2>
-                    <ul style="margin: 10px 0 15px 20px;">
-                        <li><strong>Via Wi-Fi :</strong> Si vous choisissez le réseau sans fil, pour que l'association se déroule sans accroc dès la première tentative, assurez-vous que le PC et le téléphone sont connectés directement au <strong>routeur principal de la maison</strong> et non à un répéteur de signal (Extender), car les répéteurs font parfois office de "mur" et empêchent les deux appareils de se voir.</li>
-                        <li><strong>Via câble USB :</strong> Si vous souhaitez une stabilité maximale et éviter totalement les caprices du Wi-Fi, vous pouvez connecter le téléphone directement avec un câble USB ! C'est une solution très pratique qui contourne les problèmes des répéteurs et élimine souvent les alertes réseau.</li>
-                    </ul>
-
-                    <p>Vous pourriez certes saisir les codes-barres à la main sur le clavier, mais <strong>devoir taper 13 chiffres pour chaque boîte de conserve ou bocal n'est pas vraiment le summum du confort !</strong> Vous pouvez sinon utiliser un lecteur laser de supermarché classique, mais le smartphone (via Wi-Fi ou câble) reste la solution gratuite la plus pratique.</p>
-
-                    <p>Je vous expliquerai toutes les étapes de l'association en temps voulu dès que vous entrerez dans la section dédiée au <strong>Chargement des Produits</strong>.</p>
-
-                    <p>Tout est prêt pour commencer : si vous le souhaitez, nous pouvons débuter par là ! »</p>
+                    <p>Que se passera-t-il si vous décidez de ne pas activer cet abonnement ? <strong>Rien de dramatique :</strong> les choses sur votre téléphone resteront parfaitement inchangées ! Vous pourrez continuer à charger, supprimer, faire vos courses et tout consulter comme avant ; la seule limitation sera que vous ne pourrez plus transférer les données sur la clé USB, mais la base de données sur le téléphone continuera de fonctionner parfaitement pour toujours ! »</p>
                 </div>
             </div>
         </article>
 
-        <!-- CONSENTEMENT ET BOUTON POUR ALLER À MENU.HTML -->
+        <!-- CONSENTEMENT ET BOUTON POUR ALLER SUR MENU.HTML -->
         <section class="consent-box hidden-story" id="consentSection">
-            <button type="button" class="btn-conditions" onclick="apriModal()">Lire les conditions d'utilisation et avertissements sanitaires</button>
+            <button type="button" class="btn-conditions" onclick="apriModal()">Lire les conditions d'utilisation et les avertissements sanitaires</button>
             
             <label class="checkbox-label">
                 <input type="checkbox" id="checkAccetto" onchange="gestisciSpunta()">
@@ -338,14 +314,14 @@
                 <h3>1. Exclusion Totale de Responsabilité Sanitaire et Alimentaire</h3>
                 <p>EatMeFirst est un simple logiciel de support organisationnel et d'inventaire domestique. <strong>L'utilisateur reconnaît expressément et accepte que l'auteur et les créateurs de l'application sont totalement dégagés de toute responsabilité civile et pénale</strong> découlant de la consommation d'aliments suivis dans l'application. Le contrôle visuel, olfactif et organoleptique de l'état de conservation et de fraîcheur des aliments relève de la responsabilité exclusive et totale de l'utilisateur avant toute consommation.</p>
                 
-                <h3>2. Péremptions Strictes et Conseillées</h3>
-                <p>Les dates saisies se divisent en strictes (pour les produits frais périssables) et conseillées (pour les produits de longue conservation). Les alertes ont un simple rôle de rappel et <strong>l'auteur ne garantit pas l'exactitude absolue des estimations ou des bases de données externes</strong>, déclinant toute responsabilité en cas d'erreur de saisie ou de non-consommation en temps opportun.</p>
+                <h3>2. Dates Limites et Conseillées</h3>
+                <p>Les dates saisies se divisent en dates limites (pour les produits frais périssables) et conseillées (pour les produits de longue conservation). Les alertes ont un simple rôle de rappel et <strong>l'auteur ne garantit pas l'exactitude absolue des estimations ou des bases de données externes</strong>, déclinant toute responsabilité en cas d'erreurs de saisie ou de non-consommation en temps opportun.</p>
 
                 <h3>3. Stockage Local, Confidentialité et Sauvegarde</h3>
-                <p>Les données résident exclusivement sur l'appareil de l'utilisateur. <strong>L'utilisateur est le seul responsable de la réalisation de sauvegardes périodiques</strong> (via l'enregistrement sur clé USB ou fichier de sécurité). L'auteur n'a pas accès aux données et ne peut en aucun cas les récupérer en cas de panne de l'appareil.</p>
+                <p>Les données résident exclusivement sur l'appareil de l'utilisateur. <strong>L'utilisateur est le seul responsable de la réalisation de sauvegardes périodiques</strong> (par enregistrement sur clé USB ou fichier de sécurité). L'auteur n'a pas accès aux données et ne peut en aucun cas les récupérer en cas de panne de l'appareil.</p>
                 
                 <h3>4. Licence d'Utilisation Gratuite</h3>
-                <p>L'application est fournie gratuitement et sans finalité de traçage ou de vente de données à des entreprises tiers.</p>
+                <p>L'application est fournie gratuitement et sans finalité de traçage ou de vente de données à des tiers.</p>
             </div>
         </div>
     </div>
@@ -356,7 +332,7 @@
         let giaMostrato = false;
 
         window.addEventListener('DOMContentLoaded', () => {
-            const savedName = localStorage.getItem('eatmefirst_username_fr');
+            const savedName = localStorage.getItem('eatmefirst_username');
             if (savedName) {
                 document.getElementById('userName').value = savedName;
             }
@@ -395,8 +371,8 @@
                 elMax.textContent = nome;
                 elLeo.textContent = nome;
             } else {
-                elMax.textContent = "l'ami";
-                elLeo.textContent = "l'ami";
+                elMax.textContent = 'l\'ami';
+                elLeo.textContent = 'l\'ami';
             }
         }
 
@@ -435,13 +411,14 @@
             }
             
             localStorage.setItem('eatmefirst_consent_fr', 'accepted');
-            localStorage.setItem('eatmefirst_consent_date_fr', new Date().toISOString());
+            localStorage.setItem('eatmefirst_consent', 'accepted');
+            localStorage.setItem('eatmefirst_consent_date', new Date().toISOString());
             
             const inputNome = document.getElementById('userName').value.trim();
             if (inputNome !== '') {
-                localStorage.setItem('eatmefirst_username_fr', inputNome);
+                localStorage.setItem('eatmefirst_username', inputNome);
             } else {
-                localStorage.removeItem('eatmefirst_username_fr');
+                localStorage.removeItem('eatmefirst_username');
             }
         }
     </script>

@@ -29,13 +29,40 @@
             min-height: 100vh;
         }
 
+        /* Navbar Supérieure avec En-tête et Bouton Abonnement */
+        .top-navbar {
+            width: 100%;
+            background-color: #101416;
+            padding: 12px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-sizing: border-box;
+            border-bottom: 1px solid var(--border-color);
+        }
+
         .brand-logo-group {
             display: flex;
             align-items: center;
             gap: 20px;
         }
 
-        /* Bouton Abonnement & Sauvegarde */
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: #ffffff;
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+
+        .brand-logo img {
+            height: 36px;
+            width: auto;
+        }
+
+        /* Bouton Vert Clair / Texte Noir pour l'Abonnement */
         .btn-abbonamento-nav {
             background-color: #2ecc71;
             color: #000000;
@@ -54,32 +81,6 @@
         .btn-abbonamento-nav:hover {
             background-color: #27ae60;
             transform: translateY(-2px);
-        }
-/* Barre de navigation supérieure */
-        .top-navbar {
-            width: 100%;
-            background-color: #101416;
-            padding: 12px 24px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-sizing: border-box;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .brand-logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            text-decoration: none;
-            color: #ffffff;
-            font-size: 1.3rem;
-            font-weight: bold;
-        }
-
-        .brand-logo img {
-            height: 36px;
-            width: auto;
         }
 
         .language-flags {
@@ -103,7 +104,7 @@
             transform: scale(1.15);
         }
 
-        /* Disposition principale */
+        /* Layout Principal */
         .main-wrapper {
             padding: 30px 20px;
             width: 100%;
@@ -111,7 +112,7 @@
             box-sizing: border-box;
         }
 
-        /* Alerte clignotante des dates de péremption */
+        /* Style Alerte Clignotante Échéances */
         @keyframes blink-animation {
             0% { opacity: 1; border-color: #e74c3c; }
             50% { opacity: 0.4; border-color: #f39c12; }
@@ -158,7 +159,7 @@
             color: var(--text-color);
         }
 
-        /* Fenêtre modale de consultation */
+        /* Modale / Boîte Liste en Consultation Seule */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -235,7 +236,7 @@
             color: #000000;
         }
 
-        /* Boîte du guide de bienvenue */
+        /* Boîte Guide du Menu (Escamotable) */
         .welcome-guide-box {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
@@ -315,7 +316,7 @@
             height: 16px;
         }
 
-        /* Grille des 6 fonctions principales */
+        /* Grille des 6 Modules Opérationnels du Garde-manger */
         .menu-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -365,7 +366,7 @@
 </head>
 <body>
 
-<!-- Barre de navigation supérieure -->
+<!-- Navbar Supérieure avec Logo, Bouton Abonnement et Drapeaux -->
 <header class="top-navbar">
     <div class="brand-logo-group">
         <a href="menu.html" class="brand-logo">
@@ -373,8 +374,8 @@
             <span>EatMeFirst</span>
         </a>
 
-        <!-- Bouton Abonnement & Sauvegarde -->
-        <a href="abonnement/index.html" class="btn-abbonamento-nav" title="Découvrez les avantages de l'abonnement et de la sauvegarde sur clé USB">
+        <!-- Bouton vert clair pour l'Abonnement & Sauvegarde -->
+        <a href="abbonamento/index.html" class="btn-abbonamento-nav" title="Découvrez les avantages de l'abonnement et de la sauvegarde sur clé USB">
             🔑 Abonnement & Sauvegarde
         </a>
     </div>
@@ -390,7 +391,7 @@
 
 <div class="main-wrapper">
 
-    <!-- Alerte dynamique des dates de péremption -->
+    <!-- ALERTE CLIGNOTANTE DYNAMIQUE POUR LES ÉCHÉANCES -->
     <div id="alertScadenzeBanner" class="alert-banner" style="display: none;" onclick="apriModalScadenze()">
         <div class="alert-content">
             <div class="alert-icon">⚠️</div>
@@ -402,7 +403,7 @@
         <div style="font-size: 1.2rem; color: #ff6b6b; font-weight: bold;">➔</div>
     </div>
 
-    <!-- Boîte du guide de bienvenue avec grande bannière -->
+    <!-- Boîte Guide de Bienvenue avec Grande Bannière -->
     <div class="welcome-guide-box" id="menuGuideBox">
         <div class="guide-banner-container">
             <img src="IMG/organisation-garde-manger-logiciel.png" alt="Organisation Garde-Manger Logiciel" class="guide-banner-img">
@@ -420,11 +421,11 @@
             
             <div class="guide-body">
                 <p>Je suis ici avec Leo, qui a développé l'application. Sur cette page, vous trouverez un accès rapide à toutes les fonctions principales de votre garde-manger.</p>
-                <p>Chacune de ces fonctions met l'accent sur la gestion intelligente des stocks et des dates de péremption pour vous aider à éliminer le gaspillage alimentaire à la maison.</p>
+                <p>Chacune de ces fonctions met au centre la gestion intelligente des dates de péremption et des stocks pour vous aider à éliminer le gaspillage à la maison.</p>
                 
                 <div class="usb-tip-box">
                     💡 <strong>Un conseil précieux pour la sécurité de vos données :</strong><br>
-                    L'application sauvegarde chaque opération en temps réel sur votre ordinateur. Nous vous recommandons d'insérer également une clé USB (ou un autre périphérique externe) : nous y sauvegarderons aussi vos données afin qu'en cas de panne électrique ou matérielle, vous ne perdiez pas des mois de saisie de vos produits et stocks.
+                    L'application sauvegarde chaque opération en temps réel sur votre PC. Nous vous recommandons d'insérer également une clé USB (ou un autre périphérique externe) : nous y sauvegarderons également les données afin qu'en cas de panne de courant ou de problème sur votre ordinateur, vous ne perdiez pas des mois de saisie de codes et de données de votre garde-manger.
                 </div>
             </div>
 
@@ -437,36 +438,36 @@
         </div>
     </div>
 
-    <!-- Grille des 6 modules opérationnels -->
+    <!-- Grille des 6 Modules Opérationnels du Garde-manger -->
     <main class="menu-grid">
         <a href="chargement/chargement.html" class="menu-card">
             <div class="card-icon">📦</div>
             <div class="card-title">Chargement des Produits</div>
-            <div class="card-desc">Ajoutez vos nouveaux achats à l'aide du scanner smartphone, de la douchette USB ou manuellement.</div>
+            <div class="card-desc">Ajoutez vos nouveaux achats à l'aide du scanner du smartphone, de la douchette USB ou manuellement.</div>
         </a>
 
         <a href="dechargement/index.html" class="menu-card">
             <div class="card-icon">🍳</div>
-            <div class="card-title">Déchargement & Sorties</div>
-            <div class="card-desc">Enregistrez les produits consommés ou ouverts pour maintenir votre inventaire toujours à jour.</div>
+            <div class="card-title">Déchargement & Consommations</div>
+            <div class="card-desc">Enregistrez les produits consommés ou ouverts pour maintenir l'inventaire toujours à jour.</div>
         </a>
 
         <a href="inventaire/index.html" class="menu-card">
             <div class="card-icon">🔍</div>
             <div class="card-title">Contrôle des Stocks</div>
-            <div class="card-desc">Vérifiez la disponibilité de vos articles et gardez un œil sur les dates de péremption imminentes.</div>
+            <div class="card-desc">Vérifiez la disponibilité des produits et gardez un œil sur les échéances imminentes.</div>
         </a>
 
-        <a href="courses/index.html" class="menu-card">
+        <a href="course/index.html" class="menu-card">
             <div class="card-icon">🛒</div>
             <div class="card-title">Liste de Courses</div>
-            <div class="card-desc">Consultez les produits épuisés, en rupture ou suggérés par l'application avec des codes couleurs intelligents.</div>
+            <div class="card-desc">Consultez les produits épuisés, en cours d'épuisement ou suggérés par l'application avec des codes couleurs intelligents.</div>
         </a>
 
         <a href="statistiques/index.html" class="menu-card">
             <div class="card-icon">📊</div>
             <div class="card-title">Statistiques & Économies</div>
-            <div class="card-desc">Analysez les graphiques du gaspillage évité et de l'argent économisé au fil du temps.</div>
+            <div class="card-desc">Analysez les graphiques des gaspillages évités et de l'argent économisé au fil du temps.</div>
         </a>
 
         <a href="utilitaires/index.html" class="menu-card">
@@ -478,11 +479,11 @@
 
 </div>
 
-<!-- Fenêtre modale de consultation pour les alertes de péremption -->
+<!-- MODALE EN CONSULTATION SEULE POUR LES ALERTES ÉCHÉANCES -->
 <div id="modalScadenze" class="modal-overlay">
     <div class="modal-box">
         <div class="modal-header">
-            <h2>⚠️ Produits arrivant à échéance (10 prochains jours)</h2>
+            <h2>⚠️ Produits en Échéance (10 prochains jours)</h2>
             <button class="btn-close-modal" onclick="chiudiModalScadenze()">✕</button>
         </div>
         <div class="modal-body" id="modalScadenzeLista">
@@ -515,7 +516,7 @@
                 const banner = document.getElementById('alertScadenzeBanner');
                 const titolo = document.getElementById('alertTitoloTesto');
                 
-                titolo.textContent = `Attention ! ${data.count} produit(s) arrive(nt) à échéance dans les prochains jours.`;
+                titolo.textContent = `Attention ! Il y a ${data.count} produits en échéance dans les prochains jours.`;
                 banner.style.display = 'flex';
 
                 const listaContainer = document.getElementById('modalScadenzeLista');
@@ -531,8 +532,8 @@
                             <small>📍 Emplacement : ${item.ubicazione}</small>
                         </div>
                         <div style="text-align: right;">
-                            <strong>Échéance le : ${item.scadenza}</strong><br>
-                            <small>(${item.giorni_rimasti === 0 ? "Périme aujourd'hui !" : (item.giorni_rimasti < 0 ? 'Déjà périmé !' : 'Reste ' + item.giorni_rimasti + ' jour(s)')})</small>
+                            <strong>Expire le : ${item.scadenza}</strong><br>
+                            <small>(${item.giorni_rimasti === 0 ? "Expire aujourd'hui !" : (item.giorni_rimasti < 0 ? 'Déjà périmé !' : 'Il reste ' + item.giorni_rimasti + ' jours')})</small>
                         </div>
                     `;
                     listaContainer.appendChild(card);
