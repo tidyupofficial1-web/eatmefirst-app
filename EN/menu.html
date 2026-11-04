@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EatMeFirst - Main Menu and Pantry Management</title>
+    <title>EatMeFirst - Main Menu and Pantry Management & Expiry Tracking</title>
+    <meta name="description" content="Manage your domestic pantry, track food expiration dates, eliminate food waste, and organize grocery lists locally with total privacy using EatMeFirst.">
     <style>
         :root {
             --bg-color: #12181b;
@@ -62,6 +63,7 @@
             width: auto;
         }
 
+        /* Light green button for Subscription & Backup */
         .btn-abbonamento-nav {
             background-color: #2ecc71;
             color: #000000;
@@ -103,6 +105,7 @@
             transform: scale(1.15);
         }
 
+        /* Main Layout */
         .main-wrapper {
             padding: 30px 20px;
             width: 100%;
@@ -110,6 +113,7 @@
             box-sizing: border-box;
         }
 
+        /* Blinking Alert Style for Expirations */
         @keyframes blink-animation {
             0% { opacity: 1; border-color: #e74c3c; }
             50% { opacity: 0.4; border-color: #f39c12; }
@@ -156,6 +160,7 @@
             color: var(--text-color);
         }
 
+        /* Modal / Read-only List Box */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -232,6 +237,7 @@
             color: #000000;
         }
 
+        /* Dismissible Menu Guide Box */
         .welcome-guide-box {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
@@ -311,6 +317,7 @@
             height: 16px;
         }
 
+        /* Main Functions Grid (6 modules) */
         .menu-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -360,14 +367,16 @@
 </head>
 <body>
 
+<!-- Top Navbar with Logo, Subscription Button, and Flags -->
 <header class="top-navbar">
     <div class="brand-logo-group">
         <a href="menu.html" class="brand-logo">
-            <img src="../IMG/logo_1024_white.png" alt="EatMeFirst Logo">
+            <img src="../IMG/logo_1024_white.png" alt="EatMeFirst Logo - Local-First Pantry Management">
             <span>EatMeFirst</span>
         </a>
 
-        <a href="subscription/index.html" class="btn-abbonamento-nav" title="Discover the benefits of subscription and USB backup">
+        <!-- Light green button for Subscription & Backup -->
+        <a href="subscription/index.html" class="btn-abbonamento-nav" title="Discover subscription benefits and USB backup">
             🔑 Subscription & Backup
         </a>
     </div>
@@ -383,7 +392,8 @@
 
 <div class="main-wrapper">
 
-    <div id="alertScadenzeBanner" class="alert-banner" style="display: none;" onclick="apriModalScadenze()">
+    <!-- Dynamic Blinking Alert for Expirations -->
+    <div id="alertScadenzeBanner" class="alert-banner" style="display: none;" onclick="openExpirationModal()">
         <div class="alert-content">
             <div class="alert-icon">⚠️</div>
             <div class="alert-text">
@@ -394,16 +404,17 @@
         <div style="font-size: 1.2rem; color: #ff6b6b; font-weight: bold;">➔</div>
     </div>
 
+    <!-- Welcome Guide Box with Large Banner -->
     <div class="welcome-guide-box" id="menuGuideBox">
         <div class="guide-banner-container">
-            <img src="IMG/kitchen-pantry-management-software.png" alt="Pantry Organization Software" class="guide-banner-img">
+            <img src="IMG/kitchen-pantry-management-software.png" alt="Kitchen Pantry Management Software Dashboard" class="guide-banner-img">
         </div>
 
         <div class="guide-content-area">
             <div class="guide-header-title">
-                <h2 style="margin: 0; color: var(--primary-color); font-size: 1.4rem;">
+                <h1 style="margin: 0; color: var(--primary-color); font-size: 1.4rem; font-weight: bold;">
                     Hello <span id="displayUserName">friend</span>!
-                </h2>
+                </h1>
                 <p style="margin: 3px 0 0 0; color: var(--text-muted); font-size: 0.95rem;">
                     Welcome to the main dashboard of your pantry
                 </p>
@@ -421,13 +432,15 @@
 
             <div class="guide-footer">
                 <label class="hide-guide-label">
-                    <input type="checkbox" id="chkHideMenuGuide" onchange="disattivaGuidaMenu()">
+                    <input type="checkbox" id="chkHideMenuGuide" onchange="dismissMenuGuide()">
                     <span>Got it, don't show this message in the menu anymore</span>
                 </label>
             </div>
         </div>
     </div>
-<main class="menu-grid">
+
+    <!-- Grid of the 6 Operational Pantry Modules -->
+    <main class="menu-grid">
         <a href="load/load.html" class="menu-card">
             <div class="card-icon">📦</div>
             <div class="card-title">Product Entry</div>
@@ -467,13 +480,15 @@
 
 </div>
 
+<!-- Read-Only Modal for Expiration Alerts -->
 <div id="modalScadenze" class="modal-overlay">
     <div class="modal-box">
         <div class="modal-header">
             <h2>⚠️ Expiring Products (Next 10 Days)</h2>
-            <button class="btn-close-modal" onclick="chiudiModalScadenze()">✕</button>
+            <button class="btn-close-modal" onclick="closeExpirationModal()">✕</button>
         </div>
         <div class="modal-body" id="modalScadenzeLista">
+            <!-- Products are injected here dynamically -->
         </div>
     </div>
 </div>
@@ -490,10 +505,10 @@
             document.getElementById('menuGuideBox').style.display = 'none';
         }
 
-        await controllaAlertScadenze();
+        await checkExpirationAlerts();
     });
 
-    async function controllaAlertScadenze() {
+    async function checkExpirationAlerts() {
         try {
             let res = await fetch('/api/menu_alerts', { cache: 'no-store' });
             let data = await res.json();
@@ -530,15 +545,15 @@
         }
     }
 
-    function apriModalScadenze() {
+    function openExpirationModal() {
         document.getElementById('modalScadenze').style.display = 'flex';
     }
 
-    function chiudiModalScadenze() {
+    function closeExpirationModal() {
         document.getElementById('modalScadenze').style.display = 'none';
     }
 
-    function disattivaGuidaMenu() {
+    function dismissMenuGuide() {
         const chk = document.getElementById('chkHideMenuGuide');
         if (chk.checked) {
             localStorage.setItem('eat_hide_menu_guide', 'true');

@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Pantry Management & Food Expiration Tracking | EatMeFirst</title>
-    <meta name="description" content="Organize your household groceries, track food expiration dates, and avoid waste with your free, private digital pantry.">
-    <meta name="keywords" content="pantry management, food expiration tracker, grocery list, barcode scanning, home inventory, prevent food waste">
+    <title>Home Pantry Management & Food Expiry Tracker | EatMeFirst</title>
+    <meta name="description" content="Organize your grocery shopping, track food expiry dates, and prevent waste with your private, free digital pantry.">
+    <meta name="keywords" content="home pantry management, food expiry tracker, grocery shopping list, barcode scanner shopping, house inventory, prevent food waste">
     <meta name="robots" content="index, follow">
     
-    <meta property="og:title" content="Home Pantry Management & Expiration Tracking | EatMeFirst">
-    <meta property="og:description" content="A smart, private assistant to manage your home groceries and eliminate food waste.">
+    <meta property="og:title" content="Home Pantry Management & Expiry Tracker | EatMeFirst">
+    <meta property="og:description" content="A private, smart assistant to manage your home groceries and eliminate food waste.">
     <meta property="og:type" content="website">
-    <meta property="og:image" content="../IT/IMG/organizzazione-dispensa-domestica.png">
+    <meta property="og:image" content="IMG/home-pantry-inventory-organization.png">
 
     <style>
         :root {
@@ -35,7 +35,7 @@
             overflow-x: hidden;
         }
 
-        /* HEADER BAR */
+        /* COMMON HEADER BAR */
         .language-bar {
             position: fixed;
             top: 0; left: 0; right: 0;
@@ -130,15 +130,6 @@
             margin-top: 15px;
         }
 
-        .scan-instruction-box {
-            background: #1c2128;
-            border: 1px solid #388bfd;
-            border-radius: 8px;
-            padding: 14px;
-            margin: 15px 0;
-            font-size: 14.5px;
-        }
-
         .consent-box {
             background: var(--card-bg); border: 1px solid var(--border-color);
             border-radius: 12px; padding: 25px 20px; text-align: center;
@@ -204,7 +195,7 @@
 
     <!-- INITIAL CONSENT CHECK SCRIPT -->
     <script>
-        if (localStorage.getItem('eatmefirst_consent') === 'accepted') {
+        if (localStorage.getItem('eatmefirst_consent_en') === 'accepted' || localStorage.getItem('eatmefirst_consent') === 'accepted') {
             if (!localStorage.getItem('eatmefirst_consent_date')) {
                 localStorage.setItem('eatmefirst_consent_date', new Date().toISOString());
             }
@@ -212,7 +203,7 @@
         }
     </script>
 
-    <!-- HEADER BAR WITH LOGO AND FLAGS -->
+    <!-- TOP LANGUAGE BAR -->
     <div class="language-bar">
         <div class="logo-container">
             <div class="logo-badge"><img src="../IMG/logo_1024_white.png" alt="EatMeFirst Logo"></div>
@@ -231,43 +222,44 @@
         
         <!-- CARD 1: MAX AND EVA -->
         <article class="hero-card">
-            <img src="../IT/IMG/organizzazione-dispensa-domestica.png" alt="Family organizing home groceries and pantry to prevent food waste" class="hero-img">
+            <img src="IMG/home-pantry-inventory-organization.png" alt="Family organizing groceries and home pantry to prevent food waste" class="hero-img">
             
             <div class="story-content">
                 <h1>Welcome to EatMeFirst</h1>
                 
                 <div class="greeting-row">
-                    <span>«Hi, we are Max and Eva, and you?</span>
+                    <span>«Hello, we are Max and Eva, and you?</span>
                     <input type="text" id="userName" class="user-name-inline" placeholder="Your name (optional)" oninput="gestisciInputUtente()">
                 </div>
 
                 <div id="storyContainer" class="hidden-story">
                     <div class="story-text">
-                        <p id="introDynamic">«We are a couple of regular consumers who, just like you, go grocery shopping every day. Unfortunately, it happened often to us too to find expired products at the back of the pantry and have to throw them away.</p>
+                        <p id="introDynamic">«We are a couple of regular shoppers just like you. Unfortunately, we often found expired products hidden at the back of our pantry and had to throw them away.</p>
                         
-                        <p>One day we talked to a software developer friend to see if it was possible to create a system to better manage home purchases. And you know how it goes... one thing led to another! We got passionate about this project and created a program capable of considering every single variable of daily shopping: from kitchen products to detergents and personal care items.</p>
+                        <p>One day we talked about it with an IT friend to see if it was possible to create a system to better manage our home shopping. And you know how it goes... one thing led to another, we got passionate about this project and created a program capable of handling every single variable of daily shopping: from kitchen products to cleaning supplies and personal hygiene items.</p>
                         
-                        <p>Believe us, <span id="displayNameMax">friend</span>: what you are about to try <strong>will truly change the way you manage your home groceries and pantry</strong>. Leo, our developer friend, inspired by our continuous requests, worked absolute magic!</p>
+                        <p>Trust us, <span id="displayNameMax">friend</span>: what you are about to try <strong>will truly change the way you manage your groceries and home pantry</strong>. Leo, our programmer friend, fueled by our continuous requests, has performed absolute miracles!</p>
                         
-                        <p>One of the first essential things we asked him for was <strong>maximum privacy</strong>: we didn't want our buying habit data ending up on external servers to be sold to advertising companies. That’s why we decided that <strong>everything will stay exclusively on your device</strong> (desktop PC or laptop).</p>
+                        <p>One of the first fundamental things we asked him for was <strong>absolute privacy</strong>: we did not want our shopping habits data ending up on external servers to be sold to advertising companies. That is why the application adopts a <strong>Local-First</strong> architecture: all your pantry data remains protected exclusively on your smartphone, while the web connection is only used to instantly fetch product details.</p>
                         
                         <ul style="margin: 15px 0 15px 20px;">
-                            <li><strong>Lightweight:</strong> You won't need to install Gigabytes of files, just a few hundred Megabytes.</li>
-                            <li><strong>Autonomous:</strong> It won't slow down your computer and you can use it <strong>even without an Internet connection</strong> once your usual products are saved.</li>
+                            <li><strong>Ultra-lightweight:</strong> A pocket-sized web interface, fast and responsive on any device.</li>
+                            <li><strong>Maximum Privacy:</strong> Your personal purchases and consumption habits remain saved only on your device. If you don't need to load new products from outside, you can even consult your pantry <strong>offline</strong>.</li>
                         </ul>
 
-                        <p><strong>How does loading products work?</strong><br>
-                        Your PC works locally, but when you need to load a product, it uses the barcode on the package. The program connects to public databases to retrieve details, calories, allergens, and even product images.</p>
+                        <p><strong>How does product loading work?</strong><br>
+                        You conveniently use your smartphone as a pocket scanner to scan the barcode on the package. The application connects online to free public databases only to automatically retrieve the product name, image, calories, and allergens.</p>
 
-                        <p>And to read the code? Instead of making you buy a supermarket laser scanner (which costs around €15), we asked Leo for a zero-cost alternative. The result? You just need an <strong>old smartphone without a SIM card</strong>, connected to your home Wi-Fi, to turn it into a professional scanner. <strong>Cost: 0 Euros!</strong></p>
+                        <p><strong>And for big-screen consultation or data security?</strong><br>
+                        You do everything from your phone, and whenever you want to manage your pantry on your PC, you simply transfer the database file via a simple <strong>cable or USB flash drive</strong>. Additional hardware cost: 0 Euro!</p>
 
-                        <p>In short: complete management of barcode products (including those from local markets!), total privacy, and zero-cost hardware.</p>
+                        <p>In short: rich product details from online public databases, zero personal tracking, and your database under your total control between phone and PC.</p>
 
-                        <p>You might be asking yourself: <em>«So how much does all this cost me?»</em><br>
-                        It might sound strange, but <strong>it's a gift</strong>. No subscriptions, no ads, no tricks: it's free and always will be.</p>
+                        <p>You might be wondering: <em>«So how much is this going to cost me?»</em><br>
+                        All basic features of the application for your mobile phone are and will remain <strong>free forever</strong>, with no tricks or intrusive advertising.</p>
 
-                        <p>One last question might be on your mind: <em>«How can I trust a downloaded program? What if it contains viruses?»</em><br>
-                        We guarantee 100% safety, but we want you to feel completely reassured. I'll pass the word to Leo, who will explain how to run a direct check with your antivirus.</p>
+                        <p>One last question is probably crossing your mind: <em>«How can I trust a program?»</em><br>
+                        We guarantee 100% security and reliability. For all technical details, backups, and practical operations, I'll hand over to Leo.»</p>
                     </div>
                 </div>
             </div>
@@ -275,46 +267,37 @@
 
         <!-- CARD 2: LEO -->
         <article class="hero-card hidden-story" id="secondCard">
-            <img src="../IT/IMG/app-controllo-scadenze-alimenti.png" alt="Scanning grocery barcodes with smartphone and managing expirations on computer" class="hero-img">
+            <img src="IMG/food-expiration-date-tracker-app.png" alt="Scanning grocery barcodes with a smartphone and tracking expiries on a computer" class="hero-img">
             
             <div class="story-content">
                 <div class="story-text leo-box">
                     <p><strong>Leo (the developer):</strong></p>
-                    <p>«Hi <span id="displayNameLeo">friend</span>! As a developer, I completely understand caution when launching software for the first time. Windows Defender or your trusted antivirus (like Avast, Norton, or Bitdefender) might show a warning simply because EatMeFirst is independent software developed by us and not by a multinational corporation.</p>
+                    <p>«Hello <span id="displayNameLeo">friend</span>! Let me explain in a few words how you will use your smartphone and why the USB drive is your life insurance!</p>
 
-                    <div class="scan-instruction-box">
-                        <strong>How to run a scan (it's super easy):</strong><br>
-                        All you need to do is right-click on the compressed or extracted folder of the program with your mouse and select <em>'Scan with Windows Defender'</em> (or your antivirus name, e.g., <em>Scan with Avast</em>). In just a few seconds, your antivirus will check everything and confirm that the file is clean.
-                    </div>
+                    <p>Your mobile phone will be your main tool for two fundamental reasons:</p>
+                    <ol style="margin: 10px 0 15px 20px; line-height: 1.6;">
+                        <li><strong>To load products:</strong> You use it to connect to online sites that read barcodes. Remember that it's always your phone asking for information from the public database, without ever sending or giving away your personal data.</li>
+                        <li><strong>To go to the supermarket:</strong> When you go out shopping, you take your phone with you. And the great part is that it <strong>will work perfectly even without a SIM card or signal</strong>, because your entire inventory is saved locally on the device!</li>
+                    </ol>
 
-                    <h2>Why might Windows or browser warnings appear?</h2>
-                    <p>Now, since we'll conveniently use your old smartphone as a barcode scanner, you will need to "pair" the phone with your computer. 
-                    Windows is great for security, but sometimes overreacts: when it sees two devices communicating locally, it might display warnings like <em>'unsecure website'</em> or <em>'connection not private'</em>.</p>
+                    <p><strong>Why is it smart to keep the USB drive connected via cable to your phone?</strong><br>
+                    For a fundamental safety reason: with every single movement (adding, modifying, or removing an item), the program performs a <strong>simultaneous backup on both the phone and the USB drive</strong>. If your phone falls in the water or breaks and you don't have the USB drive connected, your data is lost forever and cannot be recovered! Furthermore, it allows you to unplug the drive, plug it into your computer, and manage your pantry on the big screen.</p>
 
-                    <p>Don't be alarmed: <strong>you are connecting YOUR personal phone</strong>, not a stranger's! Since your antivirus already verified the program is 100% clean, it's just the computer being extra cautious.</p>
+                    <p><strong>Maximum transparency on the economic model and the future:</strong><br>
+                    The program will remain <strong>always free for all its features on the phone</strong> (loading and unloading products, generating the shopping list, viewing consumption statistics, and everything else you need). Later on, the only thing that will require a subscription at a truly ridiculous cost will exclusively be the automatic backup and transfer service via USB drive.</p>
 
-                    <h2>How do we connect the phone?</h2>
-                    <ul style="margin: 10px 0 15px 20px;">
-                        <li><strong>Via Wi-Fi:</strong> If you choose wireless, make sure both your PC and phone are connected directly to your <strong>main home router</strong> and not a Wi-Fi extender, as extenders can act like a wall preventing devices from discovering each other.</li>
-                        <li><strong>Via USB Cable:</strong> If you want maximum stability and to avoid network hiccups, you can connect the phone directly via USB cable! It's a very convenient option that bypasses network issues.</li>
-                    </ul>
-
-                    <p>Of course, you could also type barcodes manually on your keyboard, but <strong>entering 13 digits for every single can or jar isn't very fun!</strong> Alternatively, you can use a classic laser barcode gun, but using your smartphone (via Wi-Fi or USB) remains the most practical free solution.</p>
-
-                    <p>I'll guide you through all the pairing steps calmly as soon as you enter the <strong>Product Loading</strong> section.</p>
-
-                    <p>Now everything is ready to begin: whenever you're ready, let's start!»</p>
+                    <p>What happens if you decide not to activate that subscription? <strong>Nothing dramatic:</strong> things on your mobile phone will remain completely unchanged! You will be able to continue loading, removing, shopping, and browsing everything as before; the only limitation will be that you can no longer transfer data to the USB drive, but the database on your phone will continue to work perfectly forever!»</p>
                 </div>
             </div>
         </article>
 
-        <!-- CONSENT & MENU LINK -->
+        <!-- CONSENT & ENTER BUTTON -->
         <section class="consent-box hidden-story" id="consentSection">
-            <button type="button" class="btn-conditions" onclick="apriModal()">Read terms of use and health disclaimers</button>
+            <button type="button" class="btn-conditions" onclick="apriModal()">Read Terms of Use & Health Disclaimers</button>
             
             <label class="checkbox-label">
                 <input type="checkbox" id="checkAccetto" onchange="gestisciSpunta()">
-                <span>I have read the information and agree to the terms of use</span>
+                <span>I have read the information and accept the terms of use</span>
             </label>
 
             <a href="menu.html" id="btnEntra" class="btn-enter" onclick="confermaAccettazione(event)">Let's start!</a>
@@ -326,19 +309,19 @@
     <div id="modalDisclaimer" class="modal-overlay">
         <div class="modal-content">
             <button type="button" class="btn-close-modal" onclick="chiudiModal()">Close</button>
-            <h2>Terms, Conditions of Use, and Health Disclaimer</h2>
+            <h2>Terms, Conditions of Use & Liability Disclaimers</h2>
             <div class="modal-body">
-                <h3>1. Total Health and Food Liability Exclusion</h3>
-                <p>EatMeFirst is a simple household organizational and inventory support tool. <strong>The user expressly acknowledges and agrees that the author and creators of the application are fully released from any civil or criminal liability</strong> resulting from the consumption of food tracked within the app. Visual, smell, and taste inspection of food freshness remains the sole responsibility of the user prior to consumption.</p>
+                <h3>1. Total Exclusion of Health and Food Liability</h3>
+                <p>EatMeFirst is a simple domestic inventory and organizational support software. <strong>The user expressly acknowledges and accepts that the author and creators of the application are fully released from any civil and criminal liability</strong> arising from the consumption of foods tracked within the app. Visual, olfactory, and organoleptic checks regarding the freshness and preservation state of foods remain the exclusive and total responsibility of the user prior to any consumption.</p>
                 
-                <h3>2. Strict and Recommended Expiration Dates</h3>
-                <p>Entered dates are divided into strict (for perishable fresh foods) and recommended (for long-shelf-life goods). Alerts serve purely as reminders, and <strong>the author does not guarantee absolute accuracy of external databases or estimates</strong>, declining liability for data entry errors or delayed consumption.</p>
+                <h3>2. Strict and Recommended Expiries</h3>
+                <p>Entered dates are divided into strict (for perishable fresh foods) and recommended (for long-shelf-life products). Alerts serve a mere reminder purpose, and <strong>the author does not guarantee the absolute accuracy of estimations or external databases</strong>, declining all liability for entry errors or failure to consume items in a timely manner.</p>
 
-                <h3>3. Local Storage, Privacy, and Backups</h3>
-                <p>Data resides exclusively on the user's device. <strong>The user is solely responsible for performing periodic backups</strong> (by saving data to a USB flash drive or backup file). The author has no access to user data and cannot recover it in case of device failure.</p>
+                <h3>3. Local Storage, Privacy, and Backup</h3>
+                <p>Data resides exclusively on the user's device. <strong>The user is solely responsible for performing periodic backups</strong> (via saving to a USB flash drive or security file). The author has no access to the data and cannot recover it in any way in the event of device failure.</p>
                 
-                <h3>4. Free License</h3>
-                <p>The application is provided free of charge, with no data tracking or selling to third parties.</p>
+                <h3>4. Free Use License</h3>
+                <p>The application is provided free of charge and without any tracking purposes or data sales to third-party companies.</p>
             </div>
         </div>
     </div>
@@ -427,6 +410,7 @@
                 return;
             }
             
+            localStorage.setItem('eatmefirst_consent_en', 'accepted');
             localStorage.setItem('eatmefirst_consent', 'accepted');
             localStorage.setItem('eatmefirst_consent_date', new Date().toISOString());
             
