@@ -3,26 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EatMeFirst - Benvenuto</title>
+    <title>EatMeFirst - Welcome</title>
 
-    <!-- CONTROLLORE BROWSER: GESTISCE IL PRIMO ACCESSO O IL RITORNO AL MENU -->
+    <!-- REGIA INGRESSO: CONTROLLA SE È UN UTENTE RITORNATO O UN NUOVO VISITATORE -->
     <script>
         (function() {
             var userLang = (navigator.language || navigator.userLanguage || 'it').substring(0, 2).toLowerCase();
             var lingueSupportate = ['it', 'en', 'de', 'fr', 'es'];
             var linguaDestinazione = lingueSupportate.includes(userLang) ? userLang.toUpperCase() : 'IT';
+            
+            // Chiave di consenso salvata nel browser
+            var consentKey = 'eatmefirst_consent_' + linguaDestinazione.toLowerCase();
+            if (linguaDestinazione === 'IT') {
+                consentKey = 'eatmefirst_consent';
+            }
 
-            if (localStorage.getItem('eatmefirst_consent') === 'accepted') {
-                // Utente già registrato: va dritto al menu della sua lingua
+            if (localStorage.getItem(consentKey) === 'accepted' || localStorage.getItem('eatmefirst_consent') === 'accepted') {
+                // Utente già registrato: salta l'intro e va dritto al menu della sua lingua
                 window.location.href = linguaDestinazione + '/menu.html';
             } else {
-                // Primo accesso: mostra la clip d'intro multilingua e video
-                window.location.href = linguaDestinazione + '/intro.html';
+                // Primo accesso: lancia la clip d'intro e le scritte multilingua nella radice
+                window.location.href = 'intro.html';
             }
         })();
     </script>
 </head>
 <body>
-    <!-- Pagina di transito invisibile: reindirizza istantaneamente alla cartella della lingua -->
+    <!-- Reindirizzamento in corso... -->
 </body>
 </html>
