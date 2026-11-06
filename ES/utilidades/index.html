@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Utilidades y Seguridad USB | EatMeFirst</title>
+  <meta name="description" content="Gestiona la seguridad de los datos en memoria USB o e-mail, la sincronización entre PC y smartphone y las actualizaciones instantáneas a través del servidor central.">
+  <meta name="robots" content="noindex, nofollow">
+
+  <style>
+    :root {
+      --bg-color: #0d1117;
+      --card-bg: #161b22;
+      --text-color: #f0f6fc;
+      --text-muted: #8b949e;
+      --accent-color: #58a6ff;
+      --primary: #3182ce;
+      --primary-hover: #2b6cb0;
+      --success-color: #238636;
+      --success-hover: #2ea043;
+      --danger-color: #f85149;
+      --warning-color: #d29922;
+      --border-color: #30363d;
+      --light-bg: #21262d;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 16px;
+    }
+
+    .container { max-width: 850px; margin: 0 auto; width: 100%; }
+
+    /* CABECERA SUPERIOR */
+    .app-bar {
+      background: rgba(22, 27, 34, 0.95);
+      border-bottom: 1px solid var(--border-color);
+      padding: 12px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky; top: 0; z-index: 40;
+      border-radius: 12px; margin-bottom: 20px;
+    }
+
+    .app-brand { display: flex; align-items: center; gap: 12px; }
+    .btn-back {
+      background: var(--light-bg); color: var(--text-color);
+      border: 1px solid var(--border-color); padding: 6px 14px;
+      border-radius: 8px; text-decoration: none; font-size: 13.5px; font-weight: 600;
+    }
+    .btn-back:hover { border-color: var(--accent-color); color: var(--accent-color); }
+    .brand-title { font-size: 18px; font-weight: bold; color: var(--text-color); }
+
+    .language-flags {
+      display: flex; gap: 6px; align-items: center;
+      background: var(--light-bg); padding: 4px 8px;
+      border-radius: 20px; border: 1px solid var(--border-color);
+    }
+    .flag-link { text-decoration: none; display: flex; align-items: center; opacity: 0.7; transition: opacity 0.2s, transform 0.2s; }
+    .flag-link:hover, .flag-link.active { opacity: 1; transform: scale(1.1); }
+    .flag-img { width: 20px; height: 14px; object-fit: cover; border-radius: 2px; }
+
+    /* BANNER INTRODUCTORIO LEO */
+    .leo-welcome-banner {
+      display: flex; flex-direction: column;
+      background: linear-gradient(135deg, #161b22 0%, #0d1117 100%);
+      border: 1px solid var(--primary); border-radius: 16px;
+      overflow: hidden; margin-bottom: 25px; box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+    }
+    .leo-banner-img {
+      width: 100%; max-height: 320px; object-fit: contain;
+      background-color: #0d1117; border-bottom: 2px solid var(--primary);
+    }
+    .leo-banner-content { padding: 22px; }
+    .leo-banner-title { font-size: 1.25rem; color: #bfdbfe; font-weight: 700; margin-bottom: 10px; }
+    .leo-banner-text { font-size: 0.98rem; color: #ffffff; line-height: 1.6; margin-bottom: 16px; }
+    .leo-banner-actions { display: flex; justify-content: flex-end; }
+    
+    .btn-dismiss {
+      background: rgba(255, 255, 255, 0.12); border: 1px solid var(--border-color);
+      color: var(--text-color); padding: 8px 16px; border-radius: 8px;
+      font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: all 0.2s;
+    }
+    .btn-dismiss:hover { background: rgba(239, 68, 68, 0.25); border-color: #f87171; color: #fca5a5; }
+
+    /* TARJETAS DE SECCIÓN */
+    .section-card {
+      background: var(--card-bg); border-radius: 16px;
+      border: 1px solid var(--border-color); padding: 25px;
+      margin-bottom: 25px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+    }
+
+    .section-title {
+      font-size: 1.25rem; font-weight: 700; color: var(--text-color);
+      margin-bottom: 18px; display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 2px solid var(--border-color); padding-bottom: 10px;
+    }
+
+    /* ICONO GUÍA POST-IT */
+    .postit-link { display: inline-block; line-height: 0; position: relative; z-index: 10; }
+    .postit-icon {
+      width: 28px; height: 28px; object-fit: contain; border-radius: 4px; cursor: pointer;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.4); transition: transform 0.2s;
+    }
+    .postit-icon:hover { transform: scale(1.2) rotate(-3deg); }
+
+    /* LISTA DE GUÍAS EXTRAS */
+    .guides-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 12px; margin-top: 15px;
+    }
+    .guide-card-link {
+      background: #0d1117; border: 1px solid var(--border-color);
+      padding: 14px 16px; border-radius: 10px; text-decoration: none; color: var(--text-color);
+      display: flex; align-items: center; gap: 10px; transition: all 0.2s;
+    }
+    .guide-card-link:hover { border-color: var(--accent-color); background: var(--light-bg); }
+
+    /* PARRILLA DE PRECIOS */
+    .pricing-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 15px; margin-top: 15px;
+    }
+    .pricing-card {
+      background: #0d1117; border: 1px solid var(--border-color);
+      border-radius: 12px; padding: 18px; display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .pricing-card.featured { border-color: #68d391; background: rgba(56, 161, 105, 0.1); }
+    .pricing-title { font-size: 1.05rem; font-weight: 700; color: #bfdbfe; margin-bottom: 6px; }
+    .pricing-price { font-size: 1.5rem; font-weight: 800; color: #38a169; margin-bottom: 8px; }
+    .pricing-sub { font-size: 0.85rem; color: var(--text-muted); line-height: 1.4; }
+
+    /* ZONA DE PELIGRO */
+    .danger-zone { border-color: #7f1d1d; background: rgba(127, 29, 29, 0.12); }
+    .danger-title { color: #fca5a5; }
+
+    .btn-danger-action {
+      width: 100%; background: var(--danger-color); color: #fff; border: none; padding: 14px; border-radius: 10px; font-weight: 700; cursor: pointer; margin-top: 12px; transition: opacity 0.2s;
+    }
+    .btn-danger-action:hover { opacity: 0.9; }
+
+    .btn-warning-action {
+      width: 100%; background: var(--warning-color); color: #0d1117; border: none; padding: 14px; border-radius: 10px; font-weight: 700; cursor: pointer; margin-top: 12px; transition: opacity 0.2s;
+    }
+    .btn-warning-action:hover { opacity: 0.9; }
+
+    /* MODAL */
+    .modal-overlay {
+      display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.85); z-index: 1000; align-items: center; justify-content: center; padding: 20px;
+    }
+    .modal-box {
+      background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; max-width: 450px; width: 100%; padding: 25px; text-align: center;
+    }
+    .modal-title { font-size: 1.25rem; font-weight: 700; margin-bottom: 12px; }
+    .modal-text { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 25px; text-align: left; line-height: 1.6; }
+    .modal-actions { display: flex; gap: 12px; }
+    .btn-modal-cancel { flex: 1; background: var(--light-bg); color: var(--text-color); border: 1px solid var(--border-color); padding: 12px; border-radius: 8px; font-weight: 600; cursor: pointer; }
+    .btn-modal-confirm { flex: 1; background: var(--danger-color); color: #fff; border: none; padding: 12px; border-radius: 8px; font-weight: 700; cursor: pointer; }
+
+    footer { text-align: center; padding: 20px; font-size: 13px; color: var(--text-muted); border-top: 1px solid var(--border-color); margin-top: 40px; }
+
+    @media (max-width: 600px) {
+      .language-flags { display: flex; gap: 4px; padding: 2px 6px; }
+      .flag-img { width: 18px; height: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- CABECERA SUPERIOR -->
+    <header class="app-bar">
+      <div class="app-brand">
+        <a href="../menu.html" class="btn-back">← Menú</a>
+        <div class="mini-logo" style="display: inline-flex; align-items: center;">
+          <img src="../../IMG/logo_1024_white.png" alt="Logo EatMeFirst" style="height: 32px; width: auto;">
+        </div>
+        <span class="brand-title">Utilidades y Seguridad</span>
+      </div>
+      <div class="app-nav-right">
+        <nav class="language-flags">
+            <a href="../../IT/utilita/index.html" class="flag-link" title="Italiano"><img src="../../IMG/bandiera_Italy.jpg" class="flag-img" alt="IT"></a>
+            <a href="../../EN/utilities/index.html" class="flag-link" title="English"><img src="../../IMG/bandiera_England.jpg" class="flag-img" alt="EN"></a>
+            <a href="../../DE/hilfsmittel/index.html" class="flag-link" title="Deutsch"><img src="../../IMG/bandiera_Germany.jpg" class="flag-img" alt="DE"></a>
+            <a href="../../FR/utilitaires/index.html" class="flag-link" title="Français"><img src="../../IMG/bandiera_France.jpg" class="flag-img" alt="FR"></a>
+            <a href="index.html" class="flag-link active" title="Español"><img src="../../IMG/bandiera_Espana.jpg" class="flag-img" alt="ES"></a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- BANNER INTRODUCTORIO LEO -->
+    <div id="leo-banner" class="leo-welcome-banner">
+      <img src="../IMG/utilidades-familia-copia-seguridad-despensa.png" alt="Utilidades y Copia de Seguridad EatMeFirst" class="leo-banner-img">
+      <div class="leo-banner-content">
+        <div class="leo-banner-title">¡La seguridad de tu despensa, protegida en el dispositivo, memoria USB o por e-mail! 🛡️💾</div>
+        <div class="leo-banner-text">
+          <p style="margin-bottom: 10px;">
+            Recuerda un detalle fundamental: el smartphone nace principalmente como <strong>escáner rápido e inteligente</strong>. Al usarlo para escanear los códigos de barras, la aplicación consulta al instante las bases de datos en línea y rellena automáticamente las fichas de los productos (descripción, imágenes, ingredientes y alérgenos), ahorrándote tiempo y evitando que tengas que escribirlo todo a mano.
+          </p>
+          <p style="margin-bottom: 10px;">
+            También puedes realizar esta operación desde el PC introduciendo manualmente los 13 dígitos del código de barras: es una excelente solución para registrar pocos artículos ocasionales, ¡pero para la carga completa de la compra el smartphone sigue siendo la opción más cómoda y rápida!
+          </p>
+          <p>
+            Para garantizar la máxima privacidad, <strong>EatMeFirst trabaja en modo <em>Local-First</em></strong>: todos tus datos se guardan en tiempo real en la memoria interna del dispositivo en uso (PC o móvil).
+          </p>
+        </div>
+        <div class="leo-banner-actions">
+          <button class="btn-dismiss" onclick="dismissLeoBanner()">Cerrar / No volver a mostrar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECCIÓN: COPIAS DE SEGURIDAD Y USB -->
+    <section class="section-card" style="border-color: #3182ce; background: linear-gradient(135deg, #161b22 0%, #0d1117 100%);">
+      <h2 class="section-title">
+        <span>💾 Copias de Seguridad, Memoria USB y Centro de Estudios de Leo</span>
+        <a href="guia-guardar-memoria-usb.html" class="postit-link">
+          <img src="../../IMG/biglietto_info.jpg" alt="Info Post-it" class="postit-icon" title="Guía Copia de Seguridad">
+        </a>
+      </h2>
+      
+      <!-- PUNTO 1: PC vs SMARTPHONE -->
+      <div style="background: #0d1117; border: 1px solid var(--border-color); border-radius: 12px; padding: 18px; margin-bottom: 15px;">
+        <div style="font-size: 1.05rem; font-weight: 700; color: #bfdbfe; margin-bottom: 8px;">1. 🖥️ PC/Portátil en casa, 📱 Smartphone en movilidad</div>
+        <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6;">
+          Recomendamos el uso de la aplicación en PC o portátil para la gestión diaria y la consulta de tu despensa en el hogar. En tu smartphone podrás transferir la base de datos actualizada antes de salir, para tener tus compras bajo control en los pasillos del supermercado.
+        </p>
+      </div>
+
+      <!-- PUNTO 2: COPIA MEMORIA USB O EMAIL -->
+      <div style="background: #0d1117; border: 1px solid var(--border-color); border-radius: 12px; padding: 18px; margin-bottom: 15px;">
+        <div style="font-size: 1.05rem; font-weight: 700; color: #68d391; margin-bottom: 8px;">2. 💾 Copia en Memoria USB (desde PC) o Transferencia por E-mail</div>
+        <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 10px;">
+          Los datos se guardan permanentemente en el navegador que utilices. Al trabajar en un ordenador fijo o portátil, conectando una <strong>memoria USB dedicada</strong>, el programa archiva automáticamente una copia de seguridad en simultáneo. Si utilizas tu smartphone, el método más sencillo e inmediato para mover o enviar la base de datos actualizada es mediante un mensaje de <strong>correo electrónico (e-mail)</strong>.
+        </p>
+        <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6;">
+          Tanto la memoria USB como el e-mail garantizan tres ventajas fundamentales:
+        </p>
+        <ul style="margin-left: 20px; font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; margin-top: 6px;">
+          <li><strong>Transporte de datos:</strong> trasladas fácilmente tu despensa entre el PC y el teléfono.</li>
+          <li><strong>Copia de seguridad:</strong> estás siempre a salvo de un fallo imprevisto del ordenador o del teléfono.</li>
+          <li><strong>Sincronización de la compra:</strong> mantienes la lista de la compra perfectamente actualizada antes de salir de casa.</li>
+        </ul>
+      </div>
+
+      <!-- PUNTO 3: CENTRO DE ESTUDIOS DE LEO + PLANES -->
+      <div style="background: rgba(49, 130, 206, 0.12); border: 1px solid rgba(49, 130, 206, 0.35); border-radius: 12px; padding: 18px;">
+        <div style="font-size: 1.05rem; font-weight: 700; color: #fbd38d; margin-bottom: 8px;">3. ☕ ¡Elige el plan de apoyo para el Centro de Estudios de Leo!</div>
+        <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 15px;">
+          Una pequeña contribución para mantener vivo el proyecto desarrollado por Leo y Eva. Elige el plan que mejor se adapte a tus necesidades:
+        </p>
+
+        <div class="pricing-grid">
+          <div class="pricing-card">
+            <div>
+              <div class="pricing-title">Plan Semestral</div>
+              <div class="pricing-price">20,00 € <span style="font-size:0.9rem; font-weight:normal; color:var(--text-muted);">/ 6 meses</span></div>
+            </div>
+            <div class="pricing-sub">Menos de 3,35 € al mes. Ideal para empezar con total tranquilidad.</div>
+          </div>
+
+          <div class="pricing-card featured">
+            <div>
+              <div style="font-size: 0.75rem; font-weight: 700; color: #68d391; text-transform: uppercase; margin-bottom: 4px;">🔥 Más Conveniente</div>
+              <div class="pricing-title" style="color:#68d391;">Plan Anual (Con descuento)</div>
+              <div class="pricing-price">35,00 € <span style="font-size:0.9rem; font-weight:normal; color:var(--text-muted);">/ año</span></div>
+            </div>
+            <div class="pricing-sub">Menos de 2,90 € al mes. ¡Ahorra de inmediato 5,00 € y asegúrate un año entero de protección en memoria USB!</div>
+          </div>
+        </div>
+
+        <p style="font-size: 0.88rem; color: #bfdbfe; font-style: italic; margin-top: 15px;">
+          ℹ️ <strong>Transparencia al 100%:</strong> Si no activas o no renuevas el plan, el programa seguirá guardando normalmente en la memoria del dispositivo, pero dejará de sincronizar los datos en la memoria USB.
+        </p>
+      </div>
+    </section>
+
+    <!-- SECCIÓN: ACTUALIZACIONES AUTOMÁTICAS -->
+    <section class="section-card" style="border-color: #38a169; background: linear-gradient(135deg, #161b22 0%, #0d1117 100%);">
+      <h2 class="section-title">
+        <span>🔄 Actualizaciones automáticas y transparentes vía Servidor</span>
+        <a href="guia-actualizaciones-leo.html" class="postit-link">
+          <img src="../../IMG/biglietto_info.jpg" alt="Info Post-it" class="postit-icon" title="Guía Actualizaciones">
+        </a>
+      </h2>
+      
+      <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6;">
+        ¡No necesitas descargar ningún archivo ni instalar actualizaciones manuales! Las mejoras, las nuevas funciones y las optimizaciones de la aplicación se realizan de forma totalmente automática y transparente directamente en nuestro servidor central. Tus datos de la despensa permanecen siempre protegidos y guardados localmente en tu dispositivo, mientras disfrutas siempre de la versión más reciente y eficiente de EatMeFirst.
+      </p>
+    </section>
+
+    <!-- SECCIÓN: ZONA DE RESTABLECIMIENTO AVANZADO -->
+    <section class="section-card danger-zone">
+      <h2 class="section-title danger-title">
+        <span>⚠️ Zona de Restablecimiento Avanzado</span>
+        <a href="guia-restauracion-avanzada.html" class="postit-link">
+          <img src="../../IMG/biglietto_info.jpg" alt="Info Post-it" class="postit-icon" title="Guía Restablecimiento">
+        </a>
+      </h2>
+      
+      <div style="margin-bottom: 20px;">
+        <h3 style="font-size: 1.05rem; color: #fbd38d;">1. Nuevo Comienzo (Poner a cero las cantidades)</h3>
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 6px;">
+          Pone a cero las existencias de todos los productos de la despensa, pero <strong>conserva el catálogo</strong> (nombres, categorías, fotos y tiendas). Ideal para un nuevo inventario limpio.
+        </p>
+        <button class="btn-warning-action" onclick="openResetModal('nuovo_inizio')">Poner a cero cantidades y reiniciar</button>
+      </div>
+
+      <hr style="border: none; border-top: 1px solid var(--border-color); margin: 20px 0;">
+
+      <div>
+        <h3 style="font-size: 1.05rem; color: #fca5a5;">2. Restablecimiento Total de la Aplicación</h3>
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 6px;">
+          Borra definitivamente todos los datos, la configuración y las imágenes. La aplicación volverá al estado de la primera instalación.
+        </p>
+        <button class="btn-danger-action" onclick="openResetModal('reset_totale')">Restablecimiento Total de la App</button>
+      </div>
+    </section>
+
+    <!-- SECCIÓN: BIBLIOTECA DE LAS 4 GUÍAS OFICIALES -->
+    <section class="section-card">
+      <h2 class="section-title">
+        <span>📚 Biblioteca de Guías Oficiales</span>
+      </h2>
+      <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 15px;">
+        Accede directamente a la documentación de soporte disponible:
+      </p>
+      <div class="guides-grid">
+        <a href="guia-actualizaciones-leo.html" class="guide-card-link">📌 Guía Actualizaciones Software</a>
+        <a href="guia-guardar-memoria-usb.html" class="guide-card-link">📌 Guía Copia de Seguridad y Seguridad</a>
+        <a href="guia-exportacion-datos.html" class="guide-card-link">📌 Guía Lista de la Compra y Vuelta</a>
+        <a href="guia-restauracion-avanzada.html" class="guide-card-link">📌 Guía Restablecimiento Avanzado</a>
+      </div>
+    </section>
+
+  </div>
+
+  <footer>
+    <span>&copy; EatMeFirst &bull; Privacidad 100% Local</span>
+  </footer>
+
+  <!-- MODAL DE CONFIRMACIÓN DE RESTABLECIMIENTO -->
+  <div id="confirmation-modal" class="modal-overlay">
+    <div class="modal-box">
+      <div id="modal-title" class="modal-title">Confirmación de Operación</div>
+      <div id="modal-text" class="modal-text">¿Estás seguro de que deseas continuar?</div>
+      <div class="modal-actions">
+        <button class="btn-modal-cancel" onclick="closeResetModal()">Cancelar</button>
+        <button id="btn-modal-confirm-exec" class="btn-modal-confirm" onclick="executeReset()">Confirmar y Proceder</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      if (localStorage.getItem("hide_leo_banner_utilita_es") === "true") {
+        const banner = document.getElementById("leo-banner");
+        if (banner) banner.style.display = "none";
+      }
+    });
+
+    function dismissLeoBanner() {
+      const banner = document.getElementById("leo-banner");
+      if (banner) banner.style.display = "none";
+      localStorage.setItem("hide_leo_banner_utilita_es", "true");
+    }
+
+    let activeResetType = null;
+
+    function openResetModal(type) {
+      activeResetType = type;
+      const modal = document.getElementById('confirmation-modal');
+      const title = document.getElementById('modal-title');
+      const text = document.getElementById('modal-text');
+      const confirmBtn = document.getElementById('btn-modal-confirm-exec');
+
+      if (type === 'nuovo_inizio') {
+        title.innerText = "⚠️ ¿Confirmas el 'Nuevo Comienzo'?";
+        title.style.color = "#ed8936";
+        text.innerHTML = "Estás a punto de <strong>poner a cero todas las existencias y cantidades</strong> de tu despensa.<br><br>Los nombres de tus productos, las categorías, las fotos y las tiendas <strong>NO se borrarán</strong> y permanecerán guardados para permitirte realizar un nuevo inventario rápido.<br><br>¿Deseas continuar?";
+        confirmBtn.style.background = "#ed8936";
+      } else if (type === 'reset_totale') {
+        title.innerText = "🚨 ATENCIÓN: Restablecimiento Total";
+        title.style.color = "#e53e3e";
+        text.innerHTML = "Esta operación es <strong>IRREVERSIBLE</strong>.<br><br>Todos los productos, fotos, notas y el historial de operaciones se borrarán para siempre.<br><br>¿Estás absolutamente seguro de querer borrarlo todo?";
+        confirmBtn.style.background = "#e53e3e";
+      }
+
+      modal.style.display = 'flex';
+    }
+
+    function closeResetModal() {
+      document.getElementById('confirmation-modal').style.display = 'none';
+      activeResetType = null;
+    }
+
+    function executeReset() {
+      if (activeResetType === 'nuovo_inizio') {
+        alert("¡Cantidades puestas a cero con éxito! El catálogo de tus productos se ha mantenido intacto.");
+      } else if (activeResetType === 'reset_totale') {
+        localStorage.clear();
+        alert("Aplicación restablecida al estado de fábrica.");
+      }
+      closeResetModal();
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EatMeFirst - Bienvenida y Configuración Inicial de la Despensa</title>
+    <meta name="description" content="Configura EatMeFirst para la gestión inteligente de tu despensa: carga tus productos desde el smartphone y gestiona los datos de forma segura en tu red local.">
+    <meta name="robots" content="noindex, nofollow">
+    <style>
+        :root {
+            --bg-color: #12181b;
+            --card-bg: #1e272c;
+            --primary-color: #2ecc71;
+            --text-color: #e0e6ed;
+            --text-muted: #a0aec0;
+            --border-color: #2d3748;
+            --info-bg: #1a2634;
+            --info-border: #3182ce;
+            --accent-hover: #27ae60;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Cabecera Superior Estándar */
+        .top-navbar {
+            width: 100%;
+            max-width: 950px;
+            background-color: #101416;
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: #ffffff;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .brand-logo img { height: 32px; width: auto; }
+
+        .language-flags {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .flag-icon {
+            width: 26px;
+            height: 17px;
+            cursor: pointer;
+            object-fit: cover;
+            border-radius: 3px;
+            transition: transform 0.2s, opacity 0.2s;
+            border: 1px solid rgba(255,255,255,0.2);
+            opacity: 0.6;
+            display: inline-block;
+        }
+
+        .flag-icon:hover { transform: scale(1.15); opacity: 1; }
+
+        /* Diseño Principal */
+        .main-wrapper {
+            width: 100%;
+            max-width: 950px;
+        }
+
+        .container {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--border-color);
+        }
+
+        /* Avatar de Leo posicionado encima del texto para máxima anchura en móviles */
+        .header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .presentation-img {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            border: 3px solid var(--primary-color);
+            object-fit: cover;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            margin-bottom: 10px;
+        }
+
+        .header-text h1 {
+            margin: 0;
+            color: var(--primary-color);
+            font-size: 1.4rem;
+        }
+
+        .header-text p {
+            margin: 4px 0 0 0;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .leo-talk-box {
+            background-color: #161d21;
+            border-left: 4px solid var(--primary-color);
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .leo-talk-box p {
+            line-height: 1.6;
+            color: var(--text-color);
+            font-size: 0.95rem;
+            margin-bottom: 12px;
+        }
+
+        .leo-talk-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        .highlight-box {
+            background-color: var(--info-bg);
+            border-left: 4px solid var(--info-border);
+            padding: 14px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .terms-box {
+            background-color: #161d21;
+            padding: 16px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 25px;
+        }
+
+        .terms-box p {
+            color: var(--text-color);
+            font-size: 0.92rem;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+
+        .btn-container {
+            text-align: center;
+        }
+
+        .btn-start {
+            display: inline-block;
+            width: 100%;
+            max-width: 350px;
+            padding: 14px 20px;
+            background-color: var(--primary-color);
+            color: #12181b;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1.05rem;
+            transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(46, 204, 113, 0.3);
+            border: none;
+            cursor: not-allowed;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .btn-start.active {
+            cursor: pointer;
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .btn-start:hover.active {
+            background-color: var(--accent-hover);
+            transform: scale(1.02);
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Cabecera Superior -->
+<header class="top-navbar">
+    <a href="../menu.html" class="brand-logo">
+        <img src="../../IMG/logo_1024_white.png" alt="EatMeFirst Logo">
+        <span>EatMeFirst</span>
+    </a>
+    <div class="language-flags">
+        <a href="../../IT/carico/collegamento.html" title="Italiano"><img src="../../IMG/bandiera_Italy.jpg" alt="Italiano" class="flag-icon"></a>
+        <a href="../../EN/load/connection.html" title="English"><img src="../../IMG/bandiera_England.jpg" alt="English" class="flag-icon"></a>
+        <a href="../../DE/lagerung/verknuepfung.html" title="Deutsch"><img src="../../IMG/bandiera_Germany.jpg" alt="Deutsch" class="flag-icon"></a>
+        <a href="../../FR/chargement/connexion.html" title="Français"><img src="../../IMG/bandiera_France.jpg" alt="Français" class="flag-icon"></a>
+        <a href="conexion-escaner.html" title="Español"><img src="../../IMG/bandiera_Espana.jpg" alt="Español" class="flag-icon" style="opacity: 1;"></a>
+    </div>
+</header>
+
+<div class="main-wrapper">
+    <div class="container">
+        
+        <!-- Avatar de Leo encima del título -->
+        <div class="header">
+            <img src="../../IMG/avatar_leo.png" alt="Leo Programador" class="presentation-img">
+            <div class="header-text">
+                <h1>¡Ya estamos aquí, soy Leo!</h1>
+                <p>El programador de la casa a tu disposición</p>
+            </div>
+        </div>
+
+        <!-- Discurso de Leo -->
+        <div class="leo-talk-box">
+            <p>Hola <span class="user-name-span">amigo</span>, ¡bienvenido a <strong>EatMeFirst</strong>! Los datos de tu despensa se guardarán con total seguridad directamente en el navegador de tu smartphone, sin necesidad de servidores externos ni instalaciones complejas.</p>
+            
+            <p>Utilizarás tu teléfono móvil para escanear los productos con código de barras, pero también podrás introducir fácilmente todos los artículos que no lo tengan: como las cosas compradas en los puestos del mercado o los platos preparados por ti para conservar en la nevera o en el congelador. En ese caso tendrás que rellenar algún campo más, pero siempre tendrás la situación bajo control.</p>
+            
+            <p><strong>💡 Un consejo de programador:</strong> utiliza el smartphone principalmente para cargar los productos al vuelo en tu aplicación. Después podrás exportar la base de datos a tu ordenador de sobremesa o portátil para gestionar cómodamente todas las demás funciones: controlar el consumo, consultar la lista de la compra o analizar la lista de productos divididos por categoría o ubicación. ¡Ver y consultar estos datos en una pantalla más grande es otra historia!</p>
+            
+            <p>Una vez realizadas tus modificaciones desde el ordenador, podrás volver a cargar los datos actualizados en el móvil, así cuando vayas al supermercado siempre tendrás tu despensa actualizada al alcance de la mano.</p>
+        </div>
+        
+        <div class="highlight-box">
+            <strong>🔒 Privacidad y Autonomía Total:</strong> Ningún dato de tu despensa será compartido ni enviado a servidores cloud de terceros. Todo se queda en tu memoria local.
+        </div>
+
+        <!-- Aceptación de Términos y Condiciones -->
+        <div class="terms-box">
+            <p style="font-weight: bold; color: var(--primary-color);">La última formalidad antes de empezar:</p>
+            <p>
+                Antes de continuar, puedes leer las condiciones de uso haciendo clic en el <a href="../termini.html" target="_blank" style="color: var(--info-border);">enlace de condiciones</a>, o aceptarlas directamente marcando la casilla siguiente.
+            </p>
+            
+            <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                <input type="checkbox" id="termsCheck" onchange="toggleTerms()" style="width: 20px; height: 20px; accent-color: var(--primary-color);">
+                <span style="font-weight: 500;">Acepto los términos de uso y las condiciones de EatMeFirst.</span>
+            </label>
+        </div>
+
+        <!-- Botón de Inicio Directo a la Página de Carga -->
+        <div class="btn-container">
+            <button type="button" id="btnProceed" onclick="avviaProgramma()" class="btn-start">Iniciar Carga de Producto →</button>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const savedName = localStorage.getItem('eat_user_name');
+        if (savedName && savedName.trim() !== "") {
+            document.querySelectorAll('.user-name-span').forEach(el => {
+                el.textContent = savedName.trim();
+            });
+        }
+
+        // Si el usuario ya aceptó los términos anteriormente, marca la casilla automáticamente
+        if (localStorage.getItem('eat_terms_accepted') === 'true') {
+            document.getElementById('termsCheck').checked = true;
+            toggleTerms();
+        }
+    });
+
+    function toggleTerms() {
+        const checkbox = document.getElementById('termsCheck');
+        const btn = document.getElementById('btnProceed');
+
+        if (checkbox.checked) {
+            btn.classList.add('active');
+        } else {
+            btn.classList.remove('active');
+        }
+    }
+
+    function avviaProgramma() {
+        if (!document.getElementById('termsCheck').checked) return;
+        
+        // Memoriza la aceptación de las condiciones
+        localStorage.setItem('eat_terms_accepted', 'true');
+        
+        // Redirige directamente a la página de carga en español
+        window.location.href = "carga-productos.html";
+    }
+</script>
+
+</body>
+</html>

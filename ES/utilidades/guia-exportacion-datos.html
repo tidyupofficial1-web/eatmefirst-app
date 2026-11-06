@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guía de Lista de la Compra Offline y Gestión de Vuelta de la Compra | EatMeFirst</title>
+  <meta name="description" content="Descubre cómo funciona la lista de la compra de EatMeFirst sin conexión en la nube, por qué exportarla para el supermercado y cómo reorganizar los productos al volver a casa.">
+  <style>
+    body { 
+      background: #0d1117; 
+      color: #f0f6fc; 
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+      padding: 20px; 
+      line-height: 1.6; 
+    }
+    .postit-card { 
+      background: #fff9c4; 
+      color: #1c1917; 
+      padding: 25px; 
+      border-radius: 12px; 
+      max-width: 700px; 
+      margin: 20px auto; 
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5); 
+    }
+    h1 { color: #854d0e; font-size: 21px; margin-bottom: 12px; }
+    h2 { color: #a16207; font-size: 16px; margin-top: 20px; margin-bottom: 8px; border-bottom: 1px solid #fde047; padding-bottom: 4px; }
+    ul { margin-left: 20px; }
+    li { margin-bottom: 10px; }
+    .leo-box {
+      background: #fef08a;
+      border-left: 4px solid #ca8a04;
+      padding: 14px 16px;
+      margin: 15px 0;
+      border-radius: 6px;
+      font-size: 14.5px;
+    }
+    .btn-back { 
+      display: inline-block; 
+      margin-top: 25px; 
+      background: #0d1117; 
+      color: #58a6ff; 
+      text-decoration: none; 
+      padding: 10px 18px; 
+      border-radius: 8px; 
+      font-weight: bold; 
+      transition: background 0.2s;
+    }
+    .btn-back:hover { background: #161b22; }
+  </style>
+</head>
+<body>
+
+  <div class="postit-card">
+    <h1>📌 Guía Completa: Lista de la Compra, Conexión Offline y Vuelta de la Compra</h1>
+    
+    <p>En este espacio profundizamos en cómo se ha diseñado la gestión de la compra en EatMeFirst para garantizar la máxima comodidad en el supermercado y la protección total de tus datos.</p>
+    
+    <hr style="border: 0; border-top: 1px solid #fde047; margin: 15px 0;">
+
+    <h2>📶 Por qué la red Wi-Fi de casa no llega al supermercado</h2>
+    <p>
+      La decisión fundamental de EatMeFirst es no enviar nunca los datos de tu despensa a servidores remotos en la nube. Todos los productos y las fechas de caducidad residen exclusivamente en tu ordenador o dispositivo de casa para proteger al cien por cien tu privacidad.
+    </p>
+    <p>
+      Cuando te encuentras en el supermercado, la red Wi-Fi de casa no está disponible y la aplicación del teléfono no puede comunicarse en tiempo real con el ordenador que se quedó en casa. Por esta razón, la solución más eficaz es exportar la lista de la compra antes de salir. Al descargar el texto completo o abrir la ficha en el móvil, te llevas toda la información necesaria sin depender de la red ni del consumo de datos móviles.
+    </p>
+
+    <h2>📱 Cómo usar la lista en las dos modalidades disponibles</h2>
+    <ul>
+      <li>
+        <strong>Modalidad Gráfica Interactiva en Smartphone:</strong> Cuando vas tú en persona al supermercado, abre la página de la compra directamente desde el navegador de tu teléfono. La interfaz se adapta a la pantalla mostrando los productos agotados en color rojo. A medida que vas metiendo los artículos en el carro, basta con un toque en la pantalla para tacharlos con una línea.
+      </li>
+      <li>
+        <strong>Modalidad de Exportación de Texto Enriquecido para WhatsApp:</strong> Esta función resulta extraordinariamente útil cuando un familiar o un amigo te avisa de que ya va al supermercado y se ofrece a coger tus productos. En lugar de dictar la compra de viva voz o enviar mensajes confusos, pulsas un botón y envías por WhatsApp un listado claro y detallado que incluye el nombre del producto, la descripción, la cantidad recomendada y la tienda de referencia. ¡Quien hace la compra por ti recibe un mensaje a prueba de errores!
+      </li>
+    </ul>
+
+    <h2>📦 Cómo funciona la vuelta a casa y la actualización de la Base de Datos</h2>
+    <p>
+      Cuando marcas un producto comprado en el supermercado, este no se introduce automáticamente en la despensa de casa. Esta elección práctica se debe a que durante la compra real a menudo se producen cambios de planes, ofertas de última hora o sustituciones de marca.
+    </p>
+    <p>
+      Al volver a casa, basta con realizar un escaneo rápido del código de barras de los productos adquiridos:
+    </p>
+    <ul>
+      <li>
+        <strong>Si el producto es idéntico a uno comprado anteriormente:</strong> La aplicación reconoce de inmediato el código de barras sin consultar la base de datos externa de Open Food Facts, recuperando automáticamente las ubicaciones, las categorías y la información guardada previamente.
+      </li>
+      <li>
+        <strong>Si has comprado una marca diferente o un producto en oferta:</strong> El escaneo del nuevo código de barras permitirá a la aplicación adquirir la información correcta y actualizar tus existencias sin crear incongruencias en el sistema.
+      </li>
+    </ul>
+
+    <div class="leo-box">
+      <strong>💡 Nota Técnica de Leo compartida con Max:</strong><br>
+      Esta combinación entre el uso local offline, la exportación de texto y el reescaneo al volver garantiza un control riguroso del inventario de tu hogar sin correr el riesgo de encontrarte con artículos erróneos en la base de datos.
+    </div>
+
+    <a href="index.html" class="btn-back">← Volver a Utilidades</a>
+  </div>
+
+</body>
+</html>

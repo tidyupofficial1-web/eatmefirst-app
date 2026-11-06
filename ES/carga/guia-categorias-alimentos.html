@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía Categoría de Producto | EatMeFirst</title>
+    <meta name="robots" content="noindex, nofollow">
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --card-bg: #161b22;
+            --text-color: #f0f6fc;
+            --postit-bg: #fff59d;
+            --postit-text: #333333;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 20px 16px;
+        }
+
+        .container {
+            max-width: 650px;
+            margin: 20px auto;
+            width: 100%;
+        }
+
+        .postit-card {
+            background-color: var(--postit-bg);
+            color: var(--postit-text);
+            padding: 30px 26px;
+            border-radius: 4px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            position: relative;
+            transform: rotate(-0.4deg);
+        }
+
+        .postit-card::before {
+            content: '';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 24px;
+            height: 24px;
+            background: #f44336;
+            border-radius: 50%;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.4), inset -2px -2px 4px rgba(0,0,0,0.3);
+        }
+
+        h1 { font-size: 21px; margin-bottom: 18px; color: #1a1a1a; display: flex; align-items: center; gap: 8px; }
+        
+        .discorso-guida {
+            font-size: 15px;
+            line-height: 1.65;
+            color: #222;
+        }
+
+        .discorso-guida p {
+            margin-bottom: 14px;
+        }
+
+        .discorso-guida ul {
+            margin-left: 20px;
+            margin-bottom: 14px;
+        }
+
+        .discorso-guida li {
+            margin-bottom: 6px;
+        }
+
+        .categoria-box {
+            background: rgba(76, 175, 80, 0.15);
+            border-left: 4px solid #4caf50;
+            padding: 14px 16px;
+            border-radius: 4px;
+            margin: 18px 0;
+            font-size: 14.5px;
+            line-height: 1.6;
+        }
+
+        .chiusura-box {
+            margin-top: 20px;
+            padding: 14px 16px;
+            background: rgba(35, 134, 54, 0.15);
+            border-left: 4px solid #238636;
+            border-radius: 4px;
+            font-size: 14.5px;
+            line-height: 1.6;
+        }
+
+        .btn-close {
+            display: inline-block;
+            margin-top: 20px;
+            background: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: background 0.2s;
+        }
+
+        .btn-close:hover { background: #000; }
+    </style>
+</head>
+<body>
+
+    <main class="container">
+        <article class="postit-card">
+            <h1>🏷️ Categoría de Producto: Encuentra y Organiza en un Clic</h1>
+            
+            <div class="discorso-guida">
+                <p>¿Para qué sirve realmente dividir la despensa en categorías? No para ser quisquillosos, ¡sino para encontrar enseguida lo que necesitas al hacer un control rápido en el inventario!</p>
+
+                <p>Luego veremos en la ficha específica la función de inventario, que también utilizará otras formas de listar las mercancías: por ejemplo, <em>"Estante de vinos bodega"</em> es una de las ubicaciones que podrías haber escrito. El inventario te listará todo lo que se ha cargado en ese estante (donde podrías haber colocado no solo las botellas de vino, sino también los corchos para embotellar o una garrafa). ¡Pero ya hablaremos de eso a su debido tiempo!</p>
+
+                <p><strong>¿Cómo funciona la Categoría en la práctica?</strong></p>
+
+                <p><strong>1. Macrocategorías Listas para Usar:</strong> Es probable que el producto buscado con el código de barras se incluya en una categoría (podría estar escrita también en otro idioma diferente al tuyo): si te parece bien, la dejas; de lo contrario, escribe tú en qué categoría deseas insertar el producto. Esta categoría se te ofrecerá junto con las demás ya memorizadas cuando tengas que introducir un nuevo producto. Encontrarás además dos grandes familias listas para cubrir la mayor parte de las necesidades del hogar:
+                <ul>
+                    <li>🍎 <strong>Alimentación:</strong> Lácteos y Quesos, Carne y Pescado, Fruta y Verdura, Bebidas, Dulces y Desayuno, Enlatados y Conservas...</li>
+                    <li>🏠 <strong>Hogar y Cuidado Personal:</strong> Detergentes y Limpieza, Higiene y Jabones, Papel y Desechables...</li>
+                </ul>
+                </p>
+
+                <div class="categoria-box">
+                    💡 <strong>2. Gestiona la lista como prefieras:</strong><br><br>
+                    • <strong>Elimina lo que no uses:</strong> Si no te sirve una categoría predefinida, puedes seleccionar <em>"➖ Eliminar categoría"</em> para acortar la lista y acelerar la selección (¡siempre estás a tiempo de volver a añadirla en el futuro!).
+                </div>
+
+                <p><strong>3. Otro / Genérico:</strong> ¿No te apetece categorizar una caja rápidamente porque tienes prisa? ¡Déjalo en <em>"Otro / Genérico"</em> y continúa! Lo importante es cargar el producto; siempre tendrás tiempo para perfeccionar los detalles.</p>
+
+                <div class="chiusura-box">
+                    🟢 <strong>¡Hemos terminado la introducción del producto!</strong><br>
+                    Revisa si todo está correcto y, si está todo bien, haz clic en el botón verde <strong>"➕ Añadir a la Despensa"</strong> para guardarlo definitivamente en la memoria.
+                </div>
+            </div>
+
+            <a href="carga-productos.html" class="btn-close">← Volver a la Carga</a>
+        </article>
+    </main>
+
+</body>
+</html>

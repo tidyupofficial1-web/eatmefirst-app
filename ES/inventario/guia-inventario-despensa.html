@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía y Post-it de Ayuda | Inventario EatMeFirst</title>
+    <meta name="robots" content="noindex, nofollow">
+
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --card-bg: #161b22;
+            --text-bright: #ffffff;
+            --text-sub: #c9d1d9;
+            --accent-color: #58a6ff;
+            --warning-color: #f2b33d;
+            --success-color: #3fb950;
+            --border-color: #30363d;
+            --light-bg: #21262d;
+            --postit-bg: #1c2128;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-bright);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .app-bar {
+            background: rgba(22, 27, 34, 0.95);
+            border-bottom: 1px solid var(--border-color);
+            padding: 14px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky; top: 0; z-index: 40;
+        }
+
+        .app-brand { display: flex; align-items: center; gap: 12px; }
+        .brand-title { font-size: 18px; font-weight: bold; color: var(--text-bright); }
+
+        .btn-close-guide {
+            background: #238636; color: #ffffff; border: 1px solid #2ea043;
+            padding: 8px 18px; border-radius: 8px; text-decoration: none;
+            font-size: 14px; font-weight: 700; display: inline-flex;
+            align-items: center; gap: 6px; box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+        }
+        .btn-close-guide:hover { background: #2ea043; }
+
+        .container { max-width: 820px; margin: 30px auto; padding: 0 16px; width: 100%; }
+
+        .postit-card {
+            background: var(--postit-bg); border: 2px dashed var(--warning-color);
+            border-radius: 16px; padding: 28px; box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+            margin-bottom: 24px;
+        }
+
+        .postit-header {
+            display: flex; align-items: center; gap: 12px;
+            margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 14px;
+        }
+
+        .postit-title { font-size: 22px; color: var(--warning-color); font-weight: 700; }
+        .intro-text { font-size: 16px; line-height: 1.6; color: var(--text-bright); margin-bottom: 24px; }
+
+        .modalita-list { display: flex; flex-direction: column; gap: 18px; }
+        .mod-box {
+            background: var(--card-bg); border: 1px solid var(--border-color);
+            border-left: 5px solid var(--accent-color); border-radius: 10px; padding: 18px 20px;
+        }
+        .mod-box:nth-child(2) { border-left-color: #a371f7; }
+        .mod-box:nth-child(3) { border-left-color: var(--success-color); }
+
+        .mod-title { font-size: 17px; font-weight: 700; color: var(--text-bright); margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+        .mod-desc { font-size: 15px; color: var(--text-sub); line-height: 1.6; }
+        .mod-desc em { color: var(--warning-color); font-style: normal; font-weight: 600; }
+
+        .note-box {
+            margin-top: 24px; background: rgba(242, 179, 61, 0.12);
+            border: 1px solid var(--warning-color); border-radius: 10px;
+            padding: 16px 20px; font-size: 15px; color: var(--text-bright); line-height: 1.6;
+        }
+
+        footer {
+            text-align: center; padding: 20px; font-size: 13px;
+            color: var(--text-sub); border-top: 1px solid var(--border-color); margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="app-bar">
+        <div class="app-brand">
+            <div class="mini-logo" style="display: inline-flex; align-items: center;">
+                <img src="../../IMG/logo_1024_white.png" alt="Logo EatMeFirst" style="height: 32px; width: auto;">
+            </div>
+            <span class="brand-title">📌 Post-it de Ayuda Inventario</span>
+        </div>
+        <a href="index.html" class="btn-close-guide" title="Cerrar la guía y volver al inventario">
+            ✕ Cerrar y Volver al Inventario
+        </a>
+    </header>
+
+    <main class="container">
+        <article class="postit-card">
+            <div class="postit-header">
+                <span style="font-size: 30px;">📋</span>
+                <h1 class="postit-title">Cómo extraer y filtrar los productos en inventario</h1>
+            </div>
+
+            <p class="intro-text">
+                Para permitirte consultar rápidamente las existencias del hogar, el inventario ofrece <strong>tres modalidades diferentes de búsqueda y extracción</strong>:
+            </p>
+
+            <div class="modalita-list">
+                <div class="mod-box">
+                    <div class="mod-title"><span>🔍</span> 1. Búsqueda rápida por Nombre o Palabra Clave</div>
+                    <div class="mod-desc">Escribe en el campo de texto el nombre del producto (ej. <em>"leche"</em> o <em>"tomate"</em>) para filtrar instantáneamente la lista.</div>
+                </div>
+
+                <div class="mod-box">
+                    <div class="mod-title"><span>📍</span> 2. Filtro por Ubicación Doméstica</div>
+                    <div class="mod-desc">Selecciona un lugar específico del menú desplegable (ej. <em>"Frigorífico"</em> o <em>"Congelador"</em>) para visualizar únicamente las existencias de ese compartimento.</div>
+                </div>
+
+                <div class="mod-box">
+                    <div class="mod-title"><span>📂</span> 3. Filtro por Categoría Comercial</div>
+                    <div class="mod-desc">Filtra por tipo de alimento (ej. <em>"Lácteos"</em> o <em>"Conservas"</em>) para comprobar cuántos productos de una determinada categoría te quedan.</div>
+                </div>
+            </div>
+
+            <div class="note-box">
+                <strong style="color: var(--warning-color);">💡 Consejo práctico:</strong><br>
+                ¡Puedes combinar los filtros juntos (por ejemplo, seleccionando la ubicación <em>"Frigorífico"</em> y la categoría <em>"Lácteos"</em>) para una búsqueda dirigida!
+            </div>
+        </article>
+    </main>
+
+    <footer>
+        <span>&copy; EatMeFirst &bull; Privacidad 100% Local</span>
+    </footer>
+</body>
+</html>
