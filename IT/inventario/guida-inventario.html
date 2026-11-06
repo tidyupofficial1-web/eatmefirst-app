@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guida e Post-it d'Aiuto | Inventario EatMeFirst</title>
+    <meta name="description" content="Scopri come consultare, filtrare e cercare rapidamente i prodotti nella tua dispensa digitale con EatMeFirst.">
+    <meta name="robots" content="noindex, nofollow">
+
+    <style>
+        :root {
+            --bg-color: #12181b;
+            --card-bg: #1e272c;
+            --text-bright: #e0e6ed;
+            --text-sub: #a0aec0;
+            --accent-color: #58a6ff;
+            --warning-color: #f2b33d;
+            --success-color: #3fb950;
+            --border-color: #2d3748;
+            --light-bg: #101416;
+            --postit-bg: #fff59d;
+            --postit-text: #333333;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-bright);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 15px 10px;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .postit-card {
+            background-color: var(--postit-bg);
+            color: var(--postit-text);
+            padding: 25px 20px;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            position: relative;
+        }
+
+        .postit-header {
+            display: flex; align-items: center; gap: 10px;
+            margin-bottom: 16px; border-bottom: 1px solid rgba(0,0,0,0.15); padding-bottom: 12px;
+        }
+
+        .postit-title { font-size: 1.3rem; color: #1a1a1a; font-weight: bold; }
+        .intro-text { font-size: 0.95rem; line-height: 1.6; color: #222; margin-bottom: 16px; }
+
+        .modalita-list { display: flex; flex-direction: column; gap: 14px; }
+        .mod-box {
+            background: rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-left: 4px solid #2196f3;
+            border-radius: 6px;
+            padding: 12px 14px;
+        }
+        .mod-box:nth-child(2) { border-left-color: #8957e5; }
+        .mod-box:nth-child(3) { border-left-color: #2e7d32; }
+
+        .mod-title { font-size: 0.98rem; font-weight: bold; color: #1a1a1a; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+        .mod-desc { font-size: 0.92rem; color: #333; line-height: 1.5; }
+        .mod-desc em { color: #b7791f; font-style: normal; font-weight: bold; }
+
+        .note-box {
+            margin-top: 16px;
+            background: rgba(33, 150, 243, 0.15);
+            border-left: 4px solid #2196f3;
+            border-radius: 4px;
+            padding: 12px 14px;
+            font-size: 0.92rem;
+            color: #222;
+            line-height: 1.5;
+        }
+
+        .btn-close {
+            display: inline-block;
+            margin-top: 20px;
+            background: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+            transition: background 0.2s;
+        }
+
+        .btn-close:hover { background: #000; }
+    </style>
+</head>
+<body>
+
+    <main class="container">
+        <article class="postit-card">
+            <div class="postit-header">
+                <span style="font-size: 24px;">📋</span>
+                <h1 class="postit-title">Come estrarre e filtrare i prodotti in inventario</h1>
+            </div>
+
+            <p class="intro-text">
+                Per permetterti di consultare rapidamente le scorte di casa, l'inventario offre <strong>tre diverse modalità di ricerca ed estrazione</strong>:
+            </p>
+
+            <div class="modalita-list">
+                <div class="mod-box">
+                    <div class="mod-title"><span>🔍</span> 1. Ricerca rapida per Nome o Parola Chiave</div>
+                    <div class="mod-desc">Digita nel campo di testo il nome del prodotto (es. <em>"latte"</em> o <em>"passata"</em>) per filtrare istantaneamente la lista.</div>
+                </div>
+
+                <div class="mod-box">
+                    <div class="mod-title"><span>📍</span> 2. Filtro per Ubicazione Domestica</div>
+                    <div class="mod-desc">Seleziona un luogo specifico dal menu a tendina (es. <em>"Frigorifero"</em> o <em>"Freezer"</em>) per visualizzare soltanto le scorte di quel comparto.</div>
+                </div>
+
+                <div class="mod-box">
+                    <div class="mod-title"><span>📂</span> 3. Filtro per Categoria Merceologica</div>
+                    <div class="mod-desc">Filtra per genere alimentare (es. <em>"Latticini"</em> o <em>"Conserve"</em>) per controllare quanti prodotti di una certa tipologia ti sono rimasti.</div>
+                </div>
+            </div>
+
+            <div class="note-box">
+                💡 <strong>Suggerimento pratico:</strong><br>
+                Puoi combinare i filtri insieme (ad esempio selezionando l'ubicazione <em>"Frigorifero"</em> e la categoria <em>"Latticini"</em>) per una ricerca mirata e immediata!
+            </div>
+
+            <a href="index.html" class="btn-close">← Torna all'Inventario</a>
+        </article>
+    </main>
+
+</body>
+</html>

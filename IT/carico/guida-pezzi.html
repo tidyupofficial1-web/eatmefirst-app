@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guida Pezzi per Confezione | EatMeFirst</title>
+    <meta name="description" content="Scopri come indicare correttamente il numero di pezzi e articoli contenuti all'interno di ciascuna confezione con EatMeFirst.">
+    <meta name="robots" content="noindex, nofollow">
+    <style>
+        :root {
+            --bg-color: #12181b;
+            --card-bg: #1e272c;
+            --text-color: #e0e6ed;
+            --postit-bg: #fff59d;
+            --postit-text: #333333;
+            --border-color: #2d3748;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 15px 10px;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .postit-card {
+            background-color: var(--postit-bg);
+            color: var(--postit-text);
+            padding: 25px 20px;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            position: relative;
+        }
+
+        h1 { font-size: 1.3rem; margin-bottom: 16px; color: #1a1a1a; display: flex; align-items: center; gap: 8px; }
+        
+        .discorso-guida {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #222;
+        }
+
+        .discorso-guida p { margin-bottom: 12px; }
+
+        .discorso-guida ul {
+            margin-left: 20px;
+            margin-bottom: 12px;
+        }
+
+        .discorso-guida li {
+            margin-bottom: 6px;
+        }
+
+        .info-box {
+            background: rgba(46, 125, 50, 0.15);
+            border-left: 4px solid #2e7d32;
+            padding: 12px 14px;
+            border-radius: 4px;
+            margin: 15px 0;
+            font-size: 0.92rem;
+            line-height: 1.5;
+        }
+
+        .btn-close {
+            display: inline-block;
+            margin-top: 20px;
+            background: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+            transition: background 0.2s;
+        }
+
+        .btn-close:hover { background: #000; }
+    </style>
+</head>
+<body>
+
+    <main class="container">
+        <article class="postit-card">
+            <h1>📦 Pezzi Contenuti nella Confezione</h1>
+            
+            <div class="discorso-guida">
+                <p>Questo campo serve a indicare **quanti articoli singoli sono presenti all'interno di ciascuna confezione** che stai caricando nella tua dispensa.</p>
+
+                <p><strong>Come si compila:</strong></p>
+                <ul>
+                    <li><strong>Prodotto singolo o sciolto:</strong> Lascia impostato su <strong>1</strong> (es. 1 bottiglia d'olio, 1 pacco di farina, 1 pezzo di formaggio).</li>
+                    <li><strong>Confezione multipla (multipack):</strong> Inserisci il numero esatto di elementi contenuti. Ad esempio:
+                        <ul style="margin-top: 6px;">
+                            <li><strong>6</strong> per un fardello d'acqua da 6 bottiglie;</li>
+                            <li><strong>18</strong> per una confezione da 18 uova;</li>
+                            <li><strong>4</strong> per una confezione di yogurt da 4 vasetti.</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <div class="info-box">
+                    🤖 <strong>Compilazione automatica:</strong><br>
+                    Quando scansioni il codice a barre tramite la fotocamera del tuo smartphone, l'applicazione legge le informazioni dai database online e, se il dato è disponibile, compila questo campo in autonomia per velocizzare il carico!
+                </div>
+            </div>
+
+            <a href="carico.html" class="btn-close" onclick="window.close(); return false;">✕ Chiudi Guida</a>
+        </article>
+    </main>
+
+</body>
+</html>

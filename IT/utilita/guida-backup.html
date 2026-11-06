@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guida Backup e Sicurezza Dati Dispensa | EatMeFirst</title>
+  <meta name="description" content="Guida pratica al backup dei dati di EatMeFirst su chiavetta USB o tramite e-mail. Come funziona il salvataggio in tempo reale.">
+  <style>
+    body { 
+      background: #0d1117; 
+      color: #f0f6fc; 
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+      padding: 20px; 
+      line-height: 1.6; 
+    }
+    .postit-card { 
+      background: #fff9c4; 
+      color: #1c1917; 
+      padding: 25px; 
+      border-radius: 12px; 
+      max-width: 650px; 
+      margin: 20px auto; 
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5); 
+    }
+    h1 { color: #854d0e; font-size: 20px; margin-bottom: 12px; }
+    h2 { color: #a16207; font-size: 16px; margin-top: 18px; margin-bottom: 8px; }
+    ul { margin-left: 20px; }
+    li { margin-bottom: 10px; }
+    .leo-box {
+      background: #fef08a;
+      border-left: 4px solid #ca8a04;
+      padding: 12px 15px;
+      margin: 15px 0;
+      border-radius: 6px;
+      font-size: 14.5px;
+    }
+    .btn-back { 
+      display: inline-block; 
+      margin-top: 20px; 
+      background: #0d1117; 
+      color: #58a6ff; 
+      text-decoration: none; 
+      padding: 10px 18px; 
+      border-radius: 8px; 
+      font-weight: bold; 
+      transition: background 0.2s;
+    }
+    .btn-back:hover { background: #161b22; }
+  </style>
+</head>
+<body>
+
+  <div class="postit-card">
+    <h1>📌 Guida al Backup: La sicurezza dei tuoi dati!</h1>
+    
+    <p><strong>Perché parliamo di backup?</strong><br>
+    EatMeFirst tutela al 100% la tua privacy lavorando in modalità <em>Local-First</em>: i dati risiedono protetti nel tuo dispositivo. Per evitare di perdere la dispensa in caso di guasti hardware, l'app gestisce la sicurezza in modo automatico su PC e facilitato su smartphone.</p>
+    
+    <hr style="border: 0; border-top: 1px solid #fde047; margin: 15px 0;">
+
+    <div class="leo-box">
+      <strong>🤓 Il file di salvataggio (<code>eatme_backup.json</code>):</strong><br>
+      Tutto il tuo inventario è racchiuso in un unico file di dati chiamato <code>eatme_backup.json</code>. Viene gestito dal browser per garantire che la tua dispensa sia sempre al sicuro e pronta al ripristino.
+    </div>
+
+    <h2>💾 Come funziona la protezione nei due casi:</h2>
+    <ul>
+      <li>
+        <strong>1. Su PC con Chiavetta USB (Salvataggio automatico in tempo reale):</strong><br>
+        Tenendo la chiavetta USB inserita nel computer mentre usi il programma, <strong>ogni singola modifica viene salvata all'istante e in tempo reale</strong> sia nella memoria del PC che sulla chiavetta. Non devi ricordarti di cliccare nulla: la scrittura è simultanea e automatica.
+      </li>
+      <li>
+        <strong>2. Su Smartphone (Invio periodico tramite E-mail):</strong><br>
+        Poiché sul cellulare non è pratico mantenere una chiavetta USB sempre collegata, i dati vengono salvati in tempo reale sulla memoria del telefono. Per avere una copia di sicurezza esterna, il metodo più semplice è esportare il file <code>eatme_backup.json</code> inviandolo a te stesso tramite <strong>e-mail</strong>.<br>
+        <em>Il consiglio furbo:</em> fai l'invio via e-mail ogni 10-15 movimenti importanti. In questo modo, se il telefono dovesse rompersi o smarrirsi, al massimo perderai solo le ultimissime modifiche.
+      </li>
+    </ul>
+
+    <h2>⚙️ Come indirizzare il file manualmente (se serve):</h2>
+    <p>
+      Se sul PC desideri scaricare una copia manuale del file <code>eatme_backup.json</code> scegliendo la cartella o la chiavetta di destinazione, puoi attivare questa opzione nel tuo browser:
+    </p>
+    <ul>
+      <li>
+        <strong>Google Chrome / Microsoft Edge:</strong> <em>Impostazioni</em> → <em>Download</em> → Attiva <strong>"Chiedi dove salvare ciascun file prima del download"</strong>.
+      </li>
+      <li>
+        <strong>Mozilla Firefox:</strong> <em>Impostazioni</em> → <em>Generale</em> → <em>File e applicazioni</em> → Spunta <strong>"Chiedi sempre dove salvare i file"</strong>.
+      </li>
+    </ul>
+
+    <a href="index.html" class="btn-back">← Torna alle Utility</a>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guida Articolo Tassativo | EatMeFirst</title>
+    <meta name="description" content="Scopri quando attivare l'opzione Articolo Tassativo per gestire con rigore le scadenze importanti nella tua dispensa con EatMeFirst.">
+    <meta name="robots" content="noindex, nofollow">
+    <style>
+        :root {
+            --bg-color: #12181b;
+            --card-bg: #1e272c;
+            --text-color: #e0e6ed;
+            --postit-bg: #fff59d;
+            --postit-text: #333333;
+            --border-color: #2d3748;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 15px 10px;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .postit-card {
+            background-color: var(--postit-bg);
+            color: var(--postit-text);
+            padding: 25px 20px;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            position: relative;
+        }
+
+        h1 { font-size: 1.3rem; margin-bottom: 16px; color: #1a1a1a; display: flex; align-items: center; gap: 8px; }
+        
+        .discorso-guida {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #222;
+        }
+
+        .discorso-guida p {
+            margin-bottom: 12px;
+        }
+
+        .info-box {
+            background: rgba(220, 53, 69, 0.15);
+            border-left: 4px solid #dc3545;
+            padding: 12px 14px;
+            border-radius: 4px;
+            margin: 15px 0;
+            font-size: 0.92rem;
+            line-height: 1.5;
+        }
+
+        .btn-close {
+            display: inline-block;
+            margin-top: 20px;
+            background: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+            transition: background 0.2s;
+        }
+
+        .btn-close:hover { background: #000; }
+    </style>
+</head>
+<body>
+
+    <main class="container">
+        <article class="postit-card">
+            <h1>🔒 Opzione Articolo Tassativo: Cos'è e come usarla</h1>
+            
+            <div class="discorso-guida">
+                <p>Se il prodotto che stai inserendo è tra quelli che possiedono una scadenza fissa, perentoria e critica per la sicurezza alimentare (come i prodotti freschi o a rapido deperimento, e non un semplice termine minimo di conservazione), puoi attivare la spunta sulla casella <strong>"🔒 Articolo Tassativo"</strong>.</p>
+
+                <p>Attivando questa opzione, indichi all'applicazione che la gestione della data deve essere rigorosa. In questo modo potrai abbinarla all'inserimento di una data precisa o di una validità a giorni molto stretta, così da ricevere avvisi puntuali prima che l'alimento diventi rischioso da consumare.</p>
+
+                <div class="info-box">
+                    💡 <strong>Nota utile:</strong> Per i prodotti a lunga conservazione o confezionati (come pasta, scatolame o conserve) che seguono il normale termine minimo di conservazione ("preferibilmente entro"), non è necessario spuntare questa casella: potrai gestire la scadenza in modo flessibile tramite i giorni, i mesi o l'opzione "Nessuna".
+                </div>
+            </div>
+
+            <a href="carico.html" class="btn-close" onclick="window.close(); return false;">✕ Chiudi Guida</a>
+        </article>
+    </main>
+
+</body>
+</html>

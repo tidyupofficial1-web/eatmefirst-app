@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guida Categoria Prodotto | EatMeFirst</title>
+    <meta name="robots" content="noindex, nofollow">
+    <style>
+        :root {
+            --bg-color: #12181b;
+            --card-bg: #1e272c;
+            --text-color: #e0e6ed;
+            --postit-bg: #fff59d;
+            --postit-text: #333333;
+            --border-color: #2d3748;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 15px 10px;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .postit-card {
+            background-color: var(--postit-bg);
+            color: var(--postit-text);
+            padding: 25px 20px;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            position: relative;
+        }
+
+        h1 { font-size: 1.3rem; margin-bottom: 16px; color: #1a1a1a; display: flex; align-items: center; gap: 8px; }
+        
+        .discorso-guida {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #222;
+        }
+
+        .discorso-guida p {
+            margin-bottom: 12px;
+        }
+
+        .discorso-guida ul {
+            margin-left: 20px;
+            margin-bottom: 12px;
+        }
+
+        .discorso-guida li {
+            margin-bottom: 5px;
+        }
+
+        .categoria-box {
+            background: rgba(46, 125, 50, 0.15);
+            border-left: 4px solid #2e7d32;
+            padding: 12px 14px;
+            border-radius: 4px;
+            margin: 15px 0;
+            font-size: 0.92rem;
+            line-height: 1.5;
+        }
+
+        .chiusura-box {
+            margin-top: 15px;
+            padding: 12px 14px;
+            background: rgba(35, 134, 54, 0.15);
+            border-left: 4px solid #238636;
+            border-radius: 4px;
+            font-size: 0.92rem;
+            line-height: 1.5;
+        }
+
+        .btn-close {
+            display: inline-block;
+            margin-top: 20px;
+            background: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+            transition: background 0.2s;
+        }
+
+        .btn-close:hover { background: #000; }
+    </style>
+</head>
+<body>
+
+    <main class="container">
+        <article class="postit-card">
+            <h1>🏷️ Categoria Prodotto: Organizza con un Clic</h1>
+            
+            <div class="discorso-guida">
+                <p>A cosa serve dividere la dispensa in categorie? Non a fare i pignoli, ma a trovare subito quello che ti serve quando consulti l'inventario o fai un controllo rapido delle scorte!</p>
+
+                <p><strong>Come funziona la Categoria in pratica?</strong></p>
+
+                <p><strong>1. Suggerimenti Automatici:</strong> Quando scansioni un prodotto con il codice a barre, il sistema potrebbe già compilare la categoria (talvolta con termini in altre lingue). Se ti va bene la confermi, altrimenti scrivi la categoria che preferisci. Grazie alla memoria intelligente del browser, l'applicazione ricorderà le tue scelte frequenti e te le proporrà in automatico per velocizzare i carichi successivi.</p>
+
+                <p>Puoi spaziare tra qualsiasi famiglia di prodotti in base alle tue abitudini:</p>
+                <ul>
+                    <li>🍎 <strong>Alimentari:</strong> Latticini e Formaggi, Carne e Pesce, Frutta e Verdura, Bevande, Dolci e Colazione, Scatolame e Conserve...</li>
+                    <li>🏠 <strong>Casa e Persona:</strong> Detersivi e Pulizia, Igiene e Saponi, Carta e Monouso, Articoli vari...</li>
+                </ul>
+
+                <div class="categoria-box">
+                    💡 <strong>2. Massima Libertà:</strong> Non esiste una regola rigida. Puoi usare le categorie che ti sono più comode per raggruppare visivamente la merce all'interno della tua dispensa.
+                </div>
+
+                <p><strong>3. Categorie libere o generiche:</strong> Se sei di fretta o non sai dove inserire un articolo al volo, scrivi una parola semplice o generica: potrai sempre modificare o riorganizzare i dettagli in un secondo momento dal computer.</p>
+
+                <div class="chiusura-box">
+                    🟢 <strong>Continuo Ciclo di Carico:</strong> Dopo aver inserito la categoria e completato i campi del prodotto, clicca su <strong>"➕ Aggiungi alla Dispensa"</strong>. Il sistema ti chiederà subito se desideri inserire un altro prodotto o tornare al menu principale!
+                </div>
+            </div>
+
+            <a href="carico.html" class="btn-close" onclick="window.close(); return false;">✕ Chiudi Guida</a>
+        </article>
+    </main>
+
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guida Ubicazione e Luoghi | EatMeFirst</title>
+    <meta name="description" content="Scopri come organizzare e personalizzare le ubicazioni dei tuoi prodotti in dispensa con EatMeFirst.">
+    <meta name="robots" content="noindex, nofollow">
+    <style>
+        :root {
+            --bg-color: #12181b;
+            --card-bg: #1e272c;
+            --text-color: #e0e6ed;
+            --postit-bg: #fff59d;
+            --postit-text: #333333;
+            --border-color: #2d3748;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 15px 10px;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .postit-card {
+            background-color: var(--postit-bg);
+            color: var(--postit-text);
+            padding: 25px 20px;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            position: relative;
+        }
+
+        h1 { font-size: 1.3rem; margin-bottom: 16px; color: #1a1a1a; display: flex; align-items: center; gap: 8px; }
+        
+        .discorso-guida {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #222;
+        }
+
+        .discorso-guida p {
+            margin-bottom: 12px;
+        }
+
+        .memoria-box {
+            background: rgba(76, 175, 80, 0.15);
+            border-left: 4px solid #4caf50;
+            padding: 12px 14px;
+            border-radius: 4px;
+            margin: 15px 0;
+            font-size: 0.92rem;
+            line-height: 1.5;
+        }
+
+        .btn-close {
+            display: inline-block;
+            margin-top: 20px;
+            background: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+            transition: background 0.2s;
+        }
+
+        .btn-close:hover { background: #000; }
+    </style>
+</head>
+<body>
+
+    <main class="container">
+        <article class="postit-card">
+            <h1>📍 Ubicazione e Luoghi Personalizzati</h1>
+            
+            <div class="discorso-guida">
+                <p>All'inizio, quando comincerai a usare questa applicazione, troverai questo campo vuoto. Vogliamo infatti che sia tu a creare i luoghi di destinazione dei tuoi prodotti in modo del tutto personalizzato, adattandoli alla struttura della tua casa!</p>
+
+                <p>Potrai scrivere liberamente <em>"Congelatore in cantina"</em> oppure <em>"Scaffale vini"</em>: basta digitare il nome del posto la prima volta. Tutto qui!</p>
+
+                <div class="memoria-box">
+                    💡 <strong>Evita doppioni e confusione!</strong><br><br>
+                    Le volte successive, l'app ricorderà i luoghi che hai salvato e te li proporrà rapidamente. In questo modo eviterai di riscrivere ogni volta la destinazione con piccole varianti (come <em>"scaffale vino cantina"</em> o <em>"scaffalatura cantina"</em>), prevenendo la creazione di nomi doppi che indicano lo stesso identico posto.
+                </div>
+
+                <p><em>(Ricordati: sapere esattamente in quale mobile o stanza si trova un articolo ti permette di ritrovarlo subito senza dover perdere tempo a cercarlo per casa!)</em></p>
+            </div>
+
+            <a href="carico.html" class="btn-close" onclick="window.close(); return false;">✕ Chiudi Guida</a>
+        </article>
+    </main>
+
+</body>
+</html>
