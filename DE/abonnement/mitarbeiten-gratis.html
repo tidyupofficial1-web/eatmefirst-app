@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mit arbeiten und 1 Jahr gratis erhalten - EatMeFirst</title>
+    <style>
+        :root {
+            --bg-color: #12181b;
+            --card-bg: #1e272c;
+            --primary-color: #2ecc71;
+            --text-color: #e0e6ed;
+            --text-muted: #a0aec0;
+            --border-color: #2d3748;
+            --info-bg: #1a2634;
+            --info-border: #3182ce;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .top-navbar {
+            width: 100%;
+            background-color: #101416;
+            padding: 12px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-sizing: border-box;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: #ffffff;
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+
+        .brand-logo img {
+            height: 36px;
+            width: auto;
+        }
+
+        .btn-back {
+            background-color: var(--border-color);
+            color: #ffffff;
+            padding: 8px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: background-color 0.2s;
+        }
+
+        .btn-back:hover {
+            background-color: #4a5568;
+        }
+
+        .main-container {
+            max-width: 800px;
+            width: 100%;
+            padding: 40px 20px;
+            box-sizing: border-box;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+        }
+
+        h1 {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            margin-top: 0;
+        }
+
+        h2 {
+            font-size: 1.3rem;
+            color: #ffffff;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
+            margin-top: 25px;
+        }
+
+        p, li {
+            line-height: 1.6;
+            color: var(--text-color);
+            font-size: 1rem;
+        }
+
+        /* Form di Segnalazione */
+        .bug-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .form-group label {
+            font-weight: bold;
+            font-size: 0.95rem;
+            color: #ffffff;
+        }
+
+        .form-group input, 
+        .form-group select, 
+        .form-group textarea {
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background-color: #12181b;
+            color: #ffffff;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .btn-submit-bug {
+            background-color: var(--primary-color);
+            color: #000000;
+            border: none;
+            padding: 14px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.2s;
+            margin-top: 10px;
+        }
+
+        .btn-submit-bug:hover {
+            background-color: #27ae60;
+            transform: translateY(-2px);
+        }
+
+        .promo-box {
+            background-color: var(--info-bg);
+            border: 1px solid var(--info-border);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 35px;
+        }
+
+        .coupon-input-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .coupon-input-group input {
+            flex: 1;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background-color: #12181b;
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        .btn-redeem {
+            background-color: var(--primary-color);
+            color: #000;
+            border: none;
+            padding: 0 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .btn-redeem:hover {
+            background-color: #27ae60;
+        }
+    </style>
+</head>
+<body>
+
+<header class="top-navbar">
+    <a href="../menu.html" class="brand-logo">
+        <img src="../../IMG/logo_1024_white.png" alt="EatMeFirst Logo">
+        <span>EatMeFirst</span>
+    </a>
+    <a href="index.html" class="btn-back">⬅ Zurück zum Abonnement</a>
+</header>
+
+<div class="main-container">
+
+    <div class="card">
+        <h1>Möchten Sie 1 Jahr gratis? Arbeiten Sie mit uns zusammen!</h1>
+        <p>Wenn Sie einen Fehler, einen falschen Text oder ein Berechnungsproblem in der App finden, senden Sie uns eine Meldung. Nach Überprüfung senden wir Ihnen per E-Mail einen <strong>100% Rabattcode</strong> zu, um 1 ganzes Jahr kostenloses Abonnement zu aktivieren!</p>
+
+        <h2>Fehlermeldungsformular</h2>
+        
+        <!-- FORM WEB COLLEGATO A FORMSPREE (EMAIL NASCOSTA) -->
+        <form class="bug-form" action="https://formspree.io/f/xvkkwkzj" method="POST">
+            
+            <div class="form-group">
+                <label for="userEmail">Ihre E-Mail-Adresse (für den Erhalt des Gutscheincodes):</label>
+                <input type="email" id="userEmail" name="email" placeholder="z. B. max.mustermann@email.com" required>
+            </div>
+
+            <div class="form-group">
+                <label for="bugSection">Bereich des Programms, in dem Sie den Fehler gefunden haben:</label>
+                <select id="bugSection" name="sezione">
+                    <option value="Carico Prodotti">📦 Produkteingabe</option>
+                    <option value="Scarico Consumi">🍳 Verbrauch & Austragung</option>
+                    <option value="Controllo Giacenze">🔍 Bestandsprüfung</option>
+                    <option value="Lista della Spesa">🛒 Einkaufsliste</option>
+                    <option value="Statistiche">📊 Statistiken & Einsparungen</option>
+                    <option value="Altro / Generale">⚙️ Sonstiges / Allgemein</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="bugDescription">Beschreibung des Problems oder Fehlers:</label>
+                <textarea id="bugDescription" name="messaggio" placeholder="Beschreiben Sie kurz, was passiert ist, was Sie versucht haben und was nicht funktioniert..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn-submit-bug">✉️ Fehlermeldung absenden</button>
+        </form>
+
+        <!-- SEZIONE RISCATTO CODICE -->
+        <div class="promo-box">
+            <h3>Haben Sie bereits einen Gutscheincode per E-Mail erhalten?</h3>
+            <p>Geben Sie den erhaltenen Code unten ein, um <strong>1 ganzes Jahr kostenloses Abonnement</strong> einzulösen:</p>
+            
+            <div class="coupon-input-group">
+                <input type="text" id="promoCodeInput" placeholder="z. B. BUGFIX-2026-X">
+                <button class="btn-redeem" onclick="riscattaCodicePromo()">Einlösen</button>
+            </div>
+            <p id="promoMessage" style="margin-top: 10px; font-weight: bold;"></p>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    function riscattaCodicePromo() {
+        const input = document.getElementById('promoCodeInput').value.trim().toUpperCase();
+        const msg = document.getElementById('promoMessage');
+
+        const codiciValidi = ["EATFREE1YEAR", "BUGTESTER2026", "GRAZIELEO"];
+
+        if (codiciValidi.includes(input)) {
+            let currentExpiry = localStorage.getItem('eatmefirst_expiry_date');
+            let baseDate = currentExpiry ? new Date(currentExpiry) : new Date();
+            let now = new Date();
+            let startDate = baseDate > now ? baseDate : now;
+            
+            let newExpiry = new Date(startDate.getTime() + (365 * 24 * 60 * 60 * 1000));
+            localStorage.setItem('eatmefirst_expiry_date', newExpiry.toISOString());
+
+            msg.style.color = "var(--primary-color)";
+            msg.textContent = "Gutscheincode erfolgreich eingelöst! Jahreslizenz aktiviert.";
+        } else {
+            msg.style.color = "#e74c3c";
+            msg.textContent = "Ungültiger oder bereits verwendeter Gutscheincode.";
+        }
+    }
+</script>
+
+</body>
+</html>

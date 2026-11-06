@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mengen-Anleitung | EatMeFirst</title>
+    <meta name="description" content="Erfahren Sie, wie Sie die Anzahl der gekauften Packungen oder Kartons für Ihre Speisekammer mit EatMeFirst richtig angeben.">
+    <meta name="robots" content="index, follow">
+    <style>
+        :root {
+            --bg-color: #12181b;
+            --card-bg: #1e272c;
+            --text-color: #e0e6ed;
+            --postit-bg: #fff59d;
+            --postit-text: #333333;
+            --border-color: #2d3748;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 15px 10px;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .postit-card {
+            background-color: var(--postit-bg);
+            color: var(--postit-text);
+            padding: 25px 20px;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            position: relative;
+        }
+
+        h1 { font-size: 1.3rem; margin-bottom: 16px; color: #1a1a1a; display: flex; align-items: center; gap: 8px; }
+        
+        .discorso-guida {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #222;
+        }
+
+        .discorso-guida p { margin-bottom: 12px; }
+
+        .discorso-guida ul {
+            margin-left: 20px;
+            margin-bottom: 12px;
+        }
+
+        .discorso-guida li {
+            margin-bottom: 6px;
+        }
+
+        .info-box {
+            background: rgba(33, 150, 243, 0.15);
+            border-left: 4px solid #2196f3;
+            padding: 12px 14px;
+            border-radius: 4px;
+            margin: 15px 0;
+            font-size: 0.92rem;
+            line-height: 1.5;
+        }
+
+        .btn-close {
+            display: inline-block;
+            margin-top: 20px;
+            background: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+            transition: background 0.2s;
+        }
+
+        .btn-close:hover { background: #000; }
+    </style>
+</head>
+<body>
+
+    <main class="container">
+        <article class="postit-card">
+            <h1>🔢 Anzahl der gekauften Packungen</h1>
+            
+            <div class="discorso-guida">
+                <p>In dieses Feld geben Sie einfach ein, <strong>wie viele Packungen, Kartons oder ganze Einheiten</strong> Sie gekauft haben und Ihrer Speisekammer hinzufügen möchten (unter Verwendung ganzer Zahlen: 1, 2, 3 usw.).</p>
+
+                <p><strong>Praktische Beispiele:</strong></p>
+                <ul>
+                    <li>Sie haben <strong>2 Packungen</strong> Nudeln gekauft? Geben Sie <strong>2</strong> ein.</li>
+                    <li>Sie haben <strong>1 Palette</strong> Wasser gekauft? Geben Sie <strong>1</strong> ein (die Anzahl der enthaltenen Flaschen wird stattdessen im benachbarten Feld <em>Stk. x Pack.</em> eingetragen).</li>
+                    <li>Sie haben <strong>3 Becher</strong> Joghurt gekauft? Geben Sie <strong>3</strong> ein.</li>
+                </ul>
+
+                <div class="info-box">
+                    💡 <strong>Allgemeine Regel:</strong><br>
+                    Verwenden Sie immer ganze Zahlen, um Packungen oder Kartons zu zählen. Machen Sie sich keine Sorgen über Teilmengen oder Brüche: Eventuelle Teilverbräuche oder angebrochene Packungen werden direkt und bequem auf der Entnahmeseite verwaltet!
+                </div>
+            </div>
+
+            <a href="einlagerung.html" class="btn-close" onclick="window.close(); return false;">✕ Anleitung schließen</a>
+        </article>
+    </main>
+
+</body>
+</html>

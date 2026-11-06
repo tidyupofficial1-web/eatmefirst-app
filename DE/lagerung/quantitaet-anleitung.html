@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anleitung für Mengenangaben | EatMeFirst</title>
+    <meta name="description" content="Wie Sie die Anzahl der Packungen oder Kartons angeben, die in die Speisekammer geladen werden sollen.">
+    <meta name="robots" content="noindex, nofollow">
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --card-bg: #161b22;
+            --text-color: #f0f6fc;
+            --postit-bg: #fff59d;
+            --postit-text: #333333;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 20px 16px;
+        }
+
+        .container {
+            max-width: 650px;
+            margin: 20px auto;
+            width: 100%;
+        }
+
+        .postit-card {
+            background-color: var(--postit-bg);
+            color: var(--postit-text);
+            padding: 30px 26px;
+            border-radius: 4px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            position: relative;
+            transform: rotate(-0.4deg);
+        }
+
+        .postit-card::before {
+            content: '';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 24px;
+            height: 24px;
+            background: #f44336;
+            border-radius: 50%;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.4), inset -2px -2px 4px rgba(0,0,0,0.3);
+        }
+
+        h1 { font-size: 21px; margin-bottom: 18px; color: #1a1a1a; display: flex; align-items: center; gap: 8px; }
+        
+        .discorso-guida {
+            font-size: 15px;
+            line-height: 1.65;
+            color: #222;
+        }
+
+        .discorso-guida p { margin-bottom: 14px; }
+
+        .info-box {
+            background: rgba(33, 150, 243, 0.15);
+            border-left: 4px solid #2196f3;
+            padding: 14px 16px;
+            border-radius: 4px;
+            margin: 18px 0;
+            font-size: 14.5px;
+            line-height: 1.6;
+        }
+
+        .btn-close {
+            display: inline-block;
+            margin-top: 20px;
+            background: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: background 0.2s;
+        }
+
+        .btn-close:hover { background: #000; }
+    </style>
+</head>
+<body>
+
+    <main class="container">
+        <article class="postit-card">
+            <h1>🔢 Anzahl der gekauften Packungen</h1>
+            
+            <div class="discorso-guida">
+                <p>In dieses Feld tragen Sie einfach ein, <strong>wie viele Packungen, Schachteln oder ganze Kartons</strong> Sie gekauft haben und der Speisekammer hinzufügen möchten (unter Verwendung ganzer Zahlen: 1, 2, 3 usw.).</p>
+
+                <p><strong>Praktische Beispiele:</strong></p>
+                <p>• Sie haben <strong>2 Packungen</strong> Nudeln gekauft? Geben Sie <strong>2</strong> ein.</p>
+                <p>• Sie haben einen <strong>Kasten/Tray</strong> Wasser mitgenommen? Geben Sie <strong>1</strong> ein (die Anzahl der enthaltenen Flaschen geben Sie in das Feld daneben <em>Stücke pro Packung</em> ein).</p>
+                <p>• Sie haben <strong>3 Becher</strong> Joghurt gekauft? Geben Sie <strong>3</strong> ein.</p>
+
+                <div class="info-box">
+                    💡 <strong>Einfacher Hinweis:</strong><br>
+                    Verwenden Sie immer ganze Zahlen. Machen Sie sich keine Sorgen über Brüche oder Portionen: Das System kümmert sich um den restlichen Bestand, wenn das Produkt nach und nach verbraucht wird!
+                </div>
+            </div>
+
+            <a href="einlagerung.html" class="btn-close">← Zurück zum Einlagern</a>
+        </article>
+    </main>
+
+</body>
+</html>

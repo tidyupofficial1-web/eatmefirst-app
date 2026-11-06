@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entnahme & Interaktiver Verbrauch | EatMeFirst</title>
+    <meta name="description" content="Verwalten Sie die Entnahme und den Teilverbrauch von Lebensmitteln in der Vorratskammer mit dem visuellen Regler von EatMeFirst.">
+    <meta name="robots" content="noindex, nofollow">
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --card-bg: #161b22;
+            --text-color: #f0f6fc;
+            --text-muted: #8b949e;
+            --accent-color: #58a6ff;
+            --success-color: #238636;
+            --danger-color: #da3633;
+            --warning-color: #d29922;
+            --border-color: #30363d;
+            --light-bg: #21262d;
+            --input-bg: #0d1117;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- NAVIGATION --- */
+        .app-bar {
+            background: rgba(22, 27, 34, 0.95);
+            border-bottom: 1px solid var(--border-color);
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky; top: 0; z-index: 40;
+        }
+
+        .app-brand { display: flex; align-items: center; gap: 12px; }
+        .btn-back {
+            background: var(--light-bg); color: var(--text-color);
+            border: 1px solid var(--border-color); padding: 6px 14px;
+            border-radius: 8px; text-decoration: none; font-size: 13.5px; font-weight: 600;
+        }
+        .btn-back:hover { border-color: var(--accent-color); color: var(--accent-color); }
+        .brand-title { font-size: 18px; font-weight: bold; color: var(--text-color); }
+
+        .app-nav-right { display: flex; align-items: center; gap: 12px; }
+
+        .language-flags {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+            background: var(--light-bg);
+            padding: 4px 8px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+        }
+
+        .flag-link {
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            opacity: 0.7;
+            transition: opacity 0.2s, transform 0.2s;
+        }
+
+        .flag-link:hover, .flag-link.active { opacity: 1; transform: scale(1.1); }
+        .flag-img { width: 20px; height: 14px; object-fit: cover; border-radius: 2px; }
+
+        .container { max-width: 900px; margin: 30px auto; padding: 0 16px; width: 100%; }
+
+        .card-box {
+            background: var(--card-bg); border-radius: 16px;
+            border: 1px solid var(--border-color); padding: 24px;
+            margin-bottom: 24px; box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+        }
+        .card-title-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+        .card-title { font-size: 19px; color: var(--accent-color); font-weight: 700; }
+
+        .filtri-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px; }
+        .search-input, .filter-select {
+            width: 100%; padding: 11px 14px; background: var(--input-bg);
+            border: 1px solid var(--border-color); border-radius: 8px;
+            color: var(--text-color); font-size: 14px; outline: none;
+        }
+
+        .product-list { display: flex; flex-direction: column; gap: 10px; }
+        .product-item {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 14px 16px; background: var(--light-bg);
+            border: 1px solid var(--border-color); border-radius: 10px;
+        }
+
+        .actions-group { display: flex; align-items: center; gap: 8px; }
+        .btn-esaurito {
+            background-color: var(--danger-color); color: #fff;
+            border: none; padding: 8px 12px; border-radius: 8px;
+            font-weight: bold; cursor: pointer; font-size: 13.5px;
+        }
+        .btn-esaurito:hover { opacity: 0.9; }
+
+        .btn-parziale {
+            background-color: var(--warning-color); color: #0d1117;
+            border: none; padding: 8px 12px; border-radius: 8px;
+            font-weight: bold; cursor: pointer; font-size: 13.5px;
+        }
+        .btn-parziale:hover { opacity: 0.9; }
+
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.85); display: flex; justify-content: center;
+            align-items: center; z-index: 100; padding: 20px; overflow-y: auto;
+        }
+        .modal-content {
+            background: var(--card-bg); border: 1px solid var(--border-color);
+            border-radius: 16px; max-width: 520px; width: 100%; padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); margin: auto;
+        }
+
+        .eva-postit {
+            background: #1a2634;
+            border: 1px solid #3182ce;
+            border-left: 4px solid #3182ce;
+            border-radius: 10px;
+            padding: 14px;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+        .eva-avatar {
+            width: 45px; height: 45px; border-radius: 50%;
+            border: 2px solid #58a6ff; object-fit: cover; flex-shrink: 0;
+        }
+        .eva-text { font-size: 13px; line-height: 1.5; color: var(--text-color); }
+
+        .interactive-shape-wrapper {
+            background: #0d1117;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            user-select: none;
+        }
+
+        .shape-canvas { cursor: pointer; transition: transform 0.1s ease; }
+        .slider-level-control { width: 80%; margin-top: 12px; accent-color: var(--success-color); cursor: pointer; }
+
+        .status-badge-container {
+            display: flex; justify-content: space-around; width: 100%;
+            margin-top: 10px; font-size: 13px; font-weight: 600;
+        }
+        .badge-ver { color: #2ecc71; }
+        .badge-ros { color: #e74c3c; }
+
+        .location-change-box {
+            background: #0d1117; border: 1px solid var(--border-color);
+            border-radius: 10px; padding: 14px; margin-bottom: 15px;
+        }
+        .location-change-box label { font-size: 13px; color: var(--text-muted); display: block; margin-bottom: 6px; font-weight: 600; }
+
+        .modal-buttons { display: flex; gap: 10px; justify-content: flex-end; margin-top: 15px; }
+        .btn-secondary {
+            background: var(--light-bg); color: var(--text-color);
+            border: 1px solid var(--border-color); padding: 8px 16px; border-radius: 8px; cursor: pointer; font-weight: 600;
+        }
+        .btn-confirm {
+            background-color: var(--success-color); color: #fff;
+            border: none; padding: 8px 16px; border-radius: 8px; font-weight: bold; cursor: pointer;
+        }
+        .btn-confirm:hover { background-color: #2ea043; }
+
+        @media (max-width: 768px) {
+            .filtri-grid { grid-template-columns: 1fr; }
+            .language-flags { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- OBERE NAVIGATIONSLEISTE MIT LOGO UND FLAGGEN -->
+    <header class="app-bar">
+        <div class="app-brand">
+            <a href="../menu.html" class="btn-back">← Menü</a>
+            <div class="mini-logo" style="display: inline-flex; align-items: center;">
+                <img src="../../IMG/logo_1024_white.png" alt="EatMeFirst Logo" style="height: 36px; width: auto; filter: drop-shadow(0px 0px 2px rgba(255, 255, 255, 0.8));">
+            </div>
+            <span class="brand-title">Entnahme & Interaktiver Verbrauch</span>
+        </div>
+
+        <div class="app-nav-right">
+            <nav class="language-flags">
+                <a href="../../IT/scarico/index.html" class="flag-link" title="Italiano"><img src="../../IMG/bandiera_Italy.jpg" class="flag-img" alt="IT"></a>
+                <a href="../../EN/unload/index.html" class="flag-link" title="English"><img src="../../IMG/bandiera_England.jpg" class="flag-img" alt="EN"></a>
+                <a href="index.html" class="flag-link active" title="Deutsch"><img src="../../IMG/bandiera_Germany.jpg" class="flag-img" alt="DE"></a>
+                <a href="../../FR/dechargement/index.html" class="flag-link" title="Français"><img src="../../IMG/bandiera_France.jpg" class="flag-img" alt="FR"></a>
+                <a href="../../ES/descarga/index.html" class="flag-link" title="Español"><img src="../../IMG/bandiera_Espana.jpg" class="flag-img" alt="ES"></a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="card-box">
+            <div class="card-title-row">
+                <div class="card-title">🔍 Lebensmittel zur Entnahme suchen</div>
+            </div>
+
+            <div class="filtri-grid">
+                <input type="text" id="filtroNome" class="search-input" placeholder="Nach Name suchen..." oninput="filtraDispensa()">
+                <select id="filtroUbicazione" class="filter-select" onchange="filtraDispensa()">
+                    <option value="">Alle Standorte</option>
+                </select>
+                <select id="filtroCategoria" class="filter-select" onchange="filtraDispensa()">
+                    <option value="">Alle Kategorien</option>
+                </select>
+            </div>
+
+            <div id="listaRisultati" class="product-list"></div>
+        </div>
+    </main>
+
+    <div id="modalScaricoVisual" class="modal-overlay" style="display:none;">
+        <div class="modal-content">
+            <h3 id="modalNomeProdotto" style="color: var(--accent-color); font-size: 18px; text-align: center; margin-bottom: 4px;">Produktname</h3>
+            <p id="modalUbicazioneAttuale" style="text-align: center; color: var(--text-muted); font-size: 12px; margin-bottom: 12px;">Aktueller Standort: -</p>
+
+            <div class="eva-postit">
+                <img src="../../IMG/avatar_eva.png" alt="Eva Avatar" class="eva-avatar">
+                <div class="eva-text" id="evaGuidaTesto">
+                    Hier wollte ich besonders präzise sein: Sie können die Menge des teilweise verbrauchten Produkts verwalten, indem Sie den Prozentsatz anpassen.
+                </div>
+            </div>
+
+            <div class="interactive-shape-wrapper">
+                <div id="shapeContainer"></div>
+                <input type="range" id="levelSlider" class="slider-level-control" min="0" max="100" value="100" oninput="aggiornaLivelloVisivo(this.value)">
+
+                <div class="status-badge-container">
+                    <span class="badge-ver">🟢 Verbleibend: <strong id="lblRimanente">100%</strong></span>
+                    <span class="badge-ros">🔴 Verbraucht: <strong id="lblConsumato">0%</strong></span>
+                </div>
+            </div>
+
+            <div class="location-change-box">
+                <label for="nuovaUbicazioneSelect">📍 Wohin kommt das verbleibende Produkt jetzt?</label>
+                <select id="nuovaUbicazioneSelect" class="filter-select" style="margin-bottom: 8px;" onchange="verificaNuovaUbicazione(this.value)">
+                </select>
+                <input type="text" id="inputNuovaUbicazioneCustom" class="search-input" placeholder="Oder einen neuen Standort eingeben..." style="display:none;">
+            </div>
+
+            <div class="modal-buttons">
+                <button type="button" class="btn-secondary" onclick="chiudiModalScarico()">Abbrechen</button>
+                <button type="button" class="btn-confirm" onclick="confermaScaricoEffettivo()">Bestätigen & Speichern</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let prodottoSelezionato = null;
+        let percentualeAttuale = 100;
+
+        window.addEventListener('DOMContentLoaded', () => {
+            if (!localStorage.getItem('emf_dispensa')) {
+                localStorage.setItem('emf_dispensa', JSON.stringify([]));
+            }
+            popolaFiltri();
+            filtraDispensa();
+        });
+
+        function popolaFiltri() {
+            const dispensa = JSON.parse(localStorage.getItem('emf_dispensa')) || [];
+            const ubSelect = document.getElementById('filtroUbicazione');
+            const catSelect = document.getElementById('filtroCategoria');
+            
+            const ubs = [...new Set(dispensa.map(p => p.ubicazione).filter(Boolean))];
+            const cats = [...new Set(dispensa.map(p => p.categoria).filter(Boolean))];
+
+            ubSelect.innerHTML = '<option value="">Alle Standorte</option>';
+            ubs.forEach(u => ubSelect.innerHTML += `<option value="${u}">${u}</option>`);
+
+            catSelect.innerHTML = '<option value="">Alle Kategorien</option>';
+            cats.forEach(c => catSelect.innerHTML += `<option value="${c}">${c}</option>`);
+        }
+
+        function filtraDispensa() {
+            const query = document.getElementById('filtroNome').value.toLowerCase();
+            const ub = document.getElementById('filtroUbicazione').value;
+            const cat = document.getElementById('filtroCategoria').value;
+            const dispensa = JSON.parse(localStorage.getItem('emf_dispensa')) || [];
+
+            const container = document.getElementById('listaRisultati');
+            const filtrati = dispensa.filter(p => 
+                (p.nome || "").toLowerCase().includes(query) &&
+                (ub === "" || p.ubicazione === ub) &&
+                (cat === "" || p.categoria === cat)
+            );
+
+            if (filtrati.length === 0) {
+                container.innerHTML = `<div style="text-align: center; padding: 20px; color: var(--text-muted); font-style: italic;">Keine Produkte in der Vorratskammer gefunden.</div>`;
+                return;
+            }
+
+            container.innerHTML = filtrati.map(p => `
+                <div class="product-item">
+                    <div>
+                        <strong>${p.nome}</strong><br>
+                        <small style="color: var(--text-muted)">📍 ${p.ubicazione || 'Nicht angegeben'} | ⏳ Verbleibend: ${p.percentuale || 100}%</small>
+                    </div>
+                    <div class="actions-group">
+                        <button class="btn-esaurito" onclick="segnaEsauritoDiretto(${p.id})">Aufgebraucht</button>
+                        <button class="btn-parziale" onclick="apriModalVisual(${p.id})">Teilweise</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function segnaEsauritoDiretto(id) {
+            let dispensa = JSON.parse(localStorage.getItem('emf_dispensa')) || [];
+            const prod = dispensa.find(p => p.id === id);
+            if (!prod) return;
+
+            if (confirm(`Bestätigen Sie, dass "${prod.nome}" vollständig aufgebraucht ist? Es wird zur Einkaufsliste hinzugefügt.`)) {
+                spostaInListaSpesa(prod);
+                dispensa = dispensa.filter(p => p.id !== id);
+                localStorage.setItem('emf_dispensa', JSON.stringify(dispensa));
+                popolaFiltri();
+                filtraDispensa();
+            }
+        }
+
+        function spostaInListaSpesa(prod) {
+            let spesa = JSON.parse(localStorage.getItem('emf_spesa')) || [];
+            if (!spesa.some(s => s.nome === prod.nome)) {
+                spesa.push({ nome: prod.nome, categoria: prod.categoria || 'Allgemein', quantita: 1, stato: 'esaurito' });
+                localStorage.setItem('emf_spesa', JSON.stringify(spesa));
+            }
+        }
+
+        function apriModalVisual(id) {
+            const dispensa = JSON.parse(localStorage.getItem('emf_dispensa')) || [];
+            prodottoSelezionato = dispensa.find(p => p.id === id);
+            if (!prodottoSelezionato) return;
+
+            percentualeAttuale = prodottoSelezionato.percentuale || 100;
+
+            document.getElementById('modalNomeProdotto').innerText = prodottoSelezionato.nome;
+            document.getElementById('modalUbicazioneAttuale').innerText = `Aktueller Standort: ${prodottoSelezionato.ubicazione || 'Nicht angegeben'}`;
+            document.getElementById('levelSlider').value = percentualeAttuale;
+
+            popolaUbicazioniModal(dispensa, prodottoSelezionato.ubicazione);
+            disegnaFormaSVG(prodottoSelezionato.forma || 'cilindro_verticale', percentualeAttuale);
+            aggiornaEtichette(percentualeAttuale);
+
+            document.getElementById('modalScaricoVisual').style.display = 'flex';
+        }
+
+        function popolaUbicazioniModal(dispensa, ubicazioneCorrente) {
+            const select = document.getElementById('nuovaUbicazioneSelect');
+            const inputCustom = document.getElementById('inputNuovaUbicazioneCustom');
+            inputCustom.style.display = 'none';
+            inputCustom.value = '';
+
+            const ubs = [...new Set(dispensa.map(p => p.ubicazione).filter(Boolean))];
+            
+            let html = `<option value="${ubicazioneCorrente || ''}">Behalten in: ${ubicazioneCorrente || 'Aktueller Standort'}</option>`;
+            ubs.forEach(u => {
+                if (u !== ubicazioneCorrente) {
+                    html += `<option value="${u}">Verschieben nach: ${u}</option>`;
+                }
+            });
+            html += `<option value="ALTRO">+ Neuen Standort eingeben...</option>`;
+            select.innerHTML = html;
+        }
+
+        function verificaNuovaUbicazione(valore) {
+            const inputCustom = document.getElementById('inputNuovaUbicazioneCustom');
+            if (valore === 'ALTRO') {
+                inputCustom.style.display = 'block';
+                inputCustom.focus();
+            } else {
+                inputCustom.style.display = 'none';
+                inputCustom.value = '';
+            }
+        }
+
+        function disegnaFormaSVG(forma, percentuale) {
+            const container = document.getElementById('shapeContainer');
+            const hVerde = (percentuale / 100) * 140; 
+            const hRosso = 140 - hVerde;
+
+            if (forma === 'cilindro_verticale' || forma === 'parallelepipedo') {
+                container.innerHTML = `
+                    <svg width="100" height="160" viewBox="0 0 100 160" class="shape-canvas" onclick="gestisciClickAltezza(event, 160)">
+                        <rect x="15" y="10" width="70" height="140" rx="8" fill="#e74c3c" />
+                        <rect x="15" y="${10 + hRosso}" width="70" height="${hVerde}" rx="0" fill="#2ecc71" />
+                        <rect x="15" y="10" width="70" height="140" rx="8" fill="none" stroke="#ffffff" stroke-width="3" />
+                    </svg>
+                `;
+            } else if (forma === 'cilindro_orizzontale') {
+                const wVerde = (percentuale / 100) * 160;
+                container.innerHTML = `
+                    <svg width="180" height="90" viewBox="0 0 180 90" class="shape-canvas" onclick="gestisciClickLarghezza(event, 180)">
+                        <rect x="10" y="20" width="160" height="50" rx="25" fill="#e74c3c" />
+                        <rect x="10" y="20" width="${wVerde}" height="50" rx="0" fill="#2ecc71" />
+                        <rect x="10" y="20" width="160" height="50" rx="25" fill="none" stroke="#ffffff" stroke-width="3" />
+                    </svg>
+                `;
+            } else if (forma === 'forma_circolare') {
+                const angolo = (percentuale / 100) * 360;
+                const rad = (angolo - 90) * (Math.PI / 180);
+                const x = 70 + 60 * Math.cos(rad);
+                const y = 70 + 60 * Math.sin(rad);
+                const largeArc = angolo > 180 ? 1 : 0;
+
+                container.innerHTML = `
+                    <svg width="140" height="140" viewBox="0 0 140 140" class="shape-canvas">
+                        <circle cx="70" cy="70" r="60" fill="#e74c3c" stroke="#ffffff" stroke-width="3" />
+                        ${percentuale > 0 ? `
+                        <path d="M 70 70 L 70 10 A 60 60 0 ${largeArc} 1 ${x}${y} Z" fill="#2ecc71" />
+                        ` : ''}
+                    </svg>
+                `;
+            }
+        }
+
+        function gestisciClickAltezza(e, maxH) {
+            const rect = e.currentTarget.getBoundingClientRect();
+            const clickY = e.clientY - rect.top;
+            let p = Math.round(100 - ((clickY / rect.height) * 100));
+            p = Math.max(0, Math.min(100, p));
+            document.getElementById('levelSlider').value = p;
+            aggiornaLivelloVisivo(p);
+        }
+
+        function gestisciClickLarghezza(e, maxW) {
+            const rect = e.currentTarget.getBoundingClientRect();
+            const clickX = e.clientX - rect.left;
+            let p = Math.round((clickX / rect.width) * 100);
+            p = Math.max(0, Math.min(100, p));
+            document.getElementById('levelSlider').value = p;
+            aggiornaLivelloVisivo(p);
+        }
+
+        function aggiornaLivelloVisivo(valore) {
+            percentualeAttuale = parseInt(valore);
+            disegnaFormaSVG(prodottoSelezionato.forma || 'cilindro_verticale', percentualeAttuale);
+            aggiornaEtichette(percentualeAttuale);
+        }
+
+        function aggiornaEtichette(p) {
+            document.getElementById('lblRimanente').innerText = p + '%';
+            document.getElementById('lblConsumato').innerText = (100 - p) + '%';
+        }
+
+        function chiudiModalScarico() {
+            document.getElementById('modalScaricoVisual').style.display = 'none';
+        }
+
+        function confermaScaricoEffettivo() {
+            let dispensa = JSON.parse(localStorage.getItem('emf_dispensa')) || [];
+            const idx = dispensa.findIndex(p => p.id === prodottoSelezionato.id);
+
+            if (idx !== -1) {
+                const selectVal = document.getElementById('nuovaUbicazioneSelect').value;
+                let nuovaUbicazione = prodottoSelezionato.ubicazione;
+                
+                if (selectVal === 'ALTRO') {
+                    const customVal = document.getElementById('inputNuovaUbicazioneCustom').value.trim();
+                    if (customVal !== "") {
+                        nuovaUbicazione = customVal;
+                    }
+                } else if (selectVal !== "") {
+                    nuovaUbicazione = selectVal;
+                }
+
+                dispensa[idx].percentuale = percentualeAttuale;
+                dispensa[idx].ubicazione = nuovaUbicazione;
+
+                if (percentualeAttuale <= 0) {
+                    spostaInListaSpesa(dispensa[idx]);
+                    dispensa.splice(idx, 1);
+                }
+
+                localStorage.setItem('emf_dispensa', JSON.stringify(dispensa));
+                chiudiModalScarico();
+                popolaFiltri();
+                filtraDispensa();
+            }
+        }
+    </script>
+</body>
+</html>
