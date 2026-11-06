@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Offline Shopping List and Return Management Guide | EatMeFirst</title>
+  <meta name="description" content="Discover how EatMeFirst's shopping list works without a cloud connection, why to export it for the supermarket, and how to reorganize products upon your return.">
+  <style>
+    body { 
+      background: #0d1117; 
+      color: #f0f6fc; 
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+      padding: 20px; 
+      line-height: 1.6; 
+    }
+    .postit-card { 
+      background: #fff9c4; 
+      color: #1c1917; 
+      padding: 25px; 
+      border-radius: 12px; 
+      max-width: 700px; 
+      margin: 20px auto; 
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5); 
+    }
+    h1 { color: #854d0e; font-size: 21px; margin-bottom: 12px; }
+    h2 { color: #a16207; font-size: 16px; margin-top: 20px; margin-bottom: 8px; border-bottom: 1px solid #fde047; padding-bottom: 4px; }
+    ul { margin-left: 20px; }
+    li { margin-bottom: 10px; }
+    .leo-box {
+      background: #fef08a;
+      border-left: 4px solid #ca8a04;
+      padding: 14px 16px;
+      margin: 15px 0;
+      border-radius: 6px;
+      font-size: 14.5px;
+    }
+    .btn-back { 
+      display: inline-block; 
+      margin-top: 25px; 
+      background: #0d1117; 
+      color: #58a6ff; 
+      text-decoration: none; 
+      padding: 10px 18px; 
+      border-radius: 8px; 
+      font-weight: bold; 
+      transition: background 0.2s;
+    }
+    .btn-back:hover { background: #161b22; }
+  </style>
+</head>
+<body>
+
+  <div class="postit-card">
+    <h1>📌 Complete Guide: Shopping List, Offline Connection, and Grocery Return</h1>
+    
+    <p>In this section, we explore how shopping management has been designed on EatMeFirst to ensure maximum convenience at the supermarket and total protection of your data.</p>
+    
+    <hr style="border: 0; border-top: 1px solid #fde047; margin: 15px 0;">
+
+    <h2>📶 Why the home Wi-Fi network doesn't reach the supermarket</h2>
+    <p>
+      EatMeFirst's fundamental choice is to never send your pantry data to remote cloud servers. All products and expiration dates reside exclusively on your home computer or device to protect your privacy one hundred percent.
+    </p>
+    <p>
+      When you are at the supermarket, your home Wi-Fi network is out of range, and the app on your phone cannot communicate in real-time with the computer left at home. For this reason, the most effective solution is to export the shopping list before leaving. By downloading the complete text or opening the tab on your mobile phone, you bring all necessary information with you without depending on network coverage or mobile data consumption.
+    </p>
+
+    <h2>📱 How to use the list in the two available modes</h2>
+    <ul>
+      <li>
+        <strong>Interactive Graphical Mode on Smartphone:</strong> When you go to the supermarket yourself, open the shopping page directly from your phone's browser. The interface adapts to the screen, showing out-of-stock products in red. As you place items in your cart, a simple touch on the screen is enough to cross them out with a strikethrough line.
+      </li>
+      <li>
+        <strong>Rich Text Export Mode for WhatsApp:</strong> This feature proves extraordinarily convenient when a family member or friend notifies you that they are already heading to the supermarket and offers to pick up your items. Instead of dictating the shopping list verbally or sending confusing messages, you press a button and send a clear, detailed list via WhatsApp containing the product name, description, recommended quantity, and reference store. Whoever is shopping for you receives a fool-proof message!
+      </li>
+    </ul>
+
+    <h2>📦 How returning home and updating the Database work</h2>
+    <p>
+      When you check off a product bought at the supermarket, it is not automatically added to your home pantry. This practical choice is dictated by the fact that during real shopping trips, schedule changes, last-minute offers, or brand substitutions frequently happen.
+    </p>
+    <p>
+      Upon returning home, you just need to perform a quick barcode scan of the purchased products:
+    </p>
+    <ul>
+      <li>
+        <strong>If the product is identical to one previously bought:</strong> The application immediately recognizes the barcode without querying the external Open Food Facts database, automatically retrieving the previously saved locations, categories, and information.
+      </li>
+      <li>
+        <strong>If you bought a different brand or a product on sale:</strong> Scanning the new barcode will allow the application to acquire the correct information and update your inventory without creating inconsistencies in the system.
+      </li>
+    </ul>
+
+    <div class="leo-box">
+      <strong>💡 Leo's Technical Note shared with Max:</strong><br>
+      This combination of offline local usage, text export, and re-scanning upon return guarantees rigorous control over your household inventory without risking incorrect items in the database.
+    </div>
+
+    <a href="index.html" class="btn-back">← Return to Utilities</a>
+  </div>
+
+</body>
+</html>

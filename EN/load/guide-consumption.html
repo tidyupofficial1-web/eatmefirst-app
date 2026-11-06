@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consumption Mode Guide | EatMeFirst</title>
+    <meta name="robots" content="noindex, nofollow">
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --card-bg: #161b22;
+            --text-color: #f0f6fc;
+            --postit-bg: #fff59d;
+            --postit-text: #333333;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 20px 16px;
+        }
+
+        .container {
+            max-width: 650px;
+            margin: 20px auto;
+            width: 100%;
+        }
+
+        .postit-card {
+            background-color: var(--postit-bg);
+            color: var(--postit-text);
+            padding: 30px 26px;
+            border-radius: 4px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            position: relative;
+            transform: rotate(-0.4deg);
+        }
+
+        .postit-card::before {
+            content: '';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 24px;
+            height: 24px;
+            background: #f44336;
+            border-radius: 50%;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.4), inset -2px -2px 4px rgba(0,0,0,0.3);
+        }
+
+        h1 { font-size: 21px; margin-bottom: 18px; color: #1a1a1a; display: flex; align-items: center; gap: 8px; }
+        
+        .discorso-guida {
+            font-size: 15px;
+            line-height: 1.65;
+            color: #222;
+        }
+
+        .discorso-guida p {
+            margin-bottom: 14px;
+        }
+
+        .memoria-box {
+            background: rgba(76, 175, 80, 0.15);
+            border-left: 4px solid #4caf50;
+            padding: 14px 16px;
+            border-radius: 4px;
+            margin: 18px 0;
+            font-size: 14.5px;
+            line-height: 1.6;
+        }
+
+        .btn-close {
+            display: inline-block;
+            margin-top: 20px;
+            background: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: background 0.2s;
+        }
+
+        .btn-close:hover { background: #000; }
+    </style>
+</head>
+<body>
+
+    <main class="container">
+        <article class="postit-card">
+            <h1>📊 Consumption Mode: Units or Portions</h1>
+            
+            <div class="discorso-guida">
+                <p>Not all foods are consumed in the same way: some are removed entirely by pieces or packs, while others are consumed gradually a little bit at a time. This option lets you choose how you prefer to manage the removal of the product[cite: 13].</p>
+
+                <p>Here are the two available modes[cite: 13]:</p>
+
+                <ul>
+                    <li style="margin-bottom: 10px;">
+                        <strong>📦 By Unit (Whole):</strong> This is the default choice for most products (e.g. cartons of milk, boxes of cookies, cans)[cite: 13]. When you use up this product, you will remove a whole unit at a time from your inventory[cite: 13].
+                    </li>
+                    <li style="margin-bottom: 10px;">
+                        <strong>🧀 By Portion (10 Tenths):</strong> Ideal for foods that you cut or consume in portions (e.g. a salami, a wheel of cheese, a block of butter, or an open carton of juice)[cite: 13].
+                    </li>
+                </ul>
+
+                <div class="memoria-box">
+    💡 <strong>How does automatic removal work?[cite: 13]</strong><br><br>
+    • <strong>By Portion (10 Tenths):</strong> Every time you consume a portion (e.g. 3 tenths of a wheel of cheese), you indicate the tenths consumed[cite: 13]. The app will update the remaining bar[cite: 13]. When all 10 tenths are consumed, the product will be automatically removed from the pantry[cite: 13].<br><br>
+    • <strong>By Pack / Pieces:</strong> If you indicate, for example, 2 packs of 6 bottles (12 pieces total), every time you use items you just need to deduct the pieces consumed[cite: 13]. You won't have to manually delete rows: the app will scale inventory and automatically remove the entry only when completely emptied![cite: 13]
+</div>
+
+                <p><em>(If you are undecided, feel free to leave it set to "By Unit (Whole)": you can always manage standard removal at any time[cite: 13]!)</em></p>
+            </div>
+
+            <a href="load.html" class="btn-close">← Back to Loading</a>
+        </article>
+    </main>
+
+</body>
+</html>

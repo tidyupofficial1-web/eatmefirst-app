@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expiration Date Guide | EatMeFirst</title>
+    <meta name="robots" content="noindex, nofollow">
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --card-bg: #161b22;
+            --text-color: #f0f6fc;
+            --postit-bg: #fff59d;
+            --postit-text: #333333;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 20px 16px;
+        }
+
+        .container {
+            max-width: 650px;
+            margin: 20px auto;
+            width: 100%;
+        }
+
+        .postit-card {
+            background-color: var(--postit-bg);
+            color: var(--postit-text);
+            padding: 30px 26px;
+            border-radius: 4px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            position: relative;
+            transform: rotate(-0.4deg);
+        }
+
+        .postit-card::before {
+            content: '';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 24px;
+            height: 24px;
+            background: #f44336;
+            border-radius: 50%;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.4), inset -2px -2px 4px rgba(0,0,0,0.3);
+        }
+
+        h1 { font-size: 21px; margin-bottom: 18px; color: #1a1a1a; display: flex; align-items: center; gap: 8px; }
+        
+        .discorso-guida {
+            font-size: 15px;
+            line-height: 1.65;
+            color: #222;
+        }
+
+        .discorso-guida p {
+            margin-bottom: 14px;
+        }
+
+        .scadenza-box {
+            background: rgba(255, 152, 0, 0.15);
+            border-left: 4px solid #ff9800;
+            padding: 14px 16px;
+            border-radius: 4px;
+            margin: 18px 0;
+            font-size: 14.5px;
+            line-height: 1.6;
+        }
+
+        .max-idea-box {
+            background: rgba(33, 150, 243, 0.15);
+            border-left: 4px solid #2196f3;
+            padding: 14px 16px;
+            border-radius: 4px;
+            margin: 18px 0;
+            font-size: 14.5px;
+            line-height: 1.6;
+        }
+
+        .btn-close {
+            display: inline-block;
+            margin-top: 20px;
+            background: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: background 0.2s;
+        }
+
+        .btn-close:hover { background: #000; }
+    </style>
+</head>
+<body>
+
+    <main class="container">
+        <article class="postit-card">
+            <h1>📅 Expiration Date: Mandatory or by Smell?</h1>
+            
+            <div class="discorso-guida">
+                <p>This field is extremely important for some products and completely useless for others. We don't need to act like strict restaurant inspectors or go crazy searching for embossed dates hidden in the trickiest parts of the packaging: doing that would just be a waste of time!</p>
+
+                <p><strong>How to handle it in practice?</strong></p>
+
+                <p><strong>1. Non-Food Products (No Expiration):</strong> If you scanned a pack of paper napkins, toilet paper, or disposable plates, there is no expiration date at all! Just select <em>"None"</em> or leave the field blank.</p>
+
+                <p><strong>2. Fresh Products (MANDATORY Expiration):</strong> For chicken breasts, fresh sausage, milk, or mozzarella, the date must be precise. Here, the day after expiration you really risk having to throw everything away, so it is crucial that the app warns you in advance to prevent waste.</p>
+
+                <div class="scadenza-box">
+                    💡 <strong>3. Best Before ("BBD"):</strong><br><br>
+                    For a can of tuna, sardines in oil, pasta, or dried legumes, give or take a year, the shelf life is very long! Don't waste time looking for the exact day printed in tiny characters on the bottom of the tin. Based on your experience, you know very well how long you can keep that product: if you know it expires in 2028, feel free to put an approximate date towards the end of that year.<br><br>
+                    Remember the golden rule: the phrase <em>"Best before"</em> is not a hard boundary past which food turns into poison. It's just a date recommended by the manufacturer for peak freshness. There are wide safety margins and, ultimately, the best inspectors are always your own eyes and nose!<br><br>
+                    Keep in mind, though, that if you want to enter the actual date printed on the package, there's no problem. In fact, to save you time searching, you won't even need to manually move the cursor when filling out the day, month, and year fields—it will advance automatically as soon as each field is completed.
+                </div>
+
+                <div class="max-idea-box">
+                    ⭐ <strong>App Gems (Inspired by my friend Max!):</strong><br><br>
+                    <strong>• Smart consumption alert:</strong> Let's say you bought 36 eggs that expire in a month. If halfway through the month the app notices you still have 20 left and at your current pace you won't finish them in time, it will send you a notice (popup in the app or via email) saying: <em>"Hey, you're falling behind on eggs! Increase consumption or you risk having to throw them away"</em>.<br><br>
+                    <strong>• Preventive Shopping List:</strong> It's true that the app puts finished products on the list, but if you only have one egg left in the pantry, you risk running out the day after shopping! After doing the math, the app will also add those low-stock products to your shopping list and tell you: <em>"You only have 1 egg left, do you want to buy more?"</em> You will always decide whether to buy them or not (maybe you're about to go on vacation and prefer clearing out the pantry!).
+                </div>
+
+                <p><em>(In short: the date helps the application sort products by expiration so it can offer you the oldest ones first!)</em></p>
+            </div>
+
+            <a href="load.html" class="btn-close">← Back to Loading</a>
+        </article>
+    </main>
+
+</body>
+</html>

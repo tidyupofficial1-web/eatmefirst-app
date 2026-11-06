@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EatMeFirst - Welcome and Initial Pantry Setup</title>
+    <meta name="description" content="Configure EatMeFirst for smart pantry management: load products from your smartphone and securely manage data on your local network.">
+    <meta name="robots" content="noindex, nofollow">
+    <style>
+        :root {
+            --bg-color: #12181b;
+            --card-bg: #1e272c;
+            --primary-color: #2ecc71;
+            --text-color: #e0e6ed;
+            --text-muted: #a0aec0;
+            --border-color: #2d3748;
+            --info-bg: #1a2634;
+            --info-border: #3182ce;
+            --accent-hover: #27ae60;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Top Header Navbar */
+        .top-navbar {
+            width: 100%;
+            max-width: 950px;
+            background-color: #101416;
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: #ffffff;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .brand-logo img { height: 32px; width: auto; }
+
+        .language-flags {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .flag-icon {
+            width: 26px;
+            height: 17px;
+            cursor: pointer;
+            object-fit: cover;
+            border-radius: 3px;
+            transition: transform 0.2s, opacity 0.2s;
+            border: 1px solid rgba(255,255,255,0.2);
+            opacity: 0.6;
+            display: inline-block;
+        }
+
+        .flag-icon:hover { transform: scale(1.15); opacity: 1; }
+
+        /* Main Layout */
+        .main-wrapper {
+            width: 100%;
+            max-width: 950px;
+        }
+
+        .container {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--border-color);
+        }
+
+        /* Leo's Avatar placed above text for full mobile width */
+        .header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .presentation-img {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            border: 3px solid var(--primary-color);
+            object-fit: cover;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            margin-bottom: 10px;
+        }
+
+        .header-text h1 {
+            margin: 0;
+            color: var(--primary-color);
+            font-size: 1.4rem;
+        }
+
+        .header-text p {
+            margin: 4px 0 0 0;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .leo-talk-box {
+            background-color: #161d21;
+            border-left: 4px solid var(--primary-color);
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .leo-talk-box p {
+            line-height: 1.6;
+            color: var(--text-color);
+            font-size: 0.95rem;
+            margin-bottom: 12px;
+        }
+
+        .leo-talk-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        .highlight-box {
+            background-color: var(--info-bg);
+            border-left: 4px solid var(--info-border);
+            padding: 14px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .terms-box {
+            background-color: #161d21;
+            padding: 16px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 25px;
+        }
+
+        .terms-box p {
+            color: var(--text-color);
+            font-size: 0.92rem;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+
+        .btn-container {
+            text-align: center;
+        }
+
+        .btn-start {
+            display: inline-block;
+            width: 100%;
+            max-width: 350px;
+            padding: 14px 20px;
+            background-color: var(--primary-color);
+            color: #12181b;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1.05rem;
+            transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(46, 204, 113, 0.3);
+            border: none;
+            cursor: not-allowed;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .btn-start.active {
+            cursor: pointer;
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .btn-start:hover.active {
+            background-color: var(--accent-hover);
+            transform: scale(1.02);
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Top Header Navbar -->
+<header class="top-navbar">
+    <a href="../menu.html" class="brand-logo">
+        <img src="../../IMG/logo_1024_white.png" alt="EatMeFirst Logo">
+        <span>EatMeFirst</span>
+    </a>
+    <div class="language-flags">
+        <a href="../../IT/carico/collegamento.html" title="Italiano"><img src="../../IMG/bandiera_Italy.jpg" alt="Italiano" class="flag-icon"></a>
+        <a href="connection.html" title="English"><img src="../../IMG/bandiera_England.jpg" alt="English" class="flag-icon" style="opacity: 1;"></a>
+        <a href="../../DE/lagerung/verknuepfung.html" title="Deutsch"><img src="../../IMG/bandiera_Germany.jpg" alt="Deutsch" class="flag-icon"></a>
+        <a href="../../FR/chargement/connexion.html" title="Français"><img src="../../IMG/bandiera_France.jpg" alt="Français" class="flag-icon"></a>
+        <a href="../../ES/carga/conexion-escaner.html" title="Español"><img src="../../IMG/bandiera_Espana.jpg" alt="Español" class="flag-icon"></a>
+    </div>
+</header>
+
+<div class="main-wrapper">
+    <div class="container">
+        
+        <!-- Leo's Avatar above title -->
+        <div class="header">
+            <img src="../../IMG/avatar_leo.png" alt="Leo the Developer" class="presentation-img">
+            <div class="header-text">
+                <h1>Here we are, I'm Leo!</h1>
+                <p>Your in-house developer at your service</p>
+            </div>
+        </div>
+
+        <!-- Leo's Speech -->
+        <div class="leo-talk-box">
+            <p>Hello <span class="user-name-span">friend</span>, welcome to <strong>EatMeFirst</strong>! Your pantry data will be stored safely and securely directly inside your smartphone's browser, with no need for external servers or complex installations.</p>
+            
+            <p>You will use your mobile phone to scan barcoded products, but you can also easily add all items that don't have one: such as items bought at market stalls or home-cooked dishes to keep in the fridge or freezer. In that case, you'll just need to fill in a few extra fields, keeping everything completely under control.</p>
+            
+            <p><strong>💡 A developer's tip:</strong> use your smartphone primarily to quickly load products on the fly into your app. Afterwards, you can export the database to your desktop or laptop computer to conveniently manage all other functions: checking stock reduction, browsing the shopping list, or analyzing products categorized by type or storage location. Viewing and managing these data on a larger screen makes all the difference!</p>
+            
+            <p>Once you've made your updates from the computer, you can reload the updated data back onto your phone, ensuring that whenever you go to the supermarket, your up-to-date pantry list is right at your fingertips.</p>
+        </div>
+        
+        <div class="highlight-box">
+            <strong>🔒 Complete Privacy and Autonomy:</strong> None of your pantry data will ever be shared or sent to third-party cloud servers. Everything stays on your local storage.
+        </div>
+
+        <!-- Terms and Conditions Acceptance -->
+        <div class="terms-box">
+            <p style="font-weight: bold; color: var(--primary-color);">One final formality before we begin:</p>
+            <p>
+    Before proceeding, you can review the terms of use by clicking the <a href="../termini.html" target="_blank" style="color: var(--info-border);">terms link</a>, or accept them directly by checking the box below.
+</p>
+            
+            <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                <input type="checkbox" id="termsCheck" onchange="toggleTerms()" style="width: 20px; height: 20px; accent-color: var(--primary-color);">
+                <span style="font-weight: 500;">I accept the terms of use and conditions of EatMeFirst.</span>
+            </label>
+        </div>
+
+        <!-- Direct Start Button to Load Page -->
+        <div class="btn-container">
+            <button type="button" id="btnProceed" onclick="avviaProgramma()" class="btn-start">Start Product Loading →</button>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const savedName = localStorage.getItem('eat_user_name');
+        if (savedName && savedName.trim() !== "") {
+            document.querySelectorAll('.user-name-span').forEach(el => {
+                el.textContent = savedName.trim();
+            });
+        }
+
+        // If user already accepted terms previously, check the box automatically
+        if (localStorage.getItem('eat_terms_accepted') === 'true') {
+            document.getElementById('termsCheck').checked = true;
+            toggleTerms();
+        }
+    });
+
+    function toggleTerms() {
+        const checkbox = document.getElementById('termsCheck');
+        const btn = document.getElementById('btnProceed');
+
+        if (checkbox.checked) {
+            btn.classList.add('active');
+        } else {
+            btn.classList.remove('active');
+        }
+    }
+
+    function avviaProgramma() {
+        if (!document.getElementById('termsCheck').checked) return;
+        
+        // Save terms acceptance status
+        localStorage.setItem('eat_terms_accepted', 'true');
+        
+        // Redirect directly to the English loading page
+        window.location.href = "load.html";
+    }
+</script>
+
+</body>
+</html>
