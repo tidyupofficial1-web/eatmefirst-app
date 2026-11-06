@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion des Stocks et des Péremptions | EatMeFirst</title>
+    <meta name="description" content="Surveillez les stocks de votre garde-manger en temps réel avec l'inventaire numérique EatMeFirst : filtres avancés, contrôle des péremptions et suivi.">
+    <meta name="robots" content="noindex, nofollow">
+
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --card-bg: #161b22;
+            --text-color: #f0f6fc;
+            --text-muted: #8b949e;
+            --accent-color: #58a6ff;
+            --success-color: #238636;
+            --success-hover: #2ea043;
+            --danger-color: #f85149;
+            --warning-color: #d29922;
+            --border-color: #30363d;
+            --light-bg: #21262d;
+            --input-bg: #0d1117;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .app-bar {
+            background: rgba(22, 27, 34, 0.95);
+            border-bottom: 1px solid var(--border-color);
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 40;
+        }
+
+        .app-brand { display: flex; align-items: center; gap: 12px; }
+        .btn-back {
+            background: var(--light-bg);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            padding: 6px 14px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 13.5px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .btn-back:hover { border-color: var(--accent-color); color: var(--accent-color); }
+
+        .brand-title { font-size: 18px; font-weight: bold; color: var(--text-color); }
+
+        .app-nav-right { display: flex; align-items: center; gap: 12px; }
+
+        .language-flags {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+            background: var(--light-bg);
+            padding: 4px 8px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+        }
+
+        .flag-link {
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            opacity: 0.7;
+            transition: opacity 0.2s, transform 0.2s;
+        }
+
+        .flag-link:hover, .flag-link.active { opacity: 1; transform: scale(1.1); }
+        .flag-img { width: 20px; height: 14px; object-fit: cover; border-radius: 2px; }
+
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 0 16px;
+            width: 100%;
+        }
+
+        .narrative-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            margin-bottom: 24px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+        }
+
+        .hero-img {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+            display: block;
+        }
+
+        .narrative-content { padding: 24px; }
+        .narrative-title { font-size: 22px; color: var(--accent-color); margin-bottom: 15px; font-weight: 700; }
+        .narrative-text { font-size: 15.5px; color: var(--text-color); line-height: 1.7; }
+
+        .card-box {
+            background: var(--card-bg);
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+        }
+
+        .card-title-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .card-title {
+            font-size: 19px;
+            color: var(--accent-color);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .info-icon-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: transform 0.2s ease;
+        }
+        .info-icon-link:hover { transform: scale(1.2) rotate(-3deg); }
+        .info-icon-img {
+            width: 28px;
+            height: 28px;
+            object-fit: contain;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.4);
+        }
+
+        .filtri-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .search-input, .filter-select {
+            width: 100%;
+            padding: 11px 14px;
+            background: var(--input-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-color);
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .search-input:focus, .filter-select:focus { border-color: var(--accent-color); }
+
+        .product-list { display: flex; flex-direction: column; gap: 10px; }
+        .product-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            background: var(--light-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            transition: border-color 0.2s;
+            cursor: pointer;
+        }
+        .product-item:hover { border-color: var(--accent-color); }
+
+        .product-info-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .product-thumb {
+            width: 42px;
+            height: 42px;
+            object-fit: cover;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-action {
+            background-color: var(--accent-color);
+            color: #0d1117;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 13.5px;
+            transition: opacity 0.2s;
+        }
+        .btn-action:hover { opacity: 0.85; }
+
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.85); display: flex; justify-content: center;
+            align-items: center; z-index: 100; padding: 20px;
+        }
+        .modal-content {
+            background: var(--card-bg); border: 1px solid var(--border-color);
+            border-radius: 16px; max-width: 480px; width: 100%; padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            position: relative;
+        }
+
+        footer {
+            text-align: center; padding: 20px; font-size: 13px;
+            color: var(--text-muted); border-top: 1px solid var(--border-color); margin-top: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .filtri-grid { grid-template-columns: 1fr; }
+            .language-flags { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="app-bar">
+        <div class="app-brand">
+            <a href="../menu.html" class="btn-back">← Menu</a>
+            <div class="mini-logo" style="display: inline-flex; align-items: center;">
+                <img src="../../IMG/logo_1024_white.png" alt="Logo EatMeFirst" style="height: 36px; width: auto; filter: drop-shadow(0px 0px 2px rgba(255, 255, 255, 0.8));">
+            </div>
+            <span class="brand-title">Inventaire & Gestion des Stocks</span>
+        </div>
+
+        <div class="app-nav-right">
+            <nav class="language-flags">
+                <a href="../../IT/inventario/index.html" class="flag-link" title="Italiano"><img src="../../IMG/bandiera_Italy.jpg" class="flag-img" alt="IT"></a>
+                <a href="../../EN/inventory/index.html" class="flag-link" title="English"><img src="../../IMG/bandiera_England.jpg" class="flag-img" alt="EN"></a>
+                <a href="../../DE/inventar/index.html" class="flag-link" title="Deutsch"><img src="../../IMG/bandiera_Germany.jpg" class="flag-img" alt="DE"></a>
+                <a href="index.html" class="flag-link active" title="Français"><img src="../../IMG/bandiera_France.jpg" class="flag-img" alt="FR"></a>
+                <a href="../../ES/inventario/index.html" class="flag-link" title="Español"><img src="../../IMG/bandiera_Espana.jpg" class="flag-img" alt="ES"></a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div id="sezionePresentazioneInventario">
+            <div style="display: flex; justify-content: flex-end; margin-bottom: 8px;">
+                <button type="button" onclick="nascondiPresentazione()" style="background: var(--light-bg); color: var(--text-muted); border: 1px solid var(--border-color); padding: 4px 10px; border-radius: 6px; font-size: 12px; cursor: pointer; transition: all 0.2s;" title="Masquer l'introduction">
+                    ✕ Masquer l'introduction
+                </button>
+            </div>
+
+            <article class="narrative-card">
+                <img src="../IMG/developpeur-diagramme-inventaire-garde-manger.png" alt="Développeur indiquant le diagramme de flux de l'inventaire" class="hero-img">
+                <div class="narrative-content">
+                    <h1 class="narrative-title">Gestion des Stocks et des Péremptions</h1>
+                    <div class="narrative-text">
+                        <p>Cet écran a été conçu pour vous offrir une vue immédiate et claire de ce que vous possédez chez vous. Pas de distractions : aperçu du produit, nom, quantité disponible et date de péremption mis en avant.</p>
+                        <p>En cliquant sur n'importe quel élément, vous pouvez ouvrir la fiche de détail complète en lecture seule. Pour toute question, consultez les notes d'aide dédiées.</p>
+                    </div>
+                </div>
+            </article>
+        </div>
+
+        <div class="card-box">
+            <div class="card-title-row">
+                <div class="card-title">📦 Gestion des Stocks</div>
+                <a href="guide-inventaire.html" class="info-icon-link" title="Guide de l'inventaire">
+                    <img src="../../IMG/biglietto_info.jpg" alt="Info Inventaire" class="info-icon-img">
+                </a>
+            </div>
+
+            <div class="filtri-grid">
+                <input type="text" id="filtroNome" class="search-input" placeholder="🔍 Rechercher par nom de produit..." oninput="filtraInventario()">
+                <select id="filtroUbicazione" class="filter-select" onchange="filtraInventario()">
+                    <option value="">Tous les emplacements</option>
+                </select>
+                <select id="filtroCategoria" class="filter-select" onchange="filtraInventario()">
+                    <option value="">Toutes les catégories</option>
+                </select>
+            </div>
+
+            <div id="listaRisultati" class="product-list"></div>
+        </div>
+    </main>
+
+    <div id="modalDettaglio" class="modal-overlay" style="display:none;">
+        <div class="modal-content">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <h3 style="color: var(--accent-color); font-size: 18px;">📋 Détail du Produit</h3>
+                <button type="button" onclick="chiudiModalDettaglio()" style="background:none; border:none; color:var(--text-color); font-size:18px; cursor:pointer;">✕</button>
+            </div>
+            <div id="contenutoDettaglioProdotto"></div>
+            <div style="display: flex; justify-content: flex-end; margin-top: 20px;">
+                <button type="button" class="btn-action" onclick="chiudiModalDettaglio()">Fermer</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <span>&copy; EatMeFirst &bull; Confidentialité 100% Locale</span>
+    </footer>
+
+    <script>
+        let dispensaGlobale = [];
+        function nascondiPresentazione() {
+            const box = document.getElementById('sezionePresentazioneInventario');
+            if (box) { box.style.display = 'none'; localStorage.emf_nascondi_intro_inventario = 'true'; }
+        }
+        window.addEventListener('DOMContentLoaded', async () => {
+            if (localStorage.emf_nascondi_intro_inventario === 'true') {
+                const box = document.getElementById('sezionePresentazioneInventario');
+                if (box) box.style.display = 'none';
+            }
+            await caricaDispensaDalServer();
+        });
+        async function caricaDispensaDalServer() {
+            try {
+                let response = await fetch('/dispensa.json?t=' + new Date().getTime(), { cache: 'no-store' });
+                dispensaGlobale = response.ok ? await response.json() : [];
+            } catch (e) { dispensaGlobale = []; }
+            popolaFiltriSelect();
+            filtraInventario();
+        }
+        function popolaFiltriSelect() {
+            const ubicazioni = [...new Set(dispensaGlobale.map(p => p.ubicazione).filter(Boolean))];
+            const selUb = document.getElementById('filtroUbicazione');
+            if (selUb) {
+                selUb.innerHTML = '<option value="">Tous les emplacements</option>';
+                ubicazioni.forEach(u => { selUb.innerHTML += `<option value="${u}">${u}</option>`; });
+            }
+            const categorie = [...new Set(dispensaGlobale.map(p => p.categoria).filter(Boolean))];
+            const selCat = document.getElementById('filtroCategoria');
+            if (selCat) {
+                selCat.innerHTML = '<option value="">Toutes les catégories</option>';
+                categorie.forEach(c => { selCat.innerHTML += `<option value="${c}">${c}</option>`; });
+            }
+        }
+        function filtraInventario() {
+            const queryNome = document.getElementById('filtroNome') ? document.getElementById('filtroNome').value.trim().toLowerCase() : '';
+            const filtroUb = document.getElementById('filtroUbicazione') ? document.getElementById('filtroUbicazione').value : '';
+            const filtroCat = document.getElementById('filtroCategoria') ? document.getElementById('filtroCategoria').value : '';
+            const container = document.getElementById('listaRisultati');
+            if (!container) return;
+            if (dispensaGlobale.length === 0) {
+                container.innerHTML = `<div style="text-align:center; padding: 25px;"><p style="color: var(--text-muted); font-style: italic;">L'inventaire est actuellement vide.</p></div>`;
+                return;
+            }
+            const filtrati = dispensaGlobale.filter(p => {
+                const matchNome = (p.nome || '').toLowerCase().includes(queryNome);
+                const matchUb = filtroUb === "" || p.ubicazione === filtroUb;
+                const matchCat = filtroCat === "" || p.categoria === filtroCat;
+                return matchNome && matchUb && matchCat;
+            });
+            if (filtrati.length === 0) {
+                container.innerHTML = `<p style="color: var(--text-muted); text-align:center; padding: 20px;">Aucun produit trouvé avec les filtres sélectionnés.</p>`;
+                return;
+            }
+            container.innerHTML = filtrati.map((p, index) => `
+                <div class="product-item" onclick="apriDettaglioProdotto(${index})">
+                    <div class="product-info-left">
+                        <img src="${p.immagine || '../../IMG/logo_1024_white.png'}" alt="Aperçu" class="product-thumb">
+                        <div>
+                            <h4 style="font-size: 15px; color: var(--text-color); margin-bottom: 2px;">${p.nome || 'Sans nom'}</h4>
+                            <span style="font-size: 12px; color: var(--text-muted);">📍 ${p.ubicazione || 'Général'} &bull; 📂 ${p.categoria || 'Autre'}</span>
+                        </div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <span style="font-size: 13px; color: var(--warning-color);">⏳ Péremp : ${p.valore_scadenza || 'N/D'}</span>
+                        <span style="font-weight: bold; color: var(--accent-color); font-size: 14px;">${p.quantita} pack(s)</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+        function apriDettaglioProdotto(index) {
+            const p = dispensaGlobale[index];
+            if (!p) return;
+            document.getElementById('contenutoDettaglioProdotto').innerHTML = `
+                <div style="display: flex; gap: 15px; align-items: center; margin-bottom: 15px; background: var(--light-bg); padding: 12px; border-radius: 12px; border: 1px solid var(--border-color);">
+                    <img src="${p.immagine || '../../IMG/logo_1024_white.png'}" alt="Produit" style="width: 70px; height: 70px; object-fit: cover; border-radius: 8px; border: 1px solid var(--border-color);">
+                    <div>
+                        <h4 style="color: var(--accent-color); font-size: 18px; margin-bottom: 4px;">${p.nome || 'Sans nom'}</h4>
+                        <p style="color: var(--text-muted); font-size: 13px;">Emplacement : ${p.ubicazione || 'Général'}</p>
+                        <p style="color: var(--text-muted); font-size: 13px;">Catégorie : ${p.categoria || 'Autre'}</p>
+                    </div>
+                </div>
+                <div style="font-size: 14px; color: var(--text-color); display: flex; flex-direction: column; gap: 8px; background: #0d1117; padding: 12px; border-radius: 8px; border: 1px solid var(--border-color);">
+                    <p><strong>Quantité :</strong> ${p.quantita} paquets</p>
+                    <p><strong>Gestion de la péremption :</strong> Type [${p.tipo_scadenza}] - Valeur : ${p.valore_scadenza || 'Aucune'}</p>
+                    <p><strong>Article obligatoire :</strong> ${p.tassativo ? 'Oui 🔒' : 'Non'}</p>
+                    <p><strong>Notes :</strong> ${p.note || 'Aucune'}</p>
+                    <p><strong>Code-barres :</strong> ${p.barcode || 'Non saisi'}</p>
+                </div>
+            `;
+            document.getElementById('modalDettaglio').style.display = 'flex';
+        }
+        function chiudiModalDettaglio() { document.getElementById('modalDettaglio').style.display = 'none'; }
+    </script>
+</body>
+</html>
