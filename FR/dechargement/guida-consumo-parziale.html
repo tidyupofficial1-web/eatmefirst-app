@@ -4,58 +4,123 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guida Consumo Parziale Cibi | EatMeFirst</title>
+    <meta name="description" content="Scopri come gestire con precisione il consumo parziale e le percentuali dei prodotti nella tua dispensa con EatMeFirst.">
+    <meta name="robots" content="noindex, nofollow">
     <style>
         :root {
-            --bg-color: #0d1117;
-            --card-bg: #161b22;
-            --text-color: #f0f6fc;
-            --text-muted: #8b949e;
+            --bg-color: #12181b;
+            --card-bg: #1e272c;
+            --text-color: #e0e6ed;
+            --text-muted: #a0aec0;
             --accent-color: #58a6ff;
-            --border-color: #30363d;
+            --border-color: #2d3748;
+            --postit-bg: #fff59d;
+            --postit-text: #333333;
         }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
             background-color: var(--bg-color);
             color: var(--text-color);
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            padding: 20px;
-            max-width: 600px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 15px 10px;
+        }
+
+        .container {
+            max-width: 950px;
             margin: 0 auto;
+            width: 100%;
         }
+
         .postit-card {
-            background: #1a2634;
-            border: 1px solid #3182ce;
-            border-left: 6px solid #3182ce;
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            background-color: var(--postit-bg);
+            color: var(--postit-text);
+            padding: 25px 20px;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            position: relative;
         }
-        .eva-header { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
-        .eva-avatar { width: 55px; height: 55px; border-radius: 50%; border: 2px solid #58a6ff; object-fit: cover; }
-        .eva-title { font-size: 18px; color: var(--accent-color); font-weight: bold; }
-        .eva-sub { font-size: 12px; color: var(--text-muted); }
-        .content { font-size: 14.5px; line-height: 1.6; color: var(--text-color); }
+
+        .eva-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            border-bottom: 1px solid rgba(0,0,0,0.15);
+            padding-bottom: 12px;
+        }
+
+        .eva-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid #3182ce;
+            object-fit: cover;
+        }
+
+        .eva-title {
+            font-size: 1.2rem;
+            color: #1a1a1a;
+            font-weight: bold;
+        }
+
+        .eva-sub {
+            font-size: 0.85rem;
+            color: #555;
+        }
+
+        .content {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #222;
+        }
+
+        .content p {
+            margin-bottom: 12px;
+        }
+
         .btn-close {
-            display: inline-block; margin-top: 20px; background: #21262d; color: var(--text-color);
-            border: 1px solid var(--border-color); padding: 8px 16px; border-radius: 8px;
-            text-decoration: none; font-size: 13px; font-weight: 600;
+            display: inline-block;
+            margin-top: 20px;
+            background: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+            transition: background 0.2s;
         }
+
+        .btn-close:hover { background: #000; }
     </style>
 </head>
 <body>
-    <div class="postit-card">
-        <div class="eva-header">
-            <img src="../../IMG/avatar_eva.png" alt="Eva Avatar" class="eva-avatar">
-            <div>
-                <div class="eva-title">Consumo Parziale degli Alimenti 📌</div>
-                <div class="eva-sub">La guida di Eva per dosare le scorte</div>
+
+    <main class="container">
+        <article class="postit-card">
+            <div class="eva-header">
+                <img src="../../IMG/avatar_eva.png" alt="Eva Avatar" class="eva-avatar">
+                <div>
+                    <div class="eva-title">Consumo Parziale degli Alimenti 📌</div>
+                    <div class="eva-sub">La guida di Eva per dosare le scorte</div>
+                </div>
             </div>
-        </div>
-        <div class="content">
-            <p>Qui ho voluto eccedere nella precisione: puoi gestire la quantità di prodotto consumato parzialmente regolando la percentuale di consumo sull'intero prodotto facendo scorrere la freccina del mouse o spostando il cursore sulla linea.</p>
-            <br>
-            <p>È una cosa semplice e intuitiva. Se non vuoi usarla puoi sempre eliminare il prodotto interamente usando il pulsante <strong>"Esaurito"</strong> e poi navigare a vista quando guarderai i posti della dispensa!</p>
-        </div>
-        <a href="javascript:window.close();" class="btn-close">✕ Chiudi Scheda</a>
-    </div>
+
+            <div class="content">
+                <p>Abbiamo voluto curare ogni dettaglio per darti la massima precisione: puoi gestire la quantità di prodotto consumato parzialmente regolando la percentuale di utilizzo direttamente sull'immagine grafica, facendo scorrere il cursore o toccando la barra interattiva.</p>
+                
+                <p>È una funzione semplice e intuitiva. Se preferisci non usarla, puoi rimuovere interamente il prodotto usando il pulsante <strong>"Esaurito"</strong>, che lo sposterà in automatico nella tua lista della spesa.</p>
+            </div>
+
+            <a href="javascript:window.close();" class="btn-close" onclick="window.close(); return false;">✕ Chiudi Scheda</a>
+        </article>
+    </main>
+
 </body>
 </html>
