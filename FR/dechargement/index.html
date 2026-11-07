@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scarico & Consumi Interattivi | EatMeFirst</title>
-    <meta name="description" content="Gestisci lo scarico e il consumo parziale degli alimenti in dispensa con il regolatore visivo di EatMeFirst.">
+    <title>Déchargement & Consommation Interactive | EatMeFirst</title>
+    <meta name="description" content="Gérez le déchargement et la consommation partielle des aliments dans le garde-manger avec le curseur visuel d'EatMeFirst.">
     <meta name="robots" content="noindex, nofollow">
     <style>
         :root {
@@ -32,7 +32,7 @@
             flex-direction: column;
         }
 
-        /* --- BARRA NAVIGAZIONE --- */
+        /* --- BARRE DE NAVIGATION --- */
         .app-bar {
             background: rgba(22, 27, 34, 0.95);
             border-bottom: 1px solid var(--border-color);
@@ -75,9 +75,68 @@
         .flag-link:hover, .flag-link.active { opacity: 1; transform: scale(1.1); }
         .flag-img { width: 20px; height: 14px; object-fit: cover; border-radius: 2px; }
 
-        .container { max-width: 900px; margin: 30px auto; padding: 0 16px; width: 100%; }
+        .container { max-width: 900px; margin: 24px auto; padding: 0 16px; width: 100%; flex: 1; }
 
-        /* CARD FILTRI & RICERCA */
+        /* --- MESSAGE DE BIENVENUE D'EVA (DISMISSIBLE) --- */
+        .eva-welcome-box {
+            background: #16222f;
+            border: 1px solid #3182ce;
+            border-left: 5px solid #3182ce;
+            border-radius: 14px;
+            padding: 18px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            position: relative;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .eva-avatar-large {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 2px solid var(--accent-color);
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .eva-welcome-content {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-color);
+            padding-right: 25px;
+        }
+
+        .eva-welcome-content strong { color: var(--accent-color); }
+
+        .eva-welcome-content a {
+            color: var(--accent-color);
+            font-weight: 600;
+            text-decoration: underline;
+            transition: color 0.2s;
+        }
+
+        .eva-welcome-content a:hover { color: #79c0ff; }
+
+        .btn-close-eva {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 4px;
+            line-height: 1;
+            border-radius: 4px;
+        }
+
+        .btn-close-eva:hover { color: var(--text-color); background: rgba(255, 255, 255, 0.1); }
+
+        /* CARTE FILTRES & RECHERCHE */
         .card-box {
             background: var(--card-bg); border-radius: 16px;
             border: 1px solid var(--border-color); padding: 24px;
@@ -93,7 +152,7 @@
             color: var(--text-color); font-size: 14px; outline: none;
         }
 
-        /* LISTA PRODOTTI */
+        /* LISTE PRODUITS */
         .product-list { display: flex; flex-direction: column; gap: 10px; }
         .product-item {
             display: flex; justify-content: space-between; align-items: center;
@@ -139,7 +198,7 @@
         }
         .btn-modifica:hover { opacity: 0.9; }
 
-        /* --- MODALI --- */
+        /* --- MODALS --- */
         .modal-overlay {
             position: fixed; top: 0; left: 0; right: 0; bottom: 0;
             background: rgba(0,0,0,0.85); display: flex; justify-content: center;
@@ -150,23 +209,6 @@
             border-radius: 16px; max-width: 520px; width: 100%; padding: 25px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5); margin: auto;
         }
-
-        .eva-postit {
-            background: #1a2634;
-            border: 1px solid #3182ce;
-            border-left: 4px solid #3182ce;
-            border-radius: 10px;
-            padding: 14px;
-            margin-bottom: 18px;
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-        }
-        .eva-avatar {
-            width: 45px; height: 45px; border-radius: 50%;
-            border: 2px solid #58a6ff; object-fit: cover; flex-shrink: 0;
-        }
-        .eva-text { font-size: 13px; line-height: 1.5; color: var(--text-color); }
 
         .interactive-shape-wrapper {
             background: #0d1117;
@@ -208,56 +250,90 @@
         }
         .btn-confirm:hover { background-color: #2ea043; }
 
+        /* --- FOOTER AVEC LIENS DE GUIDES PERMANENTS --- */
+        .app-footer {
+            background: var(--card-bg);
+            border-top: 1px solid var(--border-color);
+            padding: 16px 20px;
+            margin-top: auto;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 13px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.2s;
+        }
+
+        .footer-link:hover { color: var(--accent-color); text-decoration: underline; }
+
         @media (max-width: 768px) {
             .filtri-grid { grid-template-columns: 1fr; }
-            .language-flags { 
-                display: flex; 
-                gap: 4px; 
-                padding: 2px 6px; 
-            }
-            .flag-img { 
-                width: 18px; 
-                height: 12px; 
-            }
+            .language-flags { display: flex; gap: 4px; padding: 2px 6px; }
+            .flag-img { width: 18px; height: 12px; }
+            .eva-welcome-box { flex-direction: column; align-items: center; text-align: center; }
+            .eva-welcome-content { padding-right: 0; }
         }
     </style>
 </head>
 <body>
 
-    <!-- BARRA NAVIGAZIONE SUPERIORE CON LOGO E BANDIERE -->
+    <!-- BARRE DE NAVIGATION SUPÉRIEURE AVEC LOGO ET DRAPEAUX -->
     <header class="app-bar">
         <div class="app-brand">
             <a href="../menu.html" class="btn-back">← Menu</a>
             <div class="mini-logo" style="display: inline-flex; align-items: center;">
                 <img src="../../IMG/logo_1024_white.png" alt="Logo EatMeFirst" style="height: 36px; width: auto; filter: drop-shadow(0px 0px 2px rgba(255, 255, 255, 0.8));">
             </div>
-            <span class="brand-title">Scarico & Consumi Interattivi</span>
+            <span class="brand-title">Déchargement & Consommation</span>
         </div>
 
         <div class="app-nav-right">
             <nav class="language-flags">
-                <a href="index.html" class="flag-link active" title="Italiano"><img src="../../IMG/bandiera_Italy.jpg" class="flag-img" alt="IT"></a>
+                <a href="../../IT/scarico/index.html" class="flag-link" title="Italiano"><img src="../../IMG/bandiera_Italy.jpg" class="flag-img" alt="IT"></a>
                 <a href="../../EN/unload/index.html" class="flag-link" title="English"><img src="../../IMG/bandiera_England.jpg" class="flag-img" alt="EN"></a>
                 <a href="../../DE/entnahme/index.html" class="flag-link" title="Deutsch"><img src="../../IMG/bandiera_Germany.jpg" class="flag-img" alt="DE"></a>
-                <a href="../../FR/dechargement/index.html" class="flag-link" title="Français"><img src="../../IMG/bandiera_France.jpg" class="flag-img" alt="FR"></a>
+                <a href="index.html" class="flag-link active" title="Français"><img src="../../IMG/bandiera_France.jpg" class="flag-img" alt="FR"></a>
                 <a href="../../ES/descarga/index.html" class="flag-link" title="Español"><img src="../../IMG/bandiera_Espana.jpg" class="flag-img" alt="ES"></a>
             </nav>
         </div>
     </header>
 
     <main class="container">
+        
+        <!-- MESSAGE DE BIENVENUE D'EVA (DISMISSIBLE) -->
+        <div id="evaWelcomeBox" class="eva-welcome-box">
+            <img src="../../IMG/avatar_eva.png" alt="Avatar d'Eva" class="eva-avatar-large">
+            <div class="eva-welcome-content">
+                Oui, j'ai fini par l'emporter ! Après des heures de discussion avec Max qui voulait que tout soit simple et Leo qui râlait sur le temps perdu, j'ai exigé que l'on mette par écrit deux choses fondamentales pour notre garde-manger.<br><br>
+                Si vous ouvrez un produit et n'en consommez qu'une partie, vous ne pouvez pas naviguer à l'aveugle : consultez le <a href="guide-consommation-partielle.html" target="_blank">Guide de Consommation Partielle</a> pour savoir comment régler au millimètre le curseur visuel sur les liquides et les emballages ouverts. Et si ce qui reste change de place dans la maison, le <a href="guide-changement-emplacement.html" target="_blank">Guide du Changement d'Emplacement</a> vous permet de réorganiser l'espace à la volée sans perdre trace de rien. Maintenant que vous savez comment tout faire tourner au mieux, vous pouvez vous mettre au travail !
+            </div>
+            <button type="button" class="btn-close-eva" onclick="chiudiWelcomeEva()" title="Fermer le message">✕</button>
+        </div>
+
         <div class="card-box">
             <div class="card-title-row">
-                <div class="card-title">🔍 Cerca Alimento da Scaricare</div>
+                <div class="card-title">🔍 Rechercher un aliment à décharger</div>
             </div>
 
             <div class="filtri-grid">
-                <input type="text" id="filtroNome" class="search-input" placeholder="Cerca per nome..." oninput="filtraDispensa()">
+                <input type="text" id="filtroNome" class="search-input" placeholder="Rechercher par nom..." oninput="filtraDispensa()">
                 <select id="filtroUbicazione" class="filter-select" onchange="filtraDispensa()">
-                    <option value="">Tutte le ubicazioni</option>
+                    <option value="">Tous les emplacements</option>
                 </select>
                 <select id="filtroCategoria" class="filter-select" onchange="filtraDispensa()">
-                    <option value="">Tutte le categorie</option>
+                    <option value="">Toutes les catégories</option>
                 </select>
             </div>
 
@@ -265,77 +341,78 @@
         </div>
     </main>
 
-    <!-- MODALE SCARICO PARZIALE CON GUIDA EVA E CAMBIO UBICAZIONE -->
+    <!-- MODALE DÉCHARGEMENT PARTIEL (SANS POST-IT) -->
     <div id="modalScaricoVisual" class="modal-overlay" style="display:none;">
         <div class="modal-content">
-            <h3 id="modalNomeProdotto" style="color: var(--accent-color); font-size: 18px; text-align: center; margin-bottom: 4px;">Nome Prodotto</h3>
-            <p id="modalUbicazioneAttuale" style="text-align: center; color: var(--text-muted); font-size: 12px; margin-bottom: 12px;">Ubicazione attuale: -</p>
-
-            <div class="eva-postit">
-                <img src="../../IMG/avatar_eva.png" alt="Eva Avatar" class="eva-avatar">
-                <div class="eva-text" id="evaGuidaTesto">
-                    Qui ho voluto eccedere nella precisione: puoi gestire la quantità di prodotto consumato parzialmente regolando la percentuale di consumo sull'intero prodotto facendo scorrere la freccina del mouse o spostando il cursore sulla linea.
-                </div>
-            </div>
+            <h3 id="modalNomeProdotto" style="color: var(--accent-color); font-size: 18px; text-align: center; margin-bottom: 4px;">Nom du produit</h3>
+            <p id="modalUbicazioneAttuale" style="text-align: center; color: var(--text-muted); font-size: 12px; margin-bottom: 16px;">Emplacement actuel : -</p>
 
             <div class="interactive-shape-wrapper">
                 <div id="shapeContainer"></div>
                 <input type="range" id="levelSlider" class="slider-level-control" min="0" max="100" value="100" oninput="aggiornaLivelloVisivo(this.value)">
 
                 <div class="status-badge-container">
-                    <span class="badge-ver">🟢 Rimanente: <strong id="lblRimanente">100%</strong></span>
-                    <span class="badge-ros">🔴 Consumato: <strong id="lblConsumato">0%</strong></span>
+                    <span class="badge-ver">🟢 Restant : <strong id="lblRimanente">100%</strong></span>
+                    <span class="badge-ros">🔴 Consommé : <strong id="lblConsumato">0%</strong></span>
                 </div>
             </div>
 
             <div class="location-change-box">
-                <label for="nuovaUbicazioneSelect">📍 Dove va adesso il prodotto parziale?</label>
+                <label for="nuovaUbicazioneSelect">📍 Où va maintenant le produit partiel ?</label>
                 <select id="nuovaUbicazioneSelect" class="filter-select" style="margin-bottom: 8px;" onchange="verificaNuovaUbicazione(this.value)">
                 </select>
-                <input type="text" id="inputNuovaUbicazioneCustom" class="search-input" placeholder="Oppure scrivi una nuova ubicazione..." style="display:none;">
+                <input type="text" id="inputNuovaUbicazioneCustom" class="search-input" placeholder="Ou saisir un nouvel emplacement..." style="display:none;">
             </div>
 
             <div class="modal-buttons">
-                <button type="button" class="btn-secondary" onclick="chiudiModalScarico()">Annulla</button>
-                <button type="button" class="btn-confirm" onclick="confermaScaricoEffettivo()">Conferma e Salva</button>
+                <button type="button" class="btn-secondary" onclick="chiudiModalScarico()">Annuler</button>
+                <button type="button" class="btn-confirm" onclick="confermaScaricoEffettivo()">Confirmer & Enregistrer</button>
             </div>
         </div>
     </div>
 
-    <!-- MODALE MODIFICA SCHEDA PRODOTTO CON TENDINA UBICAZIONI DINAMICA -->
+    <!-- MODALE MODIFICATION PRODUIT -->
     <div id="modalModificaScheda" class="modal-overlay" style="display:none;">
         <div class="modal-content">
-            <h3 style="color: var(--accent-color); font-size: 18px; text-align: center; margin-bottom: 15px;">✏️ Modifica Scheda Prodotto</h3>
+            <h3 style="color: var(--accent-color); font-size: 18px; text-align: center; margin-bottom: 15px;">✏️ Modifier la Fiche Produit</h3>
             
             <div style="display: flex; flex-direction: column; gap: 12px;">
                 <div>
-                    <label style="font-size: 13px; color: var(--text-muted); font-weight: 600;">Nome Prodotto</label>
+                    <label style="font-size: 13px; color: var(--text-muted); font-weight: 600;">Nom du produit</label>
                     <input type="text" id="modEditNome" class="search-input">
                 </div>
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
                     <div>
-                        <label style="font-size: 13px; color: var(--text-muted); font-weight: 600;">Ubicazione (Dove va)</label>
+                        <label style="font-size: 13px; color: var(--text-muted); font-weight: 600;">Emplacement</label>
                         <select id="modEditUbicazioneSelect" class="filter-select" style="margin-bottom: 6px;" onchange="gestisciUbicazioneCustomModifica(this.value)">
                         </select>
-                        <input type="text" id="modEditUbicazioneCustom" class="search-input" placeholder="Oppure scrivi nuova ubicazione..." style="display:none;">
+                        <input type="text" id="modEditUbicazioneCustom" class="search-input" placeholder="Ou saisir un nouvel emplacement..." style="display:none;">
                     </div>
                     <div>
-                        <label style="font-size: 13px; color: var(--text-muted); font-weight: 600;">Quantità (Conf.)</label>
+                        <label style="font-size: 13px; color: var(--text-muted); font-weight: 600;">Quantité</label>
                         <input type="number" id="modEditQuantita" class="search-input" min="1">
                     </div>
                 </div>
                 <div>
-                    <label style="font-size: 13px; color: var(--text-muted); font-weight: 600;">Note / Appunti</label>
+                    <label style="font-size: 13px; color: var(--text-muted); font-weight: 600;">Notes</label>
                     <input type="text" id="modEditNote" class="search-input">
                 </div>
             </div>
 
             <div class="modal-buttons" style="margin-top: 20px;">
-                <button type="button" class="btn-secondary" onclick="chiudiModalModifica()">Annulla</button>
-                <button type="button" class="btn-confirm" onclick="salvaModificaScheda()">💾 Salva Modifiche</button>
+                <button type="button" class="btn-secondary" onclick="chiudiModalModifica()">Annuler</button>
+                <button type="button" class="btn-confirm" onclick="salvaModificaScheda()">💾 Enregistrer</button>
             </div>
         </div>
     </div>
+
+    <!-- FOOTER PERMANENT AVEC LIENS DE GUIDES -->
+    <footer class="app-footer">
+        <div class="footer-links">
+            <a href="guide-consommation-partielle.html" target="_blank" class="footer-link">📌 Guide Consommation Partielle</a>
+            <a href="guide-changement-emplacement.html" target="_blank" class="footer-link">📍 Guide Changement d'Emplacement</a>
+        </div>
+    </footer>
 
     <script>
         let dispensaGlobale = [];
@@ -344,10 +421,20 @@
         let indiceModificaAttuale = null;
 
         window.addEventListener('DOMContentLoaded', async () => {
+            if (localStorage.getItem('eat_eva_welcome_closed_fr') === 'true') {
+                const box = document.getElementById('evaWelcomeBox');
+                if (box) box.style.display = 'none';
+            }
+
             await caricaDispensaCombinata();
         });
 
-        /* --- CARICAMENTO SICURO CON FALLBACK PER FILE LOCALE --- */
+        function chiudiWelcomeEva() {
+            const box = document.getElementById('evaWelcomeBox');
+            if (box) box.style.display = 'none';
+            localStorage.setItem('eat_eva_welcome_closed_fr', 'true');
+        }
+
         async function caricaDispensaCombinata() {
             let prodottiServer = [];
             let prodottiLocali = [];
@@ -396,10 +483,10 @@
             const ubs = [...new Set(dispensaGlobale.map(p => p.ubicazione).filter(Boolean))];
             const cats = [...new Set(dispensaGlobale.map(p => p.categoria).filter(Boolean))];
 
-            ubSelect.innerHTML = '<option value="">Tutte le ubicazioni</option>';
+            ubSelect.innerHTML = '<option value="">Tous les emplacements</option>';
             ubs.forEach(u => ubSelect.innerHTML += `<option value="${u}">${u}</option>`);
 
-            catSelect.innerHTML = '<option value="">Tutte le categorie</option>';
+            catSelect.innerHTML = '<option value="">Toutes les catégories</option>';
             cats.forEach(c => catSelect.innerHTML += `<option value="${c}">${c}</option>`);
         }
 
@@ -416,7 +503,7 @@
             );
 
             if (filtrati.length === 0) {
-                container.innerHTML = `<div style="text-align: center; padding: 20px; color: var(--text-muted); font-style: italic;">Nessun prodotto trovato nella dispensa.</div>`;
+                container.innerHTML = `<div style="text-align: center; padding: 20px; color: var(--text-muted); font-style: italic;">Aucun produit trouvé dans le garde-manger.</div>`;
                 return;
             }
 
@@ -426,22 +513,21 @@
                 return `
                 <div class="product-item">
                     <div class="product-info-left">
-                        <img src="${fotoProdotto}" alt="Anteprima" class="product-thumb">
+                        <img src="${fotoProdotto}" alt="Aperçu" class="product-thumb">
                         <div>
-                            <strong>${p.nome || 'Senza nome'}</strong><br>
-                            <small style="color: var(--text-muted)">📍 ${p.ubicazione || '<span style="color:#e74c3c;">Non assegnata</span>'} | ⏳ Rimasto: ${p.percentuale || 100}%</small>
+                            <strong>${p.nome || 'Sans nom'}</strong><br>
+                            <small style="color: var(--text-muted)">📍 ${p.ubicazione || '<span style="color:#e74c3c;">Non assigné</span>'} | ⏳ Restant : ${p.percentuale || 100}%</small>
                         </div>
                     </div>
                     <div class="actions-group">
-                        <button class="btn-modifica" onclick="apriModalModifica(${index})">✏️ Modifica</button>
-                        <button class="btn-parziale" onclick="apriModalVisual(${index})">Parziale</button>
-                        <button class="btn-esaurito" onclick="segnaEsauritoDiretto(${index})">Esaurito</button>
+                        <button class="btn-modifica" onclick="apriModalModifica(${index})">✏️ Modifier</button>
+                        <button class="btn-parziale" onclick="apriModalVisual(${index})">Partiel</button>
+                        <button class="btn-esaurito" onclick="segnaEsauritoDiretto(${index})">Épuisé</button>
                     </div>
                 </div>
             `;}).join('');
         }
 
-        /* --- GESTIONE MODIFICA SCHEDA DIRETTA E TENDINA UBICAZIONI --- */
         function apriModalModifica(index) {
             indiceModificaAttuale = index;
             const p = dispensaGlobale[index];
@@ -452,7 +538,6 @@
             document.getElementById('modEditNote').value = p.note || '';
 
             popolaUbicazioniModifica(p.ubicazione);
-
             document.getElementById('modalModificaScheda').style.display = 'flex';
         }
 
@@ -463,14 +548,13 @@
             inputCustom.value = '';
 
             const ubs = [...new Set(dispensaGlobale.map(p => p.ubicazione).filter(Boolean))];
-
-            let html = `<option value="${ubicazioneAttuale || ''}">Attuale: ${ubicazioneAttuale || 'Non assegnata'}</option>`;
+            let html = `<option value="${ubicazioneAttuale || ''}">Actuel : ${ubicazioneAttuale || 'Non assigné'}</option>`;
             ubs.forEach(u => {
                 if (u !== ubicazioneAttuale) {
                     html += `<option value="${u}">${u}</option>`;
                 }
             });
-            html += `<option value="ALTRO">+ Scrivi nuova ubicazione...</option>`;
+            html += `<option value="ALTRO">+ Saisir un nouvel emplacement...</option>`;
             select.innerHTML = html;
         }
 
@@ -504,7 +588,7 @@
                 nuovaUbicazione = selectVal;
             }
 
-            dispensaGlobale[indiceModificaAttuale].nome = document.getElementById('modEditNome').value.trim() || 'Prodotto senza nome';
+            dispensaGlobale[indiceModificaAttuale].nome = document.getElementById('modEditNome').value.trim() || 'Produit sans nom';
             dispensaGlobale[indiceModificaAttuale].ubicazione = nuovaUbicazione;
             dispensaGlobale[indiceModificaAttuale].quantita = parseInt(document.getElementById('modEditQuantita').value) || 1;
             dispensaGlobale[indiceModificaAttuale].note = document.getElementById('modEditNote').value.trim();
@@ -519,7 +603,7 @@
             const prod = dispensaGlobale[index];
             if (!prod) return;
 
-            if (confirm(`Confermi che "${prod.nome || 'questo prodotto'}" è completamente esaurito? Verrà rimosso dalla dispensa e inserito nella Lista della Spesa.`)) {
+            if (confirm(`Confirmez-vous que "${prod.nome || 'ce produit'}" est totalement épuisé ? Il sera retiré du garde-manger et ajouté à la liste de courses.`)) {
                 spostaInListaSpesa(prod);
                 dispensaGlobale.splice(index, 1);
                 salvaDispensaAggiornata();
@@ -531,7 +615,7 @@
         function spostaInListaSpesa(prod) {
             let spesa = JSON.parse(localStorage.getItem('eat_spesa_locale')) || JSON.parse(localStorage.getItem('emf_spesa')) || [];
             if (!spesa.some(s => s.nome === prod.nome)) {
-                spesa.push({ nome: prod.nome, categoria: prod.categoria || 'Generico', quantita: 1, stato: 'esaurito' });
+                spesa.push({ nome: prod.nome, categoria: prod.categoria || 'Général', quantita: 1, stato: 'esaurito' });
                 localStorage.setItem('eat_spesa_locale', JSON.stringify(spesa));
             }
         }
@@ -543,8 +627,8 @@
             prodottoSelezionato.indiceGlobale = index;
             percentualeAttuale = prodottoSelezionato.percentuale || 100;
 
-            document.getElementById('modalNomeProdotto').innerText = prodottoSelezionato.nome || 'Senza nome';
-            document.getElementById('modalUbicazioneAttuale').innerText = `Ubicazione attuale: ${prodottoSelezionato.ubicazione || 'Non specificata'}`;
+            document.getElementById('modalNomeProdotto').innerText = prodottoSelezionato.nome || 'Sans nom';
+            document.getElementById('modalUbicazioneAttuale').innerText = `Emplacement actuel : ${prodottoSelezionato.ubicazione || 'Non spécifié'}`;
             document.getElementById('levelSlider').value = percentualeAttuale;
 
             popolaUbicazioniModal(prodottoSelezionato.ubicazione);
@@ -561,14 +645,13 @@
             inputCustom.value = '';
 
             const ubs = [...new Set(dispensaGlobale.map(p => p.ubicazione).filter(Boolean))];
-            
-            let html = `<option value="${ubicazioneCorrente || ''}">Mantieni in: ${ubicazioneCorrente || 'Ubicazione attuale'}</option>`;
+            let html = `<option value="${ubicazioneCorrente || ''}">Conserver dans : ${ubicazioneCorrente || 'Emplacement actuel'}</option>`;
             ubs.forEach(u => {
                 if (u !== ubicazioneCorrente) {
-                    html += `<option value="${u}">Sposta in: ${u}</option>`;
+                    html += `<option value="${u}">Déplacer vers : ${u}</option>`;
                 }
             });
-            html += `<option value="ALTRO">+ Scrivi nuova ubicazione...</option>`;
+            html += `<option value="ALTRO">+ Saisir un nouvel emplacement...</option>`;
             select.innerHTML = html;
         }
 
@@ -672,8 +755,8 @@
                 }
 
                 const msg = percentualeAttuale <= 0 
-                    ? `Il prodotto "${dispensaGlobale[idx].nome}" ha raggiunto lo 0% e verrà considerato esaurito. Vuoi confermare e metterlo nella Lista della Spesa?`
-                    : `Confermi l'aggiornamento per "${dispensaGlobale[idx].nome}" al ${percentualeAttuale}% di rimanenza nell'ubicazione "${nuovaUbicazione}"?`;
+                    ? `Le produit "${dispensaGlobale[idx].nome}" a atteint 0% et sera considéré comme épuisé. Voulez-vous confirmer et l'ajouter à la liste de courses ?`
+                    : `Confirmez-vous la mise à jour pour "${dispensaGlobale[idx].nome}" à ${percentualeAttuale}% restant dans l'emplacement "${nuovaUbicazione}" ?`;
 
                 if (!confirm(msg)) return;
 
