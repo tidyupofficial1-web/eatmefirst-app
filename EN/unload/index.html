@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Unload & Interactive Consumption | EatMeFirst</title>
+    <meta name="description" content="Manage pantry unloading and partial item consumption using EatMeFirst's interactive visual slider.">
     <meta name="robots" content="noindex, nofollow">
     <style>
         :root {
@@ -29,7 +30,6 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
         }
 
         /* --- NAVIGATION BAR --- */
@@ -52,6 +52,8 @@
         .btn-back:hover { border-color: var(--accent-color); color: var(--accent-color); }
         .brand-title { font-size: 18px; font-weight: bold; color: var(--text-color); }
 
+        .app-nav-right { display: flex; align-items: center; gap: 12px; }
+
         .language-flags {
             display: flex; gap: 6px; align-items: center;
             background: var(--light-bg); padding: 4px 8px;
@@ -61,7 +63,66 @@
         .flag-link:hover, .flag-link.active { opacity: 1; transform: scale(1.1); }
         .flag-img { width: 20px; height: 14px; object-fit: cover; border-radius: 2px; }
 
-        .container { max-width: 900px; margin: 30px auto; padding: 0 16px; width: 100%; flex: 1; }
+        .container { max-width: 900px; margin: 24px auto; padding: 0 16px; width: 100%; flex: 1; }
+
+        /* --- EVA WELCOME BOX (DISMISSIBLE) --- */
+        .eva-welcome-box {
+            background: #16222f;
+            border: 1px solid #3182ce;
+            border-left: 5px solid #3182ce;
+            border-radius: 14px;
+            padding: 18px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            position: relative;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .eva-avatar-large {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 2px solid var(--accent-color);
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .eva-welcome-content {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-color);
+            padding-right: 25px;
+        }
+
+        .eva-welcome-content strong { color: var(--accent-color); }
+
+        .eva-welcome-content a {
+            color: var(--accent-color);
+            font-weight: 600;
+            text-decoration: underline;
+            transition: color 0.2s;
+        }
+
+        .eva-welcome-content a:hover { color: #79c0ff; }
+
+        .btn-close-eva {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 4px;
+            line-height: 1;
+            border-radius: 4px;
+        }
+
+        .btn-close-eva:hover { color: var(--text-color); background: rgba(255, 255, 255, 0.1); }
 
         /* FILTERS & SEARCH CARD */
         .card-box {
@@ -70,11 +131,7 @@
             margin-bottom: 24px; box-shadow: 0 6px 20px rgba(0,0,0,0.2);
         }
         .card-title-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
-        .card-title { font-size: 19px; color: var(--accent-color); font-weight: 700; display: flex; align-items: center; gap: 8px; }
-
-        .postit-link { display: inline-flex; align-items: center; text-decoration: none; transition: transform 0.2s ease; }
-        .postit-link:hover { transform: scale(1.15) rotate(-3deg); }
-        .postit-icon { width: 26px; height: 26px; object-fit: contain; border-radius: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.4); }
+        .card-title { font-size: 19px; color: var(--accent-color); font-weight: 700; }
 
         .filtri-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px; }
         .search-input, .filter-select {
@@ -89,32 +146,47 @@
             display: flex; justify-content: space-between; align-items: center;
             padding: 14px 16px; background: var(--light-bg);
             border: 1px solid var(--border-color); border-radius: 10px;
+            gap: 15px;
         }
 
-        .actions-group { display: flex; align-items: center; gap: 8px; }
+        .product-info-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .product-thumb {
+            width: 45px;
+            height: 45px;
+            object-fit: cover;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            background: #0d1117;
+        }
+
+        .actions-group { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+        
         .btn-esaurito {
             background-color: var(--danger-color); color: #fff;
-            border: none; padding: 8px 12px; border-radius: 8px;
-            font-weight: bold; cursor: pointer; font-size: 13.5px;
+            border: none; padding: 6px 10px; border-radius: 6px;
+            font-weight: bold; cursor: pointer; font-size: 13px;
         }
         .btn-esaurito:hover { opacity: 0.9; }
 
         .btn-parziale {
             background-color: var(--warning-color); color: #0d1117;
-            border: none; padding: 8px 12px; border-radius: 8px;
-            font-weight: bold; cursor: pointer; font-size: 13.5px;
+            border: none; padding: 6px 10px; border-radius: 6px;
+            font-weight: bold; cursor: pointer; font-size: 13px;
         }
         .btn-parziale:hover { opacity: 0.9; }
 
-        .empty-state-box {
-            text-align: center;
-            padding: 30px 20px;
-            color: var(--text-muted);
-            font-size: 14px;
-            font-style: italic;
+        .btn-modifica {
+            background-color: var(--accent-color); color: #0d1117;
+            border: none; padding: 6px 10px; border-radius: 6px;
+            font-weight: bold; cursor: pointer; font-size: 13px;
         }
+        .btn-modifica:hover { opacity: 0.9; }
 
-        /* --- VISUAL UNLOAD MODAL WITH REAL SHAPES & EVA --- */
+        /* --- MODALS --- */
         .modal-overlay {
             position: fixed; top: 0; left: 0; right: 0; bottom: 0;
             background: rgba(0,0,0,0.85); display: flex; justify-content: center;
@@ -125,23 +197,6 @@
             border-radius: 16px; max-width: 520px; width: 100%; padding: 25px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5); margin: auto;
         }
-
-        .eva-postit {
-            background: #1a2634;
-            border: 1px solid #3182ce;
-            border-left: 4px solid #3182ce;
-            border-radius: 10px;
-            padding: 14px;
-            margin-bottom: 18px;
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-        }
-        .eva-avatar {
-            width: 45px; height: 45px; border-radius: 50%;
-            border: 2px solid #58a6ff; object-fit: cover; flex-shrink: 0;
-        }
-        .eva-text { font-size: 13px; line-height: 1.5; color: var(--text-color); }
 
         .interactive-shape-wrapper {
             background: #0d1117;
@@ -156,17 +211,8 @@
             user-select: none;
         }
 
-        .shape-canvas {
-            cursor: pointer;
-            transition: transform 0.1s ease;
-        }
-
-        .slider-level-control {
-            width: 80%;
-            margin-top: 12px;
-            accent-color: var(--success-color);
-            cursor: pointer;
-        }
+        .shape-canvas { cursor: pointer; transition: transform 0.1s ease; }
+        .slider-level-control { width: 80%; margin-top: 12px; accent-color: var(--success-color); cursor: pointer; }
 
         .status-badge-container {
             display: flex; justify-content: space-around; width: 100%;
@@ -179,10 +225,7 @@
             background: #0d1117; border: 1px solid var(--border-color);
             border-radius: 10px; padding: 14px; margin-bottom: 15px;
         }
-        .location-label-row {
-            display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;
-        }
-        .location-change-box label { font-size: 13px; color: var(--text-muted); font-weight: 600; }
+        .location-change-box label { font-size: 13px; color: var(--text-muted); display: block; margin-bottom: 6px; font-weight: 600; }
 
         .modal-buttons { display: flex; gap: 10px; justify-content: flex-end; margin-top: 15px; }
         .btn-secondary {
@@ -195,24 +238,59 @@
         }
         .btn-confirm:hover { background-color: #2ea043; }
 
-        footer { text-align: center; padding: 20px; font-size: 13px; color: var(--text-muted); border-top: 1px solid var(--border-color); margin-top: 40px; }
+        /* --- PERMANENT FOOTER WITH GUIDE LINKS --- */
+        .app-footer {
+            background: var(--card-bg);
+            border-top: 1px solid var(--border-color);
+            padding: 16px 20px;
+            margin-top: auto;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 13px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.2s;
+        }
+
+        .footer-link:hover { color: var(--accent-color); text-decoration: underline; }
+
+        @media (max-width: 768px) {
+            .filtri-grid { grid-template-columns: 1fr; }
+            .language-flags { display: flex; gap: 4px; padding: 2px 6px; }
+            .flag-img { width: 18px; height: 12px; }
+            .eva-welcome-box { flex-direction: column; align-items: center; text-align: center; }
+            .eva-welcome-content { padding-right: 0; }
+        }
     </style>
 </head>
 <body>
 
+    <!-- TOP NAVIGATION BAR WITH LOGO AND FLAGS -->
     <header class="app-bar">
         <div class="app-brand">
             <a href="../menu.html" class="btn-back">← Menu</a>
             <div class="mini-logo" style="display: inline-flex; align-items: center;">
                 <img src="../../IMG/logo_1024_white.png" alt="Logo EatMeFirst" style="height: 36px; width: auto; filter: drop-shadow(0px 0px 2px rgba(255, 255, 255, 0.8));">
             </div>
-            <span class="brand-title">Scarico & Consumi Interattivi</span>
+            <span class="brand-title">Unload & Interactive Consumption</span>
         </div>
 
         <div class="app-nav-right">
             <nav class="language-flags">
-                <a href="index.html" class="flag-link active" title="Italiano"><img src="../../IMG/bandiera_Italy.jpg" class="flag-img" alt="IT"></a>
-                <a href="../../EN/unload/index.html" class="flag-link" title="English"><img src="../../IMG/bandiera_England.jpg" class="flag-img" alt="EN"></a>
+                <a href="../../IT/scarico/index.html" class="flag-link" title="Italiano"><img src="../../IMG/bandiera_Italy.jpg" class="flag-img" alt="IT"></a>
+                <a href="index.html" class="flag-link active" title="English"><img src="../../IMG/bandiera_England.jpg" class="flag-img" alt="EN"></a>
                 <a href="../../DE/entnahme/index.html" class="flag-link" title="Deutsch"><img src="../../IMG/bandiera_Germany.jpg" class="flag-img" alt="DE"></a>
                 <a href="../../FR/dechargement/index.html" class="flag-link" title="Français"><img src="../../IMG/bandiera_France.jpg" class="flag-img" alt="FR"></a>
                 <a href="../../ES/descarga/index.html" class="flag-link" title="Español"><img src="../../IMG/bandiera_Espana.jpg" class="flag-img" alt="ES"></a>
@@ -221,6 +299,17 @@
     </header>
 
     <main class="container">
+        
+        <!-- EVA WELCOME BOX (DISMISSIBLE) -->
+        <div id="evaWelcomeBox" class="eva-welcome-box">
+            <img src="../../IMG/avatar_eva.png" alt="Eva Avatar" class="eva-avatar-large">
+            <div class="eva-welcome-content">
+                Yes, I won in the end! After hours of discussions with Max, who wanted to keep everything basic, and Leo, who complained about wasted time, I insisted we put two essential features in black and white for our pantry.<br><br>
+                If you open an item and only consume part of it, you shouldn't be guessing in the dark: check out the <a href="partial-consumption-guide.html" target="_blank">Partial Consumption Guide</a> to learn how to adjust the visual slider to the exact millimeter for liquids and opened packages. And if what's left changes places at home, the <a href="location-change-guide.html" target="_blank">Location Change Guide</a> lets you reorganize space on the fly without losing track of anything. Now that you know how to make everything run smoothly, let's get to work!
+            </div>
+            <button type="button" class="btn-close-eva" onclick="chiudiWelcomeEva()" title="Close message">✕</button>
+        </div>
+
         <div class="card-box">
             <div class="card-title-row">
                 <div class="card-title">🔍 Search Item to Unload</div>
@@ -240,19 +329,11 @@
         </div>
     </main>
 
-    <!-- VISUAL UNLOAD MODAL WITH EVA POST-IT & LOCATION CHANGE -->
+    <!-- VISUAL UNLOAD MODAL (WITHOUT POST-IT) -->
     <div id="modalScaricoVisual" class="modal-overlay" style="display:none;">
         <div class="modal-content">
             <h3 id="modalNomeProdotto" style="color: var(--accent-color); font-size: 18px; text-align: center; margin-bottom: 4px;">Product Name</h3>
-            <p id="modalUbicazioneAttuale" style="text-align: center; color: var(--text-muted); font-size: 12px; margin-bottom: 12px;">Current location: -</p>
-
-            <!-- EVA POST-IT (Partial Consumption) -->
-            <div class="eva-postit">
-                <img src="../../IMG/avatar_eva.png" alt="Eva Avatar" class="eva-avatar">
-                <div class="eva-text" id="evaGuidaTesto">
-                    Here I wanted to be extra precise: you can manage partial product consumption by adjusting the percentage on the entire product by dragging the mouse arrow or sliding the bar. It's simple and intuitive. If you prefer not to use it, you can always clear the product entirely using the "Sold out" button.
-                </div>
-            </div>
+            <p id="modalUbicazioneAttuale" style="text-align: center; color: var(--text-muted); font-size: 12px; margin-bottom: 16px;">Current location: -</p>
 
             <div class="interactive-shape-wrapper">
                 <div id="shapeContainer"></div>
@@ -264,16 +345,9 @@
                 </div>
             </div>
 
-            <!-- LOCATION CHANGE BOX WITH POST-IT LINK -->
             <div class="location-change-box">
-                <div class="location-label-row">
-                    <label for="nuovaUbicazioneSelect">📍 Where should the remaining product go?</label>
-                    <a href="location-change-guide.html" class="postit-link" target="_blank" title="Location Change Guide">
-                        <img src="../../IMG/biglietto_info.jpg" alt="Info" class="postit-icon">
-                    </a>
-                </div>
+                <label for="nuovaUbicazioneSelect">📍 Where should the remaining product go?</label>
                 <select id="nuovaUbicazioneSelect" class="filter-select" style="margin-bottom: 8px;" onchange="verificaNuovaUbicazione(this.value)">
-                    <!-- Populated dynamically -->
                 </select>
                 <input type="text" id="inputNuovaUbicazioneCustom" class="search-input" placeholder="Or type a new location..." style="display:none;">
             </div>
@@ -285,34 +359,122 @@
         </div>
     </div>
 
-    <footer>
-        <span>&copy; EatMeFirst &bull; 100% Local Privacy</span>
+    <!-- PRODUCT EDIT MODAL -->
+    <div id="modalModificaScheda" class="modal-overlay" style="display:none;">
+        <div class="modal-content">
+            <h3 style="color: var(--accent-color); font-size: 18px; text-align: center; margin-bottom: 15px;">✏️ Edit Product Details</h3>
+            
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+                <div>
+                    <label style="font-size: 13px; color: var(--text-muted); font-weight: 600;">Product Name</label>
+                    <input type="text" id="modEditNome" class="search-input">
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <div>
+                        <label style="font-size: 13px; color: var(--text-muted); font-weight: 600;">Location</label>
+                        <select id="modEditUbicazioneSelect" class="filter-select" style="margin-bottom: 6px;" onchange="gestisciUbicazioneCustomModifica(this.value)">
+                        </select>
+                        <input type="text" id="modEditUbicazioneCustom" class="search-input" placeholder="Or type a new location..." style="display:none;">
+                    </div>
+                    <div>
+                        <label style="font-size: 13px; color: var(--text-muted); font-weight: 600;">Quantity</label>
+                        <input type="number" id="modEditQuantita" class="search-input" min="1">
+                    </div>
+                </div>
+                <div>
+                    <label style="font-size: 13px; color: var(--text-muted); font-weight: 600;">Notes</label>
+                    <input type="text" id="modEditNote" class="search-input">
+                </div>
+            </div>
+
+            <div class="modal-buttons" style="margin-top: 20px;">
+                <button type="button" class="btn-secondary" onclick="chiudiModalModifica()">Cancel</button>
+                <button type="button" class="btn-confirm" onclick="salvaModificaScheda()">💾 Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PERMANENT FOOTER WITH GUIDE LINKS -->
+    <footer class="app-footer">
+        <div class="footer-links">
+            <a href="partial-consumption-guide.html" target="_blank" class="footer-link">📌 Partial Consumption Guide</a>
+            <a href="location-change-guide.html" target="_blank" class="footer-link">📍 Location Change Guide</a>
+        </div>
     </footer>
 
     <script>
+        let dispensaGlobale = [];
         let prodottoSelezionato = null;
         let percentualeAttuale = 100;
+        let indiceModificaAttuale = null;
 
-        window.addEventListener('DOMContentLoaded', () => {
-            if (!localStorage.getItem('emf_dispensa')) {
-                localStorage.setItem('emf_dispensa', JSON.stringify([]));
+        window.addEventListener('DOMContentLoaded', async () => {
+            if (localStorage.getItem('eat_eva_welcome_closed_en') === 'true') {
+                const box = document.getElementById('evaWelcomeBox');
+                if (box) box.style.display = 'none';
             }
-            popolaFiltri();
-            filtraDispensa();
+
+            await caricaDispensaCombinata();
         });
 
+        function chiudiWelcomeEva() {
+            const box = document.getElementById('evaWelcomeBox');
+            if (box) box.style.display = 'none';
+            localStorage.setItem('eat_eva_welcome_closed_en', 'true');
+        }
+
+        async function caricaDispensaCombinata() {
+            let prodottiServer = [];
+            let prodottiLocali = [];
+
+            try {
+                let response = await fetch('/dispensa.json?t=' + new Date().getTime(), { cache: 'no-store' });
+                if (response.ok) {
+                    prodottiServer = await response.json();
+                }
+            } catch (e) {
+                prodottiServer = [];
+            }
+
+            try {
+                prodottiLocali = JSON.parse(localStorage.getItem('eat_dispensa_locale')) || [];
+            } catch (e) {
+                prodottiLocali = [];
+            }
+
+            try {
+                let vecchiLocali = JSON.parse(localStorage.getItem('emf_dispensa')) || [];
+                if (vecchiLocali.length > 0 && prodottiLocali.length === 0) {
+                    prodottiLocali = vecchiLocali;
+                }
+            } catch(e) {}
+
+            dispensaGlobale = [...prodottiServer];
+            prodottiLocali.forEach(pLoc => {
+                if (!dispensaGlobale.some(pServ => pServ.barcode === pLoc.barcode && pServ.nome === pLoc.nome && pLoc.barcode !== "")) {
+                    dispensaGlobale.push(pLoc);
+                }
+            });
+
+            popolaFiltri();
+            filtraDispensa();
+        }
+
+        function salvaDispensaAggiornata() {
+            localStorage.setItem('eat_dispensa_locale', JSON.stringify(dispensaGlobale));
+        }
+
         function popolaFiltri() {
-            const dispensa = JSON.parse(localStorage.getItem('emf_dispensa')) || [];
             const ubSelect = document.getElementById('filtroUbicazione');
             const catSelect = document.getElementById('filtroCategoria');
             
-            const ubs = [...new Set(dispensa.map(p => p.ubicazione).filter(Boolean))];
-            const cats = [...new Set(dispensa.map(p => p.categoria).filter(Boolean))];
+            const ubs = [...new Set(dispensaGlobale.map(p => p.ubicazione).filter(Boolean))];
+            const cats = [...new Set(dispensaGlobale.map(p => p.categoria).filter(Boolean))];
 
             ubSelect.innerHTML = '<option value="">All locations</option>';
-            catSelect.innerHTML = '<option value="">All categories</option>';
-
             ubs.forEach(u => ubSelect.innerHTML += `<option value="${u}">${u}</option>`);
+
+            catSelect.innerHTML = '<option value="">All categories</option>';
             cats.forEach(c => catSelect.innerHTML += `<option value="${c}">${c}</option>`);
         }
 
@@ -320,85 +482,158 @@
             const query = document.getElementById('filtroNome').value.toLowerCase();
             const ub = document.getElementById('filtroUbicazione').value;
             const cat = document.getElementById('filtroCategoria').value;
-            const dispensa = JSON.parse(localStorage.getItem('emf_dispensa')) || [];
 
             const container = document.getElementById('listaRisultati');
-            const filtrati = dispensa.filter(p => 
+            const filtrati = dispensaGlobale.filter(p => 
                 (p.nome || "").toLowerCase().includes(query) &&
                 (ub === "" || p.ubicazione === ub) &&
                 (cat === "" || p.categoria === cat)
             );
 
             if (filtrati.length === 0) {
-                container.innerHTML = `<div class="empty-state-box">Your pantry currently has no products registered for unloading.</div>`;
+                container.innerHTML = `<div style="text-align: center; padding: 20px; color: var(--text-muted); font-style: italic;">No items found in the pantry.</div>`;
                 return;
             }
 
-            container.innerHTML = filtrati.map(p => `
+            container.innerHTML = filtrati.map((p, index) => {
+                const fotoProdotto = (p.immagine && p.immagine.length > 5) ? p.immagine : ((p.foto && p.foto.length > 5) ? p.foto : '../../IMG/logo_1024_white.png');
+                
+                return `
                 <div class="product-item">
-                    <div>
-                        <strong>${p.nome}</strong><br>
-                        <small style="color: var(--text-muted)">📍 ${p.ubicazione || 'Unspecified'} | ⏳ Left: ${p.percentuale || 100}%</small>
+                    <div class="product-info-left">
+                        <img src="${fotoProdotto}" alt="Preview" class="product-thumb">
+                        <div>
+                            <strong>${p.nome || 'Unnamed item'}</strong><br>
+                            <small style="color: var(--text-muted)">📍 ${p.ubicazione || '<span style="color:#e74c3c;">Unassigned</span>'} | ⏳ Remaining: ${p.percentuale || 100}%</small>
+                        </div>
                     </div>
                     <div class="actions-group">
-                        <button class="btn-esaurito" onclick="segnaEsauritoDiretto(${p.id})">Sold out</button>
-                        <button class="btn-parziale" onclick="apriModalVisual(${p.id})">Partial</button>
+                        <button class="btn-modifica" onclick="apriModalModifica(${index})">✏️ Edit</button>
+                        <button class="btn-parziale" onclick="apriModalVisual(${index})">Partial</button>
+                        <button class="btn-esaurito" onclick="segnaEsauritoDiretto(${index})">Sold Out</button>
                     </div>
                 </div>
-            `).join('');
+            `;}).join('');
         }
 
-        function segnaEsauritoDiretto(id) {
-            let dispensa = JSON.parse(localStorage.getItem('emf_dispensa')) || [];
-            const prod = dispensa.find(p => p.id === id);
+        function apriModalModifica(index) {
+            indiceModificaAttuale = index;
+            const p = dispensaGlobale[index];
+            if (!p) return;
+
+            document.getElementById('modEditNome').value = p.nome || '';
+            document.getElementById('modEditQuantita').value = p.quantita || 1;
+            document.getElementById('modEditNote').value = p.note || '';
+
+            popolaUbicazioniModifica(p.ubicazione);
+            document.getElementById('modalModificaScheda').style.display = 'flex';
+        }
+
+        function popolaUbicazioniModifica(ubicazioneAttuale) {
+            const select = document.getElementById('modEditUbicazioneSelect');
+            const inputCustom = document.getElementById('modEditUbicazioneCustom');
+            inputCustom.style.display = 'none';
+            inputCustom.value = '';
+
+            const ubs = [...new Set(dispensaGlobale.map(p => p.ubicazione).filter(Boolean))];
+
+            let html = `<option value="${ubicazioneAttuale || ''}">Current: ${ubicazioneAttuale || 'Unassigned'}</option>`;
+            ubs.forEach(u => {
+                if (u !== ubicazioneAttuale) {
+                    html += `<option value="${u}">${u}</option>`;
+                }
+            });
+            html += `<option value="ALTRO">+ Type a new location...</option>`;
+            select.innerHTML = html;
+        }
+
+        function gestisciUbicazioneCustomModifica(valore) {
+            const inputCustom = document.getElementById('modEditUbicazioneCustom');
+            if (valore === 'ALTRO') {
+                inputCustom.style.display = 'block';
+                inputCustom.focus();
+            } else {
+                inputCustom.style.display = 'none';
+                inputCustom.value = '';
+            }
+        }
+
+        function chiudiModalModifica() {
+            document.getElementById('modalModificaScheda').style.display = 'none';
+        }
+
+        function salvaModificaScheda() {
+            if (indiceModificaAttuale === null || !dispensaGlobale[indiceModificaAttuale]) return;
+
+            const selectVal = document.getElementById('modEditUbicazioneSelect').value;
+            let nuovaUbicazione = dispensaGlobale[indiceModificaAttuale].ubicazione || '';
+
+            if (selectVal === 'ALTRO') {
+                const customVal = document.getElementById('modEditUbicazioneCustom').value.trim();
+                if (customVal !== "") {
+                    nuovaUbicazione = customVal;
+                }
+            } else if (selectVal !== "") {
+                nuovaUbicazione = selectVal;
+            }
+
+            dispensaGlobale[indiceModificaAttuale].nome = document.getElementById('modEditNome').value.trim() || 'Unnamed item';
+            dispensaGlobale[indiceModificaAttuale].ubicazione = nuovaUbicazione;
+            dispensaGlobale[indiceModificaAttuale].quantita = parseInt(document.getElementById('modEditQuantita').value) || 1;
+            dispensaGlobale[indiceModificaAttuale].note = document.getElementById('modEditNote').value.trim();
+
+            salvaDispensaAggiornata();
+            chiudiModalModifica();
+            popolaFiltri();
+            filtraDispensa();
+        }
+
+        function segnaEsauritoDiretto(index) {
+            const prod = dispensaGlobale[index];
             if (!prod) return;
 
-            if (confirm(`Are you sure "${prod.nome}" is completely sold out? It will be removed from the pantry and added to the Shopping List.`)) {
+            if (confirm(`Are you sure "${prod.nome || 'this item'}" is completely sold out? It will be removed from the pantry and added to the Shopping List.`)) {
                 spostaInListaSpesa(prod);
-                dispensa = dispensa.filter(p => p.id !== id);
-                localStorage.setItem('emf_dispensa', JSON.stringify(dispensa));
+                dispensaGlobale.splice(index, 1);
+                salvaDispensaAggiornata();
                 popolaFiltri();
                 filtraDispensa();
             }
         }
 
         function spostaInListaSpesa(prod) {
-            let spesa = JSON.parse(localStorage.getItem('emf_spesa')) || [];
+            let spesa = JSON.parse(localStorage.getItem('eat_spesa_locale')) || JSON.parse(localStorage.getItem('emf_spesa')) || [];
             if (!spesa.some(s => s.nome === prod.nome)) {
                 spesa.push({ nome: prod.nome, categoria: prod.categoria || 'General', quantita: 1, stato: 'esaurito' });
-                localStorage.setItem('emf_spesa', JSON.stringify(spesa));
+                localStorage.setItem('eat_spesa_locale', JSON.stringify(spesa));
             }
         }
 
-        function apriModalVisual(id) {
-            const dispensa = JSON.parse(localStorage.getItem('emf_dispensa')) || [];
-            prodottoSelezionato = dispensa.find(p => p.id === id);
+        function apriModalVisual(index) {
+            prodottoSelezionato = dispensaGlobale[index];
             if (!prodottoSelezionato) return;
 
+            prodottoSelezionato.indiceGlobale = index;
             percentualeAttuale = prodottoSelezionato.percentuale || 100;
 
-            document.getElementById('modalNomeProdotto').innerText = prodottoSelezionato.nome;
+            document.getElementById('modalNomeProdotto').innerText = prodottoSelezionato.nome || 'Unnamed item';
             document.getElementById('modalUbicazioneAttuale').innerText = `Current location: ${prodottoSelezionato.ubicazione || 'Unspecified'}`;
             document.getElementById('levelSlider').value = percentualeAttuale;
 
-            const nomeStr = prodottoSelezionato.nome ? `"${prodottoSelezionato.nome}"` : "this product";
-            document.getElementById('evaGuidaTesto').innerHTML = `For <strong>${nomeStr}</strong> I wanted to be extra precise: you can manage partial consumption by adjusting the percentage on the entire product using the mouse or slider. It's simple and intuitive. If you prefer not to use it, you can clear the product entirely with the "Sold out" button.`;
-
-            popolaUbicazioniModal(dispensa, prodottoSelezionato.ubicazione);
-
+            popolaUbicazioniModal(prodottoSelezionato.ubicazione);
             disegnaFormaSVG(prodottoSelezionato.forma || 'cilindro_verticale', percentualeAttuale);
             aggiornaEtichette(percentualeAttuale);
 
             document.getElementById('modalScaricoVisual').style.display = 'flex';
         }
 
-        function popolaUbicazioniModal(dispensa, ubicazioneCorrente) {
+        function popolaUbicazioniModal(ubicazioneCorrente) {
             const select = document.getElementById('nuovaUbicazioneSelect');
             const inputCustom = document.getElementById('inputNuovaUbicazioneCustom');
             inputCustom.style.display = 'none';
             inputCustom.value = '';
 
-            const ubs = [...new Set(dispensa.map(p => p.ubicazione).filter(Boolean))];
+            const ubs = [...new Set(dispensaGlobale.map(p => p.ubicazione).filter(Boolean))];
             
             let html = `<option value="${ubicazioneCorrente || ''}">Keep in: ${ubicazioneCorrente || 'Current location'}</option>`;
             ubs.forEach(u => {
@@ -406,7 +641,7 @@
                     html += `<option value="${u}">Move to: ${u}</option>`;
                 }
             });
-            html += `<option value="ALTRO">+ Type new location...</option>`;
+            html += `<option value="ALTRO">+ Type a new location...</option>`;
             select.innerHTML = html;
         }
 
@@ -423,12 +658,12 @@
 
         function disegnaFormaSVG(forma, percentuale) {
             const container = document.getElementById('shapeContainer');
-            const hVerde = (percentuale / 100) * 140;
+            const hVerde = (percentuale / 100) * 140; 
             const hRosso = 140 - hVerde;
 
             if (forma === 'cilindro_verticale' || forma === 'parallelepipedo' || !forma) {
                 container.innerHTML = `
-                    <svg width="100" height="160" viewBox="0 0 100 160" class="shape-canvas" onclick="gestisciClickAltezza(event, 160)">
+                    <svg width="100" height="160" viewBox="0 0 100 160" class="shape-canvas" onclick="gestisciClickAltezza(event)">
                         <rect x="15" y="10" width="70" height="140" rx="8" fill="#e74c3c" />
                         <rect x="15" y="${10 + hRosso}" width="70" height="${hVerde}" rx="0" fill="#2ecc71" />
                         <rect x="15" y="10" width="70" height="140" rx="8" fill="none" stroke="#ffffff" stroke-width="3" />
@@ -437,7 +672,7 @@
             } else if (forma === 'cilindro_orizzontale') {
                 const wVerde = (percentuale / 100) * 160;
                 container.innerHTML = `
-                    <svg width="180" height="90" viewBox="0 0 180 90" class="shape-canvas" onclick="gestisciClickLarghezza(event, 180)">
+                    <svg width="180" height="90" viewBox="0 0 180 90" class="shape-canvas" onclick="gestisciClickLarghezza(event)">
                         <rect x="10" y="20" width="160" height="50" rx="25" fill="#e74c3c" />
                         <rect x="10" y="20" width="${wVerde}" height="50" rx="0" fill="#2ecc71" />
                         <rect x="10" y="20" width="160" height="50" rx="25" fill="none" stroke="#ffffff" stroke-width="3" />
@@ -461,7 +696,7 @@
             }
         }
 
-        function gestisciClickAltezza(e, maxH) {
+        function gestisciClickAltezza(e) {
             const rect = e.currentTarget.getBoundingClientRect();
             const clickY = e.clientY - rect.top;
             let p = Math.round(100 - ((clickY / rect.height) * 100));
@@ -470,7 +705,7 @@
             aggiornaLivelloVisivo(p);
         }
 
-        function gestisciClickLarghezza(e, maxW) {
+        function gestisciClickLarghezza(e) {
             const rect = e.currentTarget.getBoundingClientRect();
             const clickX = e.clientX - rect.left;
             let p = Math.round((clickX / rect.width) * 100);
@@ -495,12 +730,10 @@
         }
 
         function confermaScaricoEffettivo() {
-            let dispensa = JSON.parse(localStorage.getItem('emf_dispensa')) || [];
-            const idx = dispensa.findIndex(p => p.id === prodottoSelezionato.id);
-
-            if (idx !== -1) {
+            const idx = prodottoSelezionato.indiceGlobale;
+            if (idx !== undefined && dispensaGlobale[idx]) {
                 const selectVal = document.getElementById('nuovaUbicazioneSelect').value;
-                let nuovaUbicazione = prodottoSelezionato.ubicazione;
+                let nuovaUbicazione = dispensaGlobale[idx].ubicazione;
                 
                 if (selectVal === 'ALTRO') {
                     const customVal = document.getElementById('inputNuovaUbicazioneCustom').value.trim();
@@ -512,20 +745,20 @@
                 }
 
                 const msg = percentualeAttuale <= 0 
-                    ? `The product "${prodottoSelezionato.nome}" has reached 0% and is considered sold out. Confirm and add it to the Shopping List?`
-                    : `Confirm update for "${prodottoSelezionato.nome}" at ${percentualeAttuale}% remaining in location "${nuovaUbicazione}"?`;
+                    ? `The product "${dispensaGlobale[idx].nome}" has reached 0% and is considered sold out. Confirm and add it to the Shopping List?`
+                    : `Confirm update for "${dispensaGlobale[idx].nome}" at ${percentualeAttuale}% remaining in location "${nuovaUbicazione}"?`;
 
                 if (!confirm(msg)) return;
 
-                dispensa[idx].percentuale = percentualeAttuale;
-                dispensa[idx].ubicazione = nuovaUbicazione;
+                dispensaGlobale[idx].percentuale = percentualeAttuale;
+                dispensaGlobale[idx].ubicazione = nuovaUbicazione;
 
                 if (percentualeAttuale <= 0) {
-                    spostaInListaSpesa(dispensa[idx]);
-                    dispensa.splice(idx, 1);
+                    spostaInListaSpesa(dispensaGlobale[idx]);
+                    dispensaGlobale.splice(idx, 1);
                 }
 
-                localStorage.setItem('emf_dispensa', JSON.stringify(dispensa));
+                salvaDispensaAggiornata();
                 chiudiModalScarico();
                 popolaFiltri();
                 filtraDispensa();
