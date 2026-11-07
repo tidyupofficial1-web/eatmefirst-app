@@ -75,7 +75,66 @@
         .flag-link:hover, .flag-link.active { opacity: 1; transform: scale(1.1); }
         .flag-img { width: 20px; height: 14px; object-fit: cover; border-radius: 2px; }
 
-        .container { max-width: 900px; margin: 30px auto; padding: 0 16px; width: 100%; }
+        .container { max-width: 900px; margin: 24px auto; padding: 0 16px; width: 100%; flex: 1; }
+
+        /* --- MENSAJE DE BIENVENIDA DE EVA (DISMISIBLE) --- */
+        .eva-welcome-box {
+            background: #16222f;
+            border: 1px solid #3182ce;
+            border-left: 5px solid #3182ce;
+            border-radius: 14px;
+            padding: 18px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            position: relative;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .eva-avatar-large {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 2px solid var(--accent-color);
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .eva-welcome-content {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-color);
+            padding-right: 25px;
+        }
+
+        .eva-welcome-content strong { color: var(--accent-color); }
+
+        .eva-welcome-content a {
+            color: var(--accent-color);
+            font-weight: 600;
+            text-decoration: underline;
+            transition: color 0.2s;
+        }
+
+        .eva-welcome-content a:hover { color: #79c0ff; }
+
+        .btn-close-eva {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 4px;
+            line-height: 1;
+            border-radius: 4px;
+        }
+
+        .btn-close-eva:hover { color: var(--text-color); background: rgba(255, 255, 255, 0.1); }
 
         .card-box {
             background: var(--card-bg); border-radius: 16px;
@@ -125,23 +184,6 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.5); margin: auto;
         }
 
-        .eva-postit {
-            background: #1a2634;
-            border: 1px solid #3182ce;
-            border-left: 4px solid #3182ce;
-            border-radius: 10px;
-            padding: 14px;
-            margin-bottom: 18px;
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-        }
-        .eva-avatar {
-            width: 45px; height: 45px; border-radius: 50%;
-            border: 2px solid #58a6ff; object-fit: cover; flex-shrink: 0;
-        }
-        .eva-text { font-size: 13px; line-height: 1.5; color: var(--text-color); }
-
         .interactive-shape-wrapper {
             background: #0d1117;
             border: 1px solid var(--border-color);
@@ -182,9 +224,40 @@
         }
         .btn-confirm:hover { background-color: #2ea043; }
 
+        /* --- FOOTER PERMANENTE CON ENLACES DE GUÍAS --- */
+        .app-footer {
+            background: var(--card-bg);
+            border-top: 1px solid var(--border-color);
+            padding: 16px 20px;
+            margin-top: auto;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 13px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.2s;
+        }
+
+        .footer-link:hover { color: var(--accent-color); text-decoration: underline; }
+
         @media (max-width: 768px) {
             .filtri-grid { grid-template-columns: 1fr; }
-            .language-flags { display: none; }
+            .language-flags { display: flex; gap: 4px; padding: 2px 6px; }
+            .flag-img { width: 18px; height: 12px; }
+            .eva-welcome-box { flex-direction: column; align-items: center; text-align: center; }
+            .eva-welcome-content { padding-right: 0; }
         }
     </style>
 </head>
@@ -212,6 +285,17 @@
     </header>
 
     <main class="container">
+        
+        <!-- MENSAJE DE BIENVENIDA DE EVA (DISMISSIBLE) -->
+        <div id="evaWelcomeBox" class="eva-welcome-box">
+            <img src="../../IMG/avatar_eva.png" alt="Avatar Eva" class="eva-avatar-large">
+            <div class="eva-welcome-content">
+                ¡Sí, al final me salí con la mía! Después de horas de discusiones con Max que lo quería todo simple y Leo que se quejaba del tiempo perdido, exigí que pusiéramos por escrito dos cosas fundamentales para nuestra despensa.<br><br>
+                Si abres un producto y solo consumes una parte, no puedes andar a ciegas: consulta la <a href="guia-consumo-parziale.html" target="_blank">Guía de Consumo Parcial</a> para saber cómo ajustar al milímetro el cursor visual en los líquidos y envases abiertos. Y si lo que queda cambia de sitio en casa, la <a href="guia-cambio-ubicacion.html" target="_blank">Guía de Cambio de Ubicación</a> te permite reorganizar el espacio sobre la marcha sin perder rastro de nada. ¡Ahora que ya sabes cómo hacer que todo funcione a la perfección, manos a la obra!
+            </div>
+            <button type="button" class="btn-close-eva" onclick="chiudiWelcomeEva()" title="Cerrar mensaje">✕</button>
+        </div>
+
         <div class="card-box">
             <div class="card-title-row">
                 <div class="card-title">🔍 Buscar alimento para descargar</div>
@@ -234,14 +318,7 @@
     <div id="modalScaricoVisual" class="modal-overlay" style="display:none;">
         <div class="modal-content">
             <h3 id="modalNomeProdotto" style="color: var(--accent-color); font-size: 18px; text-align: center; margin-bottom: 4px;">Nombre del producto</h3>
-            <p id="modalUbicazioneAttuale" style="text-align: center; color: var(--text-muted); font-size: 12px; margin-bottom: 12px;">Ubicación actual: -</p>
-
-            <div class="eva-postit">
-                <img src="../../IMG/avatar_eva.png" alt="Avatar Eva" class="eva-avatar">
-                <div class="eva-text" id="evaGuidaTesto">
-                    Aquí he querido ser muy precisa: puedes gestionar la cantidad de producto parcialmente consumido ajustando el porcentaje.
-                </div>
-            </div>
+            <p id="modalUbicazioneAttuale" style="text-align: center; color: var(--text-muted); font-size: 12px; margin-bottom: 16px;">Ubicación actual: -</p>
 
             <div class="interactive-shape-wrapper">
                 <div id="shapeContainer"></div>
@@ -267,17 +344,36 @@
         </div>
     </div>
 
+    <!-- FOOTER PERMANENTE CON ENLACES DE GUÍAS -->
+    <footer class="app-footer">
+        <div class="footer-links">
+            <a href="guia-consumo-parziale.html" target="_blank" class="footer-link">📌 Guía de Consumo Parcial</a>
+            <a href="guia-cambio-ubicacion.html" target="_blank" class="footer-link">📍 Guía de Cambio de Ubicación</a>
+        </div>
+    </footer>
+
     <script>
         let prodottoSelezionato = null;
         let percentualeAttuale = 100;
 
         window.addEventListener('DOMContentLoaded', () => {
+            if (localStorage.getItem('eat_eva_welcome_closed_es') === 'true') {
+                const box = document.getElementById('evaWelcomeBox');
+                if (box) box.style.display = 'none';
+            }
+
             if (!localStorage.getItem('emf_dispensa')) {
                 localStorage.setItem('emf_dispensa', JSON.stringify([]));
             }
             popolaFiltri();
             filtraDispensa();
         });
+
+        function chiudiWelcomeEva() {
+            const box = document.getElementById('evaWelcomeBox');
+            if (box) box.style.display = 'none';
+            localStorage.setItem('eat_eva_welcome_closed_es', 'true');
+        }
 
         function popolaFiltri() {
             const dispensa = JSON.parse(localStorage.getItem('emf_dispensa')) || [];
