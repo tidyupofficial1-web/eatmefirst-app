@@ -75,7 +75,66 @@
         .flag-link:hover, .flag-link.active { opacity: 1; transform: scale(1.1); }
         .flag-img { width: 20px; height: 14px; object-fit: cover; border-radius: 2px; }
 
-        .container { max-width: 900px; margin: 30px auto; padding: 0 16px; width: 100%; }
+        .container { max-width: 900px; margin: 24px auto; padding: 0 16px; width: 100%; flex: 1; }
+
+        /* --- BOX MESSAGGIO DI EVA (DISMISSIBILE) --- */
+        .eva-welcome-box {
+            background: #16222f;
+            border: 1px solid #3182ce;
+            border-left: 5px solid #3182ce;
+            border-radius: 14px;
+            padding: 18px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            position: relative;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .eva-avatar-large {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 2px solid var(--accent-color);
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .eva-welcome-content {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-color);
+            padding-right: 25px;
+        }
+
+        .eva-welcome-content strong { color: var(--accent-color); }
+
+        .eva-welcome-content a {
+            color: var(--accent-color);
+            font-weight: 600;
+            text-decoration: underline;
+            transition: color 0.2s;
+        }
+
+        .eva-welcome-content a:hover { color: #79c0ff; }
+
+        .btn-close-eva {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 4px;
+            line-height: 1;
+            border-radius: 4px;
+        }
+
+        .btn-close-eva:hover { color: var(--text-color); background: rgba(255, 255, 255, 0.1); }
 
         /* CARD FILTRI & RICERCA */
         .card-box {
@@ -151,23 +210,6 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.5); margin: auto;
         }
 
-        .eva-postit {
-            background: #1a2634;
-            border: 1px solid #3182ce;
-            border-left: 4px solid #3182ce;
-            border-radius: 10px;
-            padding: 14px;
-            margin-bottom: 18px;
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-        }
-        .eva-avatar {
-            width: 45px; height: 45px; border-radius: 50%;
-            border: 2px solid #58a6ff; object-fit: cover; flex-shrink: 0;
-        }
-        .eva-text { font-size: 13px; line-height: 1.5; color: var(--text-color); }
-
         .interactive-shape-wrapper {
             background: #0d1117;
             border: 1px solid var(--border-color);
@@ -208,17 +250,40 @@
         }
         .btn-confirm:hover { background-color: #2ea043; }
 
+        /* --- FOOTER CON LINK GUIDE PERMANENTI --- */
+        .app-footer {
+            background: var(--card-bg);
+            border-top: 1px solid var(--border-color);
+            padding: 16px 20px;
+            margin-top: auto;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 13px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.2s;
+        }
+
+        .footer-link:hover { color: var(--accent-color); text-decoration: underline; }
+
         @media (max-width: 768px) {
             .filtri-grid { grid-template-columns: 1fr; }
-            .language-flags { 
-                display: flex; 
-                gap: 4px; 
-                padding: 2px 6px; 
-            }
-            .flag-img { 
-                width: 18px; 
-                height: 12px; 
-            }
+            .language-flags { display: flex; gap: 4px; padding: 2px 6px; }
+            .flag-img { width: 18px; height: 12px; }
+            .eva-welcome-box { flex-direction: column; align-items: center; text-align: center; }
+            .eva-welcome-content { padding-right: 0; }
         }
     </style>
 </head>
@@ -246,6 +311,17 @@
     </header>
 
     <main class="container">
+        
+        <!-- MESSAGGIO D'IMPATTO INIZIALE DI EVA (DISMISSIBILE) -->
+        <div id="evaWelcomeBox" class="eva-welcome-box">
+            <img src="../../IMG/avatar_eva.png" alt="Eva Avatar" class="eva-avatar-large">
+            <div class="eva-welcome-content">
+                Sì, alla fine l'ho spuntata io! Dopo ore di discussioni con Max che voleva tutto semplice e Leo che brontolava sul tempo perso, ho preteso che mettessimo nero su bianco due cose fondamentali per la nostra dispensa.<br><br>
+                Se aprite un prodotto e ne consumate solo una parte, non potete mica brancolare nel buio: consultate la <a href="guida-consumo-parziale.html" target="_blank">Guida al consumo parziale</a> per scoprire come regolare al millimetro il cursore visivo sui liquidi e sulle confezioni aperte. E se quel che rimane cambia posto in casa, con la <a href="guida-cambio-ubicazione.html" target="_blank">Guida al cambio ubicazione</a> potete riorganizzare lo spazio al volo senza perdere traccia di nulla. Ora che sapete come far girare tutto al meglio, potete mettervi all'opera!
+            </div>
+            <button type="button" class="btn-close-eva" onclick="chiudiWelcomeEva()" title="Chiudi messaggio">✕</button>
+        </div>
+
         <div class="card-box">
             <div class="card-title-row">
                 <div class="card-title">🔍 Cerca Alimento da Scaricare</div>
@@ -265,18 +341,11 @@
         </div>
     </main>
 
-    <!-- MODALE SCARICO PARZIALE CON GUIDA EVA E CAMBIO UBICAZIONE -->
+    <!-- MODALE SCARICO PARZIALE (SENZA POST-IT) -->
     <div id="modalScaricoVisual" class="modal-overlay" style="display:none;">
         <div class="modal-content">
             <h3 id="modalNomeProdotto" style="color: var(--accent-color); font-size: 18px; text-align: center; margin-bottom: 4px;">Nome Prodotto</h3>
-            <p id="modalUbicazioneAttuale" style="text-align: center; color: var(--text-muted); font-size: 12px; margin-bottom: 12px;">Ubicazione attuale: -</p>
-
-            <div class="eva-postit">
-                <img src="../../IMG/avatar_eva.png" alt="Eva Avatar" class="eva-avatar">
-                <div class="eva-text" id="evaGuidaTesto">
-                    Qui ho voluto eccedere nella precisione: puoi gestire la quantità di prodotto consumato parzialmente regolando la percentuale di consumo sull'intero prodotto facendo scorrere la freccina del mouse o spostando il cursore sulla linea.
-                </div>
-            </div>
+            <p id="modalUbicazioneAttuale" style="text-align: center; color: var(--text-muted); font-size: 12px; margin-bottom: 16px;">Ubicazioneattuale: -</p>
 
             <div class="interactive-shape-wrapper">
                 <div id="shapeContainer"></div>
@@ -302,7 +371,7 @@
         </div>
     </div>
 
-    <!-- MODALE MODIFICA SCHEDA PRODOTTO CON TENDINA UBICAZIONI DINAMICA -->
+    <!-- MODALE MODIFICA SCHEDA PRODOTTO -->
     <div id="modalModificaScheda" class="modal-overlay" style="display:none;">
         <div class="modal-content">
             <h3 style="color: var(--accent-color); font-size: 18px; text-align: center; margin-bottom: 15px;">✏️ Modifica Scheda Prodotto</h3>
@@ -337,6 +406,14 @@
         </div>
     </div>
 
+    <!-- FOOTER PERMANENTE CON LINK GUIDE -->
+    <footer class="app-footer">
+        <div class="footer-links">
+            <a href="guida-consumo-parziale.html" target="_blank" class="footer-link">📌 Guida Consumo Parziale</a>
+            <a href="guida-cambio-ubicazione.html" target="_blank" class="footer-link">📍 Guida Cambio Ubicazione</a>
+        </div>
+    </footer>
+
     <script>
         let dispensaGlobale = [];
         let prodottoSelezionato = null;
@@ -344,8 +421,20 @@
         let indiceModificaAttuale = null;
 
         window.addEventListener('DOMContentLoaded', async () => {
+            // Controllo se il messaggio di Eva è stato chiuso in precedenza
+            if (localStorage.getItem('eat_eva_welcome_closed') === 'true') {
+                const box = document.getElementById('evaWelcomeBox');
+                if (box) box.style.display = 'none';
+            }
+
             await caricaDispensaCombinata();
         });
+
+        function chiudiWelcomeEva() {
+            const box = document.getElementById('evaWelcomeBox');
+            if (box) box.style.display = 'none';
+            localStorage.setItem('eat_eva_welcome_closed', 'true');
+        }
 
         /* --- CARICAMENTO SICURO CON FALLBACK PER FILE LOCALE --- */
         async function caricaDispensaCombinata() {
@@ -441,7 +530,6 @@
             `;}).join('');
         }
 
-        /* --- GESTIONE MODIFICA SCHEDA DIRETTA E TENDINA UBICAZIONI --- */
         function apriModalModifica(index) {
             indiceModificaAttuale = index;
             const p = dispensaGlobale[index];
@@ -452,7 +540,6 @@
             document.getElementById('modEditNote').value = p.note || '';
 
             popolaUbicazioniModifica(p.ubicazione);
-
             document.getElementById('modalModificaScheda').style.display = 'flex';
         }
 
