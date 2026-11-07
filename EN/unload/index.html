@@ -55,11 +55,23 @@
         .app-nav-right { display: flex; align-items: center; gap: 12px; }
 
         .language-flags {
-            display: flex; gap: 6px; align-items: center;
-            background: var(--light-bg); padding: 4px 8px;
-            border-radius: 20px; border: 1px solid var(--border-color);
+            display: flex;
+            gap: 6px;
+            align-items: center;
+            background: var(--light-bg);
+            padding: 4px 8px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
         }
-        .flag-link { text-decoration: none; display: flex; align-items: center; opacity: 0.7; transition: opacity 0.2s, transform 0.2s; }
+
+        .flag-link {
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            opacity: 0.7;
+            transition: opacity 0.2s, transform 0.2s;
+        }
+
         .flag-link:hover, .flag-link.active { opacity: 1; transform: scale(1.1); }
         .flag-img { width: 20px; height: 14px; object-fit: cover; border-radius: 2px; }
 
@@ -124,7 +136,6 @@
 
         .btn-close-eva:hover { color: var(--text-color); background: rgba(255, 255, 255, 0.1); }
 
-        /* FILTERS & SEARCH CARD */
         .card-box {
             background: var(--card-bg); border-radius: 16px;
             border: 1px solid var(--border-color); padding: 24px;
@@ -140,53 +151,28 @@
             color: var(--text-color); font-size: 14px; outline: none;
         }
 
-        /* PRODUCT LIST */
         .product-list { display: flex; flex-direction: column; gap: 10px; }
         .product-item {
             display: flex; justify-content: space-between; align-items: center;
             padding: 14px 16px; background: var(--light-bg);
             border: 1px solid var(--border-color); border-radius: 10px;
-            gap: 15px;
         }
 
-        .product-info-left {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .product-thumb {
-            width: 45px;
-            height: 45px;
-            object-fit: cover;
-            border-radius: 6px;
-            border: 1px solid var(--border-color);
-            background: #0d1117;
-        }
-
-        .actions-group { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
-        
+        .actions-group { display: flex; align-items: center; gap: 8px; }
         .btn-esaurito {
             background-color: var(--danger-color); color: #fff;
-            border: none; padding: 6px 10px; border-radius: 6px;
-            font-weight: bold; cursor: pointer; font-size: 13px;
+            border: none; padding: 8px 12px; border-radius: 8px;
+            font-weight: bold; cursor: pointer; font-size: 13.5px;
         }
         .btn-esaurito:hover { opacity: 0.9; }
 
         .btn-parziale {
             background-color: var(--warning-color); color: #0d1117;
-            border: none; padding: 6px 10px; border-radius: 6px;
-            font-weight: bold; cursor: pointer; font-size: 13px;
+            border: none; padding: 8px 12px; border-radius: 8px;
+            font-weight: bold; cursor: pointer; font-size: 13.5px;
         }
         .btn-parziale:hover { opacity: 0.9; }
 
-        .btn-modifica {
-            background-color: var(--accent-color); color: #0d1117;
-            border: none; padding: 6px 10px; border-radius: 6px;
-            font-weight: bold; cursor: pointer; font-size: 13px;
-        }
-        .btn-modifica:hover { opacity: 0.9; }
-
-        /* --- MODALS --- */
         .modal-overlay {
             position: fixed; top: 0; left: 0; right: 0; bottom: 0;
             background: rgba(0,0,0,0.85); display: flex; justify-content: center;
@@ -282,7 +268,7 @@
         <div class="app-brand">
             <a href="../menu.html" class="btn-back">← Menu</a>
             <div class="mini-logo" style="display: inline-flex; align-items: center;">
-                <img src="../../IMG/logo_1024_white.png" alt="Logo EatMeFirst" style="height: 36px; width: auto; filter: drop-shadow(0px 0px 2px rgba(255, 255, 255, 0.8));">
+                <img src="../../IMG/logo_1024_white.png" alt="EatMeFirst Logo" style="height: 36px; width: auto; filter: drop-shadow(0px 0px 2px rgba(255, 255, 255, 0.8));">
             </div>
             <span class="brand-title">Unload & Interactive Consumption</span>
         </div>
@@ -329,7 +315,6 @@
         </div>
     </main>
 
-    <!-- VISUAL UNLOAD MODAL (WITHOUT POST-IT) -->
     <div id="modalScaricoVisual" class="modal-overlay" style="display:none;">
         <div class="modal-content">
             <h3 id="modalNomeProdotto" style="color: var(--accent-color); font-size: 18px; text-align: center; margin-bottom: 4px;">Product Name</h3>
@@ -359,41 +344,6 @@
         </div>
     </div>
 
-    <!-- PRODUCT EDIT MODAL -->
-    <div id="modalModificaScheda" class="modal-overlay" style="display:none;">
-        <div class="modal-content">
-            <h3 style="color: var(--accent-color); font-size: 18px; text-align: center; margin-bottom: 15px;">✏️ Edit Product Details</h3>
-            
-            <div style="display: flex; flex-direction: column; gap: 12px;">
-                <div>
-                    <label style="font-size: 13px; color: var(--text-muted); font-weight: 600;">Product Name</label>
-                    <input type="text" id="modEditNome" class="search-input">
-                </div>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                    <div>
-                        <label style="font-size: 13px; color: var(--text-muted); font-weight: 600;">Location</label>
-                        <select id="modEditUbicazioneSelect" class="filter-select" style="margin-bottom: 6px;" onchange="gestisciUbicazioneCustomModifica(this.value)">
-                        </select>
-                        <input type="text" id="modEditUbicazioneCustom" class="search-input" placeholder="Or type a new location..." style="display:none;">
-                    </div>
-                    <div>
-                        <label style="font-size: 13px; color: var(--text-muted); font-weight: 600;">Quantity</label>
-                        <input type="number" id="modEditQuantita" class="search-input" min="1">
-                    </div>
-                </div>
-                <div>
-                    <label style="font-size: 13px; color: var(--text-muted); font-weight: 600;">Notes</label>
-                    <input type="text" id="modEditNote" class="search-input">
-                </div>
-            </div>
-
-            <div class="modal-buttons" style="margin-top: 20px;">
-                <button type="button" class="btn-secondary" onclick="chiudiModalModifica()">Cancel</button>
-                <button type="button" class="btn-confirm" onclick="salvaModificaScheda()">💾 Save Changes</button>
-            </div>
-        </div>
-    </div>
-
     <!-- PERMANENT FOOTER WITH GUIDE LINKS -->
     <footer class="app-footer">
         <div class="footer-links">
@@ -403,18 +353,20 @@
     </footer>
 
     <script>
-        let dispensaGlobale = [];
         let prodottoSelezionato = null;
         let percentualeAttuale = 100;
-        let indiceModificaAttuale = null;
 
-        window.addEventListener('DOMContentLoaded', async () => {
+        window.addEventListener('DOMContentLoaded', () => {
             if (localStorage.getItem('eat_eva_welcome_closed_en') === 'true') {
                 const box = document.getElementById('evaWelcomeBox');
                 if (box) box.style.display = 'none';
             }
 
-            await caricaDispensaCombinata();
+            if (!localStorage.getItem('emf_dispensa')) {
+                localStorage.setItem('emf_dispensa', JSON.stringify([]));
+            }
+            popolaFiltri();
+            filtraDispensa();
         });
 
         function chiudiWelcomeEva() {
@@ -423,53 +375,13 @@
             localStorage.setItem('eat_eva_welcome_closed_en', 'true');
         }
 
-        async function caricaDispensaCombinata() {
-            let prodottiServer = [];
-            let prodottiLocali = [];
-
-            try {
-                let response = await fetch('/dispensa.json?t=' + new Date().getTime(), { cache: 'no-store' });
-                if (response.ok) {
-                    prodottiServer = await response.json();
-                }
-            } catch (e) {
-                prodottiServer = [];
-            }
-
-            try {
-                prodottiLocali = JSON.parse(localStorage.getItem('eat_dispensa_locale')) || [];
-            } catch (e) {
-                prodottiLocali = [];
-            }
-
-            try {
-                let vecchiLocali = JSON.parse(localStorage.getItem('emf_dispensa')) || [];
-                if (vecchiLocali.length > 0 && prodottiLocali.length === 0) {
-                    prodottiLocali = vecchiLocali;
-                }
-            } catch(e) {}
-
-            dispensaGlobale = [...prodottiServer];
-            prodottiLocali.forEach(pLoc => {
-                if (!dispensaGlobale.some(pServ => pServ.barcode === pLoc.barcode && pServ.nome === pLoc.nome && pLoc.barcode !== "")) {
-                    dispensaGlobale.push(pLoc);
-                }
-            });
-
-            popolaFiltri();
-            filtraDispensa();
-        }
-
-        function salvaDispensaAggiornata() {
-            localStorage.setItem('eat_dispensa_locale', JSON.stringify(dispensaGlobale));
-        }
-
         function popolaFiltri() {
+            const dispensa = JSON.parse(localStorage.getItem('emf_dispensa')) || [];
             const ubSelect = document.getElementById('filtroUbicazione');
             const catSelect = document.getElementById('filtroCategoria');
             
-            const ubs = [...new Set(dispensaGlobale.map(p => p.ubicazione).filter(Boolean))];
-            const cats = [...new Set(dispensaGlobale.map(p => p.categoria).filter(Boolean))];
+            const ubs = [...new Set(dispensa.map(p => p.ubicazione).filter(Boolean))];
+            const cats = [...new Set(dispensa.map(p => p.categoria).filter(Boolean))];
 
             ubSelect.innerHTML = '<option value="">All locations</option>';
             ubs.forEach(u => ubSelect.innerHTML += `<option value="${u}">${u}</option>`);
@@ -482,9 +394,10 @@
             const query = document.getElementById('filtroNome').value.toLowerCase();
             const ub = document.getElementById('filtroUbicazione').value;
             const cat = document.getElementById('filtroCategoria').value;
+            const dispensa = JSON.parse(localStorage.getItem('emf_dispensa')) || [];
 
             const container = document.getElementById('listaRisultati');
-            const filtrati = dispensaGlobale.filter(p => 
+            const filtrati = dispensa.filter(p => 
                 (p.nome || "").toLowerCase().includes(query) &&
                 (ub === "" || p.ubicazione === ub) &&
                 (cat === "" || p.categoria === cat)
@@ -495,145 +408,67 @@
                 return;
             }
 
-            container.innerHTML = filtrati.map((p, index) => {
-                const fotoProdotto = (p.immagine && p.immagine.length > 5) ? p.immagine : ((p.foto && p.foto.length > 5) ? p.foto : '../../IMG/logo_1024_white.png');
-                
-                return `
+            container.innerHTML = filtrati.map(p => `
                 <div class="product-item">
-                    <div class="product-info-left">
-                        <img src="${fotoProdotto}" alt="Preview" class="product-thumb">
-                        <div>
-                            <strong>${p.nome || 'Unnamed item'}</strong><br>
-                            <small style="color: var(--text-muted)">📍 ${p.ubicazione || '<span style="color:#e74c3c;">Unassigned</span>'} | ⏳ Remaining: ${p.percentuale || 100}%</small>
-                        </div>
+                    <div>
+                        <strong>${p.nome}</strong><br>
+                        <small style="color: var(--text-muted)">📍 ${p.ubicazione || 'Unspecified'} | ⏳ Remaining: ${p.percentuale || 100}%</small>
                     </div>
                     <div class="actions-group">
-                        <button class="btn-modifica" onclick="apriModalModifica(${index})">✏️ Edit</button>
-                        <button class="btn-parziale" onclick="apriModalVisual(${index})">Partial</button>
-                        <button class="btn-esaurito" onclick="segnaEsauritoDiretto(${index})">Sold Out</button>
+                        <button class="btn-esaurito" onclick="segnaEsauritoDiretto(${p.id})">Sold Out</button>
+                        <button class="btn-parziale" onclick="apriModalVisual(${p.id})">Partial</button>
                     </div>
                 </div>
-            `;}).join('');
+            `).join('');
         }
 
-        function apriModalModifica(index) {
-            indiceModificaAttuale = index;
-            const p = dispensaGlobale[index];
-            if (!p) return;
-
-            document.getElementById('modEditNome').value = p.nome || '';
-            document.getElementById('modEditQuantita').value = p.quantita || 1;
-            document.getElementById('modEditNote').value = p.note || '';
-
-            popolaUbicazioniModifica(p.ubicazione);
-            document.getElementById('modalModificaScheda').style.display = 'flex';
-        }
-
-        function popolaUbicazioniModifica(ubicazioneAttuale) {
-            const select = document.getElementById('modEditUbicazioneSelect');
-            const inputCustom = document.getElementById('modEditUbicazioneCustom');
-            inputCustom.style.display = 'none';
-            inputCustom.value = '';
-
-            const ubs = [...new Set(dispensaGlobale.map(p => p.ubicazione).filter(Boolean))];
-
-            let html = `<option value="${ubicazioneAttuale || ''}">Current: ${ubicazioneAttuale || 'Unassigned'}</option>`;
-            ubs.forEach(u => {
-                if (u !== ubicazioneAttuale) {
-                    html += `<option value="${u}">${u}</option>`;
-                }
-            });
-            html += `<option value="ALTRO">+ Type a new location...</option>`;
-            select.innerHTML = html;
-        }
-
-        function gestisciUbicazioneCustomModifica(valore) {
-            const inputCustom = document.getElementById('modEditUbicazioneCustom');
-            if (valore === 'ALTRO') {
-                inputCustom.style.display = 'block';
-                inputCustom.focus();
-            } else {
-                inputCustom.style.display = 'none';
-                inputCustom.value = '';
-            }
-        }
-
-        function chiudiModalModifica() {
-            document.getElementById('modalModificaScheda').style.display = 'none';
-        }
-
-        function salvaModificaScheda() {
-            if (indiceModificaAttuale === null || !dispensaGlobale[indiceModificaAttuale]) return;
-
-            const selectVal = document.getElementById('modEditUbicazioneSelect').value;
-            let nuovaUbicazione = dispensaGlobale[indiceModificaAttuale].ubicazione || '';
-
-            if (selectVal === 'ALTRO') {
-                const customVal = document.getElementById('modEditUbicazioneCustom').value.trim();
-                if (customVal !== "") {
-                    nuovaUbicazione = customVal;
-                }
-            } else if (selectVal !== "") {
-                nuovaUbicazione = selectVal;
-            }
-
-            dispensaGlobale[indiceModificaAttuale].nome = document.getElementById('modEditNome').value.trim() || 'Unnamed item';
-            dispensaGlobale[indiceModificaAttuale].ubicazione = nuovaUbicazione;
-            dispensaGlobale[indiceModificaAttuale].quantita = parseInt(document.getElementById('modEditQuantita').value) || 1;
-            dispensaGlobale[indiceModificaAttuale].note = document.getElementById('modEditNote').value.trim();
-
-            salvaDispensaAggiornata();
-            chiudiModalModifica();
-            popolaFiltri();
-            filtraDispensa();
-        }
-
-        function segnaEsauritoDiretto(index) {
-            const prod = dispensaGlobale[index];
+        function segnaEsauritoDiretto(id) {
+            let dispensa = JSON.parse(localStorage.getItem('emf_dispensa')) || [];
+            const prod = dispensa.find(p => p.id === id);
             if (!prod) return;
 
-            if (confirm(`Are you sure "${prod.nome || 'this item'}" is completely sold out? It will be removed from the pantry and added to the Shopping List.`)) {
+            if (confirm(`Are you sure "${prod.nome}" is completely sold out? It will be removed from the pantry and added to the Shopping List.`)) {
                 spostaInListaSpesa(prod);
-                dispensaGlobale.splice(index, 1);
-                salvaDispensaAggiornata();
+                dispensa = dispensa.filter(p => p.id !== id);
+                localStorage.setItem('emf_dispensa', JSON.stringify(dispensa));
                 popolaFiltri();
                 filtraDispensa();
             }
         }
 
         function spostaInListaSpesa(prod) {
-            let spesa = JSON.parse(localStorage.getItem('eat_spesa_locale')) || JSON.parse(localStorage.getItem('emf_spesa')) || [];
+            let spesa = JSON.parse(localStorage.getItem('emf_spesa')) || [];
             if (!spesa.some(s => s.nome === prod.nome)) {
                 spesa.push({ nome: prod.nome, categoria: prod.categoria || 'General', quantita: 1, stato: 'esaurito' });
-                localStorage.setItem('eat_spesa_locale', JSON.stringify(spesa));
+                localStorage.setItem('emf_spesa', JSON.stringify(spesa));
             }
         }
 
-        function apriModalVisual(index) {
-            prodottoSelezionato = dispensaGlobale[index];
+        function apriModalVisual(id) {
+            const dispensa = JSON.parse(localStorage.getItem('emf_dispensa')) || [];
+            prodottoSelezionato = dispensa.find(p => p.id === id);
             if (!prodottoSelezionato) return;
 
-            prodottoSelezionato.indiceGlobale = index;
             percentualeAttuale = prodottoSelezionato.percentuale || 100;
 
-            document.getElementById('modalNomeProdotto').innerText = prodottoSelezionato.nome || 'Unnamed item';
+            document.getElementById('modalNomeProdotto').innerText = prodottoSelezionato.nome;
             document.getElementById('modalUbicazioneAttuale').innerText = `Current location: ${prodottoSelezionato.ubicazione || 'Unspecified'}`;
             document.getElementById('levelSlider').value = percentualeAttuale;
 
-            popolaUbicazioniModal(prodottoSelezionato.ubicazione);
+            popolaUbicazioniModal(dispensa, prodottoSelezionato.ubicazione);
             disegnaFormaSVG(prodottoSelezionato.forma || 'cilindro_verticale', percentualeAttuale);
             aggiornaEtichette(percentualeAttuale);
 
             document.getElementById('modalScaricoVisual').style.display = 'flex';
         }
 
-        function popolaUbicazioniModal(ubicazioneCorrente) {
+        function popolaUbicazioniModal(dispensa, ubicazioneCorrente) {
             const select = document.getElementById('nuovaUbicazioneSelect');
             const inputCustom = document.getElementById('inputNuovaUbicazioneCustom');
             inputCustom.style.display = 'none';
             inputCustom.value = '';
 
-            const ubs = [...new Set(dispensaGlobale.map(p => p.ubicazione).filter(Boolean))];
+            const ubs = [...new Set(dispensa.map(p => p.ubicazione).filter(Boolean))];
             
             let html = `<option value="${ubicazioneCorrente || ''}">Keep in: ${ubicazioneCorrente || 'Current location'}</option>`;
             ubs.forEach(u => {
@@ -661,9 +496,9 @@
             const hVerde = (percentuale / 100) * 140; 
             const hRosso = 140 - hVerde;
 
-            if (forma === 'cilindro_verticale' || forma === 'parallelepipedo' || !forma) {
+            if (forma === 'cilindro_verticale' || forma === 'parallelepipedo') {
                 container.innerHTML = `
-                    <svg width="100" height="160" viewBox="0 0 100 160" class="shape-canvas" onclick="gestisciClickAltezza(event)">
+                    <svg width="100" height="160" viewBox="0 0 100 160" class="shape-canvas" onclick="gestisciClickAltezza(event, 160)">
                         <rect x="15" y="10" width="70" height="140" rx="8" fill="#e74c3c" />
                         <rect x="15" y="${10 + hRosso}" width="70" height="${hVerde}" rx="0" fill="#2ecc71" />
                         <rect x="15" y="10" width="70" height="140" rx="8" fill="none" stroke="#ffffff" stroke-width="3" />
@@ -672,7 +507,7 @@
             } else if (forma === 'cilindro_orizzontale') {
                 const wVerde = (percentuale / 100) * 160;
                 container.innerHTML = `
-                    <svg width="180" height="90" viewBox="0 0 180 90" class="shape-canvas" onclick="gestisciClickLarghezza(event)">
+                    <svg width="180" height="90" viewBox="0 0 180 90" class="shape-canvas" onclick="gestisciClickLarghezza(event, 180)">
                         <rect x="10" y="20" width="160" height="50" rx="25" fill="#e74c3c" />
                         <rect x="10" y="20" width="${wVerde}" height="50" rx="0" fill="#2ecc71" />
                         <rect x="10" y="20" width="160" height="50" rx="25" fill="none" stroke="#ffffff" stroke-width="3" />
@@ -696,7 +531,7 @@
             }
         }
 
-        function gestisciClickAltezza(e) {
+        function gestisciClickAltezza(e, maxH) {
             const rect = e.currentTarget.getBoundingClientRect();
             const clickY = e.clientY - rect.top;
             let p = Math.round(100 - ((clickY / rect.height) * 100));
@@ -705,7 +540,7 @@
             aggiornaLivelloVisivo(p);
         }
 
-        function gestisciClickLarghezza(e) {
+        function gestisciClickLarghezza(e, maxW) {
             const rect = e.currentTarget.getBoundingClientRect();
             const clickX = e.clientX - rect.left;
             let p = Math.round((clickX / rect.width) * 100);
@@ -730,10 +565,12 @@
         }
 
         function confermaScaricoEffettivo() {
-            const idx = prodottoSelezionato.indiceGlobale;
-            if (idx !== undefined && dispensaGlobale[idx]) {
+            let dispensa = JSON.parse(localStorage.getItem('emf_dispensa')) || [];
+            const idx = dispensa.findIndex(p => p.id === prodottoSelezionato.id);
+
+            if (idx !== -1) {
                 const selectVal = document.getElementById('nuovaUbicazioneSelect').value;
-                let nuovaUbicazione = dispensaGlobale[idx].ubicazione;
+                let nuovaUbicazione = prodottoSelezionato.ubicazione;
                 
                 if (selectVal === 'ALTRO') {
                     const customVal = document.getElementById('inputNuovaUbicazioneCustom').value.trim();
@@ -744,21 +581,15 @@
                     nuovaUbicazione = selectVal;
                 }
 
-                const msg = percentualeAttuale <= 0 
-                    ? `The product "${dispensaGlobale[idx].nome}" has reached 0% and is considered sold out. Confirm and add it to the Shopping List?`
-                    : `Confirm update for "${dispensaGlobale[idx].nome}" at ${percentualeAttuale}% remaining in location "${nuovaUbicazione}"?`;
-
-                if (!confirm(msg)) return;
-
-                dispensaGlobale[idx].percentuale = percentualeAttuale;
-                dispensaGlobale[idx].ubicazione = nuovaUbicazione;
+                dispensa[idx].percentuale = percentualeAttuale;
+                dispensa[idx].ubicazione = nuovaUbicazione;
 
                 if (percentualeAttuale <= 0) {
-                    spostaInListaSpesa(dispensaGlobale[idx]);
-                    dispensaGlobale.splice(idx, 1);
+                    spostaInListaSpesa(dispensa[idx]);
+                    dispensa.splice(idx, 1);
                 }
 
-                salvaDispensaAggiornata();
+                localStorage.setItem('emf_dispensa', JSON.stringify(dispensa));
                 chiudiModalScarico();
                 popolaFiltri();
                 filtraDispensa();
