@@ -32,7 +32,7 @@
             flex-direction: column;
         }
 
-        /* --- NAVIGATION --- */
+        /* --- OBERE NAVIGATIONSLEISTE --- */
         .app-bar {
             background: rgba(22, 27, 34, 0.95);
             border-bottom: 1px solid var(--border-color);
@@ -75,7 +75,66 @@
         .flag-link:hover, .flag-link.active { opacity: 1; transform: scale(1.1); }
         .flag-img { width: 20px; height: 14px; object-fit: cover; border-radius: 2px; }
 
-        .container { max-width: 900px; margin: 30px auto; padding: 0 16px; width: 100%; }
+        .container { max-width: 900px; margin: 24px auto; padding: 0 16px; width: 100%; flex: 1; }
+
+        /* --- EVAS WILLKOMMENSBOX (AUSBLENDBAR) --- */
+        .eva-welcome-box {
+            background: #16222f;
+            border: 1px solid #3182ce;
+            border-left: 5px solid #3182ce;
+            border-radius: 14px;
+            padding: 18px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            position: relative;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .eva-avatar-large {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 2px solid var(--accent-color);
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .eva-welcome-content {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-color);
+            padding-right: 25px;
+        }
+
+        .eva-welcome-content strong { color: var(--accent-color); }
+
+        .eva-welcome-content a {
+            color: var(--accent-color);
+            font-weight: 600;
+            text-decoration: underline;
+            transition: color 0.2s;
+        }
+
+        .eva-welcome-content a:hover { color: #79c0ff; }
+
+        .btn-close-eva {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 4px;
+            line-height: 1;
+            border-radius: 4px;
+        }
+
+        .btn-close-eva:hover { color: var(--text-color); background: rgba(255, 255, 255, 0.1); }
 
         .card-box {
             background: var(--card-bg); border-radius: 16px;
@@ -125,23 +184,6 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.5); margin: auto;
         }
 
-        .eva-postit {
-            background: #1a2634;
-            border: 1px solid #3182ce;
-            border-left: 4px solid #3182ce;
-            border-radius: 10px;
-            padding: 14px;
-            margin-bottom: 18px;
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-        }
-        .eva-avatar {
-            width: 45px; height: 45px; border-radius: 50%;
-            border: 2px solid #58a6ff; object-fit: cover; flex-shrink: 0;
-        }
-        .eva-text { font-size: 13px; line-height: 1.5; color: var(--text-color); }
-
         .interactive-shape-wrapper {
             background: #0d1117;
             border: 1px solid var(--border-color);
@@ -182,9 +224,40 @@
         }
         .btn-confirm:hover { background-color: #2ea043; }
 
+        /* --- FUSZNOTE MIT PERMANENTEN LEITFADEN-LINKS --- */
+        .app-footer {
+            background: var(--card-bg);
+            border-top: 1px solid var(--border-color);
+            padding: 16px 20px;
+            margin-top: auto;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 13px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.2s;
+        }
+
+        .footer-link:hover { color: var(--accent-color); text-decoration: underline; }
+
         @media (max-width: 768px) {
             .filtri-grid { grid-template-columns: 1fr; }
-            .language-flags { display: none; }
+            .language-flags { display: flex; gap: 4px; padding: 2px 6px; }
+            .flag-img { width: 18px; height: 12px; }
+            .eva-welcome-box { flex-direction: column; align-items: center; text-align: center; }
+            .eva-welcome-content { padding-right: 0; }
         }
     </style>
 </head>
@@ -212,6 +285,17 @@
     </header>
 
     <main class="container">
+        
+        <!-- EVAS WILLKOMMENSBOX (AUSBLENDBAR) -->
+        <div id="evaWelcomeBox" class="eva-welcome-box">
+            <img src="../../IMG/avatar_eva.png" alt="Eva Avatar" class="eva-avatar-large">
+            <div class="eva-welcome-content">
+                Ja, am Ende habe ich mich durchgesetzt! Nach stundenlangen Diskussionen mit Max, der alles ganz schlicht wollte, und Leo, der über verschwendete Zeit meuterte, habe ich darauf bestanden, dass wir zwei grundlegende Funktionen für unsere Vorratskammer schwarz auf weiß festhalten.<br><br>
+                Wenn Sie ein Produkt öffnen und nur einen Teil davon verbrauchen, können Sie unmöglich im Dunkeln tappen: Werfen Sie einen Blick auf die <a href="teilverbrauch-anleitung.html" target="_blank">Teilverbrauch-Anleitung</a>, um zu erfahren, wie Sie den visuellen Schieberegler bei Flüssigkeiten und geöffneten Verpackungen auf den Millimeter genau einstellen. And wenn der Rest des Produkts den Platz im Haus wechselt, hilft Ihnen die <a href="lagerort-wechsel-anleitung.html" target="_blank">Lagerort-Wechsel-Anleitung</a> dabei, den Raum im Handumdrehen neu zu organisieren, ohne den Überblick zu verlieren. Jetzt, da Sie wissen, wie alles reibungslos läuft, können Sie an die Arbeit gehen!
+            </div>
+            <button type="button" class="btn-close-eva" onclick="chiudiWelcomeEva()" title="Nachricht schließen">✕</button>
+        </div>
+
         <div class="card-box">
             <div class="card-title-row">
                 <div class="card-title">🔍 Lebensmittel zur Entnahme suchen</div>
@@ -234,14 +318,7 @@
     <div id="modalScaricoVisual" class="modal-overlay" style="display:none;">
         <div class="modal-content">
             <h3 id="modalNomeProdotto" style="color: var(--accent-color); font-size: 18px; text-align: center; margin-bottom: 4px;">Produktname</h3>
-            <p id="modalUbicazioneAttuale" style="text-align: center; color: var(--text-muted); font-size: 12px; margin-bottom: 12px;">Aktueller Standort: -</p>
-
-            <div class="eva-postit">
-                <img src="../../IMG/avatar_eva.png" alt="Eva Avatar" class="eva-avatar">
-                <div class="eva-text" id="evaGuidaTesto">
-                    Hier wollte ich besonders präzise sein: Sie können die Menge des teilweise verbrauchten Produkts verwalten, indem Sie den Prozentsatz anpassen.
-                </div>
-            </div>
+            <p id="modalUbicazioneAttuale" style="text-align: center; color: var(--text-muted); font-size: 12px; margin-bottom: 16px;">Aktueller Standort: -</p>
 
             <div class="interactive-shape-wrapper">
                 <div id="shapeContainer"></div>
@@ -267,17 +344,36 @@
         </div>
     </div>
 
+    <!-- FUSZNOTE MIT PERMANENTEN LEITFADEN-LINKS -->
+    <footer class="app-footer">
+        <div class="footer-links">
+            <a href="teilverbrauch-anleitung.html" target="_blank" class="footer-link">📌 Teilverbrauch-Anleitung</a>
+            <a href="lagerort-wechsel-anleitung.html" target="_blank" class="footer-link">📍 Lagerort-Wechsel-Anleitung</a>
+        </div>
+    </footer>
+
     <script>
         let prodottoSelezionato = null;
         let percentualeAttuale = 100;
 
         window.addEventListener('DOMContentLoaded', () => {
+            if (localStorage.getItem('eat_eva_welcome_closed_de') === 'true') {
+                const box = document.getElementById('evaWelcomeBox');
+                if (box) box.style.display = 'none';
+            }
+
             if (!localStorage.getItem('emf_dispensa')) {
                 localStorage.setItem('emf_dispensa', JSON.stringify([]));
             }
             popolaFiltri();
             filtraDispensa();
         });
+
+        function chiudiWelcomeEva() {
+            const box = document.getElementById('evaWelcomeBox');
+            if (box) box.style.display = 'none';
+            localStorage.setItem('eat_eva_welcome_closed_de', 'true');
+        }
 
         function popolaFiltri() {
             const dispensa = JSON.parse(localStorage.getItem('emf_dispensa')) || [];
@@ -428,7 +524,7 @@
                     <svg width="140" height="140" viewBox="0 0 140 140" class="shape-canvas">
                         <circle cx="70" cy="70" r="60" fill="#e74c3c" stroke="#ffffff" stroke-width="3" />
                         ${percentuale > 0 ? `
-                        <path d="M 70 70 L 70 10 A 60 60 0 ${largeArc} 1 ${x}${y} Z" fill="#2ecc71" />
+                        <path d="M 70 70 L 70 10 A 60 60 0 ${largeArc} 1 ${x} ${y} Z" fill="#2ecc71" />
                         ` : ''}
                     </svg>
                 `;
